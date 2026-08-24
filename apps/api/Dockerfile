@@ -27,8 +27,13 @@ RUN corepack pnpm dlx turbo@2.10.11 prune @repo/api --docker
 # ---------------------------------------------------------------------------
 FROM base AS installer
 COPY --from=pruner /app/out/json/ .
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
-    corepack pnpm install --frozen-lockfile --store-dir=/pnpm/store
+# Deliberately no BuildKit cache mount. Railway's builder rejects a cache `id`
+# that is not prefixed with its own service-scoped key
+# (`id=s/<service-id>-<path>`), and hardcoding that would tie this Dockerfile to
+# one platform while breaking `docker build` locally and in CI. The layer above
+# is keyed on the pruned manifests, so a dependency install only reruns when
+# dependencies actually change — which is most of what the mount was buying.
+RUN corepack pnpm install --frozen-lockfile
 
 # ---------------------------------------------------------------------------
 # 3. Build.
