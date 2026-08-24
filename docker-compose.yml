@@ -1,0 +1,30 @@
+# Local development database.
+#
+# Neon is the deployed target, but a throwaway local Postgres keeps the inner
+# loop fast and lets e2e tests run without touching a shared branch. Port 55432
+# avoids colliding with any Postgres already running on the host's 5432.
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: princetonbd-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: princetonbd
+      POSTGRES_PASSWORD: princetonbd
+      POSTGRES_DB: princetonbd
+    ports:
+      - '55432:5432'
+    volumes:
+      # Postgres 18 images expect a single mount at /var/lib/postgresql (data
+      # then lives in a version-named subdirectory), not the pre-18
+      # /var/lib/postgresql/data. Mounting the old path makes the container
+      # refuse to start.
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U princetonbd -d princetonbd']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres-data:

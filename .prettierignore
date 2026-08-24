@@ -1,0 +1,10 @@
+node_modules
+dist
+.next
+.turbo
+coverage
+pnpm-lock.yaml
+packages/api-client/src/generated
+apps/api/openapi.json
+packages/db/migrations
+apps/web/next-env.d.ts

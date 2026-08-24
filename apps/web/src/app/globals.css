@@ -1,0 +1,126 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+ * Design tokens for the Princeton Review BD design system.
+ *
+ * Every value below is lifted verbatim from the design source
+ * (`Princeton Review BD.dc.html`), which expressed them as inline styles.
+ * Tailwind v4 is CSS-first, so this @theme block IS the config — there is no
+ * tailwind.config.ts, and no hand-written CSS rules anywhere in this file.
+ * ------------------------------------------------------------------------- */
+@theme {
+  /* — surfaces ———————————————————————————————————————————————————————— */
+  --color-canvas: #fbfaf7; /* page ground */
+  --color-surface: #ffffff; /* program + testimonial cards */
+  --color-cream: #fffdf8; /* guarantee band, CTA panel, floating badge */
+  --color-band: #f4f1ea; /* exam strip, stats band, marquee band */
+  --color-panel: #f8f5ee; /* guarantee band, right half */
+  --color-bar: #f4f0e6; /* announcement bar */
+
+  /* — ink ————————————————————————————————————————————————————————————— */
+  --color-ink: #1b2436; /* primary text, dark buttons, footer ground */
+  --color-ink-deep: #161f30; /* headings */
+  --color-ink-hover: #2a344c; /* dark button hover */
+  --color-ink-nav: #2a3348; /* header nav links */
+  --color-ink-quote: #243053; /* testimonial quotes */
+  --color-ink-soft: #3a4256; /* guarantee feature rows */
+  --color-on-ink: #f7f4ec; /* text on dark buttons */
+
+  /* — muted greys ————————————————————————————————————————————————————
+   * Six near-identical values. Kept distinct rather than collapsed: each is a
+   * deliberate choice in the source, and merging them would be the first step
+   * in the design drifting away from what was signed off. */
+  --color-muted: #565c6b; /* body copy */
+  --color-muted-badge: #5a6076; /* score-guarantee badge copy */
+  --color-muted-stat: #5c6172; /* stats band labels */
+  --color-muted-rate: #6b6f7c; /* hero rating line */
+  --color-muted-step: #6b7280; /* study-abroad step descriptions */
+  --color-slate: #4a5163; /* exam strip + marquee wordmarks */
+
+  /* — gold ramp ——————————————————————————————————————————————————————— */
+  --color-gold: #b8934e; /* rules, borders, top bar */
+  --color-gold-deep: #a5843f; /* eyebrow labels, stat figures */
+  --color-gold-mid: #b18f4d; /* card arrows, BANGLADESH lockup */
+  --color-gold-light: #c6a35f; /* stars, selection, footer monogram ring */
+  --color-gold-pale: #dcc492; /* top-bar gradient, footer avatar glyph */
+
+  /* — data visualisation ——————————————————————————————————————————————
+   * The brand golds all sit just under the chroma floor a chart mark needs
+   * (OKLCH C ~0.096 against a 0.10 floor), so as a line or a bar they read as
+   * grey rather than gold. This is the same hue pushed to C 0.107, which keeps
+   * the family and passes: lightness band, chroma floor and 3:1 against the
+   * canvas. Verified with the data-viz palette validator — re-run it before
+   * changing this value. */
+  --color-chart: #9a7526;
+  --color-chart-soft: #e8dcc0; /* area fill / inactive marks */
+
+  /* — warm neutrals ——————————————————————————————————————————————————— */
+  --color-warm: #8a836f; /* section kickers, card meta */
+  --color-warm-ink: #4a4636; /* announcement bar copy */
+
+  /* — footer ————————————————————————————————————————————————————————— */
+  --color-foot-bright: #f4f1e8;
+  --color-foot-text: #a49d8c;
+  --color-foot-muted: #8d8674;
+  --color-foot-dim: #6f6957;
+
+  /* — layout ————————————————————————————————————————————————————————— */
+  /* The design's own media query is `max-width:1080px`. Declaring it as a
+   * breakpoint means `nav:` flips the header at exactly the authored width
+   * rather than at a Tailwind default that happens to be close.
+   *
+   * 67.5625rem = 1081px, not 1080px: the design's rule is `max-width:1080px`,
+   * so the nav is hidden AT 1080 and visible from 1081 up. A `min-width`
+   * breakpoint has to start one pixel later to line up.
+   *
+   * Expressed in rem ON PURPOSE. Tailwind orders variants by comparing raw
+   * breakpoint values and cannot compare `1081px` against the built-in
+   * `64rem`/`80rem` — a px value is emitted ahead of every rem-based default,
+   * so `lg:` would silently win over `nav:` at every width where both match.
+   * In rem it sorts correctly between `lg` and `xl`. */
+  --breakpoint-nav: 67.5625rem;
+  --container-page: 1240px; /* → max-w-page, the shared content width */
+
+  /* — motion ————————————————————————————————————————————————————————— */
+  --animate-rise: prbdRise 0.8s ease both;
+  --animate-float: prbdFloat 5.5s ease-in-out infinite;
+  --animate-marquee: prbdMarquee 34s linear infinite;
+
+  @keyframes prbdRise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes prbdFloat {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-9px);
+    }
+  }
+
+  @keyframes prbdMarquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* `inline` so the utility embeds the next/font value rather than referencing a
+ * variable that may not be in scope where the class is applied. */
+@theme inline {
+  --font-display: var(--font-libre-caslon); /* Libre Caslon Text */
+  --font-sans: var(--font-hanken); /* Hanken Grotesk */
+  --font-quote: var(--font-newsreader); /* Newsreader, italic */
+}

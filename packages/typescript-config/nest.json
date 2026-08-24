@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "NestJS",
+  "extends": "./base.json",
+  "compilerOptions": {
+    /* NestJS dependency injection reads `design:paramtypes` metadata that the
+       legacy decorator transform emits. Both flags are required. */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* MUST stay false. `verbatimModuleSyntax` preserves `import type` as a
+       pure type-only import, which strips the runtime class reference that
+       `emitDecoratorMetadata` needs for constructor injection. The failure is
+       a runtime "Nest can't resolve dependencies of X" error, not a compile
+       error — so it is expensive to diagnose. */
+    "verbatimModuleSyntax": false,
+
+    "types": ["node"],
+
+    /* Nest DTOs and entities are populated by the framework, not the
+       constructor, so definite-assignment checking fights the idiom. */
+    "strictPropertyInitialization": false,
+
+    /* Decorator metadata for a parameter typed only by an interface emits
+       `Object`; keeping this off avoids false confidence. */
+    "strictNullChecks": true
+  }
+}

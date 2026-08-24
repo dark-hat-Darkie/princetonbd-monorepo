@@ -1,0 +1,125 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# ---------------------------------------------------------------------------
+# Single source of truth for every shared dependency version.
+# Packages reference these with the `catalog:` protocol, so a version bump is a
+# one-line edit here instead of a change across every package.json.
+# ---------------------------------------------------------------------------
+catalog:
+  # --- toolchain -----------------------------------------------------------
+  # TypeScript is PINNED to 6.0.3 (not ^6). TS 7.x is the Go-native port and
+  # ships without a programmatic compiler API until 7.1 — `nest build`,
+  # @nestjs/swagger's CLI plugin and typescript-eslint all require that API.
+  # typescript-eslint@8 peer-requires `typescript >=4.8.4 <6.1.0`.
+  typescript: 6.0.3
+  turbo: ^2.10.11
+  tsx: ^4.23.12
+  prettier: ^3.9.6
+  husky: ^9.1.7
+  lint-staged: ^17.3.0
+  dotenv-cli: ^11.0.0
+
+  # --- types ---------------------------------------------------------------
+  '@types/node': ^24.13.3
+  '@types/react': ^19.2.18
+  '@types/react-dom': ^19.2.4
+  '@types/express': ^5.0.6
+  '@types/pg': ^8.23.1
+  '@types/supertest': ^7.2.1
+
+  # --- lint ----------------------------------------------------------------
+  # ESLint is held at 9.x, not 10.x. `eslint-config-next` pulls in
+  # eslint-plugin-react / -jsx-a11y / -import, none of which support ESLint 10
+  # (they still call the `context.getFilename()` API it removed — the failure
+  # is a hard crash inside rule loading, not a warning). Same shape of
+  # constraint as the TypeScript 6 pin above: the ecosystem is the ceiling.
+  eslint: ^9.39.5
+  eslint-config-next: ^16.3.2
+  '@eslint/js': ^9.39.5
+  typescript-eslint: ^8.67.0
+  eslint-config-prettier: ^10.1.8
+  globals: ^17.11.0
+
+  # --- web -----------------------------------------------------------------
+  next: ^16.3.2
+  clsx: ^2.1.1
+  tailwind-merge: ^3.6.0
+  react: ^19.2.8
+  react-dom: ^19.2.8
+  server-only: ^0.0.1
+  tailwindcss: ^4.3.3
+  '@tailwindcss/postcss': ^4.3.3
+
+  # --- api -----------------------------------------------------------------
+  '@nestjs/common': ^11.2.1
+  '@nestjs/core': ^11.2.1
+  '@nestjs/platform-express': ^11.2.1
+  '@nestjs/config': ^4.0.4
+  '@nestjs/swagger': ^11.4.7
+  '@nestjs/terminus': ^11.1.1
+  '@nestjs/throttler': ^6.5.0
+  '@nestjs/testing': ^11.2.1
+  '@nestjs/cli': ^11.0.24
+  '@nestjs/schematics': ^11.1.0
+  reflect-metadata: ^0.2.2
+  rxjs: ^7.8.2
+  class-validator: ^0.15.1
+  class-transformer: ^0.5.1
+  helmet: ^8.3.0
+  nestjs-pino: ^4.6.1
+  pino: ^10.3.1
+  pino-http: ^11.0.0
+  pino-pretty: ^13.1.3
+
+  # --- database ------------------------------------------------------------
+  drizzle-orm: ^0.45.2
+  drizzle-kit: ^0.31.10
+  pg: ^8.23.0
+
+  # --- auth (WorkOS AuthKit) -----------------------------------------------
+  '@workos-inc/node': ^10.10.0
+  '@workos-inc/authkit-nextjs': ^4.3.1
+  jose: ^6.2.10
+
+  # --- contract / validation ----------------------------------------------
+  zod: ^4.4.3
+  '@hey-api/openapi-ts': ^0.99.0
+  '@hey-api/client-fetch': ^0.13.1
+
+  # --- testing -------------------------------------------------------------
+  vitest: ^4.1.11
+  '@vitest/coverage-v8': ^4.1.11
+  supertest: ^7.2.2
+  unplugin-swc: ^1.5.11
+  '@swc/core': ^1.16.1
+  jsdom: ^30.0.1
+  '@vitejs/plugin-react': ^6.1.0
+  '@testing-library/react': ^16.3.2
+  '@testing-library/jest-dom': ^7.0.1
+
+# ---------------------------------------------------------------------------
+# @nestjs/cli@11 declares `typescript: 5.9.3` as a DIRECT dependency. Under
+# pnpm's isolated node_modules that would make `nest build` emit with 5.9.3
+# while `tsc --noEmit` checks with 6.0.3. This override collapses the tree to a
+# single compiler. See apps/api/tsconfig.build.json for the matching
+# `incremental: false` workaround (nest-cli#3312).
+# ---------------------------------------------------------------------------
+overrides:
+  typescript: 6.0.3
+
+# pnpm 11 gates dependency lifecycle scripts behind an explicit allowlist
+# (`allowBuilds`; pnpm 10 called this `onlyBuiltDependencies`). Each entry here
+# is a package whose postinstall we have decided to trust. Anything not listed
+# is installed without running its scripts, and `pnpm install` reports it.
+#
+# All four below only unpack a prebuilt native binary that already arrives via
+# optionalDependencies, so the tree works even when they are skipped.
+allowBuilds:
+  '@scarf/scarf': false
+  '@swc/core': true
+  '@tailwindcss/oxide': true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true

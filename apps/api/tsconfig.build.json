@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* MUST be false.
+     *
+     * nest-cli prefers `ts.createIncrementalProgram()` over `ts.createProgram()`.
+     * On TypeScript 6 the incremental program reports `emitSkipped: false` with
+     * zero diagnostics but writes no files, so `nest build` exits 0 and leaves
+     * dist/ empty — a green build that ships nothing.
+     *
+     * Upstream: https://github.com/nestjs/nest-cli/issues/3312 (open)
+     * Revisit when that is fixed; until then rebuilds are full, not incremental. */
+    "incremental": false
+  },
+  "exclude": ["node_modules", "dist", "test", "scripts", "**/*.spec.ts", "**/*.e2e-spec.ts"]
+}

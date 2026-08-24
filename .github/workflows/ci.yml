@@ -1,0 +1,132 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Turborepo Remote Caching. Set these as repository secrets to share build
+  # artifacts between CI runs and developer machines; without them Turborepo
+  # falls back to the local cache and everything still works.
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+
+jobs:
+  verify:
+    name: Lint, typecheck, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: princetonbd
+          POSTGRES_PASSWORD: princetonbd
+          POSTGRES_DB: princetonbd
+        ports:
+          - 55432:5432
+        options: >-
+          --health-cmd "pg_isready -U princetonbd -d princetonbd"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      # Local Postgres, so TLS is off and the pooled/direct distinction that
+      # matters on Neon collapses to the same URL here.
+      DATABASE_URL: postgresql://princetonbd:princetonbd@localhost:55432/princetonbd
+      DATABASE_URL_UNPOOLED: postgresql://princetonbd:princetonbd@localhost:55432/princetonbd
+      WORKOS_API_KEY: sk_test_ci
+      WORKOS_CLIENT_ID: client_ci
+      WORKOS_COOKIE_PASSWORD: ci-cookie-password-at-least-32-chars-long
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+      NEXT_PUBLIC_WORKOS_REDIRECT_URI: http://localhost:3000/auth/callback
+      LOG_LEVEL: fatal
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Turborepo's `--filter=...[origin/main]` needs history to diff against.
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Apply migrations
+        run: pnpm turbo run db:migrate --filter=@repo/db
+
+      - name: Format check
+        run: pnpm format:check
+
+      - name: Lint / typecheck / test / build
+        run: pnpm turbo run lint typecheck test build
+
+      - name: Check the generated API client is up to date
+        # Regenerating must be a no-op. If it is not, someone changed a
+        # controller or DTO without running `pnpm gen:api`, and apps/web would
+        # be compiling against a contract the API no longer serves.
+        run: |
+          pnpm gen:api
+          if ! git diff --exit-code -- apps/api/openapi.json packages/api-client/src/generated; then
+            echo "::error::API client is out of date. Run 'pnpm gen:api' and commit the result."
+            exit 1
+          fi
+
+  docker:
+    name: Build API image
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: verify
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: apps/api/Dockerfile
+          push: false
+          load: true
+          tags: princetonbd-api:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  migrate:
+    name: Migrate production database
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [verify, docker]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Apply pending migrations
+        # The DIRECT (unpooled) Neon URL: migrations need session-level
+        # operations that PgBouncer in transaction mode cannot proxy.
+        env:
+          DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
+        run: pnpm turbo run db:migrate --filter=@repo/db
