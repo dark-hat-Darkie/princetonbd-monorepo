@@ -1,13 +1,15 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* Emits a self-contained server bundle with only the file-traced
-     dependencies. Vercel does not need it, but it keeps the Docker option open
-     at no cost — see the plan's deployment section. */
-  output: 'standalone',
+  /* `output: 'standalone'` is deliberately NOT set. It emits a self-contained
+     server bundle for a container runtime, which this app no longer has a
+     consumer for — the API is the Dockerised half, the web app deploys to
+     Vercel, and Vercel builds its own output format. Setting both is at best
+     redundant work on every build. Restore it if web ever ships in an image.
 
-  /* In a monorepo, file tracing must start at the repo root or the standalone
-     output misses hoisted dependencies in the root node_modules. */
+     File tracing still starts at the repo root: in a monorepo the trace has to
+     reach hoisted dependencies in the root node_modules, and that is true for
+     Vercel's output too. */
   outputFileTracingRoot: new URL('../../', import.meta.url).pathname,
 
   /* Next 16 removed `next lint` and the `eslint` config key with it; linting
