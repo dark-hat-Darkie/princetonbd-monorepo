@@ -9,17 +9,28 @@
 # the (slow) dependency-install layer.
 
 FROM node:24-alpine AS base
-RUN corepack enable
 # libc6-compat backs the glibc-linked native binaries some tooling ships.
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
+
+# Materialise pnpm here rather than letting Corepack fetch it lazily the first
+# time `corepack pnpm` runs in a later stage. Two reasons: the download happens
+# once instead of per stage, and if a builder's network cannot reach the
+# registry it fails here with a clear message rather than surfacing as a
+# missing binary halfway through an install.
+#
+# The root package.json is copied in first so `corepack prepare --activate`
+# reads the version from its `packageManager` field — pinning it a second time
+# in this file would be a version to forget to update.
+COPY package.json ./
+RUN corepack enable && corepack prepare --activate && pnpm --version
 
 # ---------------------------------------------------------------------------
 # 1. Prune the workspace down to @repo/api and its dependencies.
 # ---------------------------------------------------------------------------
 FROM base AS pruner
 COPY . .
-RUN corepack pnpm dlx turbo@2.10.11 prune @repo/api --docker
+RUN pnpm dlx turbo@2.10.11 prune @repo/api --docker
 
 # ---------------------------------------------------------------------------
 # 2. Install dependencies. Only out/json is copied first, so this layer is
@@ -33,18 +44,18 @@ COPY --from=pruner /app/out/json/ .
 # one platform while breaking `docker build` locally and in CI. The layer above
 # is keyed on the pruned manifests, so a dependency install only reruns when
 # dependencies actually change — which is most of what the mount was buying.
-RUN corepack pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 # ---------------------------------------------------------------------------
 # 3. Build.
 # ---------------------------------------------------------------------------
 FROM installer AS builder
 COPY --from=pruner /app/out/full/ .
-RUN corepack pnpm turbo run build --filter=@repo/api
+RUN pnpm turbo run build --filter=@repo/api
 
 # `pnpm deploy` resolves workspace: links into a single self-contained tree
 # holding only production dependencies — no dev toolchain, no source.
-RUN corepack pnpm --filter=@repo/api deploy --prod --legacy /prod/api
+RUN pnpm --filter=@repo/api deploy --prod --legacy /prod/api
 
 # ---------------------------------------------------------------------------
 # 4. Runtime.
