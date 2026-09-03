@@ -3,75 +3,98 @@
 /* ---------------------------------------------------------------------------
  * Design tokens for the Princeton Review BD design system.
  *
- * Every value below is lifted verbatim from the design source
- * (`Princeton Review BD.dc.html`), which expressed them as inline styles.
  * Tailwind v4 is CSS-first, so this @theme block IS the config — there is no
- * tailwind.config.ts, and no hand-written CSS rules anywhere in this file.
+ * tailwind.config.ts.
+ *
+ * PALETTE RULE, and it is not negotiable: the brand yellow #f4da22 sits at
+ * 1.41:1 against white. It can never be text, an icon, or a hairline on a light
+ * ground. It is a FILL — a block, a button, a badge, a marker highlight — and
+ * black on it reads at 13.4:1. The brand green #06a77c is 3.08:1 on white:
+ * good for fills, graphics and UI borders, not for body copy. Green as TEXT or
+ * as a solid button under white text is --color-brand-ink (5.40:1).
+ *
+ * Colour roles:
+ *   ink    → primary action, headings, dark bands
+ *   accent → the signature yellow: marker highlight, badges, dark-panel CTA
+ *   brand  → trust and support: ticks, guarantee, secondary CTA, links
  * ------------------------------------------------------------------------- */
 @theme {
-  /* — surfaces ———————————————————————————————————————————————————————— */
-  --color-canvas: #fbfaf7; /* page ground */
-  --color-surface: #ffffff; /* program + testimonial cards */
-  --color-cream: #fffdf8; /* guarantee band, CTA panel, floating badge */
-  --color-band: #f4f1ea; /* exam strip, stats band, marquee band */
-  --color-panel: #f8f5ee; /* guarantee band, right half */
-  --color-bar: #f4f0e6; /* announcement bar */
+  /* — ground ————————————————————————————————————————————————————————— */
+  --color-canvas: #ffffff; /* page ground */
+  --color-surface: #ffffff; /* cards */
+  --color-subtle: #f6f7f6; /* soft alternating band */
+  --color-panel: #f2f4f3; /* inset panels */
 
-  /* — ink ————————————————————————————————————————————————————————————— */
-  --color-ink: #1b2436; /* primary text, dark buttons, footer ground */
-  --color-ink-deep: #161f30; /* headings */
-  --color-ink-hover: #2a344c; /* dark button hover */
-  --color-ink-nav: #2a3348; /* header nav links */
-  --color-ink-quote: #243053; /* testimonial quotes */
-  --color-ink-soft: #3a4256; /* guarantee feature rows */
-  --color-on-ink: #f7f4ec; /* text on dark buttons */
+  /* — ink ————————————————————————————————————————————————————————————
+   * Near-black, faintly green-cooled so it sits with the brand green rather
+   * than fighting it. 18.9:1 on white, both directions.
+   *
+   * The two greys are checked against --color-subtle, not just white: a grey
+   * that passes on #fff can still fail on the #f6f7f6 band, which is where the
+   * marquee and the strip kickers actually sit. */
+  --color-ink: #0e1211; /* headings, primary buttons, dark bands */
+  --color-ink-soft: #2a302e; /* secondary headings, nav links — 13.4:1 */
+  --color-muted: #5b6360; /* body copy — 6.19:1 */
+  --color-muted-2: #686f6c; /* meta and labels — 5.16:1 on white, 4.80:1 on subtle */
+  --color-on-ink: #ffffff;
 
-  /* — muted greys ————————————————————————————————————————————————————
-   * Six near-identical values. Kept distinct rather than collapsed: each is a
-   * deliberate choice in the source, and merging them would be the first step
-   * in the design drifting away from what was signed off. */
-  --color-muted: #565c6b; /* body copy */
-  --color-muted-badge: #5a6076; /* score-guarantee badge copy */
-  --color-muted-stat: #5c6172; /* stats band labels */
-  --color-muted-rate: #6b6f7c; /* hero rating line */
-  --color-muted-step: #6b7280; /* study-abroad step descriptions */
-  --color-slate: #4a5163; /* exam strip + marquee wordmarks */
+  /* — accent (yellow) · FILL ONLY ————————————————————————————————————— */
+  --color-accent: #f4da22;
+  --color-accent-deep: #e0c50d; /* hover on accent fills */
+  --color-accent-soft: #fdf6c8; /* tint wash */
+  --color-on-accent: #0e1211; /* 13.4:1 */
 
-  /* — gold ramp ——————————————————————————————————————————————————————— */
-  --color-gold: #b8934e; /* rules, borders, top bar */
-  --color-gold-deep: #a5843f; /* eyebrow labels, stat figures */
-  --color-gold-mid: #b18f4d; /* card arrows, BANGLADESH lockup */
-  --color-gold-light: #c6a35f; /* stars, selection, footer monogram ring */
-  --color-gold-pale: #dcc492; /* top-bar gradient, footer avatar glyph */
+  /* — brand (green) ——————————————————————————————————————————————————— */
+  --color-brand: #06a77c; /* fills, graphics, UI borders, focus ring */
+  --color-brand-ink: #06795a; /* green AS TEXT / solid button — 5.40:1 */
+  --color-brand-deep: #05684e; /* hover */
+  --color-brand-soft: #e6f6f1; /* tint background */
+  --color-on-brand: #ffffff;
 
-  /* — data visualisation ——————————————————————————————————————————————
-   * The brand golds all sit just under the chroma floor a chart mark needs
-   * (OKLCH C ~0.096 against a 0.10 floor), so as a line or a bar they read as
-   * grey rather than gold. This is the same hue pushed to C 0.107, which keeps
-   * the family and passes: lightness band, chroma floor and 3:1 against the
-   * canvas. Verified with the data-viz palette validator — re-run it before
-   * changing this value. */
-  --color-chart: #9a7526;
-  --color-chart-soft: #e8dcc0; /* area fill / inactive marks */
+  /* — lines ——————————————————————————————————————————————————————————— */
+  --color-line: #e4e7e6;
+  --color-line-strong: #cbd1cf;
+  --color-line-invert: #262c2a; /* hairlines on the dark bands */
 
-  /* — warm neutrals ——————————————————————————————————————————————————— */
-  --color-warm: #8a836f; /* section kickers, card meta */
-  --color-warm-ink: #4a4636; /* announcement bar copy */
+  /* — data visualisation ————————————————————————————————————————————
+   * The brand green clears both gates a chart mark has to pass: OKLCH chroma
+   * well above the 0.10 floor, and 3.08:1 against the white canvas. Re-run the
+   * data-viz palette validator before changing either value. */
+  --color-chart: #06a77c;
+  --color-chart-soft: #b6e3d4; /* area fill / inactive marks */
 
-  /* — footer ————————————————————————————————————————————————————————— */
-  --color-foot-bright: #f4f1e8;
-  --color-foot-text: #a49d8c;
-  --color-foot-muted: #8d8674;
-  --color-foot-dim: #6f6957;
+  /* — shape ——————————————————————————————————————————————————————————
+   * The old design was uniformly 2px. The modern language is a real scale:
+   * chips and inputs small, cards at 16, hero media and dark panels at 24,
+   * buttons fully rounded. */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
 
-  /* — layout ————————————————————————————————————————————————————————— */
-  /* The design's own media query is `max-width:1080px`. Declaring it as a
+  /* — depth ——————————————————————————————————————————————————————————
+   * Two-layer shadows: a tight contact shadow plus a wide soft one. A single
+   * large blur reads as a smudge at these radii. */
+  --shadow-card: 0 1px 2px rgba(14, 18, 17, 0.04), 0 8px 24px -12px rgba(14, 18, 17, 0.1);
+  --shadow-lift: 0 2px 4px rgba(14, 18, 17, 0.05), 0 20px 40px -16px rgba(14, 18, 17, 0.16);
+  --shadow-cta: 0 8px 20px -10px rgba(14, 18, 17, 0.45);
+
+  /* — layout ————————————————————————————————————————————————————————
+   * The design's own media query is `max-width:1080px`. Declaring it as a
    * breakpoint means `nav:` flips the header at exactly the authored width
    * rather than at a Tailwind default that happens to be close.
    *
    * 67.5625rem = 1081px, not 1080px: the design's rule is `max-width:1080px`,
    * so the nav is hidden AT 1080 and visible from 1081 up. A `min-width`
    * breakpoint has to start one pixel later to line up.
+   *
+   * This value survived the navigation move to princetonreview.com's
+   * stage-based structure, but only just — measure before adding a fifth
+   * top-level item. The bar is 875px of content (95 logo + 481 nav + 255
+   * actions + gaps) against 1009px of usable width here, so there is 134px of
+   * slack. An interim seven-group version measured 1095px and had to push this
+   * breakpoint to 1200px to stop the logo being squeezed to a third of its
+   * width to absorb the overflow.
    *
    * Expressed in rem ON PURPOSE. Tailwind orders variants by comparing raw
    * breakpoint values and cannot compare `1081px` against the built-in
@@ -81,15 +104,23 @@
   --breakpoint-nav: 67.5625rem;
   --container-page: 1240px; /* → max-w-page, the shared content width */
 
-  /* — motion ————————————————————————————————————————————————————————— */
-  --animate-rise: prbdRise 0.8s ease both;
+  /* — motion ————————————————————————————————————————————————————————
+   * Scroll-triggered entrance is Framer Motion (components/motion/reveal.tsx),
+   * which is the one thing CSS cannot do without an observer. Everything here
+   * stays CSS — a mount animation, an infinite float, an infinite marquee —
+   * because none of them needs JS or a client boundary, and `motion-reduce:`
+   * switches them off at the utility. */
+  --animate-rise: prbdRise 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both;
   --animate-float: prbdFloat 5.5s ease-in-out infinite;
   --animate-marquee: prbdMarquee 34s linear infinite;
 
+  /* Kept as CSS rather than moved to <Reveal>: the mega-menu panel and the
+     inner-page hero animate on mount, not on scroll, so neither needs a
+     viewport observer or a client boundary. */
   @keyframes prbdRise {
     from {
       opacity: 0;
-      transform: translateY(18px);
+      transform: translateY(10px);
     }
     to {
       opacity: 1;
@@ -118,9 +149,101 @@
 }
 
 /* `inline` so the utility embeds the next/font value rather than referencing a
- * variable that may not be in scope where the class is applied. */
+ * variable that may not be in scope where the class is applied.
+ *
+ * The three token NAMES are unchanged from the previous serif-led system on
+ * purpose — every `font-display` / `font-quote` class across the app keeps
+ * working, and the typeface change is one line here rather than forty edits. */
 @theme inline {
-  --font-display: var(--font-libre-caslon); /* Libre Caslon Text */
+  --font-display: var(--font-bricolage); /* Bricolage Grotesque */
   --font-sans: var(--font-hanken); /* Hanken Grotesk */
-  --font-quote: var(--font-newsreader); /* Newsreader, italic */
+  --font-quote: var(--font-bricolage); /* was Newsreader italic */
+}
+
+/* ---------------------------------------------------------------------------
+ * LEGACY ALIASES — TODO: delete after the phase-2 sweep of the other 81 pages.
+ *
+ * The landing page and shared chrome use the semantic tokens above. Every other
+ * page still refers to the retired warm-gold names. Each alias below points at
+ * the nearest LEGIBLE new value so nothing goes invisible in the interim —
+ * which is why `gold-deep` and `gold-mid`, both of which are used as text,
+ * resolve to the dark green and not to yellow. `gold` itself covers rules,
+ * borders and focus outlines, so it resolves to the brand green too; yellow is
+ * only ever applied deliberately via `accent`.
+ *
+ * The six near-identical greys of the old system collapse to two here. That
+ * distinction was worth keeping while it was a faithful transcription of a
+ * signed-off design; it is not worth carrying into a palette it no longer
+ * belongs to.
+ * ------------------------------------------------------------------------- */
+@theme {
+  --color-cream: #f6f7f6;
+  --color-band: #f6f7f6;
+  --color-bar: #f2f4f3;
+
+  --color-ink-deep: #0e1211;
+  --color-ink-hover: #2a302e;
+  --color-ink-nav: #2a302e;
+  --color-ink-quote: #0e1211;
+
+  --color-muted-badge: #5b6360;
+  --color-muted-stat: #5b6360;
+  --color-muted-rate: #5b6360;
+  --color-muted-step: #5b6360;
+  --color-slate: #2a302e;
+
+  --color-gold: #06a77c;
+  --color-gold-deep: #06795a;
+  --color-gold-mid: #06795a;
+  --color-gold-light: #f4da22;
+  --color-gold-pale: #f4da22;
+
+  --color-warm: #686f6c;
+  --color-warm-ink: #2a302e;
+
+  --color-foot-bright: #ffffff;
+  --color-foot-text: #a8b0ad; /* 8.51:1 on ink */
+  --color-foot-muted: #8a938f; /* 5.97:1 on ink */
+  --color-foot-dim: #7d8481; /* 4.92:1 on ink */
+}
+
+/* ---------------------------------------------------------------------------
+ * The one hand-written rule in this file, and it earns its place: nothing in
+ * the app declared a focus style, so keyboard users got the browser default —
+ * which is a thin dark ring, invisible on the new near-black bands. The brand
+ * green clears 3:1 against both grounds (3.08:1 on white, 6.13:1 on ink), so a
+ * single ring works everywhere and no component has to opt in.
+ * ------------------------------------------------------------------------- */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Reduced motion for the scroll reveals, and it HAS to live here rather than in
+ * components/motion/reveal.tsx.
+ *
+ * Framer Motion serialises `initial` into the server HTML as an inline
+ * `opacity: 0; transform: translateY(...)`. React hydration does not remove an
+ * attribute the server sent, so by the time any hook can report
+ * `prefers-reduced-motion` the element is already painted invisible — and a
+ * reveal that never animates never clears it. Branching in JS does not fix it
+ * either: both branches render a `div`, React reuses the node, and the inline
+ * style survives. The symptom is a completely blank page for exactly the users
+ * who asked for less motion.
+ *
+ * A media query is evaluated before first paint and `!important` outranks the
+ * inline style, so this is the only layer that can win. `translate` is listed
+ * alongside `transform` because Tailwind v4 and newer Motion versions both
+ * write the standalone property.
+ * ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    translate: none !important;
+  }
 }

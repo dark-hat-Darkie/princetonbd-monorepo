@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { admits, programs, stats, testimonials } from '@/content/home';
+import { admits, features, programs, stats, steps, testimonials } from '@/content/home';
 import HomePage from './page';
 
 /**
@@ -20,14 +20,32 @@ describe('Landing page', () => {
   });
 
   /**
-   * Regression guard for the design's 0-based `$index`, which rendered the
-   * guarantee band as 00–03 while every other numbered list starts at 01.
+   * The guarantee band used to number its features 01–04 and this asserted
+   * those labels. The retheme replaced the numerals with check icons, and the
+   * assertion kept passing on the program cards' own 01–06 — a guard that had
+   * silently stopped guarding. It now checks what the band actually promises.
    */
-  it('numbers the guarantee band 01 through 04', () => {
+  it('renders every guarantee feature', () => {
     render(<HomePage />);
 
-    for (const label of ['01', '02', '03', '04']) {
-      expect(screen.getAllByText(label).length).toBeGreaterThan(0);
+    for (const feature of features) {
+      expect(screen.getByText(feature)).toBeInTheDocument();
+    }
+  });
+
+  /**
+   * Regression guard for the design's 0-based `$index`, which rendered a
+   * numbered list as 00–03 while every other one starts at 01. The band that
+   * had the bug no longer renders numbers, but the programs grid and the
+   * study-abroad steps still do, and both take their numerals from content.
+   */
+  it('starts every numbered list at 01, never 00', () => {
+    render(<HomePage />);
+
+    expect(programs.map((program) => program.no)).toContain('01');
+    expect(steps.map((step) => step.no)).toContain('01');
+    for (const label of [...programs.map((p) => p.no), ...steps.map((s) => s.no)]) {
+      expect(screen.getAllByText(label ?? '').length).toBeGreaterThan(0);
     }
     expect(screen.queryByText('00')).not.toBeInTheDocument();
   });

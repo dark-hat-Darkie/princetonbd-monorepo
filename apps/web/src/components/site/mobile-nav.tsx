@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 
 import type { NavGroup } from '@/content/site/nav';
@@ -12,7 +13,7 @@ import { CtaButton } from '@/components/ui/cta-button';
  * The drawer behind the header's hamburger.
  *
  * The design renders the button but defines no menu, so this is built from the
- * design's own vocabulary — canvas ground, gold hairlines, the same 11.5px
+ * system's own vocabulary — canvas ground, `line` hairlines, the same 11.5px
  * uppercase nav type — rather than invented from scratch.
  *
  * Each section is a native `<details>`: the drawer already owns enough state,
@@ -22,7 +23,7 @@ import { CtaButton } from '@/components/ui/cta-button';
  * The overlay is portalled to <body> rather than rendered in place. The header
  * sets `backdrop-filter`, and a backdrop-filter (like transform and filter)
  * makes an element a containing block for `position: fixed` descendants — so
- * an in-place `fixed inset-0` would resolve against the 86px header instead of
+ * an in-place `fixed inset-0` would resolve against the 92px header instead of
  * the viewport, collapsing the drawer to a sliver.
  */
 export function MobileNav({ groups }: { groups: readonly NavGroup[] }) {
@@ -90,13 +91,9 @@ export function MobileNav({ groups }: { groups: readonly NavGroup[] }) {
         onClick={() => {
           setOpen((value) => !value);
         }}
-        className="inline-flex size-[42px] cursor-pointer items-center justify-center rounded-[2px] border border-[rgba(27,36,54,.2)] text-ink nav:hidden"
+        className="inline-flex size-[42px] cursor-pointer items-center justify-center rounded-full border border-line-strong text-ink transition-colors duration-200 hover:border-brand hover:text-brand-ink nav:hidden"
       >
-        <span aria-hidden className="flex flex-col gap-1">
-          <span className="h-[1.5px] w-4 bg-current" />
-          <span className="h-[1.5px] w-4 bg-current" />
-          <span className="h-[1.5px] w-4 bg-current" />
-        </span>
+        <Menu aria-hidden className="size-[19px]" />
       </button>
 
       {/* No SSR guard needed: `open` only becomes true from a click, which
@@ -118,17 +115,17 @@ export function MobileNav({ groups }: { groups: readonly NavGroup[] }) {
                 role="dialog"
                 aria-modal="true"
                 aria-label="Site menu"
-                className="absolute inset-y-0 right-0 flex w-full max-w-[380px] flex-col bg-canvas shadow-[0_0_80px_-20px_rgba(27,36,54,.5)]"
+                className="absolute inset-y-0 right-0 flex w-full max-w-[380px] flex-col bg-canvas shadow-[0_0_80px_-20px_rgba(14,18,17,.5)]"
               >
-                <div className="flex h-[86px] flex-none items-center justify-between border-b border-b-[rgba(27,36,54,.09)] px-6">
+                <div className="flex h-[92px] flex-none items-center justify-between border-b border-b-line px-6">
                   <BrandMark />
                   <button
                     type="button"
                     aria-label="Close menu"
                     onClick={close}
-                    className="inline-flex size-[42px] cursor-pointer items-center justify-center rounded-[2px] border border-[rgba(27,36,54,.2)] text-[19px] leading-none text-ink"
+                    className="inline-flex size-[42px] cursor-pointer items-center justify-center rounded-full border border-line-strong text-ink transition-colors duration-200 hover:border-brand hover:text-brand-ink"
                   >
-                    <span aria-hidden>&times;</span>
+                    <X aria-hidden className="size-[19px]" />
                   </button>
                 </div>
 
@@ -136,13 +133,13 @@ export function MobileNav({ groups }: { groups: readonly NavGroup[] }) {
                   {groups.map((group) => (
                     <details
                       key={group.label}
-                      className="group border-b border-b-[rgba(27,36,54,.09)] [&_summary::-webkit-details-marker]:hidden"
+                      className="group border-b border-b-line [&_summary::-webkit-details-marker]:hidden"
                     >
-                      <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-[11.5px] font-semibold tracking-[.11em] text-ink-nav uppercase marker:content-['']">
+                      <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-[11.5px] font-bold tracking-[.11em] text-ink-soft uppercase marker:content-['']">
                         {group.label}
                         <span
                           aria-hidden
-                          className="relative size-3 flex-none text-gold-deep before:absolute before:top-1/2 before:left-0 before:h-[1.5px] before:w-full before:-translate-y-1/2 before:bg-current before:content-[''] after:absolute after:top-1/2 after:left-0 after:h-[1.5px] after:w-full after:-translate-y-1/2 after:rotate-90 after:bg-current after:transition-transform after:duration-200 after:content-[''] group-open:after:rotate-0"
+                          className="relative size-3 flex-none text-brand-ink before:absolute before:top-1/2 before:left-0 before:h-[1.5px] before:w-full before:-translate-y-1/2 before:bg-current before:content-[''] after:absolute after:top-1/2 after:left-0 after:h-[1.5px] after:w-full after:-translate-y-1/2 after:rotate-90 after:bg-current after:transition-transform after:duration-200 after:content-[''] group-open:after:rotate-0"
                         />
                       </summary>
 
@@ -150,17 +147,15 @@ export function MobileNav({ groups }: { groups: readonly NavGroup[] }) {
                         <Link
                           href={group.href}
                           onClick={close}
-                          className="mb-4 inline-flex items-center gap-2 border-b-[1.5px] border-b-gold pb-1 font-display text-[16px] text-ink-deep"
+                          className="mb-4 inline-flex items-center gap-2 rounded-full bg-subtle px-4 py-2 font-display text-[15px] font-semibold tracking-[-.02em] text-ink"
                         >
                           {group.hubLabel}
-                          <span aria-hidden className="text-gold-mid">
-                            &rarr;
-                          </span>
+                          <ArrowRight aria-hidden className="size-3.5" />
                         </Link>
 
                         {group.columns.map((column) => (
                           <div key={column.title} className="mt-4">
-                            <div className="mb-2.5 text-[10px] font-bold tracking-[.16em] text-gold-deep uppercase">
+                            <div className="mb-2.5 text-[10px] font-bold tracking-[.16em] text-brand-ink uppercase">
                               {column.title}
                             </div>
                             <ul className="flex flex-col gap-2.5">
@@ -169,7 +164,7 @@ export function MobileNav({ groups }: { groups: readonly NavGroup[] }) {
                                   <Link
                                     href={link.href}
                                     onClick={close}
-                                    className="text-[14.5px] text-ink-nav"
+                                    className="rounded-sm text-[14.5px] text-muted"
                                   >
                                     {link.label}
                                   </Link>
@@ -183,11 +178,11 @@ export function MobileNav({ groups }: { groups: readonly NavGroup[] }) {
                   ))}
                 </nav>
 
-                <div className="flex flex-none flex-col gap-3 border-t border-t-[rgba(27,36,54,.09)] px-6 py-6">
+                <div className="flex flex-none flex-col gap-3 border-t border-t-line px-6 py-6">
                   <Link
                     href="/sign-in"
                     onClick={close}
-                    className="text-[11px] font-bold tracking-[.11em] text-ink uppercase"
+                    className="rounded-sm text-[11px] font-bold tracking-[.11em] text-ink uppercase"
                   >
                     Log in
                   </Link>

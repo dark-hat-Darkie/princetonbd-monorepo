@@ -3,20 +3,23 @@ import Image from 'next/image';
 import { cn } from '@/lib/cn';
 
 /**
- * A photograph in the design's arched frame.
+ * A photograph with the offset accent block behind it.
  *
- * The gold rule behind the picture is a second, offset box rather than a border
- * on the image — that is what lets it sit proud on two sides while the image
- * itself stays clipped to the arch.
+ * Was an arched frame with a thin gold outline. The arch was the single most
+ * dated thing in the old system, and the outline cannot survive the repalette
+ * — a yellow hairline is invisible on white. The block does the same job the
+ * outline did (anchor the picture, give it a side to lean on) with a shape that
+ * belongs to the new language, and it is the one place on the page where yellow
+ * appears at scale.
  *
- * The landing page's hero and split-feature sections predate this and draw
- * their own arches at their own radii; this is for everything added since, so
- * a new photograph gets the same treatment without re-deriving it.
+ * The block is a second, offset box rather than a border on the image, which is
+ * what lets it sit proud on two sides while the image stays clipped to its own
+ * radius.
  */
 export function ArchImage({
   src,
   alt,
-  /** Mirrors the offset frame for an image sitting on the right of a layout. */
+  /** Mirrors the offset block for an image sitting on the right of a layout. */
   side = 'left',
   priority = false,
   className,
@@ -32,11 +35,11 @@ export function ArchImage({
       <div
         aria-hidden
         className={cn(
-          'pointer-events-none absolute top-[-18px] bottom-4 rounded-t-[180px] rounded-b-[4px] border border-[rgba(184,147,78,.45)]',
-          side === 'left' ? 'right-4 left-[-18px]' : 'right-[-18px] left-4',
+          'pointer-events-none absolute top-6 bottom-[-16px] rounded-lg bg-accent',
+          side === 'left' ? 'right-8 left-[-16px]' : 'right-[-16px] left-8',
         )}
       />
-      <div className="relative overflow-hidden rounded-t-[180px] rounded-b-[4px] border border-[rgba(27,36,54,.14)] shadow-[0_50px_90px_-55px_rgba(27,36,54,.5)]">
+      <div className="relative overflow-hidden rounded-lg shadow-lift">
         <div className="relative aspect-[4/5]">
           <Image
             src={src}

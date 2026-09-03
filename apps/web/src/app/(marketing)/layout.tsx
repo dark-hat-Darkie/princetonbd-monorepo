@@ -43,10 +43,12 @@ export default function MarketingLayout({ children }: Readonly<{ children: React
         }}
       />
 
-      {/* Gold rule across the very top of the document. */}
+      {/* The brand rule across the very top of the document — yellow running
+          into green, the two colours stated together once before the page uses
+          them separately. */}
       <div
         aria-hidden
-        className="h-[3px] bg-[linear-gradient(90deg,#b8934e,#dcc492_45%,#b8934e)]"
+        className="h-[3px] bg-[linear-gradient(90deg,var(--color-accent),var(--color-accent)_55%,var(--color-brand))]"
       />
 
       <AnnouncementBar />

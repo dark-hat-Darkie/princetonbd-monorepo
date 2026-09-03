@@ -1,17 +1,20 @@
 import Image from 'next/image';
 
 import type { Step } from '@/content/types';
+import { Reveal } from '@/components/motion/reveal';
 import { Container } from '@/components/ui/container';
 import { Eyebrow } from '@/components/ui/eyebrow';
 import { StepList } from '@/components/ui/step-list';
 import { cn } from '@/lib/cn';
 
 /**
- * Arched image on one side, copy and a numbered process on the other.
+ * Image on one side, copy and a numbered process on the other.
  *
- * The offset gold frame behind the image is a second absolutely-positioned box
- * echoing the arch, not a border on the image itself — that is what lets it sit
- * proud of the picture on two sides.
+ * The offset yellow block behind the image is a second absolutely-positioned
+ * box, not a border on the image itself — that is what lets it sit proud of the
+ * picture on two sides. Same construction as `ui/arch-image.tsx`; this section
+ * predates that component and keeps its own copy because its aspect ratio and
+ * offsets differ.
  */
 export function SplitFeature({
   image,
@@ -20,7 +23,7 @@ export function SplitFeature({
   title,
   body,
   steps,
-  /** Puts the image on the right, mirroring the offset frame with it. */
+  /** Puts the image on the right, mirroring the offset block with it. */
   reverse = false,
 }: {
   image: string;
@@ -35,19 +38,19 @@ export function SplitFeature({
     <Container as="section" className="py-24 lg:py-[120px]">
       <div
         className={cn(
-          'grid grid-cols-1 items-center gap-12 lg:gap-[66px]',
+          'grid grid-cols-1 items-center gap-14 lg:gap-[66px]',
           reverse ? 'lg:grid-cols-[1.12fr_.88fr]' : 'lg:grid-cols-[.88fr_1.12fr]',
         )}
       >
-        <div className={cn('relative', reverse && 'lg:order-2')}>
+        <Reveal className={cn('relative', reverse && 'lg:order-2')} y={24}>
           <div
             aria-hidden
             className={cn(
-              'pointer-events-none absolute top-[-20px] bottom-5 rounded-t-[180px] rounded-b-[4px] border border-[rgba(184,147,78,.45)]',
-              reverse ? 'right-[-20px] left-5' : 'right-5 left-[-20px]',
+              'pointer-events-none absolute top-7 bottom-[-16px] rounded-lg bg-accent',
+              reverse ? 'right-[-16px] left-8' : 'right-8 left-[-16px]',
             )}
           />
-          <div className="relative overflow-hidden rounded-t-[180px] rounded-b-[4px] border border-[rgba(27,36,54,.14)] shadow-[0_50px_90px_-55px_rgba(27,36,54,.5)]">
+          <div className="relative overflow-hidden rounded-lg shadow-lift">
             <div className="relative aspect-[4/5]">
               <Image
                 src={image}
@@ -58,11 +61,11 @@ export function SplitFeature({
               />
             </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className={cn(reverse && 'lg:order-1')}>
+        <Reveal className={cn(reverse && 'lg:order-1')} delay={0.1}>
           <Eyebrow className="mb-5">{eyebrow}</Eyebrow>
-          <h2 className="mb-[22px] font-display text-[clamp(26px,3.2vw,42px)] leading-[1.1] font-normal text-ink-deep">
+          <h2 className="mb-5 font-display text-[clamp(28px,3.3vw,42px)] leading-[1.08] font-semibold tracking-[-.03em] text-ink">
             {title}
           </h2>
           <p className="mb-10 max-w-[520px] text-[16.5px] leading-[1.68] text-muted">{body}</p>
@@ -72,7 +75,7 @@ export function SplitFeature({
               <StepList steps={steps} />
             </div>
           ) : null}
-        </div>
+        </Reveal>
       </div>
     </Container>
   );

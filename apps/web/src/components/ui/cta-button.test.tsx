@@ -17,7 +17,9 @@ const sizes = ['sm', 'md', 'lg'] as const;
 /** The utilities that contribute to a button's height. */
 function heightClasses(element: HTMLElement): string[] {
   return [...element.classList]
-    .filter((name) => /^(py-|text-\[|text-base|border$|border-\[|border-transparent)/.test(name))
+    .filter((name) =>
+      /^(py-|text-\[|text-base|border$|border-\[|border-transparent|border-line-strong)/.test(name),
+    )
     .sort();
 }
 
@@ -77,7 +79,7 @@ describe('CtaButton sizing', () => {
 
     expect(heightClasses(screen.getByRole('link', { name: 'Solid' }))).toEqual(
       heightClasses(screen.getByRole('link', { name: 'Outline' })).map((c) =>
-        c === 'border-[rgba(27,36,54,.28)]' ? 'border-transparent' : c,
+        c === 'border-line-strong' ? 'border-transparent' : c,
       ),
     );
   });

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 
 import type { NavGroup } from '@/content/site/nav';
@@ -124,11 +125,18 @@ export function PrimaryNav({ groups }: { groups: readonly NavGroup[] }) {
                 setOpenLabel(open ? null : group.label);
               }}
               className={cn(
-                "relative cursor-pointer text-[11.5px] font-semibold tracking-[.11em] whitespace-nowrap text-ink-nav uppercase after:absolute after:right-full after:-bottom-1.5 after:left-0 after:h-[1.5px] after:bg-gold after:transition-[right] after:duration-[280ms] after:ease-[ease] after:content-[''] hover:after:right-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold",
-                open && 'after:right-0',
+                "relative flex cursor-pointer items-center gap-1 rounded-sm text-[11.5px] font-bold tracking-[.11em] whitespace-nowrap text-ink-soft uppercase transition-colors duration-200 after:absolute after:right-full after:-bottom-2 after:left-0 after:h-[2.5px] after:rounded-full after:bg-accent after:transition-[right] after:duration-[280ms] after:ease-[ease] after:content-[''] hover:text-ink hover:after:right-0",
+                open && 'text-ink after:right-0',
               )}
             >
               {group.label}
+              <ChevronDown
+                aria-hidden
+                className={cn(
+                  'size-3.5 transition-transform duration-200 motion-reduce:transition-none',
+                  open && 'rotate-180',
+                )}
+              />
             </button>
 
             {open ? (
@@ -136,25 +144,26 @@ export function PrimaryNav({ groups }: { groups: readonly NavGroup[] }) {
                 id={`nav-panel-${group.href.replace(/\W+/g, '-')}`}
                 /* `top-full` resolves against the sticky header, so the panel
                    hangs from the bar's lower edge at full page width. */
-                className="absolute inset-x-0 top-full z-[59] animate-rise border-b border-b-[rgba(27,36,54,.1)] border-t-gold bg-canvas shadow-[0_30px_60px_-30px_rgba(27,36,54,.35)] motion-reduce:animate-none"
+                className="absolute inset-x-0 top-full z-[59] animate-rise border-b border-b-line bg-canvas shadow-lift motion-reduce:animate-none"
               >
-                <div aria-hidden className="h-[2px] bg-gold" />
+                <div aria-hidden className="h-[3px] bg-accent" />
                 <div className="mx-auto max-w-page px-5 py-10 sm:px-8 lg:px-11">
                   <Link
                     href={group.href}
                     onClick={close}
-                    className="group mb-8 inline-flex items-center gap-2.5 border-b-[1.5px] border-b-gold pb-[6px] font-display text-[19px] text-ink-deep transition-[gap] duration-200 hover:gap-3.5"
+                    className="group mb-8 inline-flex items-center gap-2.5 rounded-full bg-subtle px-5 py-2.5 font-display text-[17px] font-semibold tracking-[-.02em] text-ink transition-colors duration-200 hover:bg-accent hover:text-on-accent"
                   >
                     {group.hubLabel}
-                    <span aria-hidden className="text-gold-mid">
-                      &rarr;
-                    </span>
+                    <ArrowRight
+                      aria-hidden
+                      className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                    />
                   </Link>
 
                   <div className="grid grid-cols-1 gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
                     {group.columns.map((column) => (
                       <div key={column.title}>
-                        <div className="mb-[18px] text-[10.5px] font-bold tracking-[.16em] text-gold-deep uppercase">
+                        <div className="mb-[18px] text-[10.5px] font-bold tracking-[.16em] text-brand-ink uppercase">
                           {column.title}
                         </div>
                         <ul className="flex flex-col gap-[11px]">
@@ -163,7 +172,7 @@ export function PrimaryNav({ groups }: { groups: readonly NavGroup[] }) {
                               <Link
                                 href={link.href}
                                 onClick={close}
-                                className="text-[14.5px] leading-[1.4] text-ink-nav transition-colors duration-200 hover:text-gold-deep"
+                                className="rounded-sm text-[14.5px] leading-[1.4] text-muted transition-colors duration-200 hover:text-brand-ink"
                               >
                                 {link.label}
                               </Link>
@@ -175,18 +184,19 @@ export function PrimaryNav({ groups }: { groups: readonly NavGroup[] }) {
                   </div>
 
                   {group.featured?.length ? (
-                    <div className="mt-9 flex flex-wrap gap-x-9 gap-y-3 border-t border-t-[rgba(27,36,54,.1)] pt-6">
+                    <div className="mt-9 flex flex-wrap gap-x-9 gap-y-3 border-t border-t-line pt-6">
                       {group.featured.map((link) => (
                         <Link
                           key={link.href + link.label}
                           href={link.href}
                           onClick={close}
-                          className="group inline-flex items-center gap-2 text-[13px] font-bold tracking-[.08em] text-ink uppercase transition-[gap] duration-200 hover:gap-3 hover:text-gold-deep"
+                          className="group inline-flex items-center gap-2 rounded-sm text-[13px] font-bold tracking-[.08em] text-ink uppercase transition-colors duration-200 hover:text-brand-ink"
                         >
                           {link.label}
-                          <span aria-hidden className="text-gold-mid">
-                            &rarr;
-                          </span>
+                          <ArrowRight
+                            aria-hidden
+                            className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                          />
                         </Link>
                       ))}
                     </div>

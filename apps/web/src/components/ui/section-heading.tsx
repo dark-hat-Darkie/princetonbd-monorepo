@@ -1,16 +1,17 @@
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 import { cn } from '@/lib/cn';
 import { Eyebrow } from './eyebrow';
 
 /**
- * The gold kicker + display heading (+ optional trailing link) that opens a
- * section. The landing page repeats this cluster six times with only the
- * alignment and the trailing link varying.
+ * The kicker + display heading (+ optional trailing link) that opens a section.
+ * The landing page repeats this cluster six times with only the alignment and
+ * the trailing link varying.
  */
 interface SectionHeadingProps {
   eyebrow: string;
-  /** ReactNode so a heading can carry the design's gold italic emphasis. */
+  /** ReactNode so a heading can carry a marker-highlighted phrase. */
   title: React.ReactNode;
   intro?: React.ReactNode;
   align?: 'left' | 'center';
@@ -18,6 +19,8 @@ interface SectionHeadingProps {
   action?: { label: string; href: string };
   /** Rendered as this level, so a page keeps one h1 and sections use h2. */
   as?: 'h1' | 'h2' | 'h3';
+  /** Inverts the type for use inside a `tone="ink"` section. */
+  onDark?: boolean;
   className?: string;
 }
 
@@ -28,6 +31,7 @@ export function SectionHeading({
   align = 'left',
   action,
   as: Heading = 'h2',
+  onDark = false,
   className,
 }: SectionHeadingProps) {
   const centered = align === 'center';
@@ -40,16 +44,22 @@ export function SectionHeading({
       )}
     >
       <div className={cn(centered ? 'mx-auto max-w-[680px]' : 'max-w-[660px]')}>
-        <Eyebrow centered={centered} className="mb-5">
+        <Eyebrow centered={centered} onDark={onDark} className="mb-5">
           {eyebrow}
         </Eyebrow>
-        <Heading className="font-display text-[clamp(28px,3.4vw,44px)] leading-[1.1] font-normal tracking-[-.01em] text-ink-deep">
+        <Heading
+          className={cn(
+            'font-display text-[clamp(30px,3.6vw,46px)] leading-[1.08] font-semibold tracking-[-.025em]',
+            onDark ? 'text-on-ink' : 'text-ink',
+          )}
+        >
           {title}
         </Heading>
         {intro ? (
           <p
             className={cn(
-              'mt-[18px] text-[16.5px] leading-[1.68] text-muted',
+              'mt-[18px] text-[16.5px] leading-[1.68]',
+              onDark ? 'text-on-ink/70' : 'text-muted',
               centered ? 'mx-auto max-w-[560px]' : 'max-w-[560px]',
             )}
           >
@@ -61,9 +71,18 @@ export function SectionHeading({
       {action && !centered ? (
         <Link
           href={action.href}
-          className="group inline-flex items-center gap-2 border-b-[1.5px] border-b-gold pb-[5px] text-[14px] font-semibold whitespace-nowrap text-ink transition-[gap] duration-200 hover:gap-3"
+          className={cn(
+            'group inline-flex items-center gap-2 rounded-full border px-5 py-3 text-[13.5px] font-semibold whitespace-nowrap transition-colors duration-200',
+            onDark
+              ? 'border-line-invert text-on-ink hover:border-accent hover:text-accent'
+              : 'border-line-strong text-ink hover:border-brand hover:text-brand-ink',
+          )}
         >
-          {action.label} <span aria-hidden>&rarr;</span>
+          {action.label}
+          <ArrowRight
+            aria-hidden
+            className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+          />
         </Link>
       ) : null}
     </div>

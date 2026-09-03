@@ -7,52 +7,64 @@ import { BrandMark } from '@/components/ui/brand-mark';
 
 export function SiteFooter() {
   return (
-    <footer className="bg-ink text-foot-text">
+    <footer className="bg-ink text-on-ink/70">
       <Container className="pt-[72px] pb-8">
-        <div className="grid grid-cols-1 gap-11 border-b border-b-[rgba(244,241,232,.1)] pb-[52px] sm:grid-cols-2 lg:grid-cols-3 nav:grid-cols-[1.7fr_1fr_1fr_1fr_1fr]">
-          <div className="max-w-[290px]">
+        {/* Brand block beside the links, with the link columns in their own
+            nested grid. A single flat grid worked while there were four
+            columns; at eight the brand block would occupy one cell of the first
+            row and the fifth column would wrap underneath it. Nesting lets the
+            columns reflow 2 -> 3 -> 4 per row without the brand ever being part
+            of that flow. */}
+        <div className="grid grid-cols-1 gap-x-10 gap-y-12 border-b border-b-line-invert pb-[52px] nav:grid-cols-[minmax(240px,1fr)_3.1fr]">
+          <div className="max-w-[300px]">
             <BrandMark variant="footer" className="mb-5" />
-            <p className="mb-5 text-[14px] leading-[1.65] text-foot-muted">
+            <p className="mb-5 text-[14px] leading-[1.65] text-on-ink/55">
               Premier test preparation, tutoring &amp; admissions counseling &mdash; locally
               operated in Bangladesh.
             </p>
-            <address className="text-[13.5px] leading-[1.75] text-foot-text not-italic">
+            <address className="text-[13.5px] leading-[1.75] text-on-ink/70 not-italic">
               {contact.address}
               <br />
-              <a href={`mailto:${contact.email}`}>{contact.email}</a>
+              <a href={`mailto:${contact.email}`} className="rounded-sm hover:text-accent">
+                {contact.email}
+              </a>
               <br />
-              <a href={telHref(contact.phone)}>{contact.phone}</a>
+              <a href={telHref(contact.phone)} className="rounded-sm hover:text-accent">
+                {contact.phone}
+              </a>
             </address>
           </div>
 
-          {footerColumns.map((column) => (
-            <nav key={column.title} aria-label={column.title}>
-              <div className="mb-[18px] text-[11px] font-bold tracking-[.14em] text-gold-light uppercase">
-                {column.title}
-              </div>
-              <div className="flex flex-col gap-3">
-                {column.links.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className="text-[14px] text-foot-text transition-colors duration-200 hover:text-foot-bright"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </nav>
-          ))}
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+            {footerColumns.map((column) => (
+              <nav key={column.title} aria-label={column.title}>
+                <div className="mb-[18px] text-[11px] font-bold tracking-[.14em] text-accent uppercase">
+                  {column.title}
+                </div>
+                <div className="flex flex-col gap-3">
+                  {column.links.map((link) => (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className="rounded-sm text-[14px] leading-[1.35] text-on-ink/70 transition-colors duration-200 hover:text-on-ink"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </nav>
+            ))}
+          </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-5 pt-[26px] text-[13px] text-foot-dim">
+        <div className="flex flex-wrap items-center justify-between gap-5 pt-[26px] text-[13px] text-on-ink/50">
           <span>&copy; {year} Princeton Review Bangladesh. All rights reserved.</span>
           <div className="flex gap-[26px]">
             {legalLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="transition-colors duration-200 hover:text-foot-bright"
+                className="rounded-sm transition-colors duration-200 hover:text-on-ink"
               >
                 {link.label}
               </Link>

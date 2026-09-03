@@ -1,30 +1,27 @@
 import type { Metadata } from 'next';
-import { Hanken_Grotesk, Libre_Caslon_Text, Newsreader } from 'next/font/google';
+import { Bricolage_Grotesque, Hanken_Grotesk } from 'next/font/google';
 
 import { siteDescription, siteName, siteUrl } from '@/lib/site';
 import './globals.css';
 
-/* Self-hosted through next/font rather than the design's blocking <link> to
-   Google. Same families and axes, no third-party request on the critical path. */
-const libreCaslon = Libre_Caslon_Text({
+/* Self-hosted through next/font rather than a blocking <link> to Google. No
+   third-party request on the critical path.
+
+   Bricolage Grotesque carries an `opsz` axis defaulting to 14 — the setting for
+   small text. Including the axis lets the browser's default
+   `font-optical-sizing: auto` track it with the font size, so the 72px hero
+   headline gets the tight, closed display cut instead of the airy caption one.
+   Without it every headline renders at the caption optical size. */
+const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-libre-caslon',
+  axes: ['opsz'],
+  variable: '--font-bricolage',
   display: 'swap',
 });
 
 const hanken = Hanken_Grotesk({
   subsets: ['latin'],
   variable: '--font-hanken',
-  display: 'swap',
-});
-
-/* The design requests Newsreader in italic only (`ital,opsz,wght@1,6..72,…`). */
-const newsreader = Newsreader({
-  subsets: ['latin'],
-  style: ['italic'],
-  variable: '--font-newsreader',
   display: 'swap',
 });
 
@@ -54,12 +51,17 @@ export const metadata: Metadata = {
  * cookies, which opts every route into dynamic rendering — including the
  * marketing page, which should be static and CDN-cacheable. Session-aware
  * routes get it from the `(app)` layout instead.
+ *
+ * `scroll-pt-[104px]` is the sticky header's 92px plus a little air. Without it
+ * every in-page jump — the hero's #programs and #enroll, and the contents rail
+ * on the guide pages — lands with the target heading hidden underneath the bar.
+ * Keep it in step with the header height in site-header.tsx.
  */
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth scroll-pt-[104px]">
       <body
-        className={`${libreCaslon.variable} ${hanken.variable} ${newsreader.variable} bg-canvas font-sans text-ink antialiased selection:bg-gold-light selection:text-ink [text-rendering:optimizeLegibility]`}
+        className={`${bricolage.variable} ${hanken.variable} bg-canvas font-sans text-ink antialiased selection:bg-accent selection:text-on-accent [text-rendering:optimizeLegibility]`}
         /* Browser extensions commonly stamp attributes onto <body> before
            React hydrates — ColorZilla adds `cz-shortcut-listen="true"`,
            Grammarly adds `data-gr-ext-installed` — which React reports as a
@@ -71,7 +73,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       >
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded-[2px] focus:bg-ink focus:px-4 focus:py-2 focus:text-on-ink"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded-sm focus:bg-ink focus:px-4 focus:py-2 focus:text-on-ink"
         >
           Skip to content
         </a>

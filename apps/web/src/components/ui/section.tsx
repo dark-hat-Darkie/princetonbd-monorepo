@@ -10,15 +10,21 @@ import { Container } from './container';
  * padding, and the rhythm stays identical across sixty pages.
  */
 
-/** Ground colours, matching the tokens the design uses for full-bleed bands. */
-type Tone = 'canvas' | 'band' | 'cream' | 'surface' | 'panel';
+/**
+ * Ground colours for full-bleed bands.
+ *
+ * `ink` is new: on a white canvas the page needs at least one dark beat or it
+ * reads as an undifferentiated scroll. It sets its own text colour, so callers
+ * do not have to remember to invert.
+ */
+type Tone = 'canvas' | 'subtle' | 'surface' | 'panel' | 'ink';
 
 const toneClass: Record<Tone, string> = {
   canvas: 'bg-canvas',
-  band: 'bg-band',
-  cream: 'bg-cream',
+  subtle: 'bg-subtle',
   surface: 'bg-surface',
   panel: 'bg-panel',
+  ink: 'bg-ink text-on-ink',
 };
 
 /* Transcribed from the landing page rather than derived from a scale: `default`
@@ -53,7 +59,7 @@ export function Section({
     <section
       className={cn(
         toneClass[tone],
-        bordered && 'border-y border-y-[rgba(27,36,54,.08)]',
+        bordered && (tone === 'ink' ? 'border-y border-y-line-invert' : 'border-y border-y-line'),
         className,
       )}
       {...rest}

@@ -9,10 +9,21 @@ import { CtaButton } from '@/components/ui/cta-button';
 /**
  * Sticky header.
  *
- * Two details carried from the design that look like mistakes but are not:
- * the horizontal padding here is 36px, narrower than the 44px every other
- * section uses; and the bar is translucent with a backdrop blur, so the gold
- * top rule and page ground show through as it scrolls.
+ * The horizontal padding here is 36px, narrower than the 44px every other
+ * section uses — carried from the design, and it is what keeps the brand mark
+ * and the CTA from crowding the bar's own edges.
+ *
+ * The bar is translucent with a backdrop blur, so the page ground shows through
+ * as it scrolls.
+ *
+ * The bar is 92px, not the 76px it was: the logo is a four-line stacked
+ * lockup and stops being readable below ~60px of height. `scroll-pt` on the
+ * <html> element is sized to match — see the note in app/layout.tsx.
+ *
+ * The brand link is `flex-none`. Without it the logo is the only flex item that
+ * can shrink, so when the seven-item nav runs long the logo silently collapses
+ * — it was measured at 36px of its 95px before this was added — instead of the
+ * layout admitting it does not fit.
  *
  * The nav collapses to a drawer at exactly 1080px — the design's own
  * breakpoint, declared as `--breakpoint-nav` so it is not approximated by a
@@ -23,9 +34,13 @@ import { CtaButton } from '@/components/ui/cta-button';
  */
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-[60] border-b border-b-[rgba(27,36,54,.09)] bg-canvas/85 backdrop-blur-[14px] backdrop-saturate-150">
-      <div className="mx-auto flex h-[86px] max-w-page items-center justify-between gap-[22px] px-5 sm:px-6 lg:px-9">
-        <Link href="/" aria-label="Princeton Review Bangladesh — home">
+    <header className="sticky top-0 z-[60] border-b border-b-line bg-canvas/85 backdrop-blur-[14px] backdrop-saturate-150">
+      <div className="mx-auto flex h-[92px] max-w-page items-center justify-between gap-[22px] px-5 sm:px-6 lg:px-9">
+        <Link
+          href="/"
+          aria-label="Princeton Review Bangladesh — home"
+          className="flex-none rounded-sm"
+        >
           <BrandMark />
         </Link>
 
@@ -35,7 +50,7 @@ export function SiteHeader() {
           <MobileNav groups={navGroups} />
           <Link
             href="/sign-in"
-            className="hidden text-[11px] font-bold tracking-[.11em] whitespace-nowrap text-ink uppercase nav:inline"
+            className="hidden rounded-full px-1 text-[11px] font-bold tracking-[.11em] whitespace-nowrap text-ink-soft uppercase transition-colors duration-200 hover:text-brand-ink nav:inline"
           >
             Log in
           </Link>

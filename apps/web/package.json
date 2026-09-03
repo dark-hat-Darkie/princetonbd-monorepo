@@ -18,6 +18,8 @@
     "@workos-inc/authkit-nextjs": "catalog:",
     "@workos-inc/node": "catalog:",
     "clsx": "catalog:",
+    "lucide-react": "catalog:",
+    "motion": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",

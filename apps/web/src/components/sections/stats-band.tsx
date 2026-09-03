@@ -1,23 +1,33 @@
 import type { Stat } from '@/content/types';
+import { Reveal } from '@/components/motion/reveal';
 import { Container } from '@/components/ui/container';
 
+/**
+ * The outcome figures, on the page's one dark band.
+ *
+ * On the old cream canvas this was a slightly-tinted strip that barely
+ * registered. A white page needs at least one dark beat to break the scroll,
+ * and the figures are the right thing to give it to — the ink ground is also
+ * the only place the brand yellow can be used as *type* rather than as a fill,
+ * at 14.9:1.
+ */
 export function StatsBand({ stats }: { stats: readonly Stat[] }) {
   return (
-    <section className="border-y border-y-[rgba(27,36,54,.08)] bg-band">
-      <Container className="grid grid-cols-2 gap-y-10 py-20 lg:grid-cols-4 lg:gap-y-0">
-        {stats.map((stat) => (
-          /* Every cell carries the left rule, including the first — as authored. */
-          <div
+    <section className="bg-ink text-on-ink">
+      <Container className="grid grid-cols-2 gap-y-12 py-20 lg:grid-cols-4 lg:gap-y-0 lg:py-24">
+        {stats.map((stat, index) => (
+          <Reveal
             key={stat.label}
-            className="border-l border-l-[rgba(27,36,54,.12)] px-5 py-1.5 text-center"
+            delay={index * 0.08}
+            className="px-5 text-center lg:border-l lg:border-l-line-invert lg:first:border-l-0"
           >
-            <div className="mb-3.5 font-display text-[clamp(34px,4.4vw,54px)] leading-none text-gold-deep">
+            <div className="mb-3 font-display text-[clamp(36px,4.6vw,56px)] leading-none font-extrabold tracking-[-.04em] text-accent">
               {stat.value}
             </div>
-            <div className="text-[13.5px] leading-[1.5] tracking-[.01em] text-muted-stat">
+            <div className="text-[13.5px] leading-[1.5] tracking-[.01em] text-on-ink/65">
               {stat.label}
             </div>
-          </div>
+          </Reveal>
         ))}
       </Container>
     </section>

@@ -15,6 +15,9 @@ import type { GridCard, Stat, Step, Testimonial } from './types';
 /** The exam strip between the hero and the programs grid. */
 export const exams = ['SAT · ACT', 'GRE · GMAT', 'IELTS · TOEFL', 'Common App', 'UCAS'] as const;
 
+/* Each card links to the hub or exam page that sells it. The cards render as
+   real links, with a hover lift and an arrow — a card that looks clickable and
+   is not is the worst of both. */
 export const programs: readonly GridCard[] = [
   {
     no: '01',
@@ -22,6 +25,7 @@ export const programs: readonly GridCard[] = [
     title: 'SAT & ACT',
     desc: 'Intensive prep for undergraduate admissions, with adaptive mocks and section strategy tailored to your target score.',
     meta: 'On-campus · Live online',
+    href: '/test-prep/sat',
   },
   {
     no: '02',
@@ -29,6 +33,7 @@ export const programs: readonly GridCard[] = [
     title: 'GRE & GMAT',
     desc: 'Quant, verbal and analytical mastery for MS, MBA and PhD applicants aiming at competitive graduate programs.',
     meta: '10-week cohorts',
+    href: '/test-prep/gre',
   },
   {
     no: '03',
@@ -36,6 +41,7 @@ export const programs: readonly GridCard[] = [
     title: 'IELTS & TOEFL',
     desc: 'Band-focused coaching across all four modules, with speaking labs and examiner-style feedback every week.',
     meta: 'Flexible batches',
+    href: '/test-prep/ielts',
   },
   {
     no: '04',
@@ -43,6 +49,7 @@ export const programs: readonly GridCard[] = [
     title: 'Admissions Counseling',
     desc: 'A dedicated counselor for your shortlist, essays, recommendations, financial aid and interview preparation.',
     meta: '1-on-1 mentorship',
+    href: '/admissions',
   },
   {
     no: '05',
@@ -50,6 +57,7 @@ export const programs: readonly GridCard[] = [
     title: 'Study Abroad',
     desc: 'End-to-end guidance for the US, UK, Canada and beyond — applications, visas and pre-departure support.',
     meta: 'US · UK · CA · AU',
+    href: '/study-abroad',
   },
   {
     no: '06',
@@ -57,6 +65,7 @@ export const programs: readonly GridCard[] = [
     title: '1-on-1 Tutoring',
     desc: 'Private tutoring built entirely around your weak spots, schedule and pace — for any exam or subject.',
     meta: 'By appointment',
+    href: '/tutoring/private',
   },
 ];
 

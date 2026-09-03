@@ -51,6 +51,11 @@ catalog:
   server-only: ^0.0.1
   tailwindcss: ^4.3.3
   '@tailwindcss/postcss': ^4.3.3
+  # `motion` is Framer Motion's current package name (the library renamed at
+  # v11.11); imports come from `motion/react`. `framer-motion` is the legacy
+  # alias of the same code — do not install both.
+  motion: ^12.34.4
+  lucide-react: ^0.563.0
 
   # --- api -----------------------------------------------------------------
   '@nestjs/common': ^11.2.1
