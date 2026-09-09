@@ -1,9 +1,11 @@
 import type { Feature, PageBase } from '@/content/types';
 import { LeadForm } from '@/components/forms/lead-form';
 import { Container } from '@/components/ui/container';
+import { Eyebrow } from '@/components/ui/eyebrow';
 import { PageHero } from '@/components/ui/page-hero';
 import { breadcrumbFor } from '@/content/site/routes';
 import { campuses, contact, telHref } from '@/content/site/contact';
+import type { LeadPrefill } from '@/lib/actions/lead-shape';
 
 export interface LeadPageContent extends PageBase {
   /** Pre-selects the enquiry dropdown, e.g. from the IELTS page. */
@@ -19,27 +21,34 @@ export interface LeadPageContent extends PageBase {
  * copy: someone who arrived by clicking "book a consultation" has already been
  * persuaded, and making them scroll past the argument again loses them.
  */
-export function LeadPage({ content }: { content: LeadPageContent }) {
+export function LeadPage({
+  content,
+  prefill,
+}: {
+  content: LeadPageContent;
+  /** From the URL, when an exam page sent the visitor here; else the page's own default. */
+  prefill?: LeadPrefill;
+}) {
   return (
     <>
       <PageHero breadcrumb={breadcrumbFor(content.path)} {...content.hero} />
 
-      <Container as="section" className="py-20 lg:py-24">
+      <Container as="section" className="py-(--section-y-sm) lg:py-(--section-y)">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-[70px]">
-          <LeadForm interestDefault={content.interestDefault} />
+          <LeadForm prefill={prefill ?? { interest: content.interestDefault }} />
 
           <div>
-            <div className="mb-9 border-t border-t-[rgba(27,36,54,.12)]">
+            <div className="mb-9 border-t border-t-line">
               {content.reassurance.map((item, index) => (
-                <div
-                  key={item.title}
-                  className="flex gap-4 border-b border-b-[rgba(27,36,54,.12)] py-5"
-                >
-                  <span aria-hidden className="font-display text-[15px] text-gold-deep">
+                <div key={item.title} className="flex gap-4 border-b border-b-line py-5">
+                  <span
+                    aria-hidden
+                    className="flex size-7 flex-none items-center justify-center rounded-sm bg-accent font-display text-[12.5px] font-extrabold text-on-accent tabular-nums"
+                  >
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <div>
-                    <div className="mb-1 text-[15px] font-bold text-ink-deep">{item.title}</div>
+                    <div className="mb-1 text-[15px] font-bold text-ink">{item.title}</div>
                     <p className="text-[14.5px] leading-[1.6] text-muted">{item.desc}</p>
                   </div>
                 </div>
@@ -47,12 +56,10 @@ export function LeadPage({ content }: { content: LeadPageContent }) {
             </div>
 
             <div className="mb-8">
-              <div className="mb-4 text-[10.5px] font-bold tracking-[.16em] text-gold-deep uppercase">
-                Prefer to talk now
-              </div>
+              <Eyebrow className="mb-4">Prefer to talk now</Eyebrow>
               <a
                 href={telHref(contact.phone)}
-                className="font-display text-[28px] text-ink-deep transition-colors duration-200 hover:text-gold-deep"
+                className="font-display text-[28px] font-semibold tracking-[-.02em] text-ink transition-colors duration-200 hover:text-brand-ink"
               >
                 {contact.phone}
               </a>
@@ -61,26 +68,30 @@ export function LeadPage({ content }: { content: LeadPageContent }) {
               </div>
               <a
                 href={`mailto:${contact.email}`}
-                className="mt-4 inline-block text-[15px] text-ink underline decoration-gold underline-offset-4"
+                className="mt-4 inline-block text-[15px] text-ink underline decoration-brand underline-offset-4 transition-colors duration-200 hover:text-brand-ink"
               >
                 {contact.email}
               </a>
             </div>
 
             <div>
-              <div className="mb-4 text-[10.5px] font-bold tracking-[.16em] text-gold-deep uppercase">
-                Or come in
-              </div>
-              <div className="grid grid-cols-1 gap-px border border-[rgba(27,36,54,.09)] bg-[rgba(27,36,54,.09)] sm:grid-cols-3">
+              <Eyebrow className="mb-4">Or come in</Eyebrow>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {campuses.map((campus) => (
-                  <div key={campus.name} className="bg-surface px-5 py-5">
-                    <div className="mb-1.5 font-display text-[17px] text-ink-deep">
+                  <div
+                    key={campus.name}
+                    className="rounded-md border border-line bg-surface px-5 py-5 shadow-card"
+                  >
+                    <div className="mb-1.5 font-display text-[17px] font-semibold text-ink">
                       {campus.name}
                     </div>
                     <address className="text-[13.5px] leading-[1.6] text-muted not-italic">
                       {campus.address}
                       <br />
-                      <a href={telHref(campus.phone)} className="text-ink">
+                      <a
+                        href={telHref(campus.phone)}
+                        className="text-ink transition-colors duration-200 hover:text-brand-ink"
+                      >
                         {campus.phone}
                       </a>
                     </address>

@@ -32,7 +32,7 @@ export function GuidePage({ content }: { content: GuideContent }) {
         }
       />
 
-      <Container as="section" className="py-20 lg:py-24">
+      <Container as="section" className="py-(--section-y-sm) lg:py-(--section-y)">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[220px_1fr] lg:gap-[70px]">
           <Toc blocks={content.body} />
           <Prose blocks={content.body} />

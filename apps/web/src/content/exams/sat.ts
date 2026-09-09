@@ -1,10 +1,12 @@
 import type { ExamContent } from '../types';
 import { bdtPrice } from '@/lib/money';
-import { commonFaq } from '../shared';
+import { commonFaq, standardFeeNotes } from '../shared';
 
 export const sat: ExamContent = {
   path: '/test-prep/sat',
+  slug: 'sat',
   name: 'SAT',
+  interest: 'SAT / ACT',
   seo: {
     title: 'SAT preparation in Bangladesh — courses, tutoring & free diagnostic',
     description:
@@ -16,8 +18,8 @@ export const sat: ExamContent = {
     intro:
       'Digital, adaptive and unforgiving of guesswork. We teach the test the way it is now scored — module by module — and prove the gain with full-length mocks before you ever sit the real thing.',
     actions: [
-      { label: 'Book a free diagnostic', href: '/free-diagnostic' },
-      { label: 'Compare course formats', href: '#formats', variant: 'outline' },
+      { label: 'See upcoming batches', href: '#batches' },
+      { label: 'View the curriculum', href: '#curriculum', variant: 'outline' },
     ],
     facts: [
       { label: 'Format', value: 'Digital, adaptive · 2h 14m' },
@@ -26,65 +28,138 @@ export const sat: ExamContent = {
       { label: 'Sittings', value: '7 international dates a year' },
     ],
   },
-  formats: [
-    {
-      name: 'Self-Paced',
-      pitch: 'The full syllabus on your own clock, for students who prefer to set their own pace.',
-      price: bdtPrice(18000),
-      priceUnit: 'one-off · 6 months of access',
-      facts: ['60+ hours of video', 'Self-scheduled'],
-      includes: [
-        'Every lesson recorded and searchable',
-        '4 full-length adaptive mock tests',
-        'Question bank with worked solutions',
-        'Email support from an SAT instructor',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'LiveOnline',
-      pitch: 'The classroom course, taught live to a small cohort, from wherever you are.',
-      price: bdtPrice(32000),
-      priceUnit: 'per 10-week cohort',
-      facts: ['36 taught hours', 'Max 12 students', 'Evenings & weekends'],
-      includes: [
-        'Live classes with a named instructor',
-        '8 full-length adaptive mock tests, reviewed',
-        'Weekly homework marked and returned',
-        'Recordings of every session you miss',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'Classroom 1400+',
-      pitch: 'Our flagship course, on campus, aimed squarely at a 1400 and above.',
-      price: bdtPrice(45000),
-      priceUnit: 'per 10-week cohort',
-      facts: ['48 taught hours', 'Max 10 students', 'Gulshan · Dhanmondi · Chattogram'],
-      includes: [
-        'Everything in LiveOnline, taught in person',
-        '10 proctored full-length mocks',
-        'Two 1-on-1 strategy sessions',
-        'Written 1400+ score guarantee',
-      ],
-      href: '/contact',
-      featured: true,
-    },
-    {
-      name: 'Private Tutoring',
-      pitch: 'One instructor, one student, one syllabus built entirely around your gaps.',
-      price: bdtPrice(85000),
-      priceUnit: 'per 20-hour package',
-      facts: ['20 hours', '1-on-1', 'On campus or online'],
-      includes: [
-        'Diagnostic-led plan rebuilt every fortnight',
-        'Unlimited mock scoring and review',
-        'Direct line to your tutor between sessions',
-        'Scheduling around your school calendar',
-      ],
-      href: '/contact',
-    },
-  ],
+  fee: {
+    price: bdtPrice(45000),
+    unit: 'per 10-week course',
+    includes: [
+      '48 taught hours in a class of ten or fewer',
+      '10 proctored full-length adaptive mocks, scored and reviewed',
+      'Two 1-on-1 strategy sessions',
+      'All materials and the online question bank',
+      'Written 1400+ score guarantee',
+    ],
+    notes: standardFeeNotes,
+  },
+  modes: ['Classroom', 'LiveOnline'],
+  curriculum: {
+    eyebrow: 'Curriculum',
+    title: 'Ten weeks, seven modules, both test halves covered.',
+    intro:
+      'Reading & Writing and Math are taught in parallel from week one, because the adaptive engine scores them separately and a weak half caps the whole. Every module ends with a timed module pair so you know your section score before the next one starts.',
+    totals: { weeks: 10, taughtHours: 48, mocks: 10, classSize: 'Max 10' },
+    modules: [
+      {
+        no: '01',
+        title: 'Diagnostic and the adaptive format',
+        summary:
+          'How the digital SAT builds your score: two modules per section, a second module chosen by your first, and 2h 14m on the Bluebook app. Then a full-length diagnostic to find out where you stand.',
+        topics: [
+          'Section-adaptive scoring: why module 1 decides your ceiling',
+          'Bluebook tools: the built-in calculator, annotation and flagging',
+          'Full-length adaptive diagnostic under exam timing',
+          'Your score map and a 1400+ target by section',
+        ],
+        hours: 4,
+        outcome:
+          'Know your current 400–1600 score, your split by section and which question domains are costing you most.',
+      },
+      {
+        no: '02',
+        title: 'Reading & Writing: evidence and craft',
+        summary:
+          'Short passages, one question each, 27 per module. The Information and Ideas and Craft and Structure domains, and the reasoning each one rewards.',
+        topics: [
+          'Central ideas, details and command of textual evidence',
+          'Words in context: precision over familiarity',
+          'Text structure, purpose and cross-text connections',
+          'Quantitative evidence: tables and graphs inside passages',
+        ],
+        hours: 8,
+        outcome:
+          'Answer evidence questions by elimination against the passage, not by instinct, at 71 seconds a question.',
+      },
+      {
+        no: '03',
+        title: 'Standard English conventions',
+        summary:
+          'The most learnable marks on the test: grammar, punctuation and sentence structure, plus the Expression of Ideas questions on transitions and rhetorical synthesis.',
+        topics: [
+          'Boundaries: commas, semicolons, colons and dashes',
+          'Subject–verb and pronoun agreement, verb tense and form',
+          'Transitions that follow the logic of the passage',
+          'Rhetorical synthesis: matching notes to a stated goal',
+        ],
+        hours: 6,
+        outcome: 'Miss no more than one conventions question per module.',
+      },
+      {
+        no: '04',
+        title: 'Algebra and advanced maths',
+        summary:
+          'Linear equations, systems and inequalities, then the nonlinear content that separates a 650 from a 750: quadratics, exponentials, polynomials and functions.',
+        topics: [
+          'Linear equations, inequalities and systems in one and two variables',
+          'Quadratic and exponential functions, roots and vertex form',
+          'Polynomial and rational expressions, equivalent forms',
+          'Using the built-in Desmos calculator to solve, not just check',
+        ],
+        hours: 8,
+        outcome:
+          'Solve any algebra or advanced maths item in under two minutes, with Desmos where it is faster.',
+      },
+      {
+        no: '05',
+        title: 'Problem solving and data analysis',
+        summary:
+          'Ratios, rates, percentages and statistics, together with the geometry and trigonometry that make up the rest of the Math section.',
+        topics: [
+          'Ratios, rates, proportions and units',
+          'Percentages, one- and two-variable data, centre and spread',
+          'Probability, sampling and inference from data',
+          'Area, volume, circles, right triangles and trigonometry',
+        ],
+        hours: 7,
+        outcome:
+          'Read a word problem once and set up the model before you reach for the calculator.',
+      },
+      {
+        no: '06',
+        title: 'Module-2 strategy and pacing',
+        summary:
+          'How to bank the easy marks fast so the engine hands you the harder, higher-scoring second module, and what to do when it does.',
+        topics: [
+          'Pacing plans for the 32-minute and 35-minute modules',
+          'Guessing, flagging and coming back: no penalty, no wasted seconds',
+          'Reading the harder module: what changes and what does not',
+          'Error journals: categorising every miss by cause',
+        ],
+        hours: 6,
+        outcome:
+          'Reach the harder second module in both sections and finish it with time to check your flags.',
+      },
+      {
+        no: '07',
+        title: 'Full-length mock cycle and review',
+        summary:
+          'Ten proctored adaptive mocks across the course, each one reviewed question by question, and your test-day plan.',
+        topics: [
+          'Weekly full-length adaptive mocks, scored 400–1600',
+          'One-on-one review of your error journal and score trend',
+          'Registration, Bluebook set-up and device checks',
+          'Score choice, superscoring and which sitting to send',
+        ],
+        hours: 9,
+        outcome:
+          'Walk in knowing your score range and having sat the digital SAT ten times already.',
+      },
+    ],
+    outcomes: [
+      'Sit the digital SAT knowing how the adaptive engine will score you',
+      'Finish every Reading & Writing module with time to check flagged questions',
+      'Solve the full range of Math domains with and without the calculator',
+      'Know your 400–1600 range before you book the real test',
+    ],
+  },
   includes: {
     eyebrow: 'What you get',
     title: 'Preparation that survives contact with the real exam.',

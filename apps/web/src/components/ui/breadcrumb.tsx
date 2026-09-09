@@ -18,7 +18,7 @@ export interface Crumb {
 export function Breadcrumb({ items, className }: { items: readonly Crumb[]; className?: string }) {
   return (
     <nav aria-label="Breadcrumb" className={className}>
-      <ol className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11.5px] font-semibold tracking-[.12em] text-warm uppercase">
+      <ol className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11.5px] font-semibold tracking-[.12em] text-muted-2 uppercase">
         {items.map((crumb, index) => {
           const isLast = index === items.length - 1;
 
@@ -27,20 +27,20 @@ export function Breadcrumb({ items, className }: { items: readonly Crumb[]; clas
               {crumb.href && !isLast ? (
                 <Link
                   href={crumb.href}
-                  className="transition-colors duration-200 hover:text-gold-deep"
+                  className="transition-colors duration-200 hover:text-brand-ink"
                 >
                   {crumb.label}
                 </Link>
               ) : (
                 <span
-                  className={cn(isLast && 'text-ink-nav')}
+                  className={cn(isLast && 'text-ink-soft')}
                   aria-current={isLast ? 'page' : undefined}
                 >
                   {crumb.label}
                 </span>
               )}
               {isLast ? null : (
-                <span aria-hidden className="text-gold-mid">
+                <span aria-hidden className="text-line-strong">
                   /
                 </span>
               )}

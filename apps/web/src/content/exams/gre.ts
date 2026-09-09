@@ -1,10 +1,12 @@
 import type { ExamContent } from '../types';
 import { bdtPrice } from '@/lib/money';
-import { commonFaq } from '../shared';
+import { commonFaq, standardFeeNotes } from '../shared';
 
 export const gre: ExamContent = {
   path: '/test-prep/gre',
+  slug: 'gre',
   name: 'GRE',
+  interest: 'GRE / GMAT',
   seo: {
     title: 'GRE preparation in Bangladesh — courses, tutoring & free diagnostic',
     description:
@@ -16,8 +18,8 @@ export const gre: ExamContent = {
     intro:
       'The GRE measures reasoning under time pressure — not tricks or test-taking shortcuts. We teach you to think like the test does, prove it with full-length adaptive mocks, and guarantee the score you need.',
     actions: [
-      { label: 'Book a free diagnostic', href: '/free-diagnostic' },
-      { label: 'Compare course formats', href: '#formats', variant: 'outline' },
+      { label: 'See upcoming batches', href: '#batches' },
+      { label: 'View the curriculum', href: '#curriculum', variant: 'outline' },
     ],
     facts: [
       { label: 'Format', value: 'Digital, on demand · 1h 58m' },
@@ -26,65 +28,138 @@ export const gre: ExamContent = {
       { label: 'Sittings', value: 'Sit as often as you need throughout the year' },
     ],
   },
-  formats: [
-    {
-      name: 'Self-Paced',
-      pitch: 'The full syllabus on your own clock, for students who prefer to set their own pace.',
-      price: bdtPrice(20000),
-      priceUnit: 'one-off · 6 months of access',
-      facts: ['50+ hours of video', 'Self-scheduled'],
-      includes: [
-        'Every lesson recorded and searchable',
-        '8 full-length adaptive mock tests',
-        'Question bank with worked solutions',
-        'Email support from a GRE instructor',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'LiveOnline',
-      pitch: 'The classroom course, taught live to a small cohort, from wherever you are.',
-      price: bdtPrice(38000),
-      priceUnit: 'per 10-week cohort',
-      facts: ['40 taught hours', 'Max 8 students', 'Evenings & weekends'],
-      includes: [
-        'Live classes with a named instructor',
-        '10 full-length adaptive mock tests, reviewed',
-        'Weekly homework marked and returned',
-        'Recordings of every session you miss',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'Classroom',
-      pitch: 'Our flagship course, on campus, aimed squarely at a 325 and above.',
-      price: bdtPrice(52000),
-      priceUnit: 'per 10-week cohort',
-      facts: ['48 taught hours', 'Max 8 students', 'Gulshan · Dhanmondi · Chattogram'],
-      includes: [
-        'Everything in LiveOnline, taught in person',
-        '12 proctored full-length mocks',
-        'Two 1-on-1 strategy sessions',
-        'Written 325+ score guarantee',
-      ],
-      href: '/contact',
-      featured: true,
-    },
-    {
-      name: 'Private Tutoring',
-      pitch: 'One instructor, one student, one syllabus built entirely around your gaps.',
-      price: bdtPrice(100000),
-      priceUnit: 'per 20-hour package',
-      facts: ['20 hours', '1-on-1', 'On campus or online'],
-      includes: [
-        'Diagnostic-led plan rebuilt every fortnight',
-        'Unlimited mock scoring and review',
-        'Direct line to your tutor between sessions',
-        'Scheduling around your work or studies',
-      ],
-      href: '/contact',
-    },
-  ],
+  fee: {
+    price: bdtPrice(52000),
+    unit: 'per 10-week course',
+    includes: [
+      '48 taught hours in a class of eight or fewer',
+      '12 proctored full-length adaptive mocks, reviewed',
+      'Two 1-on-1 strategy sessions',
+      'All materials and the online question bank',
+      'Written 325+ score guarantee',
+    ],
+    notes: standardFeeNotes,
+  },
+  modes: ['Classroom', 'LiveOnline'],
+  curriculum: {
+    eyebrow: 'Curriculum',
+    title: 'Ten weeks, seven modules, every section of the shorter GRE.',
+    intro:
+      'The GRE has been under two hours since September 2023: one essay, two Verbal and two Quant sections, with the second section of each measure adapting to how you did on the first. Every module ends with a timed section so your score map is current before the next one starts.',
+    totals: { weeks: 10, taughtHours: 48, mocks: 12, classSize: 'Max 8' },
+    modules: [
+      {
+        no: '01',
+        title: 'The shorter GRE and your diagnostic',
+        summary:
+          'How the 1h 58m test is built, how the second section adapts to the first, and where a full-length diagnostic puts you.',
+        topics: [
+          'Section order, timing and the on-screen calculator',
+          'Section-level adaptivity: why the first section matters most',
+          'Full-length diagnostic, scored 130–170 per measure',
+          'Your personal score map and target',
+        ],
+        hours: 4,
+        outcome:
+          'Know your Verbal and Quant scores to the point and which question types are costing you most.',
+      },
+      {
+        no: '02',
+        title: 'Quant foundations',
+        summary:
+          'Arithmetic, algebra and geometry rebuilt from the ground up, because the GRE tests school maths under pressure, not advanced maths.',
+        topics: [
+          'Number properties, fractions, ratios and percents',
+          'Linear and quadratic equations, inequalities and exponents',
+          'Lines, angles, triangles, circles and coordinate geometry',
+          'Quantitative Comparison: the four answer choices and their traps',
+        ],
+        hours: 7,
+        outcome:
+          'Solve any foundations question cleanly and never guess on a Quantitative Comparison.',
+      },
+      {
+        no: '03',
+        title: 'Quant problem solving and data interpretation',
+        summary:
+          'Word problems, counting and statistics, and the data interpretation sets that anchor every Quant section.',
+        topics: [
+          'Rates, work, mixtures and overlapping sets',
+          'Counting, probability and basic statistics',
+          'Reading tables and graphs: the data interpretation set',
+          'Numeric entry and multiple-answer questions without the calculator crutch',
+        ],
+        hours: 8,
+        outcome:
+          'Finish a Quant section on time with the data interpretation set answered, not skipped.',
+      },
+      {
+        no: '04',
+        title: 'Verbal: text completion and sentence equivalence',
+        summary:
+          'Half of every Verbal section is vocabulary in context. Reading the clue before the blank, not the answer choices first.',
+        topics: [
+          'Clues, pivots and structural signals in the sentence',
+          'One-, two- and three-blank text completions',
+          'Sentence equivalence: pairs that produce the same meaning',
+          'High-frequency GRE vocabulary, learnt in context',
+        ],
+        hours: 7,
+        outcome:
+          'Fill any blank from the sentence’s own clues and stop losing pairs on sentence equivalence.',
+      },
+      {
+        no: '05',
+        title: 'Reading comprehension',
+        summary:
+          'Dense passages and the questions that follow them, including the short argument passages that test critical reasoning.',
+        topics: [
+          'Mapping a passage: main idea, structure and tone',
+          'Select-in-passage and multiple-answer questions',
+          'Argument passages: assumption, strengthen and weaken',
+          'Pacing across long, short and paired passages',
+        ],
+        hours: 7,
+        outcome:
+          'Read once, answer with evidence, and hold pace through the second Verbal section.',
+      },
+      {
+        no: '06',
+        title: 'Analytical writing',
+        summary:
+          'One thirty-minute essay, Analyze an Issue, scored 0–6. Position, development and the prose readers reward.',
+        topics: [
+          'What the scoring guide rewards at 4, 5 and 6',
+          'Planning a position in five minutes',
+          'Developing examples that support, not decorate',
+          'Two essays written, scored and returned',
+        ],
+        hours: 5,
+        outcome: 'Write a complete Issue essay in thirty minutes that scores 4.5 or better.',
+      },
+      {
+        no: '07',
+        title: 'Adaptive mock cycle',
+        summary:
+          'Full-length adaptive mocks under exam conditions, each reviewed question by question, and your test-day plan.',
+        topics: [
+          'Weekly full-length adaptive mocks, scored 130–170',
+          'Error log review: the pattern, not the individual question',
+          'Section pacing and when to mark and move on',
+          'Test centre vs at-home delivery, booking and score reporting',
+        ],
+        hours: 10,
+        outcome:
+          'Walk in having sat the test twelve times with your score range known to the point.',
+      },
+    ],
+    outcomes: [
+      'Sit both Verbal and Quant sections at full pace with time to review flagged questions',
+      'Solve Quantitative Comparison and data interpretation without the traps ETS builds in',
+      'Fill text completions and sentence equivalence from the sentence, not the answer choices',
+      'Know your score range to the point before you book the real test',
+    ],
+  },
   includes: {
     eyebrow: 'What you get',
     title: 'Preparation that teaches you to think at speed.',

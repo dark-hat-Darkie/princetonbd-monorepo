@@ -51,6 +51,12 @@
   --color-brand-soft: #e6f6f1; /* tint background */
   --color-on-brand: #ffffff;
 
+  /* — feedback ———————————————————————————————————————————————————————
+   * Form errors. 7.1:1 on white; the soft tint carries an invalid field's
+   * background without fighting the brand tints beside it. */
+  --color-danger: #b42318;
+  --color-danger-soft: #fceceb;
+
   /* — lines ——————————————————————————————————————————————————————————— */
   --color-line: #e4e7e6;
   --color-line-strong: #cbd1cf;
@@ -161,50 +167,39 @@
 }
 
 /* ---------------------------------------------------------------------------
- * LEGACY ALIASES — TODO: delete after the phase-2 sweep of the other 81 pages.
+ * LEGACY ALIASES — used only by the student portal.
  *
- * The landing page and shared chrome use the semantic tokens above. Every other
- * page still refers to the retired warm-gold names. Each alias below points at
- * the nearest LEGIBLE new value so nothing goes invisible in the interim —
- * which is why `gold-deep` and `gold-mid`, both of which are used as text,
- * resolve to the dark green and not to yellow. `gold` itself covers rules,
- * borders and focus outlines, so it resolves to the brand green too; yellow is
- * only ever applied deliberately via `accent`.
+ * The marketing site (app/(marketing) and the shared component trees) is fully
+ * on the semantic tokens above; `components/legacy-tokens.test.ts` fails the
+ * build if a retired name reappears there. The portal — app/(app)/dashboard
+ * and components/dashboard — has not been re-themed yet and still refers to
+ * these. Each alias points at the nearest LEGIBLE new value so nothing goes
+ * invisible in the interim: `gold-deep` is used as text, so it resolves to the
+ * dark green and not to yellow; `gold` covers rules and borders, so it is the
+ * brand green too.
  *
- * The six near-identical greys of the old system collapse to two here. That
- * distinction was worth keeping while it was a faithful transcription of a
- * signed-off design; it is not worth carrying into a palette it no longer
- * belongs to.
+ * Delete each alias as the portal stops using it; delete the block when the
+ * portal is done.
  * ------------------------------------------------------------------------- */
 @theme {
   --color-cream: #f6f7f6;
   --color-band: #f6f7f6;
-  --color-bar: #f2f4f3;
 
   --color-ink-deep: #0e1211;
-  --color-ink-hover: #2a302e;
   --color-ink-nav: #2a302e;
-  --color-ink-quote: #0e1211;
 
-  --color-muted-badge: #5b6360;
   --color-muted-stat: #5b6360;
-  --color-muted-rate: #5b6360;
-  --color-muted-step: #5b6360;
-  --color-slate: #2a302e;
 
   --color-gold: #06a77c;
   --color-gold-deep: #06795a;
-  --color-gold-mid: #06795a;
   --color-gold-light: #f4da22;
   --color-gold-pale: #f4da22;
 
   --color-warm: #686f6c;
-  --color-warm-ink: #2a302e;
 
   --color-foot-bright: #ffffff;
   --color-foot-text: #a8b0ad; /* 8.51:1 on ink */
   --color-foot-muted: #8a938f; /* 5.97:1 on ink */
-  --color-foot-dim: #7d8481; /* 4.92:1 on ink */
 }
 
 /* ---------------------------------------------------------------------------
@@ -215,6 +210,17 @@
  * single ring works everywhere and no component has to opt in.
  * ------------------------------------------------------------------------- */
 @layer base {
+  /* Vertical rhythm between sections. Every section pads with these two
+     values, so a page sets its rhythm once on a wrapper instead of each
+     section guessing. The defaults are the inner-page rhythm; the landing
+     page opts into its roomier 96/120px on its own wrapper. Not @theme
+     tokens on purpose: they are meant to be overridden per subtree, which a
+     utility class on a wrapper does and a theme token does not. */
+  :root {
+    --section-y-sm: 3.5rem; /* 56px below lg */
+    --section-y: 5rem; /* 80px from lg */
+  }
+
   :focus-visible {
     outline: 2px solid var(--color-brand);
     outline-offset: 2px;

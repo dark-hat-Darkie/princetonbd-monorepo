@@ -15,7 +15,7 @@ export function Testimonials({
   items: readonly Testimonial[];
 }) {
   return (
-    <Container as="section" className="pt-24 pb-20 lg:pt-[120px] lg:pb-[100px]">
+    <Container as="section" className="py-(--section-y-sm) lg:py-(--section-y)">
       <div className="mb-14 text-center">
         <Eyebrow centered className="mb-5">
           {eyebrow}

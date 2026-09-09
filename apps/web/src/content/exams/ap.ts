@@ -1,10 +1,12 @@
 import type { ExamContent } from '../types';
 import { bdtPrice } from '@/lib/money';
-import { commonFaq } from '../shared';
+import { commonFaq, standardFeeNotes } from '../shared';
 
 export const ap: ExamContent = {
   path: '/test-prep/ap',
+  slug: 'ap',
   name: 'AP',
+  interest: 'SAT / ACT',
   seo: {
     title: 'AP exam preparation in Bangladesh — subject-specific courses & tutoring',
     description:
@@ -16,8 +18,8 @@ export const ap: ExamContent = {
     intro:
       'AP exams reward deep subject knowledge and exam technique in equal measure. We map the exact curriculum College Board expects, drill the free-response format relentlessly, and score every practice test the way the exam does.',
     actions: [
-      { label: 'Book a free consultation', href: '/free-diagnostic' },
-      { label: 'Compare course formats', href: '#formats', variant: 'outline' },
+      { label: 'See upcoming batches', href: '#batches' },
+      { label: 'View the curriculum', href: '#curriculum', variant: 'outline' },
     ],
     facts: [
       { label: 'Format', value: 'Subject-specific exam · 2–3 hours' },
@@ -26,65 +28,119 @@ export const ap: ExamContent = {
       { label: 'Sittings', value: 'May and early June' },
     ],
   },
-  formats: [
-    {
-      name: 'Self-Paced',
-      pitch: 'A subject-specific curriculum on your own schedule, for independent learners.',
-      price: bdtPrice(18000),
-      priceUnit: 'per subject · 5 months of access',
-      facts: ['60+ hours of video', 'Self-scheduled'],
-      includes: [
-        'Complete syllabus aligned to College Board',
-        '5 full-length practice exams per subject',
-        'Free-response question bank with model answers',
-        'Email support from an AP subject specialist',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'LiveOnline',
-      pitch: 'The classroom course delivered live to a small cohort, available from anywhere.',
-      price: bdtPrice(32000),
-      priceUnit: 'per subject per cohort',
-      facts: ['40 taught hours', 'Max 10 students', 'Evenings & weekends'],
-      includes: [
-        'Live classes with a subject specialist',
-        '8 full-length practice exams, reviewed',
-        'Weekly free-response assignments marked',
-        'Session recordings and revision materials',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'Classroom',
-      pitch: 'On campus, with a named specialist, aiming squarely at a 4 or 5.',
-      price: bdtPrice(46000),
-      priceUnit: 'per subject per cohort',
-      facts: ['48 taught hours', 'Max 8 students', 'Gulshan · Dhanmondi · Chattogram'],
-      includes: [
-        'Everything in LiveOnline, taught in person',
-        '10 full-length proctored exams',
-        'Two 1-on-1 free-response strategy sessions',
-        'Written 4–5 score guarantee',
-      ],
-      href: '/contact',
-      featured: true,
-    },
-    {
-      name: 'Private Tutoring',
-      pitch: 'One specialist, one student, one curriculum built around your exact gaps.',
-      price: bdtPrice(90000),
-      priceUnit: 'per 20-hour package',
-      facts: ['20 hours', '1-on-1', 'On campus or online'],
-      includes: [
-        'Diagnostic-led learning plan',
-        'Unlimited full-length exam scoring',
-        'FRQ-specific coaching between sessions',
-        'Scheduling around your school calendar',
-      ],
-      href: '/contact',
-    },
-  ],
+  fee: {
+    price: bdtPrice(46000),
+    unit: 'per subject · 10-week course',
+    includes: [
+      '48 taught hours in a class of eight or fewer',
+      '10 full-length proctored exams, marked to the College Board rubric',
+      'Two 1-on-1 free-response strategy sessions',
+      'All materials and the online question bank',
+      'Written 4–5 score guarantee',
+    ],
+    notes: standardFeeNotes,
+  },
+  modes: ['Classroom', 'LiveOnline'],
+  curriculum: {
+    eyebrow: 'Curriculum',
+    title: 'Ten weeks, six modules, one subject taught to its course outline.',
+    intro:
+      'Every AP subject is a separate course with its own specialist, but each follows the same shape: the College Board course outline in two halves, then the two question formats under time. Every module ends with a scored section so you know your 1–5 before the next one starts.',
+    totals: { weeks: 10, taughtHours: 48, mocks: 10, classSize: 'Max 8' },
+    modules: [
+      {
+        no: '01',
+        title: 'Course map and how AP scores',
+        summary:
+          'How your subject’s exam is built: the units, the weighting of each, the split between multiple choice and free response, and how raw marks become a 1–5. Then a full-length diagnostic.',
+        topics: [
+          'The course and exam description: units, skills and weightings',
+          'Composite scoring: how MCQ and FRQ combine into a 1–5',
+          'Full-length diagnostic exam under exam timing',
+          'Your unit-by-unit score map and a 4–5 target',
+        ],
+        hours: 3,
+        outcome:
+          'Know which units carry the most marks in your subject and where your diagnostic puts you in each.',
+      },
+      {
+        no: '02',
+        title: 'Core content I',
+        summary:
+          'The first half of your subject’s course outline, taught to exam depth and checked with unit tests written in the exam’s own question style.',
+        topics: [
+          'The foundational units, in the order the outline sets',
+          'The skills and practices the exam tests within them',
+          'Unit tests in MCQ and FRQ form, marked to the rubric',
+          'Vocabulary and notation the markers expect to see',
+        ],
+        hours: 12,
+        outcome: 'Score at a 4 or better on unit tests covering the first half of the outline.',
+      },
+      {
+        no: '03',
+        title: 'Core content II',
+        summary:
+          'The second half of the outline, including the later units that many school courses reach late or not at all, with cumulative review of the first half.',
+        topics: [
+          'The later units, taught in full rather than skimmed',
+          'Cross-unit questions that combine earlier and later material',
+          'Cumulative unit tests in exam style',
+          'Targeted revision of your weakest units from the score map',
+        ],
+        hours: 12,
+        outcome: 'Cover the entire course outline with no unit you have not been tested on.',
+      },
+      {
+        no: '04',
+        title: 'Free-response technique',
+        summary:
+          'FRQs are marked by rubric, point by point, and reward structure as much as knowledge. How to read the prompt, plan the answer and earn every available point.',
+        topics: [
+          'Reading task verbs: describe, explain, justify, calculate',
+          'Answer structure that follows the scoring guidelines',
+          'Showing work and reasoning so partial credit is never lost',
+          'Timing across the free-response section',
+        ],
+        hours: 8,
+        outcome: 'Write a complete free response that hits every rubric point in the time allowed.',
+      },
+      {
+        no: '05',
+        title: 'Multiple choice under time',
+        summary:
+          'The multiple-choice section carries around half your score and is entirely about accuracy at pace. Elimination, stimulus-based sets and the distractors your subject favours.',
+        topics: [
+          'Stimulus-based sets: reading the source once',
+          'Elimination and the distractor patterns of your subject',
+          'Pacing plans for your section’s question count',
+          'Error journals: categorising every miss by unit and cause',
+        ],
+        hours: 6,
+        outcome: 'Finish the multiple-choice section with time to revisit flagged questions.',
+      },
+      {
+        no: '06',
+        title: 'Mock cycle and exam week',
+        summary:
+          'Ten proctored full-length exams across the course, each one marked to the College Board rubric and reviewed with you, and your exam-week plan.',
+        topics: [
+          'Weekly full-length exams, scored 1–5',
+          'One-on-one review of your marked free responses',
+          'Digital delivery on Bluebook: set-up and rehearsal',
+          'Registration, May timing and score reporting to universities',
+        ],
+        hours: 7,
+        outcome: 'Walk in knowing your 1–5 range and having sat the full exam ten times already.',
+      },
+    ],
+    outcomes: [
+      'Cover your subject’s entire course outline, not just what your school reached',
+      'Write free responses structured to the scoring guidelines',
+      'Hold pace and accuracy through the multiple-choice section',
+      'Know your 1–5 range before you sit the exam in May',
+    ],
+  },
   includes: {
     eyebrow: 'What you get',
     title: 'Preparation that teaches the exam, not around it.',

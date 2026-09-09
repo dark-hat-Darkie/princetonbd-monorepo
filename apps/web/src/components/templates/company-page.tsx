@@ -28,7 +28,7 @@ export function CompanyPage({
       <PageHero breadcrumb={breadcrumbFor(content.path)} {...content.hero} />
 
       {content.body?.length ? (
-        <Container as="section" className="py-20 lg:py-24">
+        <Container as="section" className="py-(--section-y-sm) lg:py-(--section-y)">
           <Prose blocks={content.body} />
         </Container>
       ) : null}

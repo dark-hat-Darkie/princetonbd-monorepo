@@ -29,7 +29,7 @@ export default function MarketingError({
   return (
     <Container as="section" className="py-24 lg:py-[120px]">
       <Eyebrow className="mb-6">Something went wrong</Eyebrow>
-      <h1 className="mb-5 max-w-[720px] font-display text-[clamp(30px,4.4vw,54px)] leading-[1.06] font-normal tracking-[-.02em] text-ink-deep">
+      <h1 className="mb-5 max-w-[720px] font-display text-[clamp(30px,4.4vw,54px)] leading-[1.06] font-semibold tracking-[-.03em] text-ink">
         This page didn&rsquo;t load.
       </h1>
       <p className="mb-9 max-w-[520px] text-[17px] leading-[1.65] text-muted">
@@ -44,7 +44,7 @@ export default function MarketingError({
         <button
           type="button"
           onClick={reset}
-          className="inline-flex cursor-pointer items-center justify-center rounded-[2px] bg-ink px-[30px] py-4 text-[15px] font-semibold text-on-ink shadow-[0_16px_30px_-18px_rgba(27,36,54,.7)] transition-colors duration-200 hover:bg-ink-hover"
+          className="inline-flex cursor-pointer items-center justify-center rounded-full bg-ink px-7 py-3.5 text-[15px] font-semibold text-on-ink shadow-cta transition-colors duration-200 hover:bg-ink-soft"
         >
           Try again
         </button>

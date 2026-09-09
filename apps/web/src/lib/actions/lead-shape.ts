@@ -8,7 +8,7 @@
  * prerender. Constants and types live here, where both sides can import them.
  */
 
-export type LeadField = 'name' | 'email' | 'phone' | 'interest' | 'campus' | 'message';
+export type LeadField = 'name' | 'email' | 'phone' | 'interest' | 'campus' | 'batch' | 'message';
 
 export interface LeadState {
   status: 'idle' | 'success' | 'error';
@@ -28,6 +28,20 @@ export const leadInterests = [
   '1-on-1 tutoring',
   'Something else',
 ] as const;
+
+export type LeadInterest = (typeof leadInterests)[number];
+
+/**
+ * Values a page can seed the form with — from `?interest=`, `?campus=` and
+ * `?batch=` on /contact, which the exam pages' "Reserve a seat" buttons set.
+ * `batch.label` is what the visitor sees; `batch.id` is what travels with the
+ * lead.
+ */
+export interface LeadPrefill {
+  interest?: string;
+  campus?: string;
+  batch?: { id: string; label: string };
+}
 
 export const initialLeadState: LeadState = { status: 'idle' };
 

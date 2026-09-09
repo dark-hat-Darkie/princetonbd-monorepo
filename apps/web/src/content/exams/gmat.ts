@@ -1,10 +1,12 @@
 import type { ExamContent } from '../types';
 import { bdtPrice } from '@/lib/money';
-import { commonFaq } from '../shared';
+import { commonFaq, standardFeeNotes } from '../shared';
 
 export const gmat: ExamContent = {
   path: '/test-prep/gmat',
+  slug: 'gmat',
   name: 'GMAT',
+  interest: 'GRE / GMAT',
   seo: {
     title: 'GMAT preparation in Bangladesh — courses, tutoring & free diagnostic',
     description:
@@ -16,8 +18,8 @@ export const gmat: ExamContent = {
     intro:
       'The GMAT measures your ability to solve problems under time pressure using the tools an MBA student actually needs. We teach the new Focus Edition the way business schools score it, prove it with full-length mocks, and guarantee the result.',
     actions: [
-      { label: 'Book a free diagnostic', href: '/free-diagnostic' },
-      { label: 'Compare course formats', href: '#formats', variant: 'outline' },
+      { label: 'See upcoming batches', href: '#batches' },
+      { label: 'View the curriculum', href: '#curriculum', variant: 'outline' },
     ],
     facts: [
       { label: 'Format', value: 'Digital, on demand · 2h 15m' },
@@ -26,65 +28,120 @@ export const gmat: ExamContent = {
       { label: 'Sittings', value: 'Sit as often as you need throughout the year' },
     ],
   },
-  formats: [
-    {
-      name: 'Self-Paced',
-      pitch: 'The full syllabus on your own clock, for students who prefer to set their own pace.',
-      price: bdtPrice(20000),
-      priceUnit: 'one-off · 6 months of access',
-      facts: ['55+ hours of video', 'Self-scheduled'],
-      includes: [
-        'Every lesson recorded and searchable',
-        '8 full-length adaptive mock tests',
-        'Question bank with worked solutions',
-        'Email support from a GMAT instructor',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'LiveOnline',
-      pitch: 'The classroom course, taught live to a small cohort, from wherever you are.',
-      price: bdtPrice(38000),
-      priceUnit: 'per 8-week cohort',
-      facts: ['40 taught hours', 'Max 8 students', 'Evenings & weekends'],
-      includes: [
-        'Live classes with a named instructor',
-        '10 full-length adaptive mock tests, reviewed',
-        'Weekly homework marked and returned',
-        'Recordings of every session you miss',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'Classroom',
-      pitch: 'Our flagship course, on campus, aimed squarely at a 700 and above.',
-      price: bdtPrice(52000),
-      priceUnit: 'per 8-week cohort',
-      facts: ['48 taught hours', 'Max 8 students', 'Gulshan · Dhanmondi · Chattogram'],
-      includes: [
-        'Everything in LiveOnline, taught in person',
-        '12 proctored full-length mocks',
-        'Two 1-on-1 strategy sessions',
-        'Written 700+ score guarantee',
-      ],
-      href: '/contact',
-      featured: true,
-    },
-    {
-      name: 'Private Tutoring',
-      pitch: 'One instructor, one student, one syllabus built entirely around your gaps.',
-      price: bdtPrice(100000),
-      priceUnit: 'per 20-hour package',
-      facts: ['20 hours', '1-on-1', 'On campus or online'],
-      includes: [
-        'Diagnostic-led plan rebuilt every fortnight',
-        'Unlimited mock scoring and review',
-        'Direct line to your tutor between sessions',
-        'Scheduling around your work commitments',
-      ],
-      href: '/contact',
-    },
-  ],
+  fee: {
+    price: bdtPrice(52000),
+    unit: 'per 8-week course',
+    includes: [
+      '48 taught hours in a class of eight or fewer',
+      '12 proctored full-length Focus Edition mocks, reviewed',
+      'Two 1-on-1 strategy sessions',
+      'All materials and the online question bank',
+      'Written 700+ score guarantee',
+    ],
+    notes: standardFeeNotes,
+  },
+  modes: ['Classroom', 'LiveOnline'],
+  curriculum: {
+    eyebrow: 'Curriculum',
+    title: 'Eight weeks, six modules, all three Focus Edition sections.',
+    intro:
+      'The Focus Edition is three 45-minute sections, no essay, and a score out of 805. We teach it exactly as GMAC scores it, with a timed section at the end of every module so you know where you stand before the next one starts.',
+    totals: { weeks: 8, taughtHours: 48, mocks: 12, classSize: 'Max 8' },
+    modules: [
+      {
+        no: '01',
+        title: 'Focus Edition anatomy',
+        summary:
+          'Three sections, 64 questions, 2h 15m. How question-level adaptivity works, what Review & Edit lets you change, and where your diagnostic lands.',
+        topics: [
+          'Quant 21 · Verbal 23 · Data Insights 20: what each section asks',
+          'Question adaptivity and why the early questions matter',
+          'Review & Edit: bookmarking and the three-answer change limit',
+          'Full-length diagnostic, scored 205–805',
+        ],
+        hours: 4,
+        outcome: 'Know your three section scores and the question types that cost you most.',
+      },
+      {
+        no: '02',
+        title: 'Quantitative reasoning',
+        summary:
+          'Twenty-one problem-solving questions in 45 minutes, no calculator and no geometry. Arithmetic and algebra at speed.',
+        topics: [
+          'Number properties, fractions, percents and ratios',
+          'Algebra: equations, inequalities, exponents and functions',
+          'Word problems: rates, work, mixtures and sets',
+          'Counting, probability and statistics',
+        ],
+        hours: 12,
+        outcome:
+          'Finish all 21 questions in 45 minutes with mental arithmetic that does not slow you down.',
+      },
+      {
+        no: '03',
+        title: 'Verbal reasoning',
+        summary:
+          'Twenty-three questions of reading comprehension and critical reasoning. Sentence correction is gone; argument logic carries the section.',
+        topics: [
+          'Passage mapping for short and long passages',
+          'Inference, main idea and function questions',
+          'Critical reasoning: assumption, strengthen, weaken, evaluate',
+          'Boldface and resolve-the-paradox questions',
+        ],
+        hours: 10,
+        outcome:
+          'Read once, hold the argument’s structure in your head and pick answers on evidence.',
+      },
+      {
+        no: '04',
+        title: 'Data insights',
+        summary:
+          'The section most candidates underestimate: twenty questions across five formats, with the on-screen calculator.',
+        topics: [
+          'Data sufficiency: solving for whether, not what',
+          'Multi-source reasoning and table analysis',
+          'Graphics interpretation and two-part analysis',
+          'Using the calculator without wasting time on it',
+        ],
+        hours: 10,
+        outcome: 'Move between five question formats without losing pace or accuracy.',
+      },
+      {
+        no: '05',
+        title: 'Section order and pacing strategy',
+        summary:
+          'You choose your section order and take one optional break. Pacing plans for each order, and when to bookmark and move on.',
+        topics: [
+          'Choosing a section order to match your stamina and strengths',
+          'Per-question time budgets and checkpoints',
+          'Guessing strategy and the penalty for unanswered questions',
+          'The ten-minute break and how to use it',
+        ],
+        hours: 4,
+        outcome: 'Have a section order and pacing plan you have rehearsed and trust.',
+      },
+      {
+        no: '06',
+        title: 'Mock cycle and score review',
+        summary:
+          'Full-length Focus Edition mocks in exam conditions, each reviewed question by question, and your test-day plan.',
+        topics: [
+          'Weekly full-length mocks, scored 205–805',
+          'Error log review by question type and cause',
+          'Reading the score report and acting on it',
+          'Test centre vs online delivery, booking and score sending',
+        ],
+        hours: 8,
+        outcome: 'Walk in having sat the Focus Edition twelve times with your score range known.',
+      },
+    ],
+    outcomes: [
+      'Sit all three sections in the order you chose, at full pace, with bookmarks used well',
+      'Solve Quant without a calculator and Data Insights with one, without losing time',
+      'Read critical reasoning arguments the way GMAC writes them',
+      'Know your score range before you book the real test',
+    ],
+  },
   includes: {
     eyebrow: 'What you get',
     title: 'Preparation built for the Focus Edition.',

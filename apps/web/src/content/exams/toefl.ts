@@ -1,10 +1,12 @@
 import type { ExamContent } from '../types';
 import { bdtPrice } from '@/lib/money';
-import { commonFaq } from '../shared';
+import { commonFaq, standardFeeNotes } from '../shared';
 
 export const toefl: ExamContent = {
   path: '/test-prep/toefl',
+  slug: 'toefl',
   name: 'TOEFL',
+  interest: 'IELTS / TOEFL',
   seo: {
     title: 'TOEFL iBT preparation in Bangladesh — integrated speaking and writing',
     description:
@@ -16,8 +18,8 @@ export const toefl: ExamContent = {
     intro:
       'The TOEFL iBT is test-taking under pressure: you are speaking on a prompt you have 15 seconds to read, writing an essay from an academic lecture you have just heard. We teach those integrated tasks directly, with timed practice and instructor feedback on every submission.',
     actions: [
-      { label: 'Book a free diagnostic', href: '/free-diagnostic' },
-      { label: 'Compare course formats', href: '#formats', variant: 'outline' },
+      { label: 'See upcoming batches', href: '#batches' },
+      { label: 'View the curriculum', href: '#curriculum', variant: 'outline' },
     ],
     facts: [
       { label: 'Format', value: 'Internet-based · ~2 hours' },
@@ -26,65 +28,123 @@ export const toefl: ExamContent = {
       { label: 'Sittings', value: '50+ dates a year worldwide' },
     ],
   },
-  formats: [
-    {
-      name: 'Self-Paced',
-      pitch: 'The full syllabus on your own clock, for students who prefer to set their own pace.',
-      price: bdtPrice(10500),
-      priceUnit: 'one-off · 6 months of access',
-      facts: ['55+ hours of video', 'Self-scheduled'],
-      includes: [
-        'Every lesson recorded and searchable',
-        '5 full-length TOEFL papers with scoring',
-        'Integrated task templates and models',
-        'Email support from a TOEFL instructor',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'LiveOnline',
-      pitch: 'The classroom course, taught live to a small cohort, from wherever you are.',
-      price: bdtPrice(20000),
-      priceUnit: 'per 10-week cohort',
-      facts: ['32 taught hours', 'Max 12 students', 'Evenings & weekends'],
-      includes: [
-        'Live classes with a named instructor',
-        '6 full-length papers, scored and reviewed',
-        'Bi-weekly integrated speaking sessions',
-        'Weekly written essays reviewed for TOEFL rubrics',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'Classroom 100+',
-      pitch: 'Our flagship course, on campus, aimed squarely at a 100 and above.',
-      price: bdtPrice(27000),
-      priceUnit: 'per 10-week cohort',
-      facts: ['40 taught hours', 'Max 10 students', 'Gulshan · Dhanmondi · Chattogram'],
-      includes: [
-        'Everything in LiveOnline, taught in person',
-        '10 full-length proctored papers',
-        'Weekly speaking mock interviews',
-        'Written 100+ score guarantee',
-      ],
-      href: '/contact',
-      featured: true,
-    },
-    {
-      name: 'Private Tutoring',
-      pitch: 'One instructor, one student, one syllabus built entirely around your gaps.',
-      price: bdtPrice(60000),
-      priceUnit: 'per 20-hour package',
-      facts: ['20 hours', '1-on-1', 'On campus or online'],
-      includes: [
-        'Diagnostic-led plan rebuilt every fortnight',
-        'Unlimited full-length papers with detailed scoring',
-        'Integrated task feedback on every recording',
-        'Direct line to your tutor between sessions',
-      ],
-      href: '/contact',
-    },
-  ],
+  fee: {
+    price: bdtPrice(27000),
+    unit: 'per 10-week course',
+    includes: [
+      '40 taught hours in a class of ten or fewer',
+      '10 full-length proctored papers, scored and reviewed',
+      'Weekly speaking mock interviews',
+      'Written 100+ score guarantee',
+      'All materials and the online question bank',
+    ],
+    notes: standardFeeNotes,
+  },
+  modes: ['Classroom', 'LiveOnline'],
+  curriculum: {
+    eyebrow: 'Curriculum',
+    title: 'Ten weeks, six modules, every integrated task rehearsed to the second.',
+    intro:
+      'The shorter iBT leaves no room to warm up: every section counts from the first question. Each module ends with a timed, scored task so you know your section score before the next one starts.',
+    totals: { weeks: 10, taughtHours: 40, mocks: 10, classSize: 'Max 10' },
+    modules: [
+      {
+        no: '01',
+        title: 'iBT format and scoring',
+        summary:
+          'The two-hour test section by section, how raw points become a 0–30 scaled score, and where your first full paper puts you.',
+        topics: [
+          'The shortened iBT: what changed in 2023 and what did not',
+          'Section timings, question counts and the on-screen tools',
+          'How the speaking and writing rubrics turn into scaled scores',
+          'Full-length diagnostic paper and your personal score map',
+        ],
+        hours: 4,
+        outcome:
+          'Know your current score per section and which rubric criteria are costing you points.',
+      },
+      {
+        no: '02',
+        title: 'Reading',
+        summary:
+          'Two academic passages, twenty questions, thirty-five minutes. The question types that reward skimming and the ones that punish it.',
+        topics: [
+          'Factual, negative factual and inference questions',
+          'Vocabulary in context and reference questions',
+          'Sentence insertion and rhetorical purpose',
+          'The prose summary question and how its points are awarded',
+        ],
+        hours: 7,
+        outcome:
+          'Finish both passages with time to check the summary questions that carry the most points.',
+      },
+      {
+        no: '03',
+        title: 'Listening',
+        summary:
+          'Lectures and campus conversations, heard once. Note-taking that captures structure, not words, and the traps in every recording.',
+        topics: [
+          'Gist, detail and function questions across lecture and conversation',
+          'A note-taking system built around the main-point and example pattern',
+          'Attitude, organisation and connecting-content questions',
+          'Replay questions and what the speaker actually implies',
+        ],
+        hours: 7,
+        outcome:
+          'Take notes on a five-minute lecture you can answer six questions from without a second hearing.',
+      },
+      {
+        no: '04',
+        title: 'Speaking: independent and integrated tasks',
+        summary:
+          'Four tasks in sixteen minutes. One independent opinion, then three tasks that make you read, listen and speak from your notes.',
+        topics: [
+          'Task 1: a clear opinion with two reasons in forty-five seconds',
+          'Tasks 2 and 3: campus announcement and academic reading-to-lecture',
+          'Task 4: summarising a lecture from notes alone',
+          'Delivery, language use and topic development, scored against the rubric',
+        ],
+        hours: 9,
+        outcome:
+          'Prepare in fifteen seconds and speak for forty-five without the clock deciding your score.',
+      },
+      {
+        no: '05',
+        title: 'Writing: integrated task and academic discussion',
+        summary:
+          'The integrated essay that pits a lecture against a passage, and the ten-minute academic discussion post that replaced the independent essay.',
+        topics: [
+          'Integrated task: recording how the lecture challenges each point of the reading',
+          'A structure for the integrated essay that scores on completeness, not length',
+          'Writing for an Academic Discussion: a position, a reason and a reply in ten minutes',
+          'Language use and development, scored on the two writing rubrics',
+        ],
+        hours: 9,
+        outcome:
+          'Write an integrated essay that captures all three lecture points and a discussion post that scores 4 or above.',
+      },
+      {
+        no: '06',
+        title: 'Full-test cycle and test day',
+        summary:
+          'Timed full papers under exam conditions, each one reviewed section by section, and your test-day plan.',
+        topics: [
+          'Weekly full-length papers, scored on the 0–120 scale',
+          'One-on-one review of your recorded speaking and marked writing',
+          'Test centre vs Home Edition: choosing and rehearsing the setup',
+          'Registration, ID, score reporting and what to expect on the day',
+        ],
+        hours: 4,
+        outcome: 'Walk in knowing your score range and having sat the full test ten times already.',
+      },
+    ],
+    outcomes: [
+      'Sit the two-hour iBT with a timing plan for every section',
+      'Answer any of the four speaking tasks from notes inside the fifteen-second preparation window',
+      'Write an integrated essay and an academic discussion post that meet every rubric criterion',
+      'Know your score per section before you book the real test',
+    ],
+  },
   includes: {
     eyebrow: 'What you get',
     title: 'TOEFL preparation for integrated English, not multiple choice.',

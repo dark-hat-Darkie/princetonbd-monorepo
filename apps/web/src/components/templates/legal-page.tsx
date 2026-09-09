@@ -29,19 +29,22 @@ export function LegalPage({ content }: { content: LegalContent }) {
         intro={`Last updated ${updated}.`}
       />
 
-      <Container as="section" className="py-20 lg:py-24">
+      <Container as="section" className="py-(--section-y-sm) lg:py-(--section-y)">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[220px_1fr] lg:gap-[70px]">
           <Toc blocks={content.body} />
           <div>
             <Prose blocks={content.body} />
 
-            <div className="mt-14 max-w-[760px] border border-[rgba(27,36,54,.1)] border-l-[3px] border-l-gold bg-cream px-7 py-6">
-              <div className="mb-2 text-[10.5px] font-bold tracking-[.16em] text-gold-deep uppercase">
+            <div className="mt-14 max-w-[760px] rounded-md border border-line border-l-[3px] border-l-brand bg-subtle px-7 py-6">
+              <div className="mb-2 text-[10.5px] font-bold tracking-[.16em] text-brand-ink uppercase">
                 Questions about this policy
               </div>
               <p className="text-[15.5px] leading-[1.65] text-ink-soft">
                 Write to{' '}
-                <a href={`mailto:${contact.email}`} className="text-ink underline">
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="text-ink underline decoration-brand underline-offset-4"
+                >
                   {contact.email}
                 </a>{' '}
                 or visit us at {contact.address}.

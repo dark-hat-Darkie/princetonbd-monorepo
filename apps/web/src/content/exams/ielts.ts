@@ -1,10 +1,12 @@
 import type { ExamContent } from '../types';
 import { bdtPrice } from '@/lib/money';
-import { commonFaq } from '../shared';
+import { commonFaq, standardFeeNotes } from '../shared';
 
 export const ielts: ExamContent = {
   path: '/test-prep/ielts',
+  slug: 'ielts',
   name: 'IELTS',
+  interest: 'IELTS / TOEFL',
   seo: {
     title: 'IELTS preparation in Bangladesh — Academic, General Training & speaking labs',
     description:
@@ -16,8 +18,8 @@ export const ielts: ExamContent = {
     intro:
       'More students from Bangladesh sit IELTS than any other English exam. We teach both Academic and General Training, with weekly examiner-led speaking labs and task-based writing feedback from someone who has marked for the IELTS board itself.',
     actions: [
-      { label: 'Book a free diagnostic', href: '/free-diagnostic' },
-      { label: 'Compare course formats', href: '#formats', variant: 'outline' },
+      { label: 'See upcoming batches', href: '#batches' },
+      { label: 'View the curriculum', href: '#curriculum', variant: 'outline' },
     ],
     facts: [
       { label: 'Format', value: 'Paper and computer-based · 2h 45m' },
@@ -26,65 +28,134 @@ export const ielts: ExamContent = {
       { label: 'Sittings', value: '48 dates a year worldwide' },
     ],
   },
-  formats: [
-    {
-      name: 'Self-Paced',
-      pitch: 'The full syllabus on your own clock, for students who prefer to set their own pace.',
-      price: bdtPrice(10000),
-      priceUnit: 'one-off · 6 months of access',
-      facts: ['50+ hours of video', 'Self-scheduled'],
-      includes: [
-        'Every lesson recorded and searchable',
-        '6 full-length practice papers',
-        'Task-based writing samples with model answers',
-        'Email support from an IELTS instructor',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'LiveOnline',
-      pitch: 'The classroom course, taught live to a small cohort, from wherever you are.',
-      price: bdtPrice(18000),
-      priceUnit: 'per 10-week cohort',
-      facts: ['30 taught hours', 'Max 12 students', 'Evenings & weekends'],
-      includes: [
-        'Live classes with a named instructor',
-        '6 full-length papers, reviewed',
-        'Weekly writing corrections from an examiner',
-        'Bi-weekly speaking labs with examiner feedback',
-      ],
-      href: '/contact',
-    },
-    {
-      name: 'Classroom 7+',
-      pitch: 'Our flagship course, on campus, aimed squarely at a band 7 and above.',
-      price: bdtPrice(25000),
-      priceUnit: 'per 10-week cohort',
-      facts: ['36 taught hours', 'Max 10 students', 'Gulshan · Dhanmondi · Chattogram'],
-      includes: [
-        'Everything in LiveOnline, taught in person',
-        '10 full-length papers, fully marked and reviewed',
-        'Weekly examiner-led speaking labs',
-        'Written band 7+ score guarantee',
-      ],
-      href: '/contact',
-      featured: true,
-    },
-    {
-      name: 'Private Tutoring',
-      pitch: 'One instructor, one student, one syllabus built entirely around your gaps.',
-      price: bdtPrice(55000),
-      priceUnit: 'per 20-hour package',
-      facts: ['20 hours', '1-on-1', 'On campus or online'],
-      includes: [
-        'Diagnostic-led plan rebuilt every fortnight',
-        'Unlimited full-length papers, scored and reviewed',
-        'Examiner-style speaking feedback in every session',
-        'Direct line to your tutor between classes',
-      ],
-      href: '/contact',
-    },
-  ],
+  fee: {
+    price: bdtPrice(25000),
+    unit: 'per 10-week course',
+    includes: [
+      '36 taught hours in a class of ten or fewer',
+      '10 full-length papers, fully marked and reviewed',
+      'Weekly examiner-led speaking labs',
+      'All materials and the online question bank',
+      'Written band 7+ score guarantee',
+    ],
+    notes: standardFeeNotes,
+  },
+  modes: ['Classroom', 'LiveOnline'],
+  curriculum: {
+    eyebrow: 'Curriculum',
+    title: 'Ten weeks, seven modules, every band descriptor covered.',
+    intro:
+      'Academic and General Training are taught as separate reading and writing tracks inside the same course. Every module ends with a scored task so you know your band before the next one starts.',
+    totals: { weeks: 10, taughtHours: 36, mocks: 10, classSize: 'Max 10' },
+    modules: [
+      {
+        no: '01',
+        title: 'Band descriptors and your diagnostic',
+        summary:
+          'How the four papers are marked, what separates a 6.5 from a 7.5, and where your first full paper puts you.',
+        topics: [
+          'The public band descriptors, decoded',
+          'Academic vs General Training: what actually differs',
+          'Full-length diagnostic paper, all four modules',
+          'Your personal band map and target',
+        ],
+        hours: 4,
+        outcome:
+          'Know your current band per module and exactly which criteria are costing you marks.',
+      },
+      {
+        no: '02',
+        title: 'Listening',
+        summary:
+          'Four sections, forty questions, one hearing. Prediction, note-taking and the traps built into every recording.',
+        topics: [
+          'Form completion and multiple choice under time',
+          'Map, plan and diagram labelling',
+          'Distractors, corrections and paraphrase in the audio',
+          'Transferring answers without losing marks to spelling',
+        ],
+        hours: 5,
+        outcome: 'Hold pace through Section 4 and stop losing marks to spelling and plurals.',
+      },
+      {
+        no: '03',
+        title: 'Reading — Academic and General Training',
+        summary:
+          'Three passages in sixty minutes. Skimming, scanning and the question types that reward each.',
+        topics: [
+          'True/False/Not Given and Yes/No/Not Given',
+          'Matching headings and matching information',
+          'Summary, note and sentence completion',
+          'Time allocation across passages of rising difficulty',
+        ],
+        hours: 5,
+        outcome: 'Finish all forty questions with time to check the ones you flagged.',
+      },
+      {
+        no: '04',
+        title: 'Writing Task 1',
+        summary:
+          'Describing data (Academic) or writing a letter (General Training) in 150 words that hit every criterion.',
+        topics: [
+          'Overview statements that examiners look for first',
+          'Selecting and grouping data, not listing it',
+          'Letter tone: formal, semi-formal and informal',
+          'Task achievement and coherence, criterion by criterion',
+        ],
+        hours: 5,
+        outcome:
+          'Write a complete Task 1 in twenty minutes with a clear overview and no missing features.',
+      },
+      {
+        no: '05',
+        title: 'Writing Task 2',
+        summary:
+          'The essay that carries two-thirds of your writing band. Argument structure, position and the lexical resource examiners reward.',
+        topics: [
+          'Question types: opinion, discussion, problem–solution, two-part',
+          'Planning in five minutes, writing in thirty',
+          'Cohesion without mechanical linking words',
+          'Grammatical range: complex sentences that stay accurate',
+        ],
+        hours: 7,
+        outcome: 'Produce a 250-word essay with a clear position that scores 7 on task response.',
+      },
+      {
+        no: '06',
+        title: 'Speaking labs',
+        summary:
+          'Weekly examiner-led practice across all three parts, recorded and scored against the descriptors.',
+        topics: [
+          'Part 1: extending answers without rambling',
+          'Part 2: the two-minute long turn from a cue card',
+          'Part 3: abstract discussion and opinion',
+          'Fluency, pronunciation and self-correction habits',
+        ],
+        hours: 6,
+        outcome: 'Speak for two minutes on any cue card without hesitation that costs a band.',
+      },
+      {
+        no: '07',
+        title: 'Full-paper cycle and exam week',
+        summary:
+          'Timed full papers under exam conditions, each one reviewed line by line, and your test-day plan.',
+        topics: [
+          'Weekly full-length papers, scored to the half band',
+          'One-on-one review of your marked writing',
+          'Paper vs computer delivery: choosing and rehearsing',
+          'Booking, ID, test-day timing and what to expect',
+        ],
+        hours: 4,
+        outcome: 'Walk in knowing your band range and having sat the paper ten times already.',
+      },
+    ],
+    outcomes: [
+      'Sit both Academic and General Training confidently, whichever your shortlist asks for',
+      'Write Task 1 and Task 2 responses that meet every criterion in the time allowed',
+      'Hold a Part 3 discussion at the level a band 7 demands',
+      'Know your band per module before you book the real test',
+    ],
+  },
   includes: {
     eyebrow: 'What you get',
     title: 'IELTS preparation built on how examiners actually mark.',

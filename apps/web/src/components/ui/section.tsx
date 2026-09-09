@@ -27,12 +27,12 @@ const toneClass: Record<Tone, string> = {
   ink: 'bg-ink text-on-ink',
 };
 
-/* Transcribed from the landing page rather than derived from a scale: `default`
-   is the `py-24 lg:py-[120px]` rhythm of Programs / StudyAbroad / Testimonials,
-   `tight` the `py-20` of the stats band, `flush` for sections that own their
-   own padding. */
+/* `default` reads the page rhythm from `--section-y-sm` / `--section-y`
+   (globals.css), so an inner page and the landing page can differ without
+   the section knowing; `tight` is the `py-20` of the stats band; `flush` is
+   for sections that own their own padding. */
 const spaceClass = {
-  default: 'py-24 lg:py-[120px]',
+  default: 'py-(--section-y-sm) lg:py-(--section-y)',
   tight: 'py-20',
   flush: '',
 } as const;

@@ -15,15 +15,15 @@ export function Toc({ blocks }: { blocks: readonly Block[] }) {
 
   return (
     <nav aria-label="On this page" className="lg:sticky lg:top-[110px]">
-      <div className="mb-4 text-[10.5px] font-bold tracking-[.16em] text-gold-deep uppercase">
+      <div className="mb-4 text-[10.5px] font-bold tracking-[.16em] text-muted-2 uppercase">
         On this page
       </div>
-      <ol className="flex flex-col gap-3 border-l border-l-[rgba(27,36,54,.12)]">
+      <ol className="flex flex-col gap-3 border-l border-l-line">
         {headings.map((heading) => (
           <li key={heading.text}>
             <a
               href={`#${headingId(heading)}`}
-              className="-ml-px block border-l border-l-transparent pl-4 text-[14px] leading-[1.45] text-muted transition-colors duration-200 hover:border-l-gold hover:text-ink"
+              className="-ml-px block border-l-2 border-l-transparent pl-4 text-[14px] leading-[1.45] text-muted transition-colors duration-200 hover:border-l-brand hover:text-ink"
             >
               {heading.text}
             </a>

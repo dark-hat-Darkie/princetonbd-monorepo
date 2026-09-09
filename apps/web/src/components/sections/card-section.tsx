@@ -28,7 +28,11 @@ export function CardSection({
   className?: string;
 }) {
   return (
-    <Container as="section" id={id} className={cn('pt-24 pb-6 lg:pt-[120px]', className)}>
+    <Container
+      as="section"
+      id={id}
+      className={cn('pt-(--section-y-sm) pb-6 lg:pt-(--section-y)', className)}
+    >
       <SectionHeading
         eyebrow={eyebrow}
         title={title}

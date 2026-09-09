@@ -18,7 +18,7 @@ export function FaqSection({
   items: readonly FaqItem[];
 }) {
   return (
-    <Container as="section" className="py-24 lg:py-[120px]">
+    <Container as="section" className="py-(--section-y-sm) lg:py-(--section-y)">
       <JsonLd
         data={{
           '@context': 'https://schema.org',

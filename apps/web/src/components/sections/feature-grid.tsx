@@ -20,7 +20,7 @@ export function FeatureGrid({
   features: readonly Feature[];
 }) {
   return (
-    <Container as="section" className="py-24 lg:py-[120px]">
+    <Container as="section" className="py-(--section-y-sm) lg:py-(--section-y)">
       <SectionHeading
         eyebrow={eyebrow}
         title={title}
@@ -29,14 +29,16 @@ export function FeatureGrid({
         className="mb-[60px]"
       />
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         {features.map((feature) => (
           <div
             key={feature.title}
-            className="flex flex-col border border-[rgba(27,36,54,.09)] bg-surface px-7 py-8"
+            className="flex flex-col rounded-md border border-line bg-surface px-7 py-8 shadow-card"
           >
-            <div aria-hidden className="mb-[18px] h-0.5 w-[26px] bg-gold" />
-            <h3 className="mb-2.5 font-display text-[21px] font-normal text-ink-deep">
+            {/* Yellow as a fill, never a rule: a 3px block reads as decoration
+                where a 1px yellow line would vanish against white. */}
+            <div aria-hidden className="mb-5 h-[3px] w-7 rounded-full bg-accent" />
+            <h3 className="mb-2.5 font-display text-[21px] leading-[1.2] font-semibold tracking-[-.02em] text-ink">
               {feature.title}
             </h3>
             <p className="text-[14.5px] leading-[1.6] text-muted">{feature.desc}</p>

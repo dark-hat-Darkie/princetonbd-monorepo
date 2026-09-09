@@ -26,7 +26,7 @@ export function CtaSection({
 }) {
   return (
     <section id="enroll" className="relative overflow-hidden bg-canvas">
-      <Container className="relative py-20 lg:py-[110px]">
+      <Container className="relative py-(--section-y-sm) lg:py-(--section-y)">
         <Reveal>
           <div className="relative overflow-hidden rounded-lg bg-ink px-6 py-16 text-center text-on-ink sm:px-11 lg:py-20">
             <div

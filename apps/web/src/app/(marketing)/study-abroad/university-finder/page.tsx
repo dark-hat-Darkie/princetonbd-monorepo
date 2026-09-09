@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { CtaSection } from '@/components/sections/cta-section';
 import { Container } from '@/components/ui/container';
+import { CtaButton } from '@/components/ui/cta-button';
 import { PageHero } from '@/components/ui/page-hero';
 import { Pill } from '@/components/ui/pill';
 import { breadcrumbFor } from '@/content/site/routes';
@@ -63,7 +64,7 @@ export default async function UniversityFinderPage({
       <Container as="section" className="py-16 lg:py-20">
         <form
           method="get"
-          className="mb-12 border border-[rgba(27,36,54,.1)] border-t-[3px] border-t-gold bg-cream px-6 py-7 sm:px-8"
+          className="mb-12 rounded-lg border border-line border-t-[3px] border-t-brand bg-subtle px-6 py-7 sm:px-8"
         >
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <Select name="country" label="Country" options={countries} value={selected.country} />
@@ -80,14 +81,14 @@ export default async function UniversityFinderPage({
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <button
               type="submit"
-              className="inline-flex cursor-pointer items-center justify-center rounded-[2px] bg-ink px-7 py-3.5 text-[14px] font-semibold text-on-ink transition-colors duration-200 hover:bg-ink-hover"
+              className="inline-flex cursor-pointer items-center justify-center rounded-full bg-ink px-7 py-3.5 text-[15px] font-semibold text-on-ink shadow-cta transition-colors duration-200 hover:bg-ink-soft"
             >
               Show matches
             </button>
             {filtered ? (
               <Link
                 href="/study-abroad/university-finder"
-                className="text-[13px] font-bold tracking-[.08em] text-ink-nav uppercase transition-colors duration-200 hover:text-gold-deep"
+                className="text-[13px] font-bold tracking-[.08em] text-ink-soft uppercase transition-colors duration-200 hover:text-brand-ink"
               >
                 Clear filters
               </Link>
@@ -99,42 +100,42 @@ export default async function UniversityFinderPage({
         </form>
 
         {results.length === 0 ? (
-          <div className="border border-[rgba(27,36,54,.1)] bg-surface px-8 py-14 text-center">
-            <h2 className="mb-3 font-display text-[26px] font-normal text-ink-deep">
+          <div className="rounded-lg border border-dashed border-line-strong bg-subtle px-8 py-14 text-center">
+            <h2 className="mb-3 font-display text-[26px] font-semibold tracking-[-.02em] text-ink">
               Nothing matches all four filters.
             </h2>
             <p className="mx-auto mb-7 max-w-[460px] text-[15.5px] leading-[1.6] text-muted">
               Try relaxing one — usually the tuition band. Or talk to a counselor: our list is a
               starting point, not the whole world.
             </p>
-            <Link
-              href="/contact"
-              className="text-[13px] font-bold tracking-[.08em] text-ink uppercase underline decoration-gold underline-offset-4"
-            >
+            <CtaButton href="/contact" variant="outline">
               Ask a counselor
-            </Link>
+            </CtaButton>
           </div>
         ) : (
-          <ul className="grid grid-cols-1 gap-px border border-[rgba(27,36,54,.09)] bg-[rgba(27,36,54,.09)] md:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {results.map((university) => (
-              <li key={university.name} className="flex flex-col bg-surface px-7 py-7">
+              <li
+                key={university.name}
+                className="flex flex-col rounded-md border border-line bg-surface p-7 shadow-card"
+              >
                 <div className="mb-4 flex items-baseline justify-between gap-4">
-                  <span className="text-[10.5px] font-bold tracking-[.14em] text-gold-deep uppercase">
+                  <span className="text-[10.5px] font-bold tracking-[.14em] text-brand-ink uppercase">
                     {university.country} &middot; {university.city}
                   </span>
-                  <span className="font-display text-[14px] whitespace-nowrap text-warm">
+                  <span className="font-display text-[14px] font-semibold whitespace-nowrap text-muted-2 tabular-nums">
                     {university.tuition}
                   </span>
                 </div>
 
-                <h2 className="mb-3 font-display text-[23px] font-normal text-ink-deep">
+                <h2 className="mb-3 font-display text-[23px] leading-[1.15] font-semibold tracking-[-.02em] text-ink">
                   {university.name}
                 </h2>
                 <p className="mb-5 flex-1 text-[14.5px] leading-[1.6] text-muted">
                   {university.note}
                 </p>
 
-                <dl className="flex flex-wrap gap-x-6 gap-y-2 border-t border-t-[rgba(27,36,54,.09)] pt-4 text-[12.5px] text-warm">
+                <dl className="flex flex-wrap gap-x-6 gap-y-2 border-t border-t-line pt-4 text-[12.5px] text-muted-2">
                   <div>
                     <dt className="sr-only">Levels</dt>
                     <dd>{university.levels.join(' · ')}</dd>
@@ -155,7 +156,7 @@ export default async function UniversityFinderPage({
           </ul>
         )}
 
-        <p className="mt-10 max-w-[720px] border-l-[3px] border-l-gold bg-cream px-6 py-5 text-[14.5px] leading-[1.65] text-ink-soft">
+        <p className="mt-10 max-w-[720px] rounded-sm border-l-[3px] border-l-brand bg-subtle px-6 py-5 text-[14.5px] leading-[1.65] text-ink-soft">
           <strong className="font-bold">These figures are indicative.</strong> Tuition bands,
           intakes and accepted tests change every cycle. Confirm against the university&rsquo;s own
           admissions pages before you build an application around them &mdash; or let a counselor do
@@ -203,14 +204,14 @@ function Select({
   return (
     <label
       htmlFor={`finder-${name}`}
-      className="flex flex-col gap-2 text-[11px] font-bold tracking-[.12em] text-ink-nav uppercase"
+      className="flex flex-col gap-2 text-[11px] font-bold tracking-[.12em] text-ink-soft uppercase"
     >
       {label}
       <select
         id={`finder-${name}`}
         name={name}
         defaultValue={value}
-        className="w-full rounded-[2px] border border-[rgba(27,36,54,.18)] bg-canvas px-4 py-3 text-[15px] text-ink outline-none focus:border-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+        className="w-full rounded-sm border bg-canvas px-4 py-3 text-[15px] text-ink outline-none transition-colors duration-200 focus:border-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand border-line-strong"
       >
         <option value="">Any</option>
         {options.map((option) => (

@@ -26,7 +26,7 @@ export function Prose({ blocks, className }: { blocks: readonly Block[]; classNa
                 id={headingId(block)}
                 /* `scroll-mt` clears the 86px sticky header, so an anchored
                    heading is not hidden behind the bar it scrolls under. */
-                className="mt-14 mb-4 scroll-mt-[110px] font-display text-[26px] leading-[1.25] font-normal text-ink-deep first:mt-0"
+                className="mt-14 mb-4 scroll-mt-[110px] font-display text-[26px] leading-[1.25] font-semibold tracking-[-.02em] text-ink first:mt-0"
               >
                 {block.text}
               </h2>
@@ -48,14 +48,14 @@ export function Prose({ blocks, className }: { blocks: readonly Block[]; classNa
                     {block.ordered ? (
                       <span
                         aria-hidden
-                        className="flex-none font-display text-[15px] text-gold-deep"
+                        className="flex-none font-display text-[15px] font-semibold text-brand-ink tabular-nums"
                       >
                         {String(itemIndex + 1).padStart(2, '0')}
                       </span>
                     ) : (
                       <span
                         aria-hidden
-                        className="mt-[9px] size-1.5 flex-none rounded-full bg-gold"
+                        className="mt-[9px] size-1.5 flex-none rounded-full bg-brand"
                       />
                     )}
                     {item}
@@ -69,10 +69,10 @@ export function Prose({ blocks, className }: { blocks: readonly Block[]; classNa
             return (
               <aside
                 key={index}
-                className="mb-7 border border-[rgba(27,36,54,.1)] border-l-[3px] border-l-gold bg-cream px-7 py-6"
+                className="mb-7 rounded-md border border-line border-l-[3px] border-l-brand bg-subtle px-7 py-6"
               >
                 {block.title ? (
-                  <div className="mb-2 text-[10.5px] font-bold tracking-[.16em] text-gold-deep uppercase">
+                  <div className="mb-2 text-[10.5px] font-bold tracking-[.16em] text-brand-ink uppercase">
                     {block.title}
                   </div>
                 ) : null}
@@ -92,7 +92,7 @@ export function Prose({ blocks, className }: { blocks: readonly Block[]; classNa
                         <th
                           key={cell}
                           scope="col"
-                          className="border-b border-b-gold px-4 py-3 text-[10.5px] font-bold tracking-[.14em] text-gold-deep uppercase"
+                          className="border-b border-b-line-strong px-4 py-3 text-[10.5px] font-bold tracking-[.14em] text-muted-2 uppercase"
                         >
                           {cell}
                         </th>
@@ -105,7 +105,7 @@ export function Prose({ blocks, className }: { blocks: readonly Block[]; classNa
                         {row.map((cell) => (
                           <td
                             key={cell}
-                            className="border-b border-b-[rgba(27,36,54,.09)] px-4 py-3.5 text-[14.5px] leading-[1.5] text-ink-soft"
+                            className="border-b border-b-line px-4 py-3.5 text-[14.5px] leading-[1.5] text-ink-soft"
                           >
                             {cell}
                           </td>

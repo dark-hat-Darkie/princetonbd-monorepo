@@ -12,7 +12,7 @@ export default function NotFound() {
   return (
     <Container as="section" className="py-24 lg:py-[120px]">
       <Eyebrow className="mb-6">404</Eyebrow>
-      <h1 className="mb-5 max-w-[720px] font-display text-[clamp(30px,4.4vw,54px)] leading-[1.06] font-normal tracking-[-.02em] text-ink-deep">
+      <h1 className="mb-5 max-w-[720px] font-display text-[clamp(30px,4.4vw,54px)] leading-[1.06] font-semibold tracking-[-.03em] text-ink">
         That page isn&rsquo;t here.
       </h1>
       <p className="mb-9 max-w-[520px] text-[17px] leading-[1.65] text-muted">
@@ -27,14 +27,16 @@ export default function NotFound() {
         </CtaButton>
       </div>
 
-      <div className="grid grid-cols-1 gap-px border border-[rgba(27,36,54,.09)] bg-[rgba(27,36,54,.09)] sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {navGroups.map((group) => (
           <Link
             key={group.href}
             href={group.href}
-            className="group flex flex-col bg-surface px-7 py-6 transition-colors duration-200 hover:bg-canvas"
+            className="group flex translate-y-0 flex-col rounded-md border border-line bg-surface px-7 py-6 shadow-card transition-[translate,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-line-strong hover:shadow-lift motion-reduce:hover:translate-y-0"
           >
-            <span className="mb-2 font-display text-[21px] text-ink-deep">{group.label}</span>
+            <span className="mb-2 font-display text-[21px] font-semibold tracking-[-.02em] text-ink">
+              {group.label}
+            </span>
             <span className="text-[14px] leading-[1.5] text-muted">{group.hubLabel}</span>
           </Link>
         ))}

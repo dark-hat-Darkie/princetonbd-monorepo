@@ -6,8 +6,8 @@ import { FeatureGrid } from '@/components/sections/feature-grid';
 import { FormatGrid } from '@/components/sections/format-grid';
 import { StatsBand } from '@/components/sections/stats-band';
 import { Testimonials } from '@/components/sections/testimonials';
-import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
+import { Section } from '@/components/ui/section';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { StepList } from '@/components/ui/step-list';
 import { breadcrumbFor } from '@/content/site/routes';
@@ -37,17 +37,15 @@ export function ProgramPage({ content }: { content: ProgramContent }) {
       />
 
       {content.process ? (
-        <section className="border-y border-y-[rgba(27,36,54,.08)] bg-band">
-          <Container className="py-24 lg:py-[120px]">
-            <SectionHeading
-              eyebrow={content.process.eyebrow}
-              title={content.process.title}
-              intro={content.process.intro}
-              className="mb-14"
-            />
-            <StepList steps={content.process.steps} columns={4} />
-          </Container>
-        </section>
+        <Section tone="subtle" bordered>
+          <SectionHeading
+            eyebrow={content.process.eyebrow}
+            title={content.process.title}
+            intro={content.process.intro}
+            className="mb-14"
+          />
+          <StepList steps={content.process.steps} columns={4} />
+        </Section>
       ) : null}
 
       {content.formats?.length ? (

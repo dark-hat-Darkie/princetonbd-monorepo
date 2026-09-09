@@ -16,7 +16,7 @@ export function FormatGrid({
   formats: readonly CourseFormat[];
 }) {
   return (
-    <Container as="section" id="formats" className="py-24 lg:py-[120px]">
+    <Container as="section" id="formats" className="py-(--section-y-sm) lg:py-(--section-y)">
       <SectionHeading eyebrow={eyebrow} title={title} intro={intro} className="mb-14" />
 
       <div

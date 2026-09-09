@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 /**
  * The faculty page.
  *
- * Rendered from monograms rather than photographs. The design's initials
+ * Rendered from monograms rather than photographs. The yellow-on-ink initials
  * treatment carries this well, and shipping a real page with no photographs
  * beats shipping stock images of people who do not work here.
  */
@@ -38,21 +38,24 @@ export default function InstructorsPage() {
       />
 
       <Container as="section" className="py-16 lg:py-20">
-        <ul className="grid grid-cols-1 gap-px border border-[rgba(27,36,54,.09)] bg-[rgba(27,36,54,.09)] sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {instructors.map((instructor) => (
-            <li key={instructor.name} className="flex flex-col bg-surface px-7 py-8">
+            <li
+              key={instructor.name}
+              className="flex flex-col rounded-md border border-line bg-surface p-7 shadow-card"
+            >
               <div className="mb-5 flex items-center gap-4">
                 <span
                   aria-hidden
-                  className="flex size-14 flex-none items-center justify-center rounded-full bg-ink font-display text-[20px] text-gold-pale"
+                  className="flex size-14 flex-none items-center justify-center rounded-full bg-ink font-display text-[20px] font-bold tracking-[.04em] text-accent"
                 >
                   {instructor.initials}
                 </span>
                 <div>
-                  <div className="font-display text-[20px] leading-[1.2] text-ink-deep">
+                  <div className="font-display text-[20px] leading-[1.2] font-semibold tracking-[-.02em] text-ink">
                     {instructor.name}
                   </div>
-                  <div className="mt-1 text-[12.5px] tracking-[.02em] text-warm">
+                  <div className="mt-1 text-[12.5px] font-semibold tracking-[.02em] text-brand-ink">
                     {instructor.role}
                   </div>
                 </div>
@@ -68,7 +71,7 @@ export default function InstructorsPage() {
                 ))}
               </div>
 
-              <div className="border-t border-t-[rgba(27,36,54,.09)] pt-4 text-[12.5px] tracking-[.02em] text-warm">
+              <div className="border-t border-t-line pt-4 text-[12.5px] tracking-[.02em] text-muted-2">
                 {instructor.campus}
               </div>
             </li>

@@ -156,3 +156,14 @@ export const commonFaq: readonly FaqItem[] = [
       'You sit a short diagnostic, we score it the same day, and a counselor walks you through a target score, a timetable and a shortlist of universities that fit your profile and budget.',
   },
 ];
+
+/**
+ * Payment terms printed under every course fee. One list so a change to the
+ * instalment plan or the refund window is one edit, and so the exam pages and
+ * the refund policy cannot quietly disagree.
+ */
+export const standardFeeNotes: readonly string[] = [
+  'Pay in two instalments: half at enrolment, half by week 4',
+  'Materials, mock tests and the online question bank are included — there is no registration fee',
+  'Full refund if you withdraw before the second class; see the refund policy for later withdrawals',
+];

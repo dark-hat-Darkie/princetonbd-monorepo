@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useActionState, useId } from 'react';
 
 import { submitLead } from '@/lib/actions/lead';
@@ -7,6 +8,7 @@ import {
   initialLeadState,
   leadInterests,
   type LeadField,
+  type LeadPrefill,
   type LeadState,
 } from '@/lib/actions/lead-shape';
 import { campuses } from '@/content/site/contact';
@@ -18,8 +20,13 @@ import { cn } from '@/lib/cn';
  * Progressive by construction: `useActionState` wires a Server Action to a
  * plain `<form action>`, so the form posts and works before — and without —
  * hydration. The client half only adds the pending state and the inline errors.
+ *
+ * `prefill` seeds the selects from the page — the interest a lead page is
+ * about, or the exam, campus and batch an exam page's "Reserve a seat" button
+ * put in the URL. The batch travels as a hidden field and is echoed back in
+ * words above the form so the visitor can see what they are asking about.
  */
-export function LeadForm({ interestDefault }: { interestDefault?: string }) {
+export function LeadForm({ prefill }: { prefill?: LeadPrefill }) {
   const [state, formAction, pending] = useActionState<LeadState, FormData>(
     submitLead,
     initialLeadState,
@@ -30,12 +37,14 @@ export function LeadForm({ interestDefault }: { interestDefault?: string }) {
     return (
       <div
         role="status"
-        className="border border-[rgba(27,36,54,.1)] border-t-[3px] border-t-gold bg-cream px-8 py-10"
+        className="rounded-lg border border-brand/25 bg-brand-soft px-8 py-10 shadow-card"
       >
-        <div className="mb-3 text-[10.5px] font-bold tracking-[.16em] text-gold-deep uppercase">
+        <div className="mb-3 text-[10.5px] font-bold tracking-[.16em] text-brand-ink uppercase">
           Received
         </div>
-        <p className="font-display text-[24px] leading-[1.25] text-ink-deep">{state.message}</p>
+        <p className="font-display text-[24px] leading-[1.25] font-semibold tracking-[-.02em] text-ink">
+          {state.message}
+        </p>
       </div>
     );
   }
@@ -43,20 +52,44 @@ export function LeadForm({ interestDefault }: { interestDefault?: string }) {
   const fieldId = (field: LeadField) => `${formId}-${field}`;
   const errorId = (field: LeadField) => `${formId}-${field}-error`;
 
+  /* Once a submission has been rejected, the echoed values win over the
+     page's prefill — otherwise a visitor who cleared the batch would see it
+     come back. */
+  const batch =
+    state.values?.batch !== undefined
+      ? state.values.batch
+        ? { id: state.values.batch, label: prefill?.batch?.label ?? state.values.batch }
+        : undefined
+      : prefill?.batch;
+
   return (
     <form
       action={formAction}
       noValidate
-      className="border border-[rgba(27,36,54,.1)] bg-surface px-7 py-8 sm:px-9 sm:py-10"
+      className="rounded-lg border border-line bg-surface px-7 py-8 shadow-card sm:px-9 sm:py-10"
     >
       {state.message ? (
         <p
           role="alert"
-          className="mb-7 border border-[rgba(27,36,54,.12)] border-l-[3px] border-l-gold bg-cream px-5 py-4 text-[14.5px] leading-[1.55] text-ink-soft"
+          className="mb-7 rounded-sm border border-danger/30 border-l-[3px] border-l-danger bg-danger-soft px-5 py-4 text-[14.5px] leading-[1.55] text-ink-soft"
         >
           {state.message}
         </p>
       ) : null}
+
+      {batch ? (
+        <div className="mb-7 rounded-sm border border-brand/25 bg-brand-soft px-5 py-4 text-[14px] leading-[1.55] text-ink-soft">
+          <span className="font-semibold text-ink">You&rsquo;re enquiring about:</span>{' '}
+          {batch.label}
+          {' · '}
+          <Link href="/contact" className="text-brand-ink underline underline-offset-4">
+            change
+          </Link>
+          <FieldError id={errorId('batch')} message={state.errors?.batch} />
+        </div>
+      ) : null}
+
+      <input type="hidden" name="batch" value={batch?.id ?? ''} />
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <Field
@@ -100,7 +133,7 @@ export function LeadForm({ interestDefault }: { interestDefault?: string }) {
             id={fieldId('interest')}
             name="interest"
             required
-            defaultValue={state.values?.interest ?? interestDefault ?? ''}
+            defaultValue={state.values?.interest ?? prefill?.interest ?? ''}
             aria-describedby={state.errors?.interest ? errorId('interest') : undefined}
             aria-invalid={state.errors?.interest ? true : undefined}
             className={inputClass(Boolean(state.errors?.interest))}
@@ -122,7 +155,7 @@ export function LeadForm({ interestDefault }: { interestDefault?: string }) {
           <select
             id={fieldId('campus')}
             name="campus"
-            defaultValue={state.values?.campus ?? ''}
+            defaultValue={state.values?.campus ?? prefill?.campus ?? ''}
             className={inputClass(false)}
           >
             <option value="">Live online</option>
@@ -135,7 +168,7 @@ export function LeadForm({ interestDefault }: { interestDefault?: string }) {
         </Label>
 
         <Label htmlFor={fieldId('message')} className="flex flex-col gap-2 sm:col-span-2">
-          Anything we should know? <span className="text-warm">(optional)</span>
+          Anything we should know? <span className="text-muted-2">(optional)</span>
           <textarea
             id={fieldId('message')}
             name="message"
@@ -150,12 +183,12 @@ export function LeadForm({ interestDefault }: { interestDefault?: string }) {
       <button
         type="submit"
         disabled={pending}
-        className="mt-8 inline-flex w-full cursor-pointer items-center justify-center rounded-[2px] bg-ink px-[30px] py-4 text-[15px] font-semibold text-on-ink shadow-[0_16px_30px_-18px_rgba(27,36,54,.7)] transition-colors duration-200 hover:bg-ink-hover disabled:cursor-progress disabled:opacity-70"
+        className="mt-8 inline-flex w-full cursor-pointer items-center justify-center rounded-full bg-ink px-[30px] py-4 text-[15px] font-semibold text-on-ink shadow-cta transition-colors duration-200 hover:bg-ink-soft disabled:cursor-progress disabled:opacity-70"
       >
         {pending ? 'Sending…' : 'Request a call back'}
       </button>
 
-      <p className="mt-4 text-[12.5px] leading-[1.5] text-warm">
+      <p className="mt-4 text-[12.5px] leading-[1.5] text-muted-2">
         We use these details only to contact you about your enquiry. Read our{' '}
         <a href="/legal/privacy" className="text-ink underline">
           privacy policy
@@ -168,8 +201,8 @@ export function LeadForm({ interestDefault }: { interestDefault?: string }) {
 
 function inputClass(invalid: boolean): string {
   return cn(
-    'w-full rounded-[2px] border bg-canvas px-4 py-3 text-[15px] text-ink outline-none transition-colors duration-200 focus:border-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold',
-    invalid ? 'border-[#a8452f]' : 'border-[rgba(27,36,54,.18)]',
+    'w-full rounded-sm border bg-canvas px-4 py-3 text-[15px] text-ink outline-none transition-colors duration-200 focus:border-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand',
+    invalid ? 'border-danger bg-danger-soft/40' : 'border-line-strong',
   );
 }
 
@@ -185,7 +218,7 @@ function Label({
   return (
     <label
       htmlFor={htmlFor}
-      className={cn('text-[11px] font-bold tracking-[.12em] text-ink-nav uppercase', className)}
+      className={cn('text-[11px] font-bold tracking-[.12em] text-ink-soft uppercase', className)}
     >
       {children}
     </label>
@@ -196,7 +229,7 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
 
   return (
-    <span id={id} className="text-[13px] leading-[1.4] text-[#a8452f]">
+    <span id={id} className="block text-[13px] leading-[1.4] text-danger">
       {message}
     </span>
   );

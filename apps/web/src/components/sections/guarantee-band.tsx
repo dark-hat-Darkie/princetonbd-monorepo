@@ -25,7 +25,7 @@ export function GuaranteeBand({
   features: readonly string[];
 }) {
   return (
-    <Container as="section" className="mt-24">
+    <Container as="section" className="mt-(--section-y-sm) lg:mt-(--section-y)">
       <Reveal>
         <div className="relative grid grid-cols-1 overflow-hidden rounded-lg border border-brand/25 bg-brand-soft text-ink lg:grid-cols-[1.12fr_.88fr]">
           <div className="relative px-8 py-12 sm:px-12 lg:px-14 lg:py-16">

@@ -32,14 +32,14 @@ export default function SiteMapPage() {
             <div key={group.href}>
               <Link
                 href={group.href}
-                className="mb-6 inline-block border-b-[1.5px] border-b-gold pb-1.5 font-display text-[24px] text-ink-deep"
+                className="mb-6 inline-block border-b-2 border-b-brand pb-1.5 font-display text-[24px] font-semibold tracking-[-.02em] text-ink transition-colors duration-200 hover:text-brand-ink"
               >
                 {group.label}
               </Link>
 
               {group.columns.map((column) => (
                 <div key={column.title} className="mb-6">
-                  <div className="mb-3 text-[10.5px] font-bold tracking-[.16em] text-gold-deep uppercase">
+                  <div className="mb-3 text-[10.5px] font-bold tracking-[.16em] text-muted-2 uppercase">
                     {column.title}
                   </div>
                   <ul className="flex flex-col gap-2.5">
@@ -47,7 +47,7 @@ export default function SiteMapPage() {
                       <li key={link.href + link.label}>
                         <Link
                           href={link.href}
-                          className="text-[14.5px] text-ink-nav transition-colors duration-200 hover:text-gold-deep"
+                          className="text-[14.5px] text-ink-soft transition-colors duration-200 hover:text-brand-ink"
                         >
                           {link.label}
                         </Link>
@@ -62,13 +62,13 @@ export default function SiteMapPage() {
           {/* Footer-only destinations: legal documents, the resource library
               and the enquiry pages never appear in the mega-menu columns. */}
           <div>
-            <span className="mb-6 inline-block border-b-[1.5px] border-b-gold pb-1.5 font-display text-[24px] text-ink-deep">
+            <span className="mb-6 inline-block border-b-2 border-b-brand pb-1.5 font-display text-[24px] font-semibold tracking-[-.02em] text-ink">
               More
             </span>
 
             {footerColumns.map((column) => (
               <div key={column.title} className="mb-6">
-                <div className="mb-3 text-[10.5px] font-bold tracking-[.16em] text-gold-deep uppercase">
+                <div className="mb-3 text-[10.5px] font-bold tracking-[.16em] text-muted-2 uppercase">
                   {column.title}
                 </div>
                 <ul className="flex flex-col gap-2.5">
@@ -76,7 +76,7 @@ export default function SiteMapPage() {
                     <li key={link.href + link.label}>
                       <Link
                         href={link.href}
-                        className="text-[14.5px] text-ink-nav transition-colors duration-200 hover:text-gold-deep"
+                        className="text-[14.5px] text-ink-soft transition-colors duration-200 hover:text-brand-ink"
                       >
                         {link.label}
                       </Link>
@@ -87,7 +87,7 @@ export default function SiteMapPage() {
             ))}
 
             <div className="mb-6">
-              <div className="mb-3 text-[10.5px] font-bold tracking-[.16em] text-gold-deep uppercase">
+              <div className="mb-3 text-[10.5px] font-bold tracking-[.16em] text-muted-2 uppercase">
                 Legal
               </div>
               <ul className="flex flex-col gap-2.5">
@@ -95,7 +95,7 @@ export default function SiteMapPage() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-[14.5px] text-ink-nav transition-colors duration-200 hover:text-gold-deep"
+                      className="text-[14.5px] text-ink-soft transition-colors duration-200 hover:text-brand-ink"
                     >
                       {link.label}
                     </Link>

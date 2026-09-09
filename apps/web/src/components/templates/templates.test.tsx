@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { aboutPage } from '@/content/company/about';
 import { contactPage } from '@/content/company/lead-pages';
+import { batchPlace, batchesFor } from '@/content/batches';
 import { allExams } from '@/content/exams';
 import { destinationUsa } from '@/content/guides/destination-usa';
 import { testPrepHub } from '@/content/hubs/test-prep';
@@ -38,14 +39,30 @@ describe('page templates', () => {
     }
   });
 
-  it('ExamPage renders every format with its price', () => {
-    render(<ExamPage content={allExams[0]!} />);
+  it('ExamPage shows the fee, every curriculum module and every upcoming batch', () => {
+    const exam = allExams[0]!;
+    /* Pinned so the batch list is the same on every run; the seed data runs
+       from October 2026. */
+    const now = new Date('2026-09-09T00:00:00+06:00');
+
+    render(<ExamPage content={exam} now={now} />);
 
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
-    for (const format of allExams[0]!.formats) {
-      expect(screen.getByRole('heading', { name: format.name })).toBeInTheDocument();
-      expect(screen.getByText(formatPrice(format.price))).toBeInTheDocument();
+    expect(screen.getAllByText(formatPrice(exam.fee.price)).length).toBeGreaterThan(0);
+
+    for (const unit of exam.curriculum.modules) {
+      expect(screen.getByText(unit.title)).toBeInTheDocument();
     }
+
+    const upcoming = batchesFor(exam.slug, now);
+    expect(upcoming.length).toBeGreaterThan(0);
+    for (const batch of upcoming) {
+      expect(screen.getAllByText(batchPlace(batch)).length).toBeGreaterThan(0);
+    }
+
+    const reserve = screen.getByRole('link', { name: /reserve a seat/i });
+    expect(reserve).toHaveAttribute('href', expect.stringContaining('interest='));
+    expect(reserve).toHaveAttribute('href', expect.stringContaining(`batch=${upcoming[0]!.id}`));
   });
 
   it('ProgramPage renders its process steps when the record has them', () => {

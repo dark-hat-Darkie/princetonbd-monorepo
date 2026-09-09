@@ -35,7 +35,7 @@ export function SplitFeature({
   reverse?: boolean;
 }) {
   return (
-    <Container as="section" className="py-24 lg:py-[120px]">
+    <Container as="section" className="py-(--section-y-sm) lg:py-(--section-y)">
       <div
         className={cn(
           'grid grid-cols-1 items-center gap-14 lg:gap-[66px]',

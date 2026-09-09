@@ -95,3 +95,21 @@ export const instructors: readonly Instructor[] = [
     campus: 'Chattogram',
   },
 ];
+
+/**
+ * Faculty whose `teaches` list names this exam.
+ *
+ * Matches the exam name exactly ("IELTS"), its first word ("SAT" for
+ * "SAT Math", "PTE" for "PTE Academic") or a sub-skill prefixed with it
+ * ("GRE Quant"). The roster is short enough that a fuzzy match is a bug, not a
+ * feature — "AP" must not pick up "APplied" — hence the word boundary.
+ */
+export function instructorsFor(examName: string): readonly Instructor[] {
+  const key = examName.split(' ')[0] ?? examName;
+
+  return instructors.filter((instructor) =>
+    instructor.teaches.some(
+      (subject) => subject === examName || subject === key || subject.startsWith(`${key} `),
+    ),
+  );
+}

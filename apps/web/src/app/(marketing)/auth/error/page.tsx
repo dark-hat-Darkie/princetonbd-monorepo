@@ -92,7 +92,7 @@ export default async function AuthErrorPage({
     <Container as="section" className="py-24 lg:py-[120px]">
       <Eyebrow className="mb-6">Sign-in</Eyebrow>
 
-      <h1 className="mb-5 max-w-[720px] font-display text-[clamp(30px,4.4vw,54px)] leading-[1.06] font-normal tracking-[-.02em] text-ink-deep">
+      <h1 className="mb-5 max-w-[720px] font-display text-[clamp(30px,4.4vw,54px)] leading-[1.06] font-semibold tracking-[-.03em] text-ink">
         {reason.title}
       </h1>
       <p className="mb-9 max-w-[540px] text-[17px] leading-[1.65] text-muted">{reason.body}</p>
@@ -105,19 +105,19 @@ export default async function AuthErrorPage({
       </div>
 
       {detail ? (
-        <div className="mt-12 max-w-[720px] border border-[rgba(27,36,54,.12)] bg-band px-6 py-5">
-          <div className="mb-2 text-[10.5px] font-bold tracking-[.16em] text-gold-deep uppercase">
+        <div className="mt-12 max-w-[720px] rounded-md border border-line bg-subtle px-6 py-5">
+          <div className="mb-2 text-[10.5px] font-bold tracking-[.16em] text-brand-ink uppercase">
             Development detail &middot; {key || 'unknown'}
           </div>
           <p className="font-mono text-[13px] leading-[1.6] break-words text-ink-soft">{detail}</p>
-          <p className="mt-3 text-[12.5px] text-warm">
+          <p className="mt-3 text-[12.5px] text-muted-2">
             Shown outside production only. The same line is in the server log as
             <span className="font-mono"> [auth] sign-in callback failed</span>.
           </p>
         </div>
       ) : null}
 
-      <p className="mt-12 max-w-[540px] border-l-[3px] border-l-gold bg-cream px-6 py-5 text-[14.5px] leading-[1.65] text-ink-soft">
+      <p className="mt-12 max-w-[540px] rounded-sm border-l-[3px] border-l-brand bg-subtle px-6 py-5 text-[14.5px] leading-[1.65] text-ink-soft">
         Still stuck? Call{' '}
         <a href={telHref(contact.phone)} className="text-ink underline">
           {contact.phone}

@@ -11,31 +11,33 @@ export function PriceCard({ format }: { format: CourseFormat }) {
   return (
     <div
       className={cn(
-        'flex flex-col border px-8 py-9',
+        'flex flex-col rounded-md border px-8 py-9',
         format.featured
-          ? 'border-[rgba(27,36,54,.1)] border-t-[3px] border-t-gold bg-cream shadow-[0_40px_80px_-50px_rgba(27,36,54,.4)]'
-          : 'border-[rgba(27,36,54,.09)] bg-surface',
+          ? 'border-brand/40 bg-brand-soft shadow-lift'
+          : 'border-line bg-surface shadow-card',
       )}
     >
       {format.featured ? (
-        <span className="mb-4 self-start text-[10px] font-bold tracking-[.2em] text-gold-deep uppercase">
+        <span className="mb-4 self-start rounded-full bg-accent px-3 py-1.5 text-[10.5px] font-bold tracking-[.12em] text-on-accent uppercase">
           Most chosen
         </span>
       ) : null}
 
-      <h3 className="mb-2 font-display text-[25px] font-normal text-ink-deep">{format.name}</h3>
+      <h3 className="mb-2 font-display text-[25px] font-semibold tracking-[-.02em] text-ink">
+        {format.name}
+      </h3>
       <p className="mb-7 text-[14.5px] leading-[1.6] text-muted">{format.pitch}</p>
 
-      <div className="mb-7 border-y border-[rgba(27,36,54,.1)] py-5">
-        <div className="font-display text-[32px] leading-none text-gold-deep">
+      <div className="mb-7 border-y border-line py-5">
+        <div className="font-display text-[32px] leading-none font-extrabold tracking-[-.02em] text-ink">
           {formatPrice(format.price)}
         </div>
-        <div className="mt-2 text-[12.5px] tracking-[.02em] text-warm">{format.priceUnit}</div>
+        <div className="mt-2 text-[12.5px] tracking-[.02em] text-muted-2">{format.priceUnit}</div>
       </div>
 
       <ul className="mb-7 flex flex-wrap gap-x-5 gap-y-1.5">
         {format.facts.map((fact) => (
-          <li key={fact} className="text-[12.5px] font-medium tracking-[.02em] text-warm">
+          <li key={fact} className="text-[12.5px] font-medium tracking-[.02em] text-muted-2">
             {fact}
           </li>
         ))}
@@ -44,7 +46,7 @@ export function PriceCard({ format }: { format: CourseFormat }) {
       <ul className="mb-8 flex flex-1 flex-col gap-3">
         {format.includes.map((item) => (
           <li key={item} className="flex gap-3 text-[14.5px] leading-[1.5] text-ink-soft">
-            <span aria-hidden className="mt-[7px] size-1.5 flex-none rounded-full bg-gold" />
+            <span aria-hidden className="mt-[7px] size-1.5 flex-none rounded-full bg-brand" />
             {item}
           </li>
         ))}
@@ -53,7 +55,7 @@ export function PriceCard({ format }: { format: CourseFormat }) {
       <CtaButton
         href={format.href}
         variant={format.featured ? 'solid' : 'outline'}
-        className="w-full px-6 py-[15px] text-[15px] shadow-none"
+        className="w-full"
       >
         Enrol in {format.name}
       </CtaButton>

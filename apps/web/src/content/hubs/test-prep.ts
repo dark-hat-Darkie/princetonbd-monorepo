@@ -12,14 +12,14 @@ export const testPrepHub: HubContent = {
     eyebrow: 'Test preparation',
     title: 'Every admissions test, taught by people who have topped it.',
     intro:
-      'Twelve exams, four ways to study, one written guarantee. Start with a free diagnostic and we will tell you which test suits you and what a realistic target looks like.',
+      'Twelve exams, two ways to study, one written guarantee. Start with a free diagnostic and we will tell you which test suits you and what a realistic target looks like.',
     actions: [
       { label: 'Book a free diagnostic', href: '/free-diagnostic' },
       { label: 'Compare all courses', href: '/test-prep/compare', variant: 'outline' },
     ],
     facts: [
       { label: 'Exams covered', value: '12' },
-      { label: 'Formats', value: 'Classroom · LiveOnline · 1-on-1 · Self-paced' },
+      { label: 'Modes', value: 'Classroom · Live online' },
       { label: 'Campuses', value: 'Gulshan · Dhanmondi · Chattogram' },
       { label: 'Guarantee', value: 'Written, on every course' },
     ],
@@ -39,7 +39,7 @@ export const testPrepHub: HubContent = {
         tag: 'Undergraduate',
         title: 'SAT',
         desc: 'Digital and adaptive. Module strategy, adaptive mocks and a written 1400+ track for students aiming high.',
-        meta: 'Classroom · LiveOnline · 1-on-1',
+        meta: 'Classroom · Live online',
         href: '/test-prep/sat',
       },
       {
@@ -47,7 +47,7 @@ export const testPrepHub: HubContent = {
         tag: 'Undergraduate',
         title: 'ACT',
         desc: 'Faster, more content-heavy, and the better test for some students. Pacing drills and a science section that stops being a mystery.',
-        meta: 'Classroom · LiveOnline',
+        meta: 'Classroom · Live online',
         href: '/test-prep/act',
       },
       {
@@ -87,7 +87,7 @@ export const testPrepHub: HubContent = {
         tag: 'Law',
         title: 'LSAT',
         desc: 'Logical and analytical reasoning taught as a method, not a set of tricks, for JD applicants abroad.',
-        meta: '1-on-1 · Small group',
+        meta: 'Live online · 12 weeks',
         href: '/test-prep/lsat',
       },
       {
@@ -95,7 +95,7 @@ export const testPrepHub: HubContent = {
         tag: 'Medicine',
         title: 'MCAT',
         desc: 'Content review across four sections plus the passage strategy that decides CARS, for pre-med applicants.',
-        meta: 'Extended cohorts',
+        meta: 'Live online · 24 weeks',
         href: '/test-prep/mcat',
       },
       {
@@ -119,7 +119,7 @@ export const testPrepHub: HubContent = {
         tag: 'English proficiency',
         title: 'Duolingo English Test',
         desc: 'Accepted more widely every year, sat from home, and adaptive throughout. Short, focused preparation.',
-        meta: '3-week sprint',
+        meta: 'Live online · 6 weeks',
         href: '/test-prep/duolingo',
       },
       {

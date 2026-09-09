@@ -38,7 +38,9 @@ const showGuaranteeBadge = true;
 
 export default function HomePage() {
   return (
-    <>
+    /* The landing page keeps the design's 96/120px rhythm; every inner page
+       uses the tighter default from globals.css. */
+    <div className="[--section-y-sm:6rem] [--section-y:7.5rem]">
       <Hero heroMedia={heroMedia} showGuaranteeBadge={showGuaranteeBadge} />
       <WordmarkStrip kicker={examStripKicker} items={exams} />
       <CardSection
@@ -69,6 +71,6 @@ export default function HomePage() {
         body={closing.body}
         action={closing.action}
       />
-    </>
+    </div>
   );
 }

@@ -1,5 +1,6 @@
 'use server';
 
+import { batchById } from '@/content/batches';
 import { campuses } from '@/content/site/contact';
 import { EMAIL, PHONE, leadInterests, type LeadField, type LeadState } from './lead-shape';
 
@@ -9,7 +10,7 @@ import { EMAIL, PHONE, leadInterests, type LeadField, type LeadState } from './l
  *
  * Validation is hand-written rather than schema-driven. The API has no lead
  * endpoint yet, so this file is the only consumer of these rules; pulling `zod`
- * into the web bundle for five fields would add a dependency to save nothing.
+ * into the web bundle for seven fields would add a dependency to save nothing.
  * When a real `/api/v1/leads` endpoint exists, the shape moves there and this
  * becomes a thin call.
  *
@@ -34,6 +35,7 @@ export async function submitLead(_previous: LeadState, formData: FormData): Prom
     phone: readField(formData, 'phone'),
     interest: readField(formData, 'interest'),
     campus: readField(formData, 'campus'),
+    batch: readField(formData, 'batch'),
     message: readField(formData, 'message'),
   };
 
@@ -47,6 +49,13 @@ export async function submitLead(_previous: LeadState, formData: FormData): Prom
     errors.interest = 'Please choose what you are interested in.';
   if (values.campus && !campuses.some((campus) => campus.name === values.campus))
     errors.campus = 'Please choose one of our campuses, or leave it as online.';
+  /* Set by the exam pages' "Reserve a seat" buttons; a visitor never types it.
+     A stale id — a batch withdrawn after the link was shared — is rejected
+     rather than silently dropped, so the advisor is not told to book someone
+     onto a run that no longer exists. */
+  if (values.batch && !batchById(values.batch))
+    errors.batch =
+      'That batch is no longer listed. Clear it below and tell us which dates suit you in the message.';
   if (values.message.length > 2000) errors.message = 'Please keep this under 2,000 characters.';
 
   if (Object.keys(errors).length > 0) {
@@ -79,6 +88,7 @@ export async function submitLead(_previous: LeadState, formData: FormData): Prom
     console.warn('[lead] received but not delivered — LEAD_WEBHOOK_URL is not set', {
       interest: values.interest,
       campus: values.campus,
+      batch: values.batch,
     });
   }
 

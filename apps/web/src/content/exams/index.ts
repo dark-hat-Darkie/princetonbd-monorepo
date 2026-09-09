@@ -1,9 +1,9 @@
 /**
  * Every exam we teach, in the order the mega-menu lists them.
  *
- * The comparison table and any "all exams" listing read from here rather than
- * repeating the facts, so an exam whose price or format changes changes in one
- * place and shows up everywhere consistently.
+ * The comparison table, the batch schedule and any "all exams" listing read
+ * from here rather than repeating the facts, so an exam whose fee or length
+ * changes changes in one place and shows up everywhere consistently.
  */
 
 import type { ExamContent } from '../types';
@@ -33,7 +33,9 @@ export const examFamilies: readonly ExamFamily[] = [
 
 export const allExams: readonly ExamContent[] = examFamilies.flatMap((family) => family.exams);
 
-/** The cheapest format on an exam page — what "from" means in a listing. */
-export function startingPrice(exam: ExamContent): number {
-  return Math.min(...exam.formats.map((format) => format.price.amount));
+const bySlug = new Map(allExams.map((exam) => [exam.slug, exam]));
+
+/** Looks an exam up by its last path segment, e.g. "ielts". */
+export function examBySlug(slug: string): ExamContent | undefined {
+  return bySlug.get(slug);
 }

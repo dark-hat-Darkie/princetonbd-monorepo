@@ -7,6 +7,7 @@
  * a CMS or an API a change of module, not a change of every consumer.
  */
 
+import type { LeadInterest } from '@/lib/actions/lead-shape';
 import type { Price } from '@/lib/money';
 
 export interface Stat {
@@ -46,8 +47,74 @@ export interface CourseFormat {
   facts: readonly string[];
   includes: readonly string[];
   href: string;
-  /** Draws the gold top rule and cream ground on the recommended option. */
+  /** Marks the recommended option: tinted ground, lifted shadow, "Most chosen" badge. */
   featured?: boolean;
+}
+
+/* ---------------------------------------------------------------------------
+ * Course shapes: what an exam course costs, what it teaches, and when it runs.
+ *
+ * Written as the contract a future `/api/v1/courses` and `/api/v1/batches`
+ * would satisfy. Today they are filled from static modules; swapping those for
+ * fetches should not change a single consumer.
+ * ------------------------------------------------------------------------- */
+
+export type DeliveryMode = 'Classroom' | 'LiveOnline';
+
+/** The one price a learner pays for the course; a batch may override it. */
+export interface CourseFee {
+  price: Price;
+  /** What the price buys, e.g. "per 10-week course". */
+  unit: string;
+  /** What is bundled into the fee: materials, mocks, labs, the guarantee. */
+  includes: readonly string[];
+  /** Payment terms: instalments, registration, refunds. */
+  notes?: readonly string[];
+}
+
+export interface CurriculumModule {
+  /** Display order, e.g. "01". */
+  no: string;
+  title: string;
+  summary: string;
+  topics: readonly string[];
+  hours?: number;
+  /** "By the end you can…" — one line. */
+  outcome?: string;
+}
+
+export interface Curriculum {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  modules: readonly CurriculumModule[];
+  totals: { weeks: number; taughtHours: number; mocks: number; classSize: string };
+  /** What the learner can do on completion; rendered under the modules. */
+  outcomes?: readonly string[];
+}
+
+export type BatchStatus = 'open' | 'filling' | 'waitlist' | 'closed';
+
+/** One scheduled run of an exam course. */
+export interface Batch {
+  /** Stable id, also the `?batch=` value on /contact, e.g. "ielts-2026-10-gulshan". */
+  id: string;
+  /** Matches `ExamContent.slug`. */
+  examSlug: string;
+  mode: DeliveryMode;
+  /** A `Campus['name']`; null if and only if `mode === 'LiveOnline'`. */
+  campus: string | null;
+  /** Calendar dates, YYYY-MM-DD, read as Dhaka days. */
+  startsOn: string;
+  endsOn: string;
+  /** Days and time, e.g. "Sat · Mon · Wed, 6:30–8:30 pm". */
+  schedule: string;
+  status: BatchStatus;
+  seatsLeft?: number;
+  /** An `Instructor['name']` from people.ts. */
+  instructor?: string;
+  /** Overrides the exam's canonical fee, e.g. a cheaper LiveOnline run. */
+  fee?: Price;
 }
 
 /** A card in the bordered hairline grid. */
@@ -162,7 +229,13 @@ export interface HubContent extends PageBase {
 export interface ExamContent extends PageBase {
   /** Short exam name used in headings and structured data, e.g. "SAT". */
   name: string;
-  formats: readonly CourseFormat[];
+  /** Last path segment; the key batches and the compare table use. */
+  slug: string;
+  /** Which enquiry-form option this exam maps to. */
+  interest: LeadInterest;
+  fee: CourseFee;
+  modes: readonly DeliveryMode[];
+  curriculum: Curriculum;
   includes: FeaturesBlock;
   stats?: readonly Stat[];
   testimonials?: readonly string[];

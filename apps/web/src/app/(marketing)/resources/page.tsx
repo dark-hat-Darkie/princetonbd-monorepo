@@ -60,42 +60,42 @@ export default async function ResourcesPage({
           ))}
         </div>
 
-        <ul className="grid grid-cols-1 gap-px border border-[rgba(27,36,54,.09)] bg-[rgba(27,36,54,.09)] md:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {visible.map((article) => (
-            <li key={article.slug} className="flex bg-surface">
+            <li key={article.slug} className="flex">
               <Link
                 href={`/resources/${article.slug}`}
-                className="group flex flex-1 translate-y-0 flex-col px-8 pt-9 pb-[30px] transition-[background-color,translate] duration-200 hover:-translate-y-[3px] hover:bg-canvas"
+                className="group flex flex-1 translate-y-0 flex-col rounded-md border border-line bg-surface p-7 shadow-card transition-[translate,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-line-strong hover:shadow-lift motion-reduce:hover:translate-y-0"
               >
                 <div className="mb-[22px] flex items-center justify-between gap-4">
-                  <span className="text-[10.5px] font-bold tracking-[.14em] text-gold-deep uppercase">
+                  <span className="text-[10.5px] font-bold tracking-[.14em] text-brand-ink uppercase">
                     {article.category}
                   </span>
-                  <span className="text-[12px] whitespace-nowrap text-warm">
+                  <span className="text-[12px] whitespace-nowrap text-muted-2">
                     {article.readingMinutes} min read
                   </span>
                 </div>
 
                 <div
                   aria-hidden
-                  className="mb-[18px] h-0.5 w-[26px] bg-gold transition-[width] duration-[280ms] group-hover:w-[44px]"
+                  className="mb-[18px] h-[3px] w-7 rounded-full bg-accent transition-[width] duration-[280ms] group-hover:w-12 motion-reduce:transition-none"
                 />
 
-                <h2 className="mb-[11px] font-display text-[23px] leading-[1.25] font-normal text-ink-deep">
+                <h2 className="mb-[11px] font-display text-[23px] leading-[1.15] font-semibold tracking-[-.02em] text-ink">
                   {article.title}
                 </h2>
                 <p className="mb-[26px] flex-1 text-[14.5px] leading-[1.6] text-muted">
                   {article.description}
                 </p>
 
-                <div className="flex items-center justify-between border-t border-t-[rgba(27,36,54,.09)] pt-[18px]">
+                <div className="flex items-center justify-between border-t border-t-line pt-[18px]">
                   <time
                     dateTime={article.published}
-                    className="text-[12.5px] font-medium tracking-[.02em] text-warm"
+                    className="text-[12.5px] font-medium tracking-[.02em] text-muted-2"
                   >
                     {formatDate(article.published)}
                   </time>
-                  <span aria-hidden className="text-[15px] text-gold-mid">
+                  <span aria-hidden className="text-[15px] text-brand-ink">
                     &rarr;
                   </span>
                 </div>

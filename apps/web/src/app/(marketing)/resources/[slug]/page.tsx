@@ -71,7 +71,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }}
       />
 
-      <Container as="section" className="border-b border-b-[rgba(27,36,54,.08)] py-14 lg:py-[70px]">
+      <Container as="section" className="border-b border-b-line py-14 lg:py-[70px]">
         <Breadcrumb
           items={[
             { label: 'Home', href: '/' },
@@ -81,16 +81,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           className="mb-8"
         />
 
-        <h1 className="max-w-[820px] font-display text-[clamp(30px,4.2vw,50px)] leading-[1.08] font-normal tracking-[-.02em] text-ink-deep">
+        <h1 className="max-w-[820px] font-display text-[clamp(30px,4.2vw,50px)] leading-[1.08] font-semibold tracking-[-.03em] text-ink">
           {article.title}
         </h1>
         <p className="mt-[22px] max-w-[600px] text-[17px] leading-[1.65] text-muted">
           {article.description}
         </p>
 
-        <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12.5px] font-medium tracking-[.02em] text-warm">
-          <span className="text-gold-deep uppercase">{article.category}</span>
-          <span aria-hidden className="h-3 w-px bg-[rgba(27,36,54,.18)]" />
+        <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12.5px] font-medium tracking-[.02em] text-muted-2">
+          <span className="text-brand-ink uppercase">{article.category}</span>
+          <span aria-hidden className="h-3 w-px bg-line-strong" />
           <time dateTime={article.published}>
             {new Date(article.published).toLocaleDateString('en-GB', {
               day: 'numeric',
@@ -98,7 +98,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               year: 'numeric',
             })}
           </time>
-          <span aria-hidden className="h-3 w-px bg-[rgba(27,36,54,.18)]" />
+          <span aria-hidden className="h-3 w-px bg-line-strong" />
           <span>{article.readingMinutes} min read</span>
         </div>
       </Container>
@@ -111,18 +111,20 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       </Container>
 
       <Container as="section" className="pb-16 lg:pb-20">
-        <h2 className="mb-8 font-display text-[26px] font-normal text-ink-deep">Keep reading</h2>
-        <ul className="grid grid-cols-1 gap-px border border-[rgba(27,36,54,.09)] bg-[rgba(27,36,54,.09)] md:grid-cols-3">
+        <h2 className="mb-8 font-display text-[26px] leading-[1.25] font-semibold tracking-[-.02em] text-ink">
+          Keep reading
+        </h2>
+        <ul className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {related.map((candidate) => (
-            <li key={candidate.slug} className="flex bg-surface">
+            <li key={candidate.slug} className="flex">
               <Link
                 href={`/resources/${candidate.slug}`}
-                className="group flex flex-1 flex-col px-7 py-7 transition-colors duration-200 hover:bg-canvas"
+                className="group flex flex-1 translate-y-0 flex-col rounded-md border border-line bg-surface p-7 shadow-card transition-[translate,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-line-strong hover:shadow-lift motion-reduce:hover:translate-y-0"
               >
-                <span className="mb-3 text-[10.5px] font-bold tracking-[.14em] text-gold-deep uppercase">
+                <span className="mb-3 text-[10.5px] font-bold tracking-[.14em] text-brand-ink uppercase">
                   {candidate.category}
                 </span>
-                <span className="font-display text-[19px] leading-[1.3] text-ink-deep">
+                <span className="font-display text-[19px] leading-[1.3] font-semibold tracking-[-.02em] text-ink">
                   {candidate.title}
                 </span>
               </Link>
