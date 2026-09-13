@@ -107,7 +107,7 @@ export default function InstructorsPage() {
         eyebrow="Join us"
         title="Think you could teach here?"
         body="We are always looking for people who scored well and can explain why. Tell us what you teach and we will arrange an audition."
-        action={{ label: 'Teach for us', href: '/careers/teach' }}
+        action={{ label: 'Get in touch', href: '/contact' }}
       />
     </>
   );

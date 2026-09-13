@@ -23,8 +23,8 @@ export default function ApplicationsPage() {
   return (
     <>
       <PortalHeader title="Applications" blurb={link?.blurb ?? ''}>
-        <CtaButton href="/study-abroad/university-finder" size="sm" variant="outline">
-          Find more universities
+        <CtaButton href="/contact" size="sm" variant="outline">
+          Talk to a counselor
         </CtaButton>
       </PortalHeader>
 

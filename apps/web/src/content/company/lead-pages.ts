@@ -1,7 +1,7 @@
 import type { LeadPageContent } from '@/components/templates/lead-page';
 
 /**
- * The three pages whose only job is to start a conversation.
+ * The two pages whose only job is to start a conversation.
  *
  * They share a template and differ in what the visitor was promised on the way
  * in — so the reassurance column, not the form, is what changes between them.
@@ -68,42 +68,6 @@ export const freeDiagnosticPage: LeadPageContent = {
     {
       title: 'A target you can plan around',
       desc: 'What score your shortlist needs, how far that is from today, and how many weeks it usually takes to close.',
-    },
-  ],
-};
-
-export const freePracticeTestsPage: LeadPageContent = {
-  path: '/free-practice-tests',
-  seo: {
-    title: 'Free practice tests — full-length SAT, ACT, GRE, GMAT & IELTS mocks',
-    description:
-      'Book a free full-length practice test in Dhaka or Chattogram, or sit it online. Adaptive where the real exam is adaptive, scored and reviewed by an instructor.',
-  },
-  hero: {
-    eyebrow: 'Free practice tests',
-    title: 'Sit the real thing before it counts.',
-    intro:
-      'Full-length mocks under exam conditions, open to anyone — whether or not you study with us. Adaptive where the real test is adaptive, and reviewed by an instructor afterwards.',
-    facts: [
-      { label: 'Cost', value: 'Free' },
-      { label: 'Where', value: 'Gulshan · Dhanmondi · Chattogram · Online' },
-      { label: 'Length', value: 'Full, timed, proctored' },
-      { label: 'Review', value: 'Instructor-led debrief' },
-    ],
-  },
-  interestDefault: 'SAT / ACT',
-  reassurance: [
-    {
-      title: 'Exam conditions, on purpose',
-      desc: 'Timed, proctored and without your phone. Practising in comfortable conditions is how test day goes wrong.',
-    },
-    {
-      title: 'Adaptive where it matters',
-      desc: 'The SAT, PSAT and Duolingo tests adapt mid-exam. So do our mocks — a static paper paper would not prepare you for it.',
-    },
-    {
-      title: 'A debrief, not just a number',
-      desc: 'An instructor walks the paper with you and shows which mistakes are knowledge gaps and which are pacing.',
     },
   ],
 };

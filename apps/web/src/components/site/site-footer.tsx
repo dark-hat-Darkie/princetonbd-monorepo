@@ -10,11 +10,8 @@ export function SiteFooter() {
     <footer className="bg-ink text-on-ink/70">
       <Container className="pt-[72px] pb-8">
         {/* Brand block beside the links, with the link columns in their own
-            nested grid. A single flat grid worked while there were four
-            columns; at eight the brand block would occupy one cell of the first
-            row and the fifth column would wrap underneath it. Nesting lets the
-            columns reflow 2 -> 3 -> 4 per row without the brand ever being part
-            of that flow. */}
+            nested grid, so the columns reflow 2 -> 3 -> 4 per row on narrower
+            screens without the brand block ever being part of that flow. */}
         <div className="grid grid-cols-1 gap-x-10 gap-y-12 border-b border-b-line-invert pb-[52px] nav:grid-cols-[minmax(240px,1fr)_3.1fr]">
           <div className="max-w-[300px]">
             <BrandMark variant="footer" className="mb-5" />

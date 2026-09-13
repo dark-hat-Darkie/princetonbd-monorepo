@@ -1,18 +1,14 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { aboutPage } from '@/content/company/about';
 import { contactPage } from '@/content/company/lead-pages';
 import { batchPlace, batchesFor } from '@/content/batches';
 import { allExams } from '@/content/exams';
-import { destinationUsa } from '@/content/guides/destination-usa';
 import { testPrepHub } from '@/content/hubs/test-prep';
 import { privacyPolicy } from '@/content/legal/privacy';
 import { tutoringPrivate } from '@/content/programs/tutoring-private';
 import { formatPrice } from '@/lib/money';
-import { CompanyPage } from './company-page';
 import { ExamPage } from './exam-page';
-import { GuidePage } from './guide-page';
 import { HubPage } from './hub-page';
 import { LeadPage } from './lead-page';
 import { LegalPage } from './legal-page';
@@ -71,24 +67,6 @@ describe('page templates', () => {
     for (const step of tutoringPrivate.process?.steps ?? []) {
       expect(screen.getByText(step.title)).toBeInTheDocument();
     }
-  });
-
-  it('GuidePage renders the body headings and a contents rail linking to them', () => {
-    render(<GuidePage content={destinationUsa} />);
-
-    const toc = screen.getByRole('navigation', { name: 'On this page' });
-    const headings = destinationUsa.body.filter((block) => block.type === 'heading');
-
-    for (const heading of headings) {
-      expect(within(toc).getByRole('link', { name: heading.text })).toBeInTheDocument();
-      expect(screen.getByRole('heading', { name: heading.text })).toBeInTheDocument();
-    }
-  });
-
-  it('CompanyPage renders without a body when the record omits one', () => {
-    render(<CompanyPage content={{ ...aboutPage, body: undefined }} />);
-
-    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
   });
 
   it('LegalPage shows the last-updated date and no call to action', () => {

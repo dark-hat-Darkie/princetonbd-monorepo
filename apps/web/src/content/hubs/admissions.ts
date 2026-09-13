@@ -4,9 +4,9 @@ import { commonFaq } from '../shared';
 export const admissionsHub: HubContent = {
   path: '/admissions',
   seo: {
-    title: 'Admissions counseling in Bangladesh — undergraduate to business school',
+    title: 'Admissions counseling in Bangladesh — graduate and business school',
     description:
-      'Strategic guidance for every stage of applying abroad. Personalised counseling for undergraduates, graduate students, business school and law school applicants, plus essay and interview support.',
+      'Strategic guidance for applying abroad. Personalised counseling for graduate and business school applicants — school selection, timeline, essays, interviews and financial aid, with one counselor for the whole journey.',
   },
   hero: {
     eyebrow: 'Admissions counseling',
@@ -26,20 +26,12 @@ export const admissionsHub: HubContent = {
   },
   cards: {
     eyebrow: 'Choose your path',
-    title: 'Counseling for every degree.',
+    title: 'Counseling for the degree you are applying to.',
     intro:
-      'Whether you are applying to your first university or your third, we have counselors who have guided students through exactly your journey.',
+      'Whether it is a research masters or an MBA, we have counselors who have guided students through exactly your journey.',
     items: [
       {
         no: '01',
-        tag: 'Counseling',
-        title: 'Undergraduate',
-        desc: 'The big decision: where you study shapes who you become. We map schools by culture, career outcomes and fit, then structure your essays to get you in.',
-        meta: 'Ages 16–18',
-        href: '/admissions/undergraduate',
-      },
-      {
-        no: '02',
         tag: 'Counseling',
         title: 'Graduate (MS & PhD)',
         desc: 'Research interests, supervisor fit, funding — the technical and human sides of graduate admissions. We help you tell your research story compellingly.',
@@ -47,60 +39,12 @@ export const admissionsHub: HubContent = {
         href: '/admissions/graduate',
       },
       {
-        no: '03',
+        no: '02',
         tag: 'Counseling',
         title: 'Business school',
         desc: 'MBA, EMBA, or executive programmes. We position your career narrative and quantify why now is your moment.',
         meta: 'Work experience strategies',
         href: '/admissions/business',
-      },
-      {
-        no: '04',
-        tag: 'Counseling',
-        title: 'Medical school',
-        desc: 'Clinical experience, research, test scores — and how to narrate them as a coherent vision. For pre-med applicants and IMG candidates.',
-        meta: 'MD · MBBS · International routes',
-        href: '/admissions/medical',
-      },
-      {
-        no: '05',
-        tag: 'Counseling',
-        title: 'Law school',
-        desc: 'JD, LLM or professional law degrees. We help you position your academic record, legal interests and professional goals as a unified case.',
-        meta: 'Common law jurisdictions',
-        href: '/admissions/law',
-      },
-      {
-        no: '06',
-        tag: 'Application support',
-        title: 'Essays & personal statements',
-        desc: 'From brainstorm to final draft. We teach the argument structures that admissions officers actually respond to, then make sure every sentence belongs.',
-        meta: 'All essay types',
-        href: '/admissions/essays',
-      },
-      {
-        no: '07',
-        tag: 'Application support',
-        title: 'Recommendations',
-        desc: 'We help you identify your strongest recommenders, then coach you on how to ask and what to give them — so your letter counts.',
-        meta: 'Strategy + positioning',
-        href: '/admissions/recommendations',
-      },
-      {
-        no: '08',
-        tag: 'Application support',
-        title: 'Interview preparation',
-        desc: 'Live practice interviews with interviewers trained in the specific format of your target universities. You leave knowing exactly how to come across.',
-        meta: 'Recorded · Debriefed',
-        href: '/admissions/interviews',
-      },
-      {
-        no: '09',
-        tag: 'Application support',
-        title: 'Financial aid & scholarships',
-        desc: 'How to find it, how to ask for it, how to maximise it. We match you with opportunities you would not have found alone.',
-        meta: 'Need-based · Merit-based',
-        href: '/admissions/financial-aid',
       },
     ],
   },

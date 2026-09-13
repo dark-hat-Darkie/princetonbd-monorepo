@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { Panel, PanelEmpty, PanelRow } from '@/components/dashboard/panel';
 import { PortalHeader } from '@/components/dashboard/portal-shell';
 import { portalLinkFor } from '@/components/dashboard/portal-nav';
-import { CtaButton } from '@/components/ui/cta-button';
 import { student } from '@/content/dashboard/student';
 import { formatDayMonth } from '@/lib/dates';
 
@@ -18,11 +17,7 @@ export default function ResourcesPage() {
 
   return (
     <>
-      <PortalHeader title="Resources" blurb={link?.blurb ?? ''}>
-        <CtaButton href="/resources" size="sm" variant="outline">
-          Public advice library
-        </CtaButton>
-      </PortalHeader>
+      <PortalHeader title="Resources" blurb={link?.blurb ?? ''} />
 
       <Panel title="Your materials" meta={`${String(resources.length)} items`}>
         {resources.length === 0 ? (

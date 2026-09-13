@@ -120,7 +120,7 @@
   --animate-float: prbdFloat 5.5s ease-in-out infinite;
   --animate-marquee: prbdMarquee 34s linear infinite;
 
-  /* Kept as CSS rather than moved to <Reveal>: the mega-menu panel and the
+  /* Kept as CSS rather than moved to <Reveal>: the nav dropdown panel and the
      inner-page hero animate on mount, not on scroll, so neither needs a
      viewport observer or a client boundary. */
   @keyframes prbdRise {

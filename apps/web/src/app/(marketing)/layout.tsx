@@ -3,7 +3,7 @@ import { SiteFooter } from '@/components/site/site-footer';
 import { SiteHeader } from '@/components/site/site-header';
 import { JsonLd } from '@/components/ui/json-ld';
 import { campuses, contact } from '@/content/site/contact';
-import { absoluteUrl, siteDescription, siteName, siteUrl } from '@/lib/site';
+import { siteDescription, siteName, siteUrl } from '@/lib/site';
 
 /**
  * Chrome for every public marketing page.
@@ -39,7 +39,6 @@ export default function MarketingLayout({ children }: Readonly<{ children: React
             telephone: campus.phone,
             address: { '@type': 'PostalAddress', streetAddress: campus.address },
           })),
-          sameAs: [absoluteUrl('/about')],
         }}
       />
 

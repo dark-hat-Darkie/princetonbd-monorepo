@@ -253,46 +253,11 @@ export interface ProgramContent extends PageBase {
   faq?: readonly FaqItem[];
 }
 
-export interface GuideContent extends PageBase {
-  /** Optional hero photograph, shown in the arched frame beside the title. */
-  image?: { src: string; alt: string };
-  body: readonly Block[];
-  related?: readonly GridCard[];
-  faq?: readonly FaqItem[];
-}
-
-export interface CompanyContent extends PageBase {
-  body?: readonly Block[];
-  cards?: CardsBlock;
-  features?: FeaturesBlock;
-  stats?: readonly Stat[];
-}
-
 export interface LegalContent {
   path: string;
   seo: PageSeo;
   title: string;
   /** ISO date, rendered as "Last updated". */
   updated: string;
-  body: readonly Block[];
-}
-
-/**
- * An advice article.
- *
- * The only content on the site behind a dynamic route: the set grows over time
- * and nothing links to an individual piece by literal href, so a `[slug]`
- * segment with `generateStaticParams` is the right shape here where explicit
- * directories are right everywhere else.
- */
-export interface Article {
-  slug: string;
-  title: string;
-  description: string;
-  /** Rendered as a filter pill on the index. */
-  category: string;
-  /** ISO date. Sorts the index, newest first. */
-  published: string;
-  readingMinutes: number;
   body: readonly Block[];
 }

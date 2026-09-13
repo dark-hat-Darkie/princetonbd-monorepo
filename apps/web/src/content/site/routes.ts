@@ -3,11 +3,11 @@
  * breadcrumbs, `/site-map` and `app/sitemap.ts`.
  *
  * Kept explicit rather than derived from `nav.ts`, for two reasons. Several
- * pages are reachable from more than one menu (the university finder sits under
- * both Admissions and Study Abroad) and only one of those can be its parent in
- * a breadcrumb; and a number of pages — the legal documents, the article index,
- * the site map itself — are linked only from the footer and would be missing
- * from a nav-derived list entirely.
+ * pages are reachable from more than one menu (GRE sits under both Pre-Grad and
+ * Pre-Business) and only one of those can be its parent in a breadcrumb; and a
+ * number of pages — the legal documents, the site map itself, the pages that
+ * survive only as a home-page card or an exam-page link — are not in the header
+ * at all and would be missing from a nav-derived list entirely.
  *
  * `routes.test.ts` keeps the two in step: it asserts every nav href appears
  * here, and that every path here resolves to a real file under `src/app`.
@@ -51,37 +51,14 @@ export const routes: readonly RouteNode[] = [
   /* — Tutoring ———————————————————————————————————————————————————————— */
   { path: '/tutoring', label: 'Tutoring', priority: 0.9 },
   { path: '/tutoring/private', label: 'Private 1-on-1', parent: '/tutoring' },
-  { path: '/tutoring/small-group', label: 'Small group', parent: '/tutoring' },
-  { path: '/tutoring/online', label: 'Online tutoring', parent: '/tutoring' },
-  { path: '/tutoring/subjects/math', label: 'Mathematics', parent: '/tutoring' },
-  { path: '/tutoring/subjects/science', label: 'Science', parent: '/tutoring' },
-  { path: '/tutoring/subjects/english', label: 'English', parent: '/tutoring' },
-  { path: '/tutoring/subjects/social-studies', label: 'Social studies', parent: '/tutoring' },
-  { path: '/tutoring/subjects/advanced-placement', label: 'AP support', parent: '/tutoring' },
 
   /* — Admissions —————————————————————————————————————————————————————— */
   { path: '/admissions', label: 'Admissions', priority: 0.9 },
-  { path: '/admissions/undergraduate', label: 'Undergraduate', parent: '/admissions' },
   { path: '/admissions/graduate', label: 'Graduate', parent: '/admissions' },
   { path: '/admissions/business', label: 'Business school', parent: '/admissions' },
-  { path: '/admissions/medical', label: 'Medical school', parent: '/admissions' },
-  { path: '/admissions/law', label: 'Law school', parent: '/admissions' },
-  { path: '/admissions/essays', label: 'Essays', parent: '/admissions' },
-  { path: '/admissions/recommendations', label: 'Recommendations', parent: '/admissions' },
-  { path: '/admissions/interviews', label: 'Interviews', parent: '/admissions' },
-  { path: '/admissions/financial-aid', label: 'Financial aid', parent: '/admissions' },
 
   /* — Study abroad ———————————————————————————————————————————————————— */
   { path: '/study-abroad', label: 'Study Abroad', priority: 0.9 },
-  { path: '/study-abroad/destinations/usa', label: 'United States', parent: '/study-abroad' },
-  { path: '/study-abroad/destinations/uk', label: 'United Kingdom', parent: '/study-abroad' },
-  { path: '/study-abroad/destinations/canada', label: 'Canada', parent: '/study-abroad' },
-  { path: '/study-abroad/destinations/australia', label: 'Australia', parent: '/study-abroad' },
-  { path: '/study-abroad/destinations/europe', label: 'Europe', parent: '/study-abroad' },
-  { path: '/study-abroad/university-finder', label: 'University finder', parent: '/study-abroad' },
-  { path: '/study-abroad/scholarships', label: 'Scholarships', parent: '/study-abroad' },
-  { path: '/study-abroad/visa', label: 'Visa', parent: '/study-abroad' },
-  { path: '/study-abroad/pre-departure', label: 'Pre-departure', parent: '/study-abroad' },
 
   /* — Online courses —————————————————————————————————————————————————— */
   { path: '/online-courses', label: 'Online Courses', priority: 0.9 },
@@ -89,40 +66,12 @@ export const routes: readonly RouteNode[] = [
   { path: '/online-courses/self-paced', label: 'Self-paced', parent: '/online-courses' },
   { path: '/online-courses/on-demand', label: 'On-demand library', parent: '/online-courses' },
 
-  /* — About & company ————————————————————————————————————————————————— */
-  { path: '/about', label: 'About', priority: 0.8 },
-  { path: '/about/instructors', label: 'Instructors', parent: '/about' },
-  { path: '/about/campuses', label: 'Campuses', parent: '/about' },
-  { path: '/about/results', label: 'Results', parent: '/about' },
-  { path: '/about/guarantee', label: 'Our guarantee', parent: '/about' },
-  { path: '/careers', label: 'Careers', parent: '/about' },
-  { path: '/careers/teach', label: 'Teach for us', parent: '/careers' },
-  { path: '/media', label: 'Press & media', parent: '/about' },
-
-  /* — Partnerships ———————————————————————————————————————————————————— */
-  { path: '/partnerships', label: 'Partnerships' },
-  { path: '/partnerships/schools', label: 'Schools & districts', parent: '/partnerships' },
-  {
-    path: '/partnerships/high-dosage-tutoring',
-    label: 'High-dosage tutoring',
-    parent: '/partnerships',
-  },
-  {
-    path: '/partnerships/professional-development',
-    label: 'Teacher development',
-    parent: '/partnerships',
-  },
+  /* — Company ————————————————————————————————————————————————————————— */
+  { path: '/about/instructors', label: 'Instructors', priority: 0.8 },
 
   /* — Lead capture ———————————————————————————————————————————————————— */
   { path: '/contact', label: 'Contact', priority: 0.9 },
   { path: '/free-diagnostic', label: 'Free diagnostic', priority: 0.9 },
-  { path: '/free-practice-tests', label: 'Free practice tests' },
-  { path: '/events', label: 'Events & webinars' },
-
-  /* — Resources ——————————————————————————————————————————————————————— */
-  { path: '/resources', label: 'Resources', priority: 0.8 },
-  { path: '/resources/rankings-guides', label: 'Rankings & guides', parent: '/resources' },
-  { path: '/resources/majors-and-careers', label: 'Majors & careers', parent: '/resources' },
 
   /* — Legal & utility ————————————————————————————————————————————————— */
   { path: '/legal/privacy', label: 'Privacy policy', priority: 0.3 },

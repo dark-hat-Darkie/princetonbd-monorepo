@@ -20,10 +20,9 @@ function single(value: string | string[] | undefined): string | undefined {
  *
  * Every value is checked against its source list before it is trusted, so a
  * hand-edited URL produces an empty field, never an injected label. Reading
- * `searchParams` makes this the second dynamically rendered marketing page
- * (after the university finder), which is the right trade: the form is a
- * client component anyway, and the alternative is shipping the batch list to
- * the browser to resolve a label.
+ * `searchParams` makes this the only dynamically rendered marketing page,
+ * which is the right trade: the form is a client component anyway, and the
+ * alternative is shipping the batch list to the browser to resolve a label.
  */
 export default async function ContactPage({
   searchParams,
