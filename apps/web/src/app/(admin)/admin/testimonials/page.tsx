@@ -51,7 +51,7 @@ export default async function AdminTestimonialsPage({
               <div>
                 <Link
                   href={`/admin/testimonials/${testimonial.id}`}
-                  className="font-semibold text-ink underline-offset-4 hover:underline"
+                  className="font-semibold text-ink underline decoration-line-strong underline-offset-4 hover:text-brand-ink hover:decoration-brand"
                 >
                   {testimonial.name}
                 </Link>
@@ -84,6 +84,16 @@ export default async function AdminTestimonialsPage({
             header: 'Order',
             className: 'text-right',
             cell: (testimonial) => testimonial.sortOrder,
+          },
+          {
+            key: 'edit',
+            header: <span className="sr-only">Actions</span>,
+            className: 'text-right',
+            cell: (testimonial) => (
+              <CtaButton href={`/admin/testimonials/${testimonial.id}`} size="sm" variant="outline">
+                Edit
+              </CtaButton>
+            ),
           },
         ]}
       />

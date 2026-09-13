@@ -50,7 +50,7 @@ export default async function AdminBranchesPage({
             cell: (branch) => (
               <Link
                 href={`/admin/branches/${branch.id}`}
-                className="font-semibold text-ink underline-offset-4 hover:underline"
+                className="font-semibold text-ink underline decoration-line-strong underline-offset-4 hover:text-brand-ink hover:decoration-brand"
               >
                 {branch.name}
               </Link>
@@ -73,6 +73,16 @@ export default async function AdminBranchesPage({
             header: 'Order',
             className: 'text-right',
             cell: (branch) => branch.sortOrder,
+          },
+          {
+            key: 'edit',
+            header: <span className="sr-only">Actions</span>,
+            className: 'text-right',
+            cell: (branch) => (
+              <CtaButton href={`/admin/branches/${branch.id}`} size="sm" variant="outline">
+                Edit
+              </CtaButton>
+            ),
           },
         ]}
       />

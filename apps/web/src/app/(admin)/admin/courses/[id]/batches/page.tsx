@@ -57,7 +57,7 @@ export default async function CourseBatchesPage({
             cell: (batch) => (
               <Link
                 href={`/admin/courses/${course.id}/batches/${batch.id}`}
-                className="font-semibold text-ink tabular-nums underline-offset-4 hover:underline"
+                className="font-semibold text-ink tabular-nums underline decoration-line-strong underline-offset-4 hover:text-brand-ink hover:decoration-brand"
               >
                 {formatDayMonth(batch.startsOn)}
               </Link>
@@ -120,6 +120,20 @@ export default async function CourseBatchesPage({
                   formatPrice({ amount: batch.feeAmount, currency: 'BDT' })
                 )}
               </span>
+            ),
+          },
+          {
+            key: 'edit',
+            header: <span className="sr-only">Actions</span>,
+            className: 'text-right',
+            cell: (batch) => (
+              <CtaButton
+                href={`/admin/courses/${course.id}/batches/${batch.id}`}
+                size="sm"
+                variant="outline"
+              >
+                Edit
+              </CtaButton>
             ),
           },
         ]}

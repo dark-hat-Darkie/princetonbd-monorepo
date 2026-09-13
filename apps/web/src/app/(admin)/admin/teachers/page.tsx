@@ -51,7 +51,7 @@ export default async function AdminTeachersPage({
               <div>
                 <Link
                   href={`/admin/teachers/${teacher.id}`}
-                  className="font-semibold text-ink underline-offset-4 hover:underline"
+                  className="font-semibold text-ink underline decoration-line-strong underline-offset-4 hover:text-brand-ink hover:decoration-brand"
                 >
                   {teacher.name}
                 </Link>
@@ -84,6 +84,16 @@ export default async function AdminTeachersPage({
             header: 'Order',
             className: 'text-right',
             cell: (teacher) => teacher.sortOrder,
+          },
+          {
+            key: 'edit',
+            header: <span className="sr-only">Actions</span>,
+            className: 'text-right',
+            cell: (teacher) => (
+              <CtaButton href={`/admin/teachers/${teacher.id}`} size="sm" variant="outline">
+                Edit
+              </CtaButton>
+            ),
           },
         ]}
       />
