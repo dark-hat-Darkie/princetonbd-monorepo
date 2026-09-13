@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { GetCurrentUserData, GetCurrentUserResponses, GetHealthData, GetHealthErrors, GetHealthResponses, GetUserByIdData, GetUserByIdResponses } from './types.gen';
+import type { AdminCreateBatchData, AdminCreateBatchErrors, AdminCreateBatchResponses, AdminCreateBranchData, AdminCreateBranchErrors, AdminCreateBranchResponses, AdminCreateCourseData, AdminCreateCourseErrors, AdminCreateCourseResponses, AdminCreateTeacherData, AdminCreateTeacherErrors, AdminCreateTeacherResponses, AdminCreateTestimonialData, AdminCreateTestimonialErrors, AdminCreateTestimonialResponses, AdminDeleteBatchData, AdminDeleteBatchErrors, AdminDeleteBatchResponses, AdminDeleteBranchData, AdminDeleteBranchErrors, AdminDeleteBranchResponses, AdminDeleteCourseData, AdminDeleteCourseErrors, AdminDeleteCourseResponses, AdminDeleteTeacherData, AdminDeleteTeacherErrors, AdminDeleteTeacherResponses, AdminDeleteTestimonialData, AdminDeleteTestimonialErrors, AdminDeleteTestimonialResponses, AdminGetBatchData, AdminGetBatchErrors, AdminGetBatchResponses, AdminGetBranchData, AdminGetBranchErrors, AdminGetBranchResponses, AdminGetCourseData, AdminGetCourseErrors, AdminGetCourseResponses, AdminGetOverviewData, AdminGetOverviewErrors, AdminGetOverviewResponses, AdminGetTeacherData, AdminGetTeacherErrors, AdminGetTeacherResponses, AdminGetTestimonialData, AdminGetTestimonialErrors, AdminGetTestimonialResponses, AdminListBatchesData, AdminListBatchesErrors, AdminListBatchesResponses, AdminListBranchesData, AdminListBranchesErrors, AdminListBranchesResponses, AdminListCoursesData, AdminListCoursesErrors, AdminListCoursesResponses, AdminListTeachersData, AdminListTeachersErrors, AdminListTeachersResponses, AdminListTestimonialsData, AdminListTestimonialsErrors, AdminListTestimonialsResponses, AdminPresignUploadData, AdminPresignUploadErrors, AdminPresignUploadResponses, AdminReplaceCourseTeachersData, AdminReplaceCourseTeachersErrors, AdminReplaceCourseTeachersResponses, AdminReplaceCurriculumData, AdminReplaceCurriculumErrors, AdminReplaceCurriculumResponses, AdminUpdateBatchData, AdminUpdateBatchErrors, AdminUpdateBatchResponses, AdminUpdateBranchData, AdminUpdateBranchErrors, AdminUpdateBranchResponses, AdminUpdateCourseData, AdminUpdateCourseErrors, AdminUpdateCourseResponses, AdminUpdateTeacherData, AdminUpdateTeacherErrors, AdminUpdateTeacherResponses, AdminUpdateTestimonialData, AdminUpdateTestimonialErrors, AdminUpdateTestimonialResponses, GetBatchByIdData, GetBatchByIdErrors, GetBatchByIdResponses, GetCourseBySlugData, GetCourseBySlugErrors, GetCourseBySlugResponses, GetCurrentUserData, GetCurrentUserResponses, GetHealthData, GetHealthErrors, GetHealthResponses, GetUserByIdData, GetUserByIdResponses, ListBranchesData, ListBranchesResponses, ListCoursesData, ListCoursesResponses, ListTeachersData, ListTeachersResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -40,3 +40,341 @@ export const getUserById = <ThrowOnError extends boolean = false>(options: Optio
  * Service and dependency health
  */
 export const getHealth = <ThrowOnError extends boolean = false>(options?: Options<GetHealthData, ThrowOnError>): RequestResult<GetHealthResponses, GetHealthErrors, ThrowOnError> => (options?.client ?? client).get<GetHealthResponses, GetHealthErrors, ThrowOnError>({ url: '/health', ...options });
+
+/**
+ * List active branches
+ */
+export const listBranches = <ThrowOnError extends boolean = false>(options?: Options<ListBranchesData, ThrowOnError>): RequestResult<ListBranchesResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ListBranchesResponses, unknown, ThrowOnError>({ url: '/api/v1/branches', ...options });
+
+/**
+ * List all branches
+ */
+export const adminListBranches = <ThrowOnError extends boolean = false>(options?: Options<AdminListBranchesData, ThrowOnError>): RequestResult<AdminListBranchesResponses, AdminListBranchesErrors, ThrowOnError> => (options?.client ?? client).get<AdminListBranchesResponses, AdminListBranchesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/branches',
+    ...options
+});
+
+/**
+ * Create a branch
+ */
+export const adminCreateBranch = <ThrowOnError extends boolean = false>(options: Options<AdminCreateBranchData, ThrowOnError>): RequestResult<AdminCreateBranchResponses, AdminCreateBranchErrors, ThrowOnError> => (options.client ?? client).post<AdminCreateBranchResponses, AdminCreateBranchErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/branches',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Delete a branch
+ */
+export const adminDeleteBranch = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteBranchData, ThrowOnError>): RequestResult<AdminDeleteBranchResponses, AdminDeleteBranchErrors, ThrowOnError> => (options.client ?? client).delete<AdminDeleteBranchResponses, AdminDeleteBranchErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/branches/{id}',
+    ...options
+});
+
+/**
+ * Get a branch
+ */
+export const adminGetBranch = <ThrowOnError extends boolean = false>(options: Options<AdminGetBranchData, ThrowOnError>): RequestResult<AdminGetBranchResponses, AdminGetBranchErrors, ThrowOnError> => (options.client ?? client).get<AdminGetBranchResponses, AdminGetBranchErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/branches/{id}',
+    ...options
+});
+
+/**
+ * Update a branch
+ */
+export const adminUpdateBranch = <ThrowOnError extends boolean = false>(options: Options<AdminUpdateBranchData, ThrowOnError>): RequestResult<AdminUpdateBranchResponses, AdminUpdateBranchErrors, ThrowOnError> => (options.client ?? client).patch<AdminUpdateBranchResponses, AdminUpdateBranchErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/branches/{id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * List active teachers with their courses
+ */
+export const listTeachers = <ThrowOnError extends boolean = false>(options?: Options<ListTeachersData, ThrowOnError>): RequestResult<ListTeachersResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ListTeachersResponses, unknown, ThrowOnError>({ url: '/api/v1/teachers', ...options });
+
+/**
+ * List all teachers
+ */
+export const adminListTeachers = <ThrowOnError extends boolean = false>(options?: Options<AdminListTeachersData, ThrowOnError>): RequestResult<AdminListTeachersResponses, AdminListTeachersErrors, ThrowOnError> => (options?.client ?? client).get<AdminListTeachersResponses, AdminListTeachersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/teachers',
+    ...options
+});
+
+/**
+ * Create a teacher
+ */
+export const adminCreateTeacher = <ThrowOnError extends boolean = false>(options: Options<AdminCreateTeacherData, ThrowOnError>): RequestResult<AdminCreateTeacherResponses, AdminCreateTeacherErrors, ThrowOnError> => (options.client ?? client).post<AdminCreateTeacherResponses, AdminCreateTeacherErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/teachers',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Delete a teacher
+ */
+export const adminDeleteTeacher = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteTeacherData, ThrowOnError>): RequestResult<AdminDeleteTeacherResponses, AdminDeleteTeacherErrors, ThrowOnError> => (options.client ?? client).delete<AdminDeleteTeacherResponses, AdminDeleteTeacherErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/teachers/{id}',
+    ...options
+});
+
+/**
+ * Get a teacher
+ */
+export const adminGetTeacher = <ThrowOnError extends boolean = false>(options: Options<AdminGetTeacherData, ThrowOnError>): RequestResult<AdminGetTeacherResponses, AdminGetTeacherErrors, ThrowOnError> => (options.client ?? client).get<AdminGetTeacherResponses, AdminGetTeacherErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/teachers/{id}',
+    ...options
+});
+
+/**
+ * Update a teacher
+ */
+export const adminUpdateTeacher = <ThrowOnError extends boolean = false>(options: Options<AdminUpdateTeacherData, ThrowOnError>): RequestResult<AdminUpdateTeacherResponses, AdminUpdateTeacherErrors, ThrowOnError> => (options.client ?? client).patch<AdminUpdateTeacherResponses, AdminUpdateTeacherErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/teachers/{id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * List published courses
+ */
+export const listCourses = <ThrowOnError extends boolean = false>(options?: Options<ListCoursesData, ThrowOnError>): RequestResult<ListCoursesResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ListCoursesResponses, unknown, ThrowOnError>({ url: '/api/v1/courses', ...options });
+
+/**
+ * Get a published course by slug
+ */
+export const getCourseBySlug = <ThrowOnError extends boolean = false>(options: Options<GetCourseBySlugData, ThrowOnError>): RequestResult<GetCourseBySlugResponses, GetCourseBySlugErrors, ThrowOnError> => (options.client ?? client).get<GetCourseBySlugResponses, GetCourseBySlugErrors, ThrowOnError>({ url: '/api/v1/courses/{slug}', ...options });
+
+/**
+ * List all courses
+ */
+export const adminListCourses = <ThrowOnError extends boolean = false>(options?: Options<AdminListCoursesData, ThrowOnError>): RequestResult<AdminListCoursesResponses, AdminListCoursesErrors, ThrowOnError> => (options?.client ?? client).get<AdminListCoursesResponses, AdminListCoursesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/courses',
+    ...options
+});
+
+/**
+ * Create a course
+ */
+export const adminCreateCourse = <ThrowOnError extends boolean = false>(options: Options<AdminCreateCourseData, ThrowOnError>): RequestResult<AdminCreateCourseResponses, AdminCreateCourseErrors, ThrowOnError> => (options.client ?? client).post<AdminCreateCourseResponses, AdminCreateCourseErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/courses',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Delete a course
+ */
+export const adminDeleteCourse = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteCourseData, ThrowOnError>): RequestResult<AdminDeleteCourseResponses, AdminDeleteCourseErrors, ThrowOnError> => (options.client ?? client).delete<AdminDeleteCourseResponses, AdminDeleteCourseErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/courses/{id}',
+    ...options
+});
+
+/**
+ * Get a course with everything attached
+ */
+export const adminGetCourse = <ThrowOnError extends boolean = false>(options: Options<AdminGetCourseData, ThrowOnError>): RequestResult<AdminGetCourseResponses, AdminGetCourseErrors, ThrowOnError> => (options.client ?? client).get<AdminGetCourseResponses, AdminGetCourseErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/courses/{id}',
+    ...options
+});
+
+/**
+ * Update a course
+ */
+export const adminUpdateCourse = <ThrowOnError extends boolean = false>(options: Options<AdminUpdateCourseData, ThrowOnError>): RequestResult<AdminUpdateCourseResponses, AdminUpdateCourseErrors, ThrowOnError> => (options.client ?? client).patch<AdminUpdateCourseResponses, AdminUpdateCourseErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/courses/{id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Replace the whole curriculum module list
+ */
+export const adminReplaceCurriculum = <ThrowOnError extends boolean = false>(options: Options<AdminReplaceCurriculumData, ThrowOnError>): RequestResult<AdminReplaceCurriculumResponses, AdminReplaceCurriculumErrors, ThrowOnError> => (options.client ?? client).put<AdminReplaceCurriculumResponses, AdminReplaceCurriculumErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/courses/{id}/curriculum',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Replace the teachers assigned to a course
+ */
+export const adminReplaceCourseTeachers = <ThrowOnError extends boolean = false>(options: Options<AdminReplaceCourseTeachersData, ThrowOnError>): RequestResult<AdminReplaceCourseTeachersResponses, AdminReplaceCourseTeachersErrors, ThrowOnError> => (options.client ?? client).put<AdminReplaceCourseTeachersResponses, AdminReplaceCourseTeachersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/courses/{id}/teachers',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Get a batch of a published course
+ */
+export const getBatchById = <ThrowOnError extends boolean = false>(options: Options<GetBatchByIdData, ThrowOnError>): RequestResult<GetBatchByIdResponses, GetBatchByIdErrors, ThrowOnError> => (options.client ?? client).get<GetBatchByIdResponses, GetBatchByIdErrors, ThrowOnError>({ url: '/api/v1/batches/{id}', ...options });
+
+/**
+ * List the batches of a course
+ */
+export const adminListBatches = <ThrowOnError extends boolean = false>(options: Options<AdminListBatchesData, ThrowOnError>): RequestResult<AdminListBatchesResponses, AdminListBatchesErrors, ThrowOnError> => (options.client ?? client).get<AdminListBatchesResponses, AdminListBatchesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/courses/{courseId}/batches',
+    ...options
+});
+
+/**
+ * Schedule a batch of a course
+ */
+export const adminCreateBatch = <ThrowOnError extends boolean = false>(options: Options<AdminCreateBatchData, ThrowOnError>): RequestResult<AdminCreateBatchResponses, AdminCreateBatchErrors, ThrowOnError> => (options.client ?? client).post<AdminCreateBatchResponses, AdminCreateBatchErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/courses/{courseId}/batches',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Delete a batch
+ */
+export const adminDeleteBatch = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteBatchData, ThrowOnError>): RequestResult<AdminDeleteBatchResponses, AdminDeleteBatchErrors, ThrowOnError> => (options.client ?? client).delete<AdminDeleteBatchResponses, AdminDeleteBatchErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/batches/{id}',
+    ...options
+});
+
+/**
+ * Get a batch
+ */
+export const adminGetBatch = <ThrowOnError extends boolean = false>(options: Options<AdminGetBatchData, ThrowOnError>): RequestResult<AdminGetBatchResponses, AdminGetBatchErrors, ThrowOnError> => (options.client ?? client).get<AdminGetBatchResponses, AdminGetBatchErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/batches/{id}',
+    ...options
+});
+
+/**
+ * Update a batch
+ */
+export const adminUpdateBatch = <ThrowOnError extends boolean = false>(options: Options<AdminUpdateBatchData, ThrowOnError>): RequestResult<AdminUpdateBatchResponses, AdminUpdateBatchErrors, ThrowOnError> => (options.client ?? client).patch<AdminUpdateBatchResponses, AdminUpdateBatchErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/batches/{id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * List all testimonials
+ */
+export const adminListTestimonials = <ThrowOnError extends boolean = false>(options?: Options<AdminListTestimonialsData, ThrowOnError>): RequestResult<AdminListTestimonialsResponses, AdminListTestimonialsErrors, ThrowOnError> => (options?.client ?? client).get<AdminListTestimonialsResponses, AdminListTestimonialsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/testimonials',
+    ...options
+});
+
+/**
+ * Create a testimonial
+ */
+export const adminCreateTestimonial = <ThrowOnError extends boolean = false>(options: Options<AdminCreateTestimonialData, ThrowOnError>): RequestResult<AdminCreateTestimonialResponses, AdminCreateTestimonialErrors, ThrowOnError> => (options.client ?? client).post<AdminCreateTestimonialResponses, AdminCreateTestimonialErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/testimonials',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Delete a testimonial
+ */
+export const adminDeleteTestimonial = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteTestimonialData, ThrowOnError>): RequestResult<AdminDeleteTestimonialResponses, AdminDeleteTestimonialErrors, ThrowOnError> => (options.client ?? client).delete<AdminDeleteTestimonialResponses, AdminDeleteTestimonialErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/testimonials/{id}',
+    ...options
+});
+
+/**
+ * Get a testimonial
+ */
+export const adminGetTestimonial = <ThrowOnError extends boolean = false>(options: Options<AdminGetTestimonialData, ThrowOnError>): RequestResult<AdminGetTestimonialResponses, AdminGetTestimonialErrors, ThrowOnError> => (options.client ?? client).get<AdminGetTestimonialResponses, AdminGetTestimonialErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/testimonials/{id}',
+    ...options
+});
+
+/**
+ * Update a testimonial
+ */
+export const adminUpdateTestimonial = <ThrowOnError extends boolean = false>(options: Options<AdminUpdateTestimonialData, ThrowOnError>): RequestResult<AdminUpdateTestimonialResponses, AdminUpdateTestimonialErrors, ThrowOnError> => (options.client ?? client).patch<AdminUpdateTestimonialResponses, AdminUpdateTestimonialErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/testimonials/{id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Presign a direct-to-bucket image upload
+ */
+export const adminPresignUpload = <ThrowOnError extends boolean = false>(options: Options<AdminPresignUploadData, ThrowOnError>): RequestResult<AdminPresignUploadResponses, AdminPresignUploadErrors, ThrowOnError> => (options.client ?? client).post<AdminPresignUploadResponses, AdminPresignUploadErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/uploads/presign',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Counts for the admin overview page
+ */
+export const adminGetOverview = <ThrowOnError extends boolean = false>(options?: Options<AdminGetOverviewData, ThrowOnError>): RequestResult<AdminGetOverviewResponses, AdminGetOverviewErrors, ThrowOnError> => (options?.client ?? client).get<AdminGetOverviewResponses, AdminGetOverviewErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/overview',
+    ...options
+});

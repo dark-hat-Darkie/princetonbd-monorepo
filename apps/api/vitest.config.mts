@@ -18,6 +18,9 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     include: ['src/**/*.spec.ts', 'test/**/*.e2e-spec.ts'],
+    /* Each e2e file boots a full Nest app against the shared Postgres; running
+       them one at a time keeps that deterministic and cheap. */
+    fileParallelism: false,
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],

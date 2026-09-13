@@ -1,0 +1,1974 @@
+{
+  "branches": [
+    {
+      "slug": "dhaka-gulshan",
+      "name": "Dhaka — Gulshan",
+      "address": "House 00, Road 00, Gulshan-2, Dhaka 1212",
+      "phone": "+880 1700-000000",
+      "sortOrder": 0
+    },
+    {
+      "slug": "dhaka-dhanmondi",
+      "name": "Dhaka — Dhanmondi",
+      "address": "House 00, Road 00, Dhanmondi, Dhaka 1205",
+      "phone": "+880 1700-000001",
+      "sortOrder": 1
+    },
+    {
+      "slug": "chattogram",
+      "name": "Chattogram",
+      "address": "Level 0, 00 CDA Avenue, Chattogram 4000",
+      "phone": "+880 1700-000002",
+      "sortOrder": 2
+    }
+  ],
+  "teachers": [
+    {
+      "slug": "dr-imran-chowdhury",
+      "name": "Dr. Imran Chowdhury",
+      "designation": "Director of Test Preparation",
+      "bio": "PhD, University of Michigan. Fourteen years teaching admissions tests.",
+      "branchSlug": "dhaka-gulshan",
+      "sortOrder": 0
+    },
+    {
+      "slug": "farzana-haque",
+      "name": "Farzana Haque",
+      "designation": "Lead Instructor, Quantitative",
+      "bio": "MSc Mathematics, BUET. Perfect quant score on both the GRE and the GMAT.",
+      "branchSlug": "dhaka-gulshan",
+      "sortOrder": 1
+    },
+    {
+      "slug": "nabeel-ahsan",
+      "name": "Nabeel Ahsan",
+      "designation": "Lead Instructor, Verbal & Reading",
+      "bio": "MA English, University of Dhaka. Former newspaper sub-editor.",
+      "branchSlug": "dhaka-dhanmondi",
+      "sortOrder": 2
+    },
+    {
+      "slug": "rehnuma-siddiqui",
+      "name": "Rehnuma Siddiqui",
+      "designation": "Head of English Proficiency",
+      "bio": "CELTA and DELTA qualified. Nine years as an IELTS examiner.",
+      "branchSlug": "dhaka-gulshan",
+      "sortOrder": 3
+    },
+    {
+      "slug": "shafqat-rahman",
+      "name": "Shafqat Rahman",
+      "designation": "Senior Admissions Counselor",
+      "bio": "Former admissions reader at a US liberal arts college.",
+      "branchSlug": "dhaka-gulshan",
+      "sortOrder": 4
+    },
+    {
+      "slug": "dr-tahmina-akter",
+      "name": "Dr. Tahmina Akter",
+      "designation": "Graduate Admissions Counselor",
+      "bio": "PhD, TU Delft. Supervised graduate admissions for six intake cycles.",
+      "branchSlug": "dhaka-dhanmondi",
+      "sortOrder": 5
+    },
+    {
+      "slug": "arif-mahmud",
+      "name": "Arif Mahmud",
+      "designation": "Lead Instructor, Sciences",
+      "bio": "MSc Physics, University of Dhaka. Ten years of A-Level and AP teaching.",
+      "branchSlug": "chattogram",
+      "sortOrder": 6
+    },
+    {
+      "slug": "lubna-karim",
+      "name": "Lubna Karim",
+      "designation": "Instructor, Business Tests",
+      "bio": "MBA, IBA. 750 on the GMAT Focus Edition.",
+      "branchSlug": "dhaka-gulshan",
+      "sortOrder": 7
+    },
+    {
+      "slug": "zahid-hasan",
+      "name": "Zahid Hasan",
+      "designation": "Head of Chattogram Campus",
+      "bio": "MA Education. Built the Chattogram teaching team from scratch.",
+      "branchSlug": "chattogram",
+      "sortOrder": 8
+    }
+  ],
+  "courses": [
+    {
+      "slug": "sat",
+      "name": "SAT",
+      "description": "Digital, adaptive and unforgiving of guesswork. We teach the test the way it is now scored — module by module — and prove the gain with full-length mocks before you ever sit the real thing.",
+      "priceAmount": 45000,
+      "priceUnit": "per 10-week course",
+      "feeIncludes": [
+        "48 taught hours in a class of ten or fewer",
+        "10 proctored full-length adaptive mocks, scored and reviewed",
+        "Two 1-on-1 strategy sessions",
+        "All materials and the online question bank",
+        "Written 1400+ score guarantee"
+      ],
+      "modes": ["classroom", "live_online"],
+      "status": "published",
+      "durationWeeks": 10,
+      "taughtHours": 48,
+      "mockCount": 10,
+      "classSize": "Max 10",
+      "outcomes": [
+        "Sit the digital SAT knowing how the adaptive engine will score you",
+        "Finish every Reading & Writing module with time to check flagged questions",
+        "Solve the full range of Math domains with and without the calculator",
+        "Know your 400–1600 range before you book the real test"
+      ],
+      "sortOrder": 0,
+      "modules": [
+        {
+          "position": 1,
+          "title": "Diagnostic and the adaptive format",
+          "summary": "How the digital SAT builds your score: two modules per section, a second module chosen by your first, and 2h 14m on the Bluebook app. Then a full-length diagnostic to find out where you stand.",
+          "topics": [
+            "Section-adaptive scoring: why module 1 decides your ceiling",
+            "Bluebook tools: the built-in calculator, annotation and flagging",
+            "Full-length adaptive diagnostic under exam timing",
+            "Your score map and a 1400+ target by section"
+          ],
+          "hours": 4,
+          "outcome": "Know your current 400–1600 score, your split by section and which question domains are costing you most."
+        },
+        {
+          "position": 2,
+          "title": "Reading & Writing: evidence and craft",
+          "summary": "Short passages, one question each, 27 per module. The Information and Ideas and Craft and Structure domains, and the reasoning each one rewards.",
+          "topics": [
+            "Central ideas, details and command of textual evidence",
+            "Words in context: precision over familiarity",
+            "Text structure, purpose and cross-text connections",
+            "Quantitative evidence: tables and graphs inside passages"
+          ],
+          "hours": 8,
+          "outcome": "Answer evidence questions by elimination against the passage, not by instinct, at 71 seconds a question."
+        },
+        {
+          "position": 3,
+          "title": "Standard English conventions",
+          "summary": "The most learnable marks on the test: grammar, punctuation and sentence structure, plus the Expression of Ideas questions on transitions and rhetorical synthesis.",
+          "topics": [
+            "Boundaries: commas, semicolons, colons and dashes",
+            "Subject–verb and pronoun agreement, verb tense and form",
+            "Transitions that follow the logic of the passage",
+            "Rhetorical synthesis: matching notes to a stated goal"
+          ],
+          "hours": 6,
+          "outcome": "Miss no more than one conventions question per module."
+        },
+        {
+          "position": 4,
+          "title": "Algebra and advanced maths",
+          "summary": "Linear equations, systems and inequalities, then the nonlinear content that separates a 650 from a 750: quadratics, exponentials, polynomials and functions.",
+          "topics": [
+            "Linear equations, inequalities and systems in one and two variables",
+            "Quadratic and exponential functions, roots and vertex form",
+            "Polynomial and rational expressions, equivalent forms",
+            "Using the built-in Desmos calculator to solve, not just check"
+          ],
+          "hours": 8,
+          "outcome": "Solve any algebra or advanced maths item in under two minutes, with Desmos where it is faster."
+        },
+        {
+          "position": 5,
+          "title": "Problem solving and data analysis",
+          "summary": "Ratios, rates, percentages and statistics, together with the geometry and trigonometry that make up the rest of the Math section.",
+          "topics": [
+            "Ratios, rates, proportions and units",
+            "Percentages, one- and two-variable data, centre and spread",
+            "Probability, sampling and inference from data",
+            "Area, volume, circles, right triangles and trigonometry"
+          ],
+          "hours": 7,
+          "outcome": "Read a word problem once and set up the model before you reach for the calculator."
+        },
+        {
+          "position": 6,
+          "title": "Module-2 strategy and pacing",
+          "summary": "How to bank the easy marks fast so the engine hands you the harder, higher-scoring second module, and what to do when it does.",
+          "topics": [
+            "Pacing plans for the 32-minute and 35-minute modules",
+            "Guessing, flagging and coming back: no penalty, no wasted seconds",
+            "Reading the harder module: what changes and what does not",
+            "Error journals: categorising every miss by cause"
+          ],
+          "hours": 6,
+          "outcome": "Reach the harder second module in both sections and finish it with time to check your flags."
+        },
+        {
+          "position": 7,
+          "title": "Full-length mock cycle and review",
+          "summary": "Ten proctored adaptive mocks across the course, each one reviewed question by question, and your test-day plan.",
+          "topics": [
+            "Weekly full-length adaptive mocks, scored 400–1600",
+            "One-on-one review of your error journal and score trend",
+            "Registration, Bluebook set-up and device checks",
+            "Score choice, superscoring and which sitting to send"
+          ],
+          "hours": 9,
+          "outcome": "Walk in knowing your score range and having sat the digital SAT ten times already."
+        }
+      ],
+      "teacherSlugs": ["dr-imran-chowdhury", "farzana-haque", "nabeel-ahsan", "zahid-hasan"]
+    },
+    {
+      "slug": "act",
+      "name": "ACT",
+      "description": "Paper-based, not adaptive, and relentless on timing. We teach section by section and drill speed and accuracy in equal measure, with full-length mocks on the real exam’s schedule before you sit it.",
+      "priceAmount": 44000,
+      "priceUnit": "per 10-week course",
+      "feeIncludes": [
+        "48 taught hours in a class of ten or fewer",
+        "10 full-length proctored tests, scored and reviewed",
+        "Two 1-on-1 strategy sessions",
+        "All materials and the online question bank",
+        "Written 32+ score guarantee"
+      ],
+      "modes": ["classroom", "live_online"],
+      "status": "published",
+      "durationWeeks": 10,
+      "taughtHours": 48,
+      "mockCount": 10,
+      "classSize": "Max 10",
+      "outcomes": [
+        "Hold pace through every section without leaving questions blank",
+        "Read ACT science figures as data, not as a science test",
+        "Know whether to sit Science, online or on paper, and when",
+        "Know your 1–36 range before you book the real test"
+      ],
+      "sortOrder": 1,
+      "modules": [
+        {
+          "position": 1,
+          "title": "Test anatomy and pacing",
+          "summary": "How the enhanced ACT is built: three core sections that make the 1–36 composite, an optional Science section scored on its own, and shorter sections with more time per question than before. Then a full-length diagnostic.",
+          "topics": [
+            "Composite vs section scores: how English, Maths and Reading average to 1–36",
+            "Online or paper, Science or not: choosing your version",
+            "Full-length diagnostic under exam timing",
+            "Your section-by-section score map and a 32+ target"
+          ],
+          "hours": 4,
+          "outcome": "Know your composite, your weakest section and the pacing plan for each."
+        },
+        {
+          "position": 2,
+          "title": "English",
+          "summary": "Fifty questions in thirty-five minutes on passages with underlined portions. Conventions of standard English, production of writing and knowledge of language.",
+          "topics": [
+            "Punctuation: commas, apostrophes, semicolons, colons and dashes",
+            "Sentence structure, agreement, verb tense and modifiers",
+            "Transitions, topic sentences and whether to add or delete",
+            "Concision, tone and word choice at 42 seconds a question"
+          ],
+          "hours": 10,
+          "outcome": "Finish all the passages with time to spare and stop losing marks to concision questions."
+        },
+        {
+          "position": 3,
+          "title": "Maths",
+          "summary": "Forty-five questions in fifty minutes, four answer choices each, from pre-algebra through to trigonometry. Calculator allowed throughout.",
+          "topics": [
+            "Number and quantity, ratios, percentages and unit conversion",
+            "Algebra: linear, quadratic, systems and functions",
+            "Geometry: coordinate, plane and solid; circles and triangles",
+            "Statistics, probability, matrices and trigonometry"
+          ],
+          "hours": 11,
+          "outcome": "Solve every routine item in under a minute so the last ten questions get the time they need."
+        },
+        {
+          "position": 4,
+          "title": "Reading",
+          "summary": "Four passages, thirty-six questions, forty minutes. Literary narrative, social science, humanities and natural science, each with its own way of hiding the answer.",
+          "topics": [
+            "Key ideas and details: locating evidence fast",
+            "Craft and structure: word meaning, purpose and point of view",
+            "Paired passages and integrating ideas across texts",
+            "Passage order: reading the four in the order that suits you"
+          ],
+          "hours": 9,
+          "outcome": "Finish all four passages inside forty minutes with a working strategy for the one you find hardest."
+        },
+        {
+          "position": 5,
+          "title": "Science reasoning",
+          "summary": "Optional on the enhanced ACT, and still worth sitting for STEM applicants. Forty questions in forty minutes on data, experiments and conflicting viewpoints; it tests reading, not recall.",
+          "topics": [
+            "Data representation: reading tables and graphs quickly",
+            "Research summaries: variables, controls and what changed between trials",
+            "Conflicting viewpoints: mapping who claims what",
+            "When to skip the passage and go straight to the questions"
+          ],
+          "hours": 8,
+          "outcome": "Answer science questions from the figures in under a minute each, without needing the underlying chemistry or biology."
+        },
+        {
+          "position": 6,
+          "title": "Mock cycle and score review",
+          "summary": "Ten proctored full-length tests across the course, each one reviewed section by section, and your test-day plan.",
+          "topics": [
+            "Weekly full-length tests on the real exam schedule",
+            "One-on-one review of your error journal and section trend",
+            "Registration, online vs paper set-up and test-day timing",
+            "Superscoring, score choice and which sittings to send"
+          ],
+          "hours": 6,
+          "outcome": "Walk in knowing your composite range and having sat the full ACT ten times already."
+        }
+      ],
+      "teacherSlugs": ["dr-imran-chowdhury"]
+    },
+    {
+      "slug": "ap",
+      "name": "AP",
+      "description": "AP exams reward deep subject knowledge and exam technique in equal measure. We map the exact curriculum College Board expects, drill the free-response format relentlessly, and score every practice test the way the exam does.",
+      "priceAmount": 46000,
+      "priceUnit": "per subject · 10-week course",
+      "feeIncludes": [
+        "48 taught hours in a class of eight or fewer",
+        "10 full-length proctored exams, marked to the College Board rubric",
+        "Two 1-on-1 free-response strategy sessions",
+        "All materials and the online question bank",
+        "Written 4–5 score guarantee"
+      ],
+      "modes": ["classroom", "live_online"],
+      "status": "published",
+      "durationWeeks": 10,
+      "taughtHours": 48,
+      "mockCount": 10,
+      "classSize": "Max 8",
+      "outcomes": [
+        "Cover your subject’s entire course outline, not just what your school reached",
+        "Write free responses structured to the scoring guidelines",
+        "Hold pace and accuracy through the multiple-choice section",
+        "Know your 1–5 range before you sit the exam in May"
+      ],
+      "sortOrder": 2,
+      "modules": [
+        {
+          "position": 1,
+          "title": "Course map and how AP scores",
+          "summary": "How your subject’s exam is built: the units, the weighting of each, the split between multiple choice and free response, and how raw marks become a 1–5. Then a full-length diagnostic.",
+          "topics": [
+            "The course and exam description: units, skills and weightings",
+            "Composite scoring: how MCQ and FRQ combine into a 1–5",
+            "Full-length diagnostic exam under exam timing",
+            "Your unit-by-unit score map and a 4–5 target"
+          ],
+          "hours": 3,
+          "outcome": "Know which units carry the most marks in your subject and where your diagnostic puts you in each."
+        },
+        {
+          "position": 2,
+          "title": "Core content I",
+          "summary": "The first half of your subject’s course outline, taught to exam depth and checked with unit tests written in the exam’s own question style.",
+          "topics": [
+            "The foundational units, in the order the outline sets",
+            "The skills and practices the exam tests within them",
+            "Unit tests in MCQ and FRQ form, marked to the rubric",
+            "Vocabulary and notation the markers expect to see"
+          ],
+          "hours": 12,
+          "outcome": "Score at a 4 or better on unit tests covering the first half of the outline."
+        },
+        {
+          "position": 3,
+          "title": "Core content II",
+          "summary": "The second half of the outline, including the later units that many school courses reach late or not at all, with cumulative review of the first half.",
+          "topics": [
+            "The later units, taught in full rather than skimmed",
+            "Cross-unit questions that combine earlier and later material",
+            "Cumulative unit tests in exam style",
+            "Targeted revision of your weakest units from the score map"
+          ],
+          "hours": 12,
+          "outcome": "Cover the entire course outline with no unit you have not been tested on."
+        },
+        {
+          "position": 4,
+          "title": "Free-response technique",
+          "summary": "FRQs are marked by rubric, point by point, and reward structure as much as knowledge. How to read the prompt, plan the answer and earn every available point.",
+          "topics": [
+            "Reading task verbs: describe, explain, justify, calculate",
+            "Answer structure that follows the scoring guidelines",
+            "Showing work and reasoning so partial credit is never lost",
+            "Timing across the free-response section"
+          ],
+          "hours": 8,
+          "outcome": "Write a complete free response that hits every rubric point in the time allowed."
+        },
+        {
+          "position": 5,
+          "title": "Multiple choice under time",
+          "summary": "The multiple-choice section carries around half your score and is entirely about accuracy at pace. Elimination, stimulus-based sets and the distractors your subject favours.",
+          "topics": [
+            "Stimulus-based sets: reading the source once",
+            "Elimination and the distractor patterns of your subject",
+            "Pacing plans for your section’s question count",
+            "Error journals: categorising every miss by unit and cause"
+          ],
+          "hours": 6,
+          "outcome": "Finish the multiple-choice section with time to revisit flagged questions."
+        },
+        {
+          "position": 6,
+          "title": "Mock cycle and exam week",
+          "summary": "Ten proctored full-length exams across the course, each one marked to the College Board rubric and reviewed with you, and your exam-week plan.",
+          "topics": [
+            "Weekly full-length exams, scored 1–5",
+            "One-on-one review of your marked free responses",
+            "Digital delivery on Bluebook: set-up and rehearsal",
+            "Registration, May timing and score reporting to universities"
+          ],
+          "hours": 7,
+          "outcome": "Walk in knowing your 1–5 range and having sat the full exam ten times already."
+        }
+      ],
+      "teacherSlugs": ["arif-mahmud"]
+    },
+    {
+      "slug": "psat",
+      "name": "PSAT",
+      "description": "Digital and adaptive, just like the SAT, but taken in October to a national scoresheet. We prepare you to qualify for National Merit, to understand your college readiness, and to lay a foundation for the SAT itself.",
+      "priceAmount": 42000,
+      "priceUnit": "per 8-week course",
+      "feeIncludes": [
+        "36 taught hours in a class of ten or fewer",
+        "8 full-length proctored adaptive mocks, scored and reviewed",
+        "National Merit strategy session",
+        "All materials and the online question bank",
+        "Written score guarantee and free SAT prep"
+      ],
+      "modes": ["classroom", "live_online"],
+      "status": "published",
+      "durationWeeks": 8,
+      "taughtHours": 36,
+      "mockCount": 8,
+      "classSize": "Max 10",
+      "outcomes": [
+        "Sit the digital PSAT knowing how the adaptive modules will score you",
+        "Know your Selection Index and how far it sits from the cutoff",
+        "Handle every Reading & Writing and Math domain the SAT will test again",
+        "Carry a scored error journal straight into SAT preparation"
+      ],
+      "sortOrder": 3,
+      "modules": [
+        {
+          "position": 1,
+          "title": "Digital format and adaptive modules",
+          "summary": "How the PSAT is built: two modules per section, a second module chosen by your first, and 2h 14m on the Bluebook app. Then a full-length diagnostic to find out where you stand.",
+          "topics": [
+            "Section-adaptive scoring: why module 1 decides your ceiling",
+            "Bluebook tools: the built-in calculator, annotation and flagging",
+            "Full-length adaptive diagnostic under exam timing",
+            "Your 320–1520 score map and a target by section"
+          ],
+          "hours": 4,
+          "outcome": "Know your current score, your split by section and which question domains are costing you most."
+        },
+        {
+          "position": 2,
+          "title": "Reading & Writing",
+          "summary": "Short passages, one question each, across four domains: information and ideas, craft and structure, expression of ideas and standard English conventions.",
+          "topics": [
+            "Central ideas, textual evidence and words in context",
+            "Text structure, purpose and cross-text connections",
+            "Transitions and rhetorical synthesis from notes",
+            "Punctuation, agreement and sentence boundaries"
+          ],
+          "hours": 10,
+          "outcome": "Finish every Reading & Writing module with time to check your flagged questions."
+        },
+        {
+          "position": 3,
+          "title": "Maths",
+          "summary": "Algebra, advanced maths, problem solving and data analysis, and geometry and trigonometry, with the built-in calculator available throughout.",
+          "topics": [
+            "Linear equations, inequalities and systems",
+            "Quadratic, exponential and polynomial functions",
+            "Ratios, percentages, statistics and probability",
+            "Area, volume, right triangles and circles"
+          ],
+          "hours": 10,
+          "outcome": "Solve every Math item in under two minutes, with Desmos where it is faster."
+        },
+        {
+          "position": 4,
+          "title": "National Merit strategy",
+          "summary": "The Selection Index counts Reading & Writing twice, and students at schools outside the US are measured against a single international cutoff, so where you earn points matters as much as how many.",
+          "topics": [
+            "The Selection Index: how a 320–1520 becomes a 48–228",
+            "Cutoffs: why the international threshold sits near the top",
+            "Where the next ten points are cheapest for you",
+            "Eligibility, the October sitting and what follows a qualifying score"
+          ],
+          "hours": 5,
+          "outcome": "Know your Selection Index, the cutoff you are chasing and the section that closes the gap fastest."
+        },
+        {
+          "position": 5,
+          "title": "Mock cycle and score report",
+          "summary": "Eight proctored adaptive mocks across the course, each one reviewed question by question, and how to read the score report that follows the October sitting.",
+          "topics": [
+            "Weekly full-length adaptive mocks, scored 320–1520",
+            "One-on-one review of your error journal and score trend",
+            "Test-day set-up on Bluebook and school-day timing",
+            "Reading the score report and carrying it into SAT prep"
+          ],
+          "hours": 7,
+          "outcome": "Walk in knowing your score range and having sat the digital PSAT eight times already."
+        }
+      ],
+      "teacherSlugs": []
+    },
+    {
+      "slug": "gre",
+      "name": "GRE",
+      "description": "The GRE measures reasoning under time pressure — not tricks or test-taking shortcuts. We teach you to think like the test does, prove it with full-length adaptive mocks, and guarantee the score you need.",
+      "priceAmount": 52000,
+      "priceUnit": "per 10-week course",
+      "feeIncludes": [
+        "48 taught hours in a class of eight or fewer",
+        "12 proctored full-length adaptive mocks, reviewed",
+        "Two 1-on-1 strategy sessions",
+        "All materials and the online question bank",
+        "Written 325+ score guarantee"
+      ],
+      "modes": ["classroom", "live_online"],
+      "status": "published",
+      "durationWeeks": 10,
+      "taughtHours": 48,
+      "mockCount": 12,
+      "classSize": "Max 8",
+      "outcomes": [
+        "Sit both Verbal and Quant sections at full pace with time to review flagged questions",
+        "Solve Quantitative Comparison and data interpretation without the traps ETS builds in",
+        "Fill text completions and sentence equivalence from the sentence, not the answer choices",
+        "Know your score range to the point before you book the real test"
+      ],
+      "sortOrder": 4,
+      "modules": [
+        {
+          "position": 1,
+          "title": "The shorter GRE and your diagnostic",
+          "summary": "How the 1h 58m test is built, how the second section adapts to the first, and where a full-length diagnostic puts you.",
+          "topics": [
+            "Section order, timing and the on-screen calculator",
+            "Section-level adaptivity: why the first section matters most",
+            "Full-length diagnostic, scored 130–170 per measure",
+            "Your personal score map and target"
+          ],
+          "hours": 4,
+          "outcome": "Know your Verbal and Quant scores to the point and which question types are costing you most."
+        },
+        {
+          "position": 2,
+          "title": "Quant foundations",
+          "summary": "Arithmetic, algebra and geometry rebuilt from the ground up, because the GRE tests school maths under pressure, not advanced maths.",
+          "topics": [
+            "Number properties, fractions, ratios and percents",
+            "Linear and quadratic equations, inequalities and exponents",
+            "Lines, angles, triangles, circles and coordinate geometry",
+            "Quantitative Comparison: the four answer choices and their traps"
+          ],
+          "hours": 7,
+          "outcome": "Solve any foundations question cleanly and never guess on a Quantitative Comparison."
+        },
+        {
+          "position": 3,
+          "title": "Quant problem solving and data interpretation",
+          "summary": "Word problems, counting and statistics, and the data interpretation sets that anchor every Quant section.",
+          "topics": [
+            "Rates, work, mixtures and overlapping sets",
+            "Counting, probability and basic statistics",
+            "Reading tables and graphs: the data interpretation set",
+            "Numeric entry and multiple-answer questions without the calculator crutch"
+          ],
+          "hours": 8,
+          "outcome": "Finish a Quant section on time with the data interpretation set answered, not skipped."
+        },
+        {
+          "position": 4,
+          "title": "Verbal: text completion and sentence equivalence",
+          "summary": "Half of every Verbal section is vocabulary in context. Reading the clue before the blank, not the answer choices first.",
+          "topics": [
+            "Clues, pivots and structural signals in the sentence",
+            "One-, two- and three-blank text completions",
+            "Sentence equivalence: pairs that produce the same meaning",
+            "High-frequency GRE vocabulary, learnt in context"
+          ],
+          "hours": 7,
+          "outcome": "Fill any blank from the sentence’s own clues and stop losing pairs on sentence equivalence."
+        },
+        {
+          "position": 5,
+          "title": "Reading comprehension",
+          "summary": "Dense passages and the questions that follow them, including the short argument passages that test critical reasoning.",
+          "topics": [
+            "Mapping a passage: main idea, structure and tone",
+            "Select-in-passage and multiple-answer questions",
+            "Argument passages: assumption, strengthen and weaken",
+            "Pacing across long, short and paired passages"
+          ],
+          "hours": 7,
+          "outcome": "Read once, answer with evidence, and hold pace through the second Verbal section."
+        },
+        {
+          "position": 6,
+          "title": "Analytical writing",
+          "summary": "One thirty-minute essay, Analyze an Issue, scored 0–6. Position, development and the prose readers reward.",
+          "topics": [
+            "What the scoring guide rewards at 4, 5 and 6",
+            "Planning a position in five minutes",
+            "Developing examples that support, not decorate",
+            "Two essays written, scored and returned"
+          ],
+          "hours": 5,
+          "outcome": "Write a complete Issue essay in thirty minutes that scores 4.5 or better."
+        },
+        {
+          "position": 7,
+          "title": "Adaptive mock cycle",
+          "summary": "Full-length adaptive mocks under exam conditions, each reviewed question by question, and your test-day plan.",
+          "topics": [
+            "Weekly full-length adaptive mocks, scored 130–170",
+            "Error log review: the pattern, not the individual question",
+            "Section pacing and when to mark and move on",
+            "Test centre vs at-home delivery, booking and score reporting"
+          ],
+          "hours": 10,
+          "outcome": "Walk in having sat the test twelve times with your score range known to the point."
+        }
+      ],
+      "teacherSlugs": ["dr-imran-chowdhury", "farzana-haque", "nabeel-ahsan"]
+    },
+    {
+      "slug": "gmat",
+      "name": "GMAT",
+      "description": "The GMAT measures your ability to solve problems under time pressure using the tools an MBA student actually needs. We teach the new Focus Edition the way business schools score it, prove it with full-length mocks, and guarantee the result.",
+      "priceAmount": 52000,
+      "priceUnit": "per 8-week course",
+      "feeIncludes": [
+        "48 taught hours in a class of eight or fewer",
+        "12 proctored full-length Focus Edition mocks, reviewed",
+        "Two 1-on-1 strategy sessions",
+        "All materials and the online question bank",
+        "Written 700+ score guarantee"
+      ],
+      "modes": ["classroom", "live_online"],
+      "status": "published",
+      "durationWeeks": 8,
+      "taughtHours": 48,
+      "mockCount": 12,
+      "classSize": "Max 8",
+      "outcomes": [
+        "Sit all three sections in the order you chose, at full pace, with bookmarks used well",
+        "Solve Quant without a calculator and Data Insights with one, without losing time",
+        "Read critical reasoning arguments the way GMAC writes them",
+        "Know your score range before you book the real test"
+      ],
+      "sortOrder": 5,
+      "modules": [
+        {
+          "position": 1,
+          "title": "Focus Edition anatomy",
+          "summary": "Three sections, 64 questions, 2h 15m. How question-level adaptivity works, what Review & Edit lets you change, and where your diagnostic lands.",
+          "topics": [
+            "Quant 21 · Verbal 23 · Data Insights 20: what each section asks",
+            "Question adaptivity and why the early questions matter",
+            "Review & Edit: bookmarking and the three-answer change limit",
+            "Full-length diagnostic, scored 205–805"
+          ],
+          "hours": 4,
+          "outcome": "Know your three section scores and the question types that cost you most."
+        },
+        {
+          "position": 2,
+          "title": "Quantitative reasoning",
+          "summary": "Twenty-one problem-solving questions in 45 minutes, no calculator and no geometry. Arithmetic and algebra at speed.",
+          "topics": [
+            "Number properties, fractions, percents and ratios",
+            "Algebra: equations, inequalities, exponents and functions",
+            "Word problems: rates, work, mixtures and sets",
+            "Counting, probability and statistics"
+          ],
+          "hours": 12,
+          "outcome": "Finish all 21 questions in 45 minutes with mental arithmetic that does not slow you down."
+        },
+        {
+          "position": 3,
+          "title": "Verbal reasoning",
+          "summary": "Twenty-three questions of reading comprehension and critical reasoning. Sentence correction is gone; argument logic carries the section.",
+          "topics": [
+            "Passage mapping for short and long passages",
+            "Inference, main idea and function questions",
+            "Critical reasoning: assumption, strengthen, weaken, evaluate",
+            "Boldface and resolve-the-paradox questions"
+          ],
+          "hours": 10,
+          "outcome": "Read once, hold the argument’s structure in your head and pick answers on evidence."
+        },
+        {
+          "position": 4,
+          "title": "Data insights",
+          "summary": "The section most candidates underestimate: twenty questions across five formats, with the on-screen calculator.",
+          "topics": [
+            "Data sufficiency: solving for whether, not what",
+            "Multi-source reasoning and table analysis",
+            "Graphics interpretation and two-part analysis",
+            "Using the calculator without wasting time on it"
+          ],
+          "hours": 10,
+          "outcome": "Move between five question formats without losing pace or accuracy."
+        },
+        {
+          "position": 5,
+          "title": "Section order and pacing strategy",
+          "summary": "You choose your section order and take one optional break. Pacing plans for each order, and when to bookmark and move on.",
+          "topics": [
+            "Choosing a section order to match your stamina and strengths",
+            "Per-question time budgets and checkpoints",
+            "Guessing strategy and the penalty for unanswered questions",
+            "The ten-minute break and how to use it"
+          ],
+          "hours": 4,
+          "outcome": "Have a section order and pacing plan you have rehearsed and trust."
+        },
+        {
+          "position": 6,
+          "title": "Mock cycle and score review",
+          "summary": "Full-length Focus Edition mocks in exam conditions, each reviewed question by question, and your test-day plan.",
+          "topics": [
+            "Weekly full-length mocks, scored 205–805",
+            "Error log review by question type and cause",
+            "Reading the score report and acting on it",
+            "Test centre vs online delivery, booking and score sending"
+          ],
+          "hours": 8,
+          "outcome": "Walk in having sat the Focus Edition twelve times with your score range known."
+        }
+      ],
+      "teacherSlugs": ["farzana-haque", "lubna-karim"]
+    },
+    {
+      "slug": "lsat",
+      "name": "LSAT",
+      "description": "The LSAT measures reading comprehension and logical reasoning under relentless time pressure. We teach the new format — two logical reasoning sections and one reading comprehension — prove it with full-length proctored mocks, and guarantee the score you need.",
+      "priceAmount": 42000,
+      "priceUnit": "per 12-week course",
+      "feeIncludes": [
+        "48 taught hours live online, in a group of four or fewer",
+        "12 full-length proctored mocks, reviewed",
+        "Weekly homework marked with detailed feedback",
+        "Recordings of every session you miss",
+        "All materials and the online question bank"
+      ],
+      "modes": ["live_online"],
+      "status": "published",
+      "durationWeeks": 12,
+      "taughtHours": 48,
+      "mockCount": 12,
+      "classSize": "Max 4",
+      "outcomes": [
+        "Diagram any Logical Reasoning stimulus and name the flaw before reading the choices",
+        "Map a Reading Comprehension passage once and answer from the map",
+        "Hold pace across four 35-minute sections without a rush at the end",
+        "Know your score range before you book the real test"
+      ],
+      "sortOrder": 6,
+      "modules": [
+        {
+          "position": 1,
+          "title": "Logical reasoning I: argument structure",
+          "summary": "Two of your three scored sections. Breaking every stimulus into premise and conclusion, and the question families built on that structure.",
+          "topics": [
+            "Conclusions, premises and the words that signal them",
+            "Conditional reasoning: sufficient, necessary and contrapositive",
+            "Must be true, most strongly supported and main point",
+            "Reading the question stem before the stimulus"
+          ],
+          "hours": 12,
+          "outcome": "Diagram any argument in under thirty seconds and answer structure questions on sight."
+        },
+        {
+          "position": 2,
+          "title": "Logical reasoning II: flaws, assumptions and inference",
+          "summary": "The question types that separate a 160 from a 170: what the argument takes for granted, and where it breaks.",
+          "topics": [
+            "Necessary and sufficient assumption questions",
+            "Strengthen, weaken and evaluate",
+            "Flaw families: causation, sampling, equivocation, scope",
+            "Parallel reasoning and parallel flaw"
+          ],
+          "hours": 10,
+          "outcome": "Name the flaw before reading the choices and stop losing points on assumption questions."
+        },
+        {
+          "position": 3,
+          "title": "Reading comprehension",
+          "summary": "Four passages in 35 minutes, one of them a comparative pair. Mapping structure and viewpoint rather than remembering detail.",
+          "topics": [
+            "Passage mapping: viewpoints, structure and tone",
+            "Main point, primary purpose and author attitude",
+            "Comparative reading: where two passages agree and diverge",
+            "Inference and analogy questions across law, science and the humanities"
+          ],
+          "hours": 10,
+          "outcome": "Read each passage once and answer from the map, with time left for the fourth."
+        },
+        {
+          "position": 4,
+          "title": "Timed reasoning under pressure",
+          "summary": "Thirty-five minutes a section, roughly 25 questions each. Pacing, triage and treating the unscored section as live.",
+          "topics": [
+            "Time checkpoints and when to skip and return",
+            "Triage: the hardest questions sit at the end, not the start",
+            "The unscored section: why every section is played as real",
+            "Digital interface: flagging, highlighting and eliminating"
+          ],
+          "hours": 6,
+          "outcome": "Finish every section with a pacing plan you have rehearsed, not a rush at the end."
+        },
+        {
+          "position": 5,
+          "title": "The writing sample",
+          "summary": "LSAT Writing is unscored but sent to every law school. Taken separately online, it is the one piece of your prose they read before your personal statement.",
+          "topics": [
+            "The argumentative writing task and its 50-minute format",
+            "Taking a position and using the perspectives provided",
+            "The structure a law school admissions reader expects",
+            "One sample written, reviewed and returned"
+          ],
+          "hours": 2,
+          "outcome": "Produce a clear, well-organised writing sample that supports rather than undercuts your application."
+        },
+        {
+          "position": 6,
+          "title": "Timed mock cycle",
+          "summary": "Full-length proctored mocks in exam conditions, each reviewed question by question, and your test-day plan.",
+          "topics": [
+            "Weekly full-length mocks, scored 120–180",
+            "Error log review by question family",
+            "Retake limits and choosing your test date",
+            "Registration, test-day rules and score release"
+          ],
+          "hours": 8,
+          "outcome": "Walk in having sat the test twelve times with your score range known to the point."
+        }
+      ],
+      "teacherSlugs": ["nabeel-ahsan"]
+    },
+    {
+      "slug": "mcat",
+      "name": "MCAT",
+      "description": "The MCAT is relentless: seven and a half hours, four sections, and a barrier that keeps out half the test-takers every year. We teach the content, the strategy and the stamina, prove it with full-length mocks in exam conditions, and guarantee the score you need.",
+      "priceAmount": 42000,
+      "priceUnit": "per 24-week course",
+      "feeIncludes": [
+        "60 taught hours live online, in a group of four or fewer",
+        "8 full-length timed mocks, reviewed",
+        "Weekly homework sets with marked solutions",
+        "Recordings of every session you miss",
+        "All materials and the online question bank"
+      ],
+      "modes": ["live_online"],
+      "status": "published",
+      "durationWeeks": 24,
+      "taughtHours": 60,
+      "mockCount": 8,
+      "classSize": "Max 4",
+      "outcomes": [
+        "Reason through unfamiliar science passages from principles, not recall",
+        "Read a research passage and its figures the way the test writers intend",
+        "Score consistently on CARS regardless of the passage topic",
+        "Hold accuracy across seven and a half hours and know your score range before you book"
+      ],
+      "sortOrder": 7,
+      "modules": [
+        {
+          "position": 1,
+          "title": "Chemical and physical foundations",
+          "summary": "Fifty-nine questions in 95 minutes across general chemistry, physics, organic chemistry and the biochemistry they lean on.",
+          "topics": [
+            "Thermodynamics, kinetics, equilibrium and acid–base chemistry",
+            "Fluids, circuits, optics and the physics of living systems",
+            "Organic mechanisms: seeing the reaction type, not memorising it",
+            "Passage-based data: reading the figure before the question"
+          ],
+          "hours": 12,
+          "outcome": "Reason through an unfamiliar chemistry or physics passage from principles rather than recall."
+        },
+        {
+          "position": 2,
+          "title": "Biological and biochemical foundations",
+          "summary": "The section with the most content: cell biology, physiology, genetics and the biochemistry that anchors a quarter of the test.",
+          "topics": [
+            "Amino acids, enzymes and metabolic pathways",
+            "Cell biology, DNA replication and gene expression",
+            "Organ systems and physiology",
+            "Experimental design and interpreting research passages"
+          ],
+          "hours": 14,
+          "outcome": "Answer biochemistry from mechanism and read a research passage the way the test writers intend."
+        },
+        {
+          "position": 3,
+          "title": "Psychological, social and biological foundations",
+          "summary": "Fifty-nine questions of psychology, sociology and the biology of behaviour. Terminology-heavy, and the easiest section to raise quickly.",
+          "topics": [
+            "Sensation, perception, learning and memory",
+            "Social psychology, identity and group behaviour",
+            "Sociology: institutions, stratification and demographics",
+            "Research methods and statistics in the behavioural sciences"
+          ],
+          "hours": 10,
+          "outcome": "Recognise every high-yield term in context and read a behavioural-science study critically."
+        },
+        {
+          "position": 4,
+          "title": "CARS passage method",
+          "summary": "Critical Analysis and Reasoning Skills: nine humanities and social-science passages in 90 minutes, with no outside knowledge required or rewarded.",
+          "topics": [
+            "Mapping a passage for argument, tone and purpose",
+            "Foundations of comprehension and reasoning within the text",
+            "Reasoning beyond the text: applying the author’s view to new cases",
+            "Pacing at ten minutes a passage"
+          ],
+          "hours": 8,
+          "outcome": "Score consistently on CARS instead of swinging with the passage topic."
+        },
+        {
+          "position": 5,
+          "title": "Integrated content review",
+          "summary": "The MCAT crosses disciplines inside single passages. Revision organised around the ten foundational concepts, not the textbook chapters.",
+          "topics": [
+            "Cross-section topics: enzymes in physics, statistics everywhere",
+            "Scientific reasoning and research-design questions across all three science sections",
+            "Equation and pathway sheets you rebuild from memory",
+            "Targeted drills from your personal error log"
+          ],
+          "hours": 6,
+          "outcome": "Move between disciplines inside a passage without losing the thread."
+        },
+        {
+          "position": 6,
+          "title": "Full-length cycle and test day",
+          "summary": "Full-length mocks on the real 7h 30m clock, each reviewed section by section, and the stamina and logistics of test day.",
+          "topics": [
+            "Eight full-length mocks in exam order, scored 472–528",
+            "Section-by-section review and error log",
+            "Break strategy, nutrition and stamina across seven hours",
+            "Registration, test centre rules and score release"
+          ],
+          "hours": 10,
+          "outcome": "Walk in having sat the full seven and a half hours eight times with your score range known."
+        }
+      ],
+      "teacherSlugs": ["arif-mahmud"]
+    },
+    {
+      "slug": "ielts",
+      "name": "IELTS",
+      "description": "More students from Bangladesh sit IELTS than any other English exam. We teach both Academic and General Training, with weekly examiner-led speaking labs and task-based writing feedback from someone who has marked for the IELTS board itself.",
+      "priceAmount": 25000,
+      "priceUnit": "per 10-week course",
+      "feeIncludes": [
+        "36 taught hours in a class of ten or fewer",
+        "10 full-length papers, fully marked and reviewed",
+        "Weekly examiner-led speaking labs",
+        "All materials and the online question bank",
+        "Written band 7+ score guarantee"
+      ],
+      "modes": ["classroom", "live_online"],
+      "status": "published",
+      "durationWeeks": 10,
+      "taughtHours": 36,
+      "mockCount": 10,
+      "classSize": "Max 10",
+      "outcomes": [
+        "Sit both Academic and General Training confidently, whichever your shortlist asks for",
+        "Write Task 1 and Task 2 responses that meet every criterion in the time allowed",
+        "Hold a Part 3 discussion at the level a band 7 demands",
+        "Know your band per module before you book the real test"
+      ],
+      "sortOrder": 8,
+      "modules": [
+        {
+          "position": 1,
+          "title": "Band descriptors and your diagnostic",
+          "summary": "How the four papers are marked, what separates a 6.5 from a 7.5, and where your first full paper puts you.",
+          "topics": [
+            "The public band descriptors, decoded",
+            "Academic vs General Training: what actually differs",
+            "Full-length diagnostic paper, all four modules",
+            "Your personal band map and target"
+          ],
+          "hours": 4,
+          "outcome": "Know your current band per module and exactly which criteria are costing you marks."
+        },
+        {
+          "position": 2,
+          "title": "Listening",
+          "summary": "Four sections, forty questions, one hearing. Prediction, note-taking and the traps built into every recording.",
+          "topics": [
+            "Form completion and multiple choice under time",
+            "Map, plan and diagram labelling",
+            "Distractors, corrections and paraphrase in the audio",
+            "Transferring answers without losing marks to spelling"
+          ],
+          "hours": 5,
+          "outcome": "Hold pace through Section 4 and stop losing marks to spelling and plurals."
+        },
+        {
+          "position": 3,
+          "title": "Reading — Academic and General Training",
+          "summary": "Three passages in sixty minutes. Skimming, scanning and the question types that reward each.",
+          "topics": [
+            "True/False/Not Given and Yes/No/Not Given",
+            "Matching headings and matching information",
+            "Summary, note and sentence completion",
+            "Time allocation across passages of rising difficulty"
+          ],
+          "hours": 5,
+          "outcome": "Finish all forty questions with time to check the ones you flagged."
+        },
+        {
+          "position": 4,
+          "title": "Writing Task 1",
+          "summary": "Describing data (Academic) or writing a letter (General Training) in 150 words that hit every criterion.",
+          "topics": [
+            "Overview statements that examiners look for first",
+            "Selecting and grouping data, not listing it",
+            "Letter tone: formal, semi-formal and informal",
+            "Task achievement and coherence, criterion by criterion"
+          ],
+          "hours": 5,
+          "outcome": "Write a complete Task 1 in twenty minutes with a clear overview and no missing features."
+        },
+        {
+          "position": 5,
+          "title": "Writing Task 2",
+          "summary": "The essay that carries two-thirds of your writing band. Argument structure, position and the lexical resource examiners reward.",
+          "topics": [
+            "Question types: opinion, discussion, problem–solution, two-part",
+            "Planning in five minutes, writing in thirty",
+            "Cohesion without mechanical linking words",
+            "Grammatical range: complex sentences that stay accurate"
+          ],
+          "hours": 7,
+          "outcome": "Produce a 250-word essay with a clear position that scores 7 on task response."
+        },
+        {
+          "position": 6,
+          "title": "Speaking labs",
+          "summary": "Weekly examiner-led practice across all three parts, recorded and scored against the descriptors.",
+          "topics": [
+            "Part 1: extending answers without rambling",
+            "Part 2: the two-minute long turn from a cue card",
+            "Part 3: abstract discussion and opinion",
+            "Fluency, pronunciation and self-correction habits"
+          ],
+          "hours": 6,
+          "outcome": "Speak for two minutes on any cue card without hesitation that costs a band."
+        },
+        {
+          "position": 7,
+          "title": "Full-paper cycle and exam week",
+          "summary": "Timed full papers under exam conditions, each one reviewed line by line, and your test-day plan.",
+          "topics": [
+            "Weekly full-length papers, scored to the half band",
+            "One-on-one review of your marked writing",
+            "Paper vs computer delivery: choosing and rehearsing",
+            "Booking, ID, test-day timing and what to expect"
+          ],
+          "hours": 4,
+          "outcome": "Walk in knowing your band range and having sat the paper ten times already."
+        }
+      ],
+      "teacherSlugs": ["rehnuma-siddiqui", "zahid-hasan"]
+    },
+    {
+      "slug": "toefl",
+      "name": "TOEFL",
+      "description": "The TOEFL iBT is test-taking under pressure: you are speaking on a prompt you have 15 seconds to read, writing an essay from an academic lecture you have just heard. We teach those integrated tasks directly, with timed practice and instructor feedback on every submission.",
+      "priceAmount": 27000,
+      "priceUnit": "per 10-week course",
+      "feeIncludes": [
+        "40 taught hours in a class of ten or fewer",
+        "10 full-length proctored papers, scored and reviewed",
+        "Weekly speaking mock interviews",
+        "Written 100+ score guarantee",
+        "All materials and the online question bank"
+      ],
+      "modes": ["classroom", "live_online"],
+      "status": "published",
+      "durationWeeks": 10,
+      "taughtHours": 40,
+      "mockCount": 10,
+      "classSize": "Max 10",
+      "outcomes": [
+        "Sit the two-hour iBT with a timing plan for every section",
+        "Answer any of the four speaking tasks from notes inside the fifteen-second preparation window",
+        "Write an integrated essay and an academic discussion post that meet every rubric criterion",
+        "Know your score per section before you book the real test"
+      ],
+      "sortOrder": 9,
+      "modules": [
+        {
+          "position": 1,
+          "title": "iBT format and scoring",
+          "summary": "The two-hour test section by section, how raw points become a 0–30 scaled score, and where your first full paper puts you.",
+          "topics": [
+            "The shortened iBT: what changed in 2023 and what did not",
+            "Section timings, question counts and the on-screen tools",
+            "How the speaking and writing rubrics turn into scaled scores",
+            "Full-length diagnostic paper and your personal score map"
+          ],
+          "hours": 4,
+          "outcome": "Know your current score per section and which rubric criteria are costing you points."
+        },
+        {
+          "position": 2,
+          "title": "Reading",
+          "summary": "Two academic passages, twenty questions, thirty-five minutes. The question types that reward skimming and the ones that punish it.",
+          "topics": [
+            "Factual, negative factual and inference questions",
+            "Vocabulary in context and reference questions",
+            "Sentence insertion and rhetorical purpose",
+            "The prose summary question and how its points are awarded"
+          ],
+          "hours": 7,
+          "outcome": "Finish both passages with time to check the summary questions that carry the most points."
+        },
+        {
+          "position": 3,
+          "title": "Listening",
+          "summary": "Lectures and campus conversations, heard once. Note-taking that captures structure, not words, and the traps in every recording.",
+          "topics": [
+            "Gist, detail and function questions across lecture and conversation",
+            "A note-taking system built around the main-point and example pattern",
+            "Attitude, organisation and connecting-content questions",
+            "Replay questions and what the speaker actually implies"
+          ],
+          "hours": 7,
+          "outcome": "Take notes on a five-minute lecture you can answer six questions from without a second hearing."
+        },
+        {
+          "position": 4,
+          "title": "Speaking: independent and integrated tasks",
+          "summary": "Four tasks in sixteen minutes. One independent opinion, then three tasks that make you read, listen and speak from your notes.",
+          "topics": [
+            "Task 1: a clear opinion with two reasons in forty-five seconds",
+            "Tasks 2 and 3: campus announcement and academic reading-to-lecture",
+            "Task 4: summarising a lecture from notes alone",
+            "Delivery, language use and topic development, scored against the rubric"
+          ],
+          "hours": 9,
+          "outcome": "Prepare in fifteen seconds and speak for forty-five without the clock deciding your score."
+        },
+        {
+          "position": 5,
+          "title": "Writing: integrated task and academic discussion",
+          "summary": "The integrated essay that pits a lecture against a passage, and the ten-minute academic discussion post that replaced the independent essay.",
+          "topics": [
+            "Integrated task: recording how the lecture challenges each point of the reading",
+            "A structure for the integrated essay that scores on completeness, not length",
+            "Writing for an Academic Discussion: a position, a reason and a reply in ten minutes",
+            "Language use and development, scored on the two writing rubrics"
+          ],
+          "hours": 9,
+          "outcome": "Write an integrated essay that captures all three lecture points and a discussion post that scores 4 or above."
+        },
+        {
+          "position": 6,
+          "title": "Full-test cycle and test day",
+          "summary": "Timed full papers under exam conditions, each one reviewed section by section, and your test-day plan.",
+          "topics": [
+            "Weekly full-length papers, scored on the 0–120 scale",
+            "One-on-one review of your recorded speaking and marked writing",
+            "Test centre vs Home Edition: choosing and rehearsing the setup",
+            "Registration, ID, score reporting and what to expect on the day"
+          ],
+          "hours": 4,
+          "outcome": "Walk in knowing your score range and having sat the full test ten times already."
+        }
+      ],
+      "teacherSlugs": ["rehnuma-siddiqui"]
+    },
+    {
+      "slug": "duolingo",
+      "name": "Duolingo English Test",
+      "description": "An hour at home. Adaptive. Scored by machine. Results in 48 hours. The Duolingo English Test is the fastest way to land an English credential for university admissions, and it is accepted by more universities every year. We teach the format directly so nothing on test day surprises you.",
+      "priceAmount": 16000,
+      "priceUnit": "per 6-week course",
+      "feeIncludes": [
+        "18 taught hours, live online, in a class of ten or fewer",
+        "6 full-length adaptive practice tests, reviewed",
+        "Adaptive task drills twice weekly",
+        "Recording access to every live session",
+        "All materials and the online question bank"
+      ],
+      "modes": ["live_online"],
+      "status": "published",
+      "durationWeeks": 6,
+      "taughtHours": 18,
+      "mockCount": 6,
+      "classSize": "Max 10",
+      "outcomes": [
+        "Recognise every Duolingo task type on sight and know exactly how the machine scores it",
+        "Hold pace through an hour of adaptive questions as the difficulty climbs",
+        "Deliver writing and speaking samples and a video interview you are proud to share with institutions",
+        "Set up and pass the at-home proctoring checks so nothing on test day is a surprise"
+      ],
+      "sortOrder": 10,
+      "modules": [
+        {
+          "position": 1,
+          "title": "Adaptive format and how it scores",
+          "summary": "What the computer is doing when the questions get harder, how the 10–160 overall and the four subscores are built, and where your first practice test puts you.",
+          "topics": [
+            "Why the test adapts: difficulty, accuracy and the questions you never see",
+            "The overall score and the Literacy, Comprehension, Conversation and Production subscores",
+            "The at-home setup: camera, microphone, screen and proctoring rules",
+            "Full-length adaptive diagnostic and your personal score map"
+          ],
+          "hours": 3,
+          "outcome": "Know your current overall score and subscores and which task types are holding them down."
+        },
+        {
+          "position": 2,
+          "title": "Literacy and comprehension tasks",
+          "summary": "The fast reading and listening tasks that make up most of the adaptive section. Recognising each one instantly and answering under a tight clock.",
+          "topics": [
+            "Read and Complete: filling missing letters without losing the sentence",
+            "Read and Select and Listen and Select: real words vs invented ones",
+            "Read Aloud and Listen and Type: accuracy on every word",
+            "Interactive Reading: passage completion, main idea and inference under time"
+          ],
+          "hours": 4,
+          "outcome": "Identify any literacy or comprehension task on sight and finish it inside its timer."
+        },
+        {
+          "position": 3,
+          "title": "Conversation and production tasks",
+          "summary": "The speaking and writing tasks the machine scores as you produce them: what it listens for, what it counts, and how to give it more of both.",
+          "topics": [
+            "Interactive Listening: following a conversation and summarising it",
+            "Speak About the Photo and Read, Then Speak: describing and developing for the full time",
+            "Write About the Photo and Read, Then Write: detail, range and accuracy",
+            "Fluency, vocabulary range and grammatical accuracy as the scorer measures them"
+          ],
+          "hours": 4,
+          "outcome": "Speak and write for the full time allowed with the range and accuracy the scorer rewards."
+        },
+        {
+          "position": 4,
+          "title": "Writing and speaking samples",
+          "summary": "The longer Writing Sample and Speaking Sample at the end of the test. Scored, and also sent to every institution you share your results with.",
+          "topics": [
+            "Choosing between the two prompts in the time allowed",
+            "Structuring a five-minute written response with a clear position",
+            "A three-minute spoken response that develops one idea rather than listing several",
+            "Sounding like an applicant an admissions officer wants to hear"
+          ],
+          "hours": 4,
+          "outcome": "Produce a writing and a speaking sample you would be happy for an admissions officer to read and hear."
+        },
+        {
+          "position": 5,
+          "title": "Timed practice and the video interview",
+          "summary": "Full-length adaptive practice tests under home conditions, each one reviewed, and the video interview that universities watch alongside your score.",
+          "topics": [
+            "Weekly full-length practice tests, scored to the subscore",
+            "One-on-one review of your recorded speaking and writing",
+            "The video interview: choosing a prompt and speaking naturally for the full time",
+            "Booking, ID, the environment checks and what gets a test invalidated"
+          ],
+          "hours": 3,
+          "outcome": "Sit the real test at home knowing your score range and having passed every proctoring check in rehearsal."
+        }
+      ],
+      "teacherSlugs": []
+    },
+    {
+      "slug": "pte",
+      "name": "PTE Academic",
+      "description": "PTE Academic is a computer-scored alternative to IELTS and TOEFL, fully accepted by UK, Australian and Canadian universities. We teach the format directly — speaking and writing to a microphone and keyboard, reading and listening in timed sections — with full-length papers and live instructor review.",
+      "priceAmount": 26000,
+      "priceUnit": "per 9-week course",
+      "feeIncludes": [
+        "36 taught hours in a class of ten or fewer",
+        "8 full-length proctored papers, scored and reviewed",
+        "Weekly one-on-one speaking and writing reviews",
+        "Written 75+ score guarantee",
+        "All materials and the online question bank"
+      ],
+      "modes": ["classroom", "live_online"],
+      "status": "published",
+      "durationWeeks": 9,
+      "taughtHours": 36,
+      "mockCount": 8,
+      "classSize": "Max 10",
+      "outcomes": [
+        "Speak and write in the way an automated scorer rewards, not the way a human examiner would forgive",
+        "Manage a single clock across each section without leaving high-value tasks unanswered",
+        "Use templates where they earn marks and speak naturally where they do not",
+        "Know your score per communicative skill before you book the real test"
+      ],
+      "sortOrder": 11,
+      "modules": [
+        {
+          "position": 1,
+          "title": "Computer scoring and what it rewards",
+          "summary": "How an automated scorer marks speech and text, why the 10–90 scale behaves the way it does, and where your first full paper puts you.",
+          "topics": [
+            "The three sections, twenty task types and their timings",
+            "Integrated scoring: which tasks feed which communicative skill",
+            "Oral fluency, pronunciation, spelling and form as the machine measures them",
+            "Full-length diagnostic paper and your personal score map"
+          ],
+          "hours": 4,
+          "outcome": "Know your current score per communicative skill and which task types are moving it most."
+        },
+        {
+          "position": 2,
+          "title": "Speaking and writing",
+          "summary": "One section, up to seven task types, and the largest share of your marks. Speaking to a microphone and writing to a word count in a way the scorer rewards.",
+          "topics": [
+            "Read Aloud, Repeat Sentence and Describe Image: fluency over hesitation",
+            "Re-tell Lecture and Answer Short Question from notes",
+            "Summarise Written Text: one sentence, 5–75 words, every key point",
+            "The essay: 200–300 words on structure, grammar, vocabulary and spelling"
+          ],
+          "hours": 9,
+          "outcome": "Deliver every speaking task without a pause the microphone can hear and write to the word limits from memory."
+        },
+        {
+          "position": 3,
+          "title": "Reading",
+          "summary": "Five task types in around thirty minutes with a single clock across all of them. Where to spend time and where to move on.",
+          "topics": [
+            "Reading and Writing: Fill in the Blanks, the highest-value reading task",
+            "Re-order Paragraphs: finding the anchor sentence first",
+            "Multiple Choice single and multiple answer, and the negative marking",
+            "Reading: Fill in the Blanks and pacing across the whole section"
+          ],
+          "hours": 6,
+          "outcome": "Finish the reading section inside its single timer without leaving the high-value tasks unanswered."
+        },
+        {
+          "position": 4,
+          "title": "Listening",
+          "summary": "Eight task types heard once, ending with the dictation that carries the most marks. Note-taking that survives a single hearing.",
+          "topics": [
+            "Summarise Spoken Text: 50–70 words scored for content, form and language",
+            "Fill in the Blanks, Highlight Correct Summary and Select Missing Word",
+            "Highlight Incorrect Words: reading and listening at the same time",
+            "Write From Dictation: capturing every word and the marks it feeds into writing"
+          ],
+          "hours": 6,
+          "outcome": "Reproduce a dictated sentence word for word and hold accuracy through the final task of the test."
+        },
+        {
+          "position": 5,
+          "title": "Templates and pacing",
+          "summary": "Where a template earns marks and where it costs them, and a minute-by-minute plan for each of the three sections.",
+          "topics": [
+            "Describe Image and Re-tell Lecture frameworks that stay flexible",
+            "Essay and Summarise Written Text structures the scorer credits",
+            "When a memorised answer is penalised and how to sound natural inside a frame",
+            "Section timing plans and the tasks worth skipping when the clock is short"
+          ],
+          "hours": 6,
+          "outcome": "Enter any task with a structure ready and know to the minute how long it should take."
+        },
+        {
+          "position": 6,
+          "title": "Scored mock cycle",
+          "summary": "Timed full papers under exam conditions, each one scored on the 10–90 scale and reviewed one on one, and your test-day plan.",
+          "topics": [
+            "Weekly full-length papers with communicative and enabling skill scores",
+            "One-on-one review of your recorded speaking and marked writing",
+            "Reading your score report: which task types to fix before you rebook",
+            "Booking, ID, the test centre setup and what to expect on the day"
+          ],
+          "hours": 5,
+          "outcome": "Walk in knowing your score range and having sat the full test eight times already."
+        }
+      ],
+      "teacherSlugs": ["rehnuma-siddiqui"]
+    }
+  ],
+  "batches": [
+    {
+      "courseSlug": "sat",
+      "branchSlug": "dhaka-gulshan",
+      "teacherSlug": "dr-imran-chowdhury",
+      "mode": "classroom",
+      "startsOn": "2026-10-12",
+      "endsOn": "2026-12-18",
+      "days": ["sat", "mon", "wed"],
+      "startTime": "18:30",
+      "endTime": "20:30",
+      "status": "filling",
+      "seatsLeft": 3,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "sat",
+      "branchSlug": null,
+      "teacherSlug": "farzana-haque",
+      "mode": "live_online",
+      "startsOn": "2026-11-06",
+      "endsOn": "2027-01-15",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "open",
+      "seatsLeft": 9,
+      "feeAmount": 32000
+    },
+    {
+      "courseSlug": "sat",
+      "branchSlug": "chattogram",
+      "teacherSlug": "zahid-hasan",
+      "mode": "classroom",
+      "startsOn": "2027-01-11",
+      "endsOn": "2027-03-19",
+      "days": ["sat", "mon", "wed"],
+      "startTime": "18:30",
+      "endTime": "20:30",
+      "status": "open",
+      "seatsLeft": 10,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "act",
+      "branchSlug": "dhaka-gulshan",
+      "teacherSlug": "dr-imran-chowdhury",
+      "mode": "classroom",
+      "startsOn": "2026-10-13",
+      "endsOn": "2026-12-19",
+      "days": ["tue", "thu"],
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "status": "filling",
+      "seatsLeft": 3,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "act",
+      "branchSlug": null,
+      "teacherSlug": null,
+      "mode": "live_online",
+      "startsOn": "2026-11-07",
+      "endsOn": "2027-01-16",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "open",
+      "seatsLeft": 8,
+      "feeAmount": 30000
+    },
+    {
+      "courseSlug": "act",
+      "branchSlug": "dhaka-dhanmondi",
+      "teacherSlug": null,
+      "mode": "classroom",
+      "startsOn": "2027-01-12",
+      "endsOn": "2027-03-20",
+      "days": ["sat", "mon", "wed"],
+      "startTime": "18:30",
+      "endTime": "20:30",
+      "status": "open",
+      "seatsLeft": 10,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "ap",
+      "branchSlug": "dhaka-gulshan",
+      "teacherSlug": "arif-mahmud",
+      "mode": "classroom",
+      "startsOn": "2026-10-17",
+      "endsOn": "2026-12-23",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "filling",
+      "seatsLeft": 2,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "ap",
+      "branchSlug": null,
+      "teacherSlug": "arif-mahmud",
+      "mode": "live_online",
+      "startsOn": "2026-11-03",
+      "endsOn": "2027-01-12",
+      "days": ["tue", "thu"],
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "status": "open",
+      "seatsLeft": 6,
+      "feeAmount": 32000
+    },
+    {
+      "courseSlug": "ap",
+      "branchSlug": "chattogram",
+      "teacherSlug": "arif-mahmud",
+      "mode": "classroom",
+      "startsOn": "2027-01-16",
+      "endsOn": "2027-03-24",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "open",
+      "seatsLeft": 8,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "psat",
+      "branchSlug": "dhaka-gulshan",
+      "teacherSlug": null,
+      "mode": "classroom",
+      "startsOn": "2026-10-10",
+      "endsOn": "2026-12-05",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "filling",
+      "seatsLeft": 4,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "psat",
+      "branchSlug": null,
+      "teacherSlug": null,
+      "mode": "live_online",
+      "startsOn": "2026-11-02",
+      "endsOn": "2026-12-28",
+      "days": ["tue", "thu"],
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "status": "open",
+      "seatsLeft": 10,
+      "feeAmount": 28000
+    },
+    {
+      "courseSlug": "psat",
+      "branchSlug": "dhaka-dhanmondi",
+      "teacherSlug": null,
+      "mode": "classroom",
+      "startsOn": "2027-01-09",
+      "endsOn": "2027-03-06",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "open",
+      "seatsLeft": 10,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "gre",
+      "branchSlug": "dhaka-gulshan",
+      "teacherSlug": "farzana-haque",
+      "mode": "classroom",
+      "startsOn": "2026-10-14",
+      "endsOn": "2026-12-20",
+      "days": ["sat", "mon", "wed"],
+      "startTime": "18:30",
+      "endTime": "20:30",
+      "status": "filling",
+      "seatsLeft": 3,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "gre",
+      "branchSlug": null,
+      "teacherSlug": "nabeel-ahsan",
+      "mode": "live_online",
+      "startsOn": "2026-11-08",
+      "endsOn": "2027-01-17",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "open",
+      "seatsLeft": 7,
+      "feeAmount": 38000
+    },
+    {
+      "courseSlug": "gre",
+      "branchSlug": "chattogram",
+      "teacherSlug": null,
+      "mode": "classroom",
+      "startsOn": "2027-01-13",
+      "endsOn": "2027-03-21",
+      "days": ["sat", "mon", "wed"],
+      "startTime": "18:30",
+      "endTime": "20:30",
+      "status": "open",
+      "seatsLeft": 8,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "gmat",
+      "branchSlug": "dhaka-gulshan",
+      "teacherSlug": "lubna-karim",
+      "mode": "classroom",
+      "startsOn": "2026-10-15",
+      "endsOn": "2026-12-10",
+      "days": ["tue", "thu"],
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "status": "filling",
+      "seatsLeft": 2,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "gmat",
+      "branchSlug": null,
+      "teacherSlug": "lubna-karim",
+      "mode": "live_online",
+      "startsOn": "2026-11-05",
+      "endsOn": "2026-12-31",
+      "days": ["tue", "thu"],
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "status": "open",
+      "seatsLeft": 8,
+      "feeAmount": 38000
+    },
+    {
+      "courseSlug": "gmat",
+      "branchSlug": "dhaka-dhanmondi",
+      "teacherSlug": null,
+      "mode": "classroom",
+      "startsOn": "2027-01-14",
+      "endsOn": "2027-03-11",
+      "days": ["sat", "mon", "wed"],
+      "startTime": "18:30",
+      "endTime": "20:30",
+      "status": "open",
+      "seatsLeft": 8,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "lsat",
+      "branchSlug": null,
+      "teacherSlug": "nabeel-ahsan",
+      "mode": "live_online",
+      "startsOn": "2026-10-11",
+      "endsOn": "2027-01-03",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "filling",
+      "seatsLeft": 1,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "lsat",
+      "branchSlug": null,
+      "teacherSlug": "nabeel-ahsan",
+      "mode": "live_online",
+      "startsOn": "2026-11-10",
+      "endsOn": "2027-02-02",
+      "days": ["tue", "thu"],
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "status": "open",
+      "seatsLeft": 4,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "lsat",
+      "branchSlug": null,
+      "teacherSlug": null,
+      "mode": "live_online",
+      "startsOn": "2027-01-17",
+      "endsOn": "2027-04-11",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "open",
+      "seatsLeft": 4,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "mcat",
+      "branchSlug": null,
+      "teacherSlug": "arif-mahmud",
+      "mode": "live_online",
+      "startsOn": "2026-10-04",
+      "endsOn": "2027-03-21",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "filling",
+      "seatsLeft": 1,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "mcat",
+      "branchSlug": null,
+      "teacherSlug": "arif-mahmud",
+      "mode": "live_online",
+      "startsOn": "2026-11-01",
+      "endsOn": "2027-04-18",
+      "days": ["tue", "thu"],
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "status": "open",
+      "seatsLeft": 3,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "mcat",
+      "branchSlug": null,
+      "teacherSlug": null,
+      "mode": "live_online",
+      "startsOn": "2027-01-10",
+      "endsOn": "2027-06-27",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "open",
+      "seatsLeft": 4,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "ielts",
+      "branchSlug": "dhaka-gulshan",
+      "teacherSlug": "rehnuma-siddiqui",
+      "mode": "classroom",
+      "startsOn": "2026-10-14",
+      "endsOn": "2026-12-20",
+      "days": ["sat", "mon", "wed"],
+      "startTime": "18:30",
+      "endTime": "20:30",
+      "status": "filling",
+      "seatsLeft": 3,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "ielts",
+      "branchSlug": null,
+      "teacherSlug": "rehnuma-siddiqui",
+      "mode": "live_online",
+      "startsOn": "2026-11-06",
+      "endsOn": "2027-01-15",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "open",
+      "seatsLeft": 8,
+      "feeAmount": 18000
+    },
+    {
+      "courseSlug": "ielts",
+      "branchSlug": "chattogram",
+      "teacherSlug": "zahid-hasan",
+      "mode": "classroom",
+      "startsOn": "2027-01-13",
+      "endsOn": "2027-03-21",
+      "days": ["sat", "mon", "wed"],
+      "startTime": "18:30",
+      "endTime": "20:30",
+      "status": "open",
+      "seatsLeft": 10,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "toefl",
+      "branchSlug": "dhaka-gulshan",
+      "teacherSlug": "rehnuma-siddiqui",
+      "mode": "classroom",
+      "startsOn": "2026-10-19",
+      "endsOn": "2026-12-25",
+      "days": ["tue", "thu"],
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "status": "filling",
+      "seatsLeft": 4,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "toefl",
+      "branchSlug": null,
+      "teacherSlug": null,
+      "mode": "live_online",
+      "startsOn": "2026-11-09",
+      "endsOn": "2027-01-18",
+      "days": ["tue", "thu"],
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "status": "open",
+      "seatsLeft": 9,
+      "feeAmount": 20000
+    },
+    {
+      "courseSlug": "toefl",
+      "branchSlug": "dhaka-dhanmondi",
+      "teacherSlug": null,
+      "mode": "classroom",
+      "startsOn": "2027-01-18",
+      "endsOn": "2027-03-26",
+      "days": ["sat", "mon", "wed"],
+      "startTime": "18:30",
+      "endTime": "20:30",
+      "status": "open",
+      "seatsLeft": 10,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "duolingo",
+      "branchSlug": null,
+      "teacherSlug": null,
+      "mode": "live_online",
+      "startsOn": "2026-10-06",
+      "endsOn": "2026-11-14",
+      "days": ["tue", "thu"],
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "status": "filling",
+      "seatsLeft": 2,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "duolingo",
+      "branchSlug": null,
+      "teacherSlug": null,
+      "mode": "live_online",
+      "startsOn": "2026-11-20",
+      "endsOn": "2026-12-31",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "open",
+      "seatsLeft": 8,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "duolingo",
+      "branchSlug": null,
+      "teacherSlug": null,
+      "mode": "live_online",
+      "startsOn": "2027-01-12",
+      "endsOn": "2027-02-20",
+      "days": ["tue", "thu"],
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "status": "open",
+      "seatsLeft": 10,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "pte",
+      "branchSlug": "dhaka-gulshan",
+      "teacherSlug": "rehnuma-siddiqui",
+      "mode": "classroom",
+      "startsOn": "2026-10-20",
+      "endsOn": "2026-12-19",
+      "days": ["sat", "mon", "wed"],
+      "startTime": "18:30",
+      "endTime": "20:30",
+      "status": "filling",
+      "seatsLeft": 3,
+      "feeAmount": null
+    },
+    {
+      "courseSlug": "pte",
+      "branchSlug": null,
+      "teacherSlug": null,
+      "mode": "live_online",
+      "startsOn": "2026-11-13",
+      "endsOn": "2027-01-15",
+      "days": ["fri", "sat"],
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "status": "open",
+      "seatsLeft": 9,
+      "feeAmount": 19000
+    },
+    {
+      "courseSlug": "pte",
+      "branchSlug": "chattogram",
+      "teacherSlug": null,
+      "mode": "classroom",
+      "startsOn": "2027-01-19",
+      "endsOn": "2027-03-20",
+      "days": ["sat", "mon", "wed"],
+      "startTime": "18:30",
+      "endTime": "20:30",
+      "status": "open",
+      "seatsLeft": 10,
+      "feeAmount": null
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Nafisa Rahman",
+      "result": "SAT 1540 · NUS, Singapore",
+      "quote": "The mock cycle felt harder than the real exam — by test day I was calm. My counselor knew exactly which schools fit me.",
+      "courseSlugs": ["sat"],
+      "sortOrder": 0
+    },
+    {
+      "name": "Tanvir Ahmed",
+      "result": "GRE 328 · MS, University of Toronto",
+      "quote": "I went from a 305 diagnostic to 328 in ten weeks. The quant sessions completely changed how I approach problems.",
+      "courseSlugs": ["gre"],
+      "sortOrder": 1
+    },
+    {
+      "name": "Sadia Karim",
+      "result": "IELTS 8.0 · Imperial College London",
+      "quote": "The speaking labs were the difference. Weekly examiner-style feedback took me from a 6.5 to an 8.0.",
+      "courseSlugs": ["ielts"],
+      "sortOrder": 2
+    },
+    {
+      "name": "Mahin Hossain",
+      "result": "ACT 34 · University of Michigan",
+      "quote": "Section drills were relentless in the best way. My science score went from 27 to 34 without me ever feeling lost.",
+      "courseSlugs": ["act"],
+      "sortOrder": 3
+    },
+    {
+      "name": "Farhana Islam",
+      "result": "GMAT 730 · MBA, INSEAD",
+      "quote": "I was working full time. The evening cohort and the recorded reviews made a 730 possible without quitting my job.",
+      "courseSlugs": ["gmat"],
+      "sortOrder": 4
+    },
+    {
+      "name": "Rafid Anwar",
+      "result": "Full scholarship · University of Toronto",
+      "quote": "My counselor found three scholarships I did not know existed and rebuilt my essay around what they actually fund.",
+      "courseSlugs": [],
+      "sortOrder": 5
+    },
+    {
+      "name": "Tasnim Zaman",
+      "result": "TOEFL 112 · University of Melbourne",
+      "quote": "Two tutors, one for writing and one for speaking, in the same week. That is what took me past 110.",
+      "courseSlugs": ["toefl"],
+      "sortOrder": 6
+    },
+    {
+      "name": "Ayan Kabir",
+      "result": "A-Level Maths A* · Imperial College London",
+      "quote": "Weekly one-to-one sessions rebuilt my foundations. By the mocks I was solving problems I could not read six months earlier.",
+      "courseSlugs": [],
+      "sortOrder": 7
+    }
+  ]
+}

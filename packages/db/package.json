@@ -30,6 +30,7 @@
     "clean": "rm -rf dist .turbo *.tsbuildinfo",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "dotenv -e ../../.env -- tsx src/migrate.ts",
+    "db:seed": "dotenv -e ../../.env -- tsx src/seed.ts",
     "db:studio": "dotenv -e ../../.env -- drizzle-kit studio",
     "db:check": "drizzle-kit check",
     "test": "vitest run"

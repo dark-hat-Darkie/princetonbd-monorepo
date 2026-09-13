@@ -232,6 +232,2163 @@
           "health"
         ]
       }
+    },
+    "/api/v1/branches": {
+      "get": {
+        "operationId": "listBranches",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BranchDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "List active branches",
+        "tags": [
+          "branches"
+        ]
+      }
+    },
+    "/api/v1/admin/branches": {
+      "get": {
+        "operationId": "adminListBranches",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BranchDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "List all branches",
+        "tags": [
+          "admin: branches"
+        ]
+      },
+      "post": {
+        "operationId": "adminCreateBranch",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBranchDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BranchDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Slug already in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Create a branch",
+        "tags": [
+          "admin: branches"
+        ]
+      }
+    },
+    "/api/v1/admin/branches/{id}": {
+      "get": {
+        "operationId": "adminGetBranch",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BranchDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Branch not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Get a branch",
+        "tags": [
+          "admin: branches"
+        ]
+      },
+      "patch": {
+        "operationId": "adminUpdateBranch",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBranchDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BranchDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Branch not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Slug already in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Update a branch",
+        "tags": [
+          "admin: branches"
+        ]
+      },
+      "delete": {
+        "operationId": "adminDeleteBranch",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Branch not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Branch is still referenced by a batch or teacher",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Delete a branch",
+        "tags": [
+          "admin: branches"
+        ]
+      }
+    },
+    "/api/v1/teachers": {
+      "get": {
+        "operationId": "listTeachers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeacherWithCoursesDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "List active teachers with their courses",
+        "tags": [
+          "teachers"
+        ]
+      }
+    },
+    "/api/v1/admin/teachers": {
+      "get": {
+        "operationId": "adminListTeachers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeacherWithCoursesDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "List all teachers",
+        "tags": [
+          "admin: teachers"
+        ]
+      },
+      "post": {
+        "operationId": "adminCreateTeacher",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeacherDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeacherWithCoursesDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Create a teacher",
+        "tags": [
+          "admin: teachers"
+        ]
+      }
+    },
+    "/api/v1/admin/teachers/{id}": {
+      "get": {
+        "operationId": "adminGetTeacher",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeacherWithCoursesDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Teacher not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Get a teacher",
+        "tags": [
+          "admin: teachers"
+        ]
+      },
+      "patch": {
+        "operationId": "adminUpdateTeacher",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTeacherDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeacherWithCoursesDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Teacher not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Update a teacher",
+        "tags": [
+          "admin: teachers"
+        ]
+      },
+      "delete": {
+        "operationId": "adminDeleteTeacher",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Teacher not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Teacher is still assigned to a course or batch",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Delete a teacher",
+        "tags": [
+          "admin: teachers"
+        ]
+      }
+    },
+    "/api/v1/courses": {
+      "get": {
+        "operationId": "listCourses",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CourseSummaryDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "List published courses",
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/api/v1/courses/{slug}": {
+      "get": {
+        "operationId": "getCourseBySlug",
+        "parameters": [
+          {
+            "name": "slug",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseDetailDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a published course by slug",
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/api/v1/admin/courses": {
+      "get": {
+        "operationId": "adminListCourses",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CourseSummaryDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "List all courses",
+        "tags": [
+          "admin: courses"
+        ]
+      },
+      "post": {
+        "operationId": "adminCreateCourse",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCourseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseDetailDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Slug already in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Create a course",
+        "tags": [
+          "admin: courses"
+        ]
+      }
+    },
+    "/api/v1/admin/courses/{id}": {
+      "get": {
+        "operationId": "adminGetCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseDetailDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Get a course with everything attached",
+        "tags": [
+          "admin: courses"
+        ]
+      },
+      "patch": {
+        "operationId": "adminUpdateCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCourseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseDetailDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Slug already in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Update a course",
+        "tags": [
+          "admin: courses"
+        ]
+      },
+      "delete": {
+        "operationId": "adminDeleteCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Delete a course",
+        "tags": [
+          "admin: courses"
+        ]
+      }
+    },
+    "/api/v1/admin/courses/{id}/curriculum": {
+      "put": {
+        "operationId": "adminReplaceCurriculum",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceCurriculumDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CurriculumModuleDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Replace the whole curriculum module list",
+        "tags": [
+          "admin: courses"
+        ]
+      }
+    },
+    "/api/v1/admin/courses/{id}/teachers": {
+      "put": {
+        "operationId": "adminReplaceCourseTeachers",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceCourseTeachersDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeacherDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Replace the teachers assigned to a course",
+        "tags": [
+          "admin: courses"
+        ]
+      }
+    },
+    "/api/v1/batches/{id}": {
+      "get": {
+        "operationId": "getBatchById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Batch not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a batch of a published course",
+        "tags": [
+          "batches"
+        ]
+      }
+    },
+    "/api/v1/admin/courses/{courseId}/batches": {
+      "get": {
+        "operationId": "adminListBatches",
+        "parameters": [
+          {
+            "name": "courseId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BatchDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "List the batches of a course",
+        "tags": [
+          "admin: batches"
+        ]
+      },
+      "post": {
+        "operationId": "adminCreateBatch",
+        "parameters": [
+          {
+            "name": "courseId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBatchDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Schedule a batch of a course",
+        "tags": [
+          "admin: batches"
+        ]
+      }
+    },
+    "/api/v1/admin/batches/{id}": {
+      "get": {
+        "operationId": "adminGetBatch",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Batch not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Get a batch",
+        "tags": [
+          "admin: batches"
+        ]
+      },
+      "patch": {
+        "operationId": "adminUpdateBatch",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBatchDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Batch not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Update a batch",
+        "tags": [
+          "admin: batches"
+        ]
+      },
+      "delete": {
+        "operationId": "adminDeleteBatch",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Batch not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Delete a batch",
+        "tags": [
+          "admin: batches"
+        ]
+      }
+    },
+    "/api/v1/admin/testimonials": {
+      "get": {
+        "operationId": "adminListTestimonials",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestimonialWithCoursesDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "List all testimonials",
+        "tags": [
+          "admin: testimonials"
+        ]
+      },
+      "post": {
+        "operationId": "adminCreateTestimonial",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTestimonialDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestimonialWithCoursesDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Create a testimonial",
+        "tags": [
+          "admin: testimonials"
+        ]
+      }
+    },
+    "/api/v1/admin/testimonials/{id}": {
+      "get": {
+        "operationId": "adminGetTestimonial",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestimonialWithCoursesDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Testimonial not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Get a testimonial",
+        "tags": [
+          "admin: testimonials"
+        ]
+      },
+      "patch": {
+        "operationId": "adminUpdateTestimonial",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTestimonialDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestimonialWithCoursesDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Testimonial not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Update a testimonial",
+        "tags": [
+          "admin: testimonials"
+        ]
+      },
+      "delete": {
+        "operationId": "adminDeleteTestimonial",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Testimonial not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Delete a testimonial",
+        "tags": [
+          "admin: testimonials"
+        ]
+      }
+    },
+    "/api/v1/admin/uploads/presign": {
+      "post": {
+        "operationId": "adminPresignUpload",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PresignUploadDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PresignedUploadDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Presign a direct-to-bucket image upload",
+        "tags": [
+          "admin: uploads"
+        ]
+      }
+    },
+    "/api/v1/admin/overview": {
+      "get": {
+        "operationId": "adminGetOverview",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOverviewDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Counts for the admin overview page",
+        "tags": [
+          "admin: overview"
+        ]
+      }
     }
   },
   "info": {
@@ -257,6 +2414,14 @@
       }
     },
     "schemas": {
+      "UserRole": {
+        "type": "string",
+        "enum": [
+          "student",
+          "admin"
+        ],
+        "description": "Application role. Admins can open the CMS and call the admin endpoints."
+      },
       "UserResponseDto": {
         "type": "object",
         "properties": {
@@ -284,6 +2449,14 @@
             "type": "string",
             "nullable": true
           },
+          "role": {
+            "description": "Application role. Admins can open the CMS and call the admin endpoints.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserRole"
+              }
+            ]
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -293,7 +2466,1689 @@
           "id",
           "workosId",
           "email",
+          "role",
           "createdAt"
+        ]
+      },
+      "BranchDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string",
+            "example": "dhaka-gulshan"
+          },
+          "name": {
+            "type": "string",
+            "example": "Dhaka — Gulshan"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true,
+            "example": "House 00, Road 00, Gulshan-2, Dhaka 1212"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true,
+            "example": "+880 1700-000000"
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Inactive branches are hidden from public lists but keep their history."
+          },
+          "sortOrder": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "address",
+          "phone",
+          "isActive",
+          "sortOrder",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Course not found"
+          },
+          "error": {
+            "type": "string",
+            "example": "Not Found"
+          }
+        },
+        "required": [
+          "statusCode",
+          "message"
+        ]
+      },
+      "CreateBranchDto": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "URL segment. Derived from `name` when omitted.",
+            "maxLength": 80,
+            "example": "dhaka-gulshan",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "Dhaka — Gulshan"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 300,
+            "example": "House 00, Road 00, Gulshan-2, Dhaka 1212"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 40,
+            "example": "+880 1700-000000"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number",
+            "example": 0
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "ValidationErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Course not found"
+          },
+          "error": {
+            "type": "string",
+            "example": "Not Found"
+          },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "example": {
+              "name": [
+                "name should not be empty"
+              ],
+              "modules.0.title": [
+                "title must be a string"
+              ]
+            }
+          }
+        },
+        "required": [
+          "statusCode",
+          "message",
+          "errors"
+        ]
+      },
+      "UpdateBranchDto": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "URL segment. Derived from `name` when omitted.",
+            "maxLength": 80,
+            "example": "dhaka-gulshan",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "Dhaka — Gulshan"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 300,
+            "example": "House 00, Road 00, Gulshan-2, Dhaka 1212"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 40,
+            "example": "+880 1700-000000"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number",
+            "example": 0
+          }
+        }
+      },
+      "CourseStatus": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "published",
+          "archived"
+        ]
+      },
+      "CourseRefDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string",
+            "example": "sat"
+          },
+          "name": {
+            "type": "string",
+            "example": "SAT"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CourseStatus"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "status"
+        ]
+      },
+      "TeacherWithCoursesDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string",
+            "example": "farzana-haque"
+          },
+          "name": {
+            "type": "string",
+            "example": "Farzana Haque"
+          },
+          "designation": {
+            "type": "string",
+            "description": "The title shown under the name.",
+            "example": "Lead Instructor, Quantitative"
+          },
+          "bio": {
+            "type": "string",
+            "description": "One or two lines: the credential that matters."
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true,
+            "description": "Public URL of an uploaded photo; null renders a monogram."
+          },
+          "branch": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BranchDto"
+              }
+            ]
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "courses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CourseRefDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "designation",
+          "bio",
+          "imageUrl",
+          "branch",
+          "isActive",
+          "sortOrder",
+          "createdAt",
+          "updatedAt",
+          "courses"
+        ]
+      },
+      "CreateTeacherDto": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "URL segment. Derived from `name` when omitted.",
+            "maxLength": 80,
+            "example": "farzana-haque",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "Farzana Haque"
+          },
+          "designation": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "Lead Instructor, Quantitative"
+          },
+          "bio": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1024,
+            "format": "uri"
+          },
+          "branchId": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number",
+            "example": 0
+          }
+        },
+        "required": [
+          "name",
+          "designation"
+        ]
+      },
+      "UpdateTeacherDto": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "URL segment. Derived from `name` when omitted.",
+            "maxLength": 80,
+            "example": "farzana-haque",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "Farzana Haque"
+          },
+          "designation": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "Lead Instructor, Quantitative"
+          },
+          "bio": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1024,
+            "format": "uri"
+          },
+          "branchId": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number",
+            "example": 0
+          }
+        }
+      },
+      "Currency": {
+        "type": "string",
+        "enum": [
+          "BDT"
+        ]
+      },
+      "DeliveryMode": {
+        "type": "string",
+        "enum": [
+          "classroom",
+          "live_online"
+        ]
+      },
+      "BatchTeacherDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "name"
+        ]
+      },
+      "Weekday": {
+        "type": "string",
+        "enum": [
+          "sat",
+          "sun",
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri"
+        ],
+        "description": "Which days of the week the batch meets, Saturday first."
+      },
+      "BatchStatus": {
+        "type": "string",
+        "enum": [
+          "open",
+          "filling",
+          "waitlist",
+          "closed"
+        ]
+      },
+      "BatchDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "courseId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "courseSlug": {
+            "type": "string",
+            "example": "sat"
+          },
+          "courseName": {
+            "type": "string",
+            "example": "SAT"
+          },
+          "mode": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DeliveryMode"
+              }
+            ]
+          },
+          "branch": {
+            "nullable": true,
+            "description": "Null for a live-online batch.",
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BranchDto"
+              }
+            ]
+          },
+          "teacher": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BatchTeacherDto"
+              }
+            ]
+          },
+          "startsOn": {
+            "type": "string",
+            "description": "Dhaka calendar day, YYYY-MM-DD.",
+            "example": "2026-10-12"
+          },
+          "endsOn": {
+            "type": "string",
+            "example": "2026-12-18"
+          },
+          "days": {
+            "type": "array",
+            "description": "Which days of the week the batch meets, Saturday first.",
+            "items": {
+              "$ref": "#/components/schemas/Weekday"
+            }
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Dhaka wall-clock time, HH:MM.",
+            "example": "18:30"
+          },
+          "endTime": {
+            "type": "string",
+            "example": "20:30"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BatchStatus"
+              }
+            ]
+          },
+          "seatsLeft": {
+            "type": "number",
+            "nullable": true
+          },
+          "feeAmount": {
+            "type": "number",
+            "nullable": true,
+            "description": "Whole taka; null means the course price applies."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "courseId",
+          "courseSlug",
+          "courseName",
+          "mode",
+          "branch",
+          "teacher",
+          "startsOn",
+          "endsOn",
+          "days",
+          "startTime",
+          "endTime",
+          "status",
+          "seatsLeft",
+          "feeAmount",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CourseSummaryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string",
+            "example": "sat"
+          },
+          "name": {
+            "type": "string",
+            "example": "SAT"
+          },
+          "description": {
+            "type": "string"
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "priceAmount": {
+            "type": "number",
+            "description": "Whole taka.",
+            "example": 45000
+          },
+          "priceUnit": {
+            "type": "string",
+            "example": "per 10-week course"
+          },
+          "currency": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Currency"
+              }
+            ]
+          },
+          "modes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeliveryMode"
+            }
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CourseStatus"
+              }
+            ]
+          },
+          "durationWeeks": {
+            "type": "number",
+            "nullable": true
+          },
+          "taughtHours": {
+            "type": "number",
+            "nullable": true
+          },
+          "mockCount": {
+            "type": "number",
+            "nullable": true
+          },
+          "classSize": {
+            "type": "string",
+            "nullable": true,
+            "example": "Max 10"
+          },
+          "sortOrder": {
+            "type": "number"
+          },
+          "nextBatch": {
+            "nullable": true,
+            "description": "The soonest batch a learner can still join, or null when none is scheduled.",
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BatchDto"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "description",
+          "thumbnailUrl",
+          "priceAmount",
+          "priceUnit",
+          "currency",
+          "modes",
+          "status",
+          "durationWeeks",
+          "taughtHours",
+          "mockCount",
+          "classSize",
+          "sortOrder",
+          "nextBatch",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CurriculumModuleDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "position": {
+            "type": "number",
+            "description": "1-based display order.",
+            "example": 1
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "hours": {
+            "type": "number",
+            "nullable": true
+          },
+          "outcome": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "position",
+          "title",
+          "summary",
+          "topics",
+          "hours",
+          "outcome"
+        ]
+      },
+      "TeacherDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string",
+            "example": "farzana-haque"
+          },
+          "name": {
+            "type": "string",
+            "example": "Farzana Haque"
+          },
+          "designation": {
+            "type": "string",
+            "description": "The title shown under the name.",
+            "example": "Lead Instructor, Quantitative"
+          },
+          "bio": {
+            "type": "string",
+            "description": "One or two lines: the credential that matters."
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true,
+            "description": "Public URL of an uploaded photo; null renders a monogram."
+          },
+          "branch": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BranchDto"
+              }
+            ]
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "designation",
+          "bio",
+          "imageUrl",
+          "branch",
+          "isActive",
+          "sortOrder",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "TestimonialDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "Nafisa Rahman"
+          },
+          "result": {
+            "type": "string",
+            "description": "Score and destination, e.g. \"SAT 1540 · NUS, Singapore\".",
+            "example": "SAT 1540 · NUS, Singapore"
+          },
+          "quote": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "result",
+          "quote",
+          "imageUrl",
+          "isActive",
+          "sortOrder",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CourseDetailDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string",
+            "example": "sat"
+          },
+          "name": {
+            "type": "string",
+            "example": "SAT"
+          },
+          "description": {
+            "type": "string"
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "priceAmount": {
+            "type": "number",
+            "description": "Whole taka.",
+            "example": 45000
+          },
+          "priceUnit": {
+            "type": "string",
+            "example": "per 10-week course"
+          },
+          "currency": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Currency"
+              }
+            ]
+          },
+          "modes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeliveryMode"
+            }
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CourseStatus"
+              }
+            ]
+          },
+          "durationWeeks": {
+            "type": "number",
+            "nullable": true
+          },
+          "taughtHours": {
+            "type": "number",
+            "nullable": true
+          },
+          "mockCount": {
+            "type": "number",
+            "nullable": true
+          },
+          "classSize": {
+            "type": "string",
+            "nullable": true,
+            "example": "Max 10"
+          },
+          "sortOrder": {
+            "type": "number"
+          },
+          "nextBatch": {
+            "nullable": true,
+            "description": "The soonest batch a learner can still join, or null when none is scheduled.",
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BatchDto"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "feeIncludes": {
+            "description": "Bullet list on the fee card.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "outcomes": {
+            "description": "\"By the end of the course you will…\"",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "modules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CurriculumModuleDto"
+            }
+          },
+          "batches": {
+            "description": "Publicly: upcoming, joinable batches soonest first. For admins: every batch.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BatchDto"
+            }
+          },
+          "teachers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TeacherDto"
+            }
+          },
+          "testimonials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestimonialDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "description",
+          "thumbnailUrl",
+          "priceAmount",
+          "priceUnit",
+          "currency",
+          "modes",
+          "status",
+          "durationWeeks",
+          "taughtHours",
+          "mockCount",
+          "classSize",
+          "sortOrder",
+          "nextBatch",
+          "createdAt",
+          "updatedAt",
+          "feeIncludes",
+          "outcomes",
+          "modules",
+          "batches",
+          "teachers",
+          "testimonials"
+        ]
+      },
+      "CreateCourseDto": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "URL segment under /test-prep/. Derived from `name` when omitted.",
+            "maxLength": 80,
+            "example": "sat",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "SAT"
+          },
+          "description": {
+            "type": "string",
+            "description": "One or two sentences; shown on cards and used as the default page intro.",
+            "maxLength": 2000
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "nullable": true,
+            "description": "Public URL from the upload endpoint. Null clears it.",
+            "maxLength": 1024,
+            "format": "uri"
+          },
+          "priceAmount": {
+            "type": "number",
+            "description": "Whole taka.",
+            "minimum": 0,
+            "example": 45000
+          },
+          "priceUnit": {
+            "type": "string",
+            "maxLength": 80,
+            "example": "per 10-week course"
+          },
+          "feeIncludes": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          "modes": {
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/DeliveryMode"
+            }
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CourseStatus"
+              }
+            ]
+          },
+          "durationWeeks": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "taughtHours": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "mockCount": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "classSize": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 40,
+            "example": "Max 10"
+          },
+          "outcomes": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 300
+            }
+          },
+          "sortOrder": {
+            "type": "number",
+            "example": 0
+          }
+        },
+        "required": [
+          "name",
+          "priceAmount",
+          "modes"
+        ]
+      },
+      "UpdateCourseDto": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "URL segment under /test-prep/. Derived from `name` when omitted.",
+            "maxLength": 80,
+            "example": "sat",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "SAT"
+          },
+          "description": {
+            "type": "string",
+            "description": "One or two sentences; shown on cards and used as the default page intro.",
+            "maxLength": 2000
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "nullable": true,
+            "description": "Public URL from the upload endpoint. Null clears it.",
+            "maxLength": 1024,
+            "format": "uri"
+          },
+          "priceAmount": {
+            "type": "number",
+            "description": "Whole taka.",
+            "minimum": 0,
+            "example": 45000
+          },
+          "priceUnit": {
+            "type": "string",
+            "maxLength": 80,
+            "example": "per 10-week course"
+          },
+          "feeIncludes": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          "modes": {
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/DeliveryMode"
+            }
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CourseStatus"
+              }
+            ]
+          },
+          "durationWeeks": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "taughtHours": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "mockCount": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "classSize": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 40,
+            "example": "Max 10"
+          },
+          "outcomes": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 300
+            }
+          },
+          "sortOrder": {
+            "type": "number",
+            "example": 0
+          }
+        }
+      },
+      "CurriculumModuleInputDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 160,
+            "example": "Diagnostic and the adaptive format"
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "topics": {
+            "maxItems": 30,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 300
+            }
+          },
+          "hours": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "outcome": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "ReplaceCurriculumDto": {
+        "type": "object",
+        "properties": {
+          "modules": {
+            "maxItems": 40,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CurriculumModuleInputDto"
+            }
+          }
+        },
+        "required": [
+          "modules"
+        ]
+      },
+      "ReplaceCourseTeachersDto": {
+        "type": "object",
+        "properties": {
+          "teacherIds": {
+            "uniqueItems": true,
+            "maxItems": 50,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "required": [
+          "teacherIds"
+        ]
+      },
+      "CreateBatchDto": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DeliveryMode"
+              }
+            ]
+          },
+          "branchId": {
+            "type": "string",
+            "nullable": true,
+            "description": "Required for a classroom batch, must be empty for a live-online one.",
+            "format": "uuid"
+          },
+          "teacherId": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid"
+          },
+          "startsOn": {
+            "type": "string",
+            "description": "Dhaka calendar day, YYYY-MM-DD.",
+            "example": "2026-10-12"
+          },
+          "endsOn": {
+            "type": "string",
+            "example": "2026-12-18"
+          },
+          "days": {
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/Weekday"
+            }
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Dhaka wall-clock time, HH:MM (24-hour).",
+            "example": "18:30"
+          },
+          "endTime": {
+            "type": "string",
+            "example": "20:30"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BatchStatus"
+              }
+            ]
+          },
+          "seatsLeft": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "feeAmount": {
+            "type": "number",
+            "nullable": true,
+            "description": "Whole taka; overrides the course price for this run. Null means the course price.",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "mode",
+          "startsOn",
+          "endsOn",
+          "days",
+          "startTime",
+          "endTime"
+        ]
+      },
+      "UpdateBatchDto": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DeliveryMode"
+              }
+            ]
+          },
+          "branchId": {
+            "type": "string",
+            "nullable": true,
+            "description": "Required for a classroom batch, must be empty for a live-online one.",
+            "format": "uuid"
+          },
+          "teacherId": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid"
+          },
+          "startsOn": {
+            "type": "string",
+            "description": "Dhaka calendar day, YYYY-MM-DD.",
+            "example": "2026-10-12"
+          },
+          "endsOn": {
+            "type": "string",
+            "example": "2026-12-18"
+          },
+          "days": {
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/Weekday"
+            }
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Dhaka wall-clock time, HH:MM (24-hour).",
+            "example": "18:30"
+          },
+          "endTime": {
+            "type": "string",
+            "example": "20:30"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BatchStatus"
+              }
+            ]
+          },
+          "seatsLeft": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "feeAmount": {
+            "type": "number",
+            "nullable": true,
+            "description": "Whole taka; overrides the course price for this run. Null means the course price.",
+            "minimum": 0
+          }
+        }
+      },
+      "TestimonialWithCoursesDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "Nafisa Rahman"
+          },
+          "result": {
+            "type": "string",
+            "description": "Score and destination, e.g. \"SAT 1540 · NUS, Singapore\".",
+            "example": "SAT 1540 · NUS, Singapore"
+          },
+          "quote": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "courses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CourseRefDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "result",
+          "quote",
+          "imageUrl",
+          "isActive",
+          "sortOrder",
+          "createdAt",
+          "updatedAt",
+          "courses"
+        ]
+      },
+      "CreateTestimonialDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "Nafisa Rahman"
+          },
+          "result": {
+            "type": "string",
+            "maxLength": 160,
+            "example": "SAT 1540 · NUS, Singapore"
+          },
+          "quote": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1024,
+            "format": "uri"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number",
+            "example": 0
+          },
+          "courseIds": {
+            "description": "Courses this quote may appear on; replaces the existing links when sent.",
+            "uniqueItems": true,
+            "maxItems": 50,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "result",
+          "quote"
+        ]
+      },
+      "UpdateTestimonialDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "Nafisa Rahman"
+          },
+          "result": {
+            "type": "string",
+            "maxLength": 160,
+            "example": "SAT 1540 · NUS, Singapore"
+          },
+          "quote": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1024,
+            "format": "uri"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number",
+            "example": 0
+          },
+          "courseIds": {
+            "description": "Courses this quote may appear on; replaces the existing links when sent.",
+            "uniqueItems": true,
+            "maxItems": 50,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      },
+      "UploadKind": {
+        "type": "string",
+        "enum": [
+          "course-thumbnail",
+          "teacher-image",
+          "testimonial-image"
+        ]
+      },
+      "UploadContentType": {
+        "type": "string",
+        "enum": [
+          "image/jpeg",
+          "image/png",
+          "image/webp"
+        ]
+      },
+      "PresignUploadDto": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UploadKind"
+              }
+            ]
+          },
+          "contentType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UploadContentType"
+              }
+            ]
+          },
+          "size": {
+            "type": "number",
+            "description": "Size in bytes, as reported by the browser's File object.",
+            "minimum": 1,
+            "maximum": 5242880,
+            "example": 245112
+          }
+        },
+        "required": [
+          "kind",
+          "contentType",
+          "size"
+        ]
+      },
+      "PresignedUploadDto": {
+        "type": "object",
+        "properties": {
+          "uploadUrl": {
+            "type": "string",
+            "description": "Presigned URL to PUT the file body to."
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "PUT"
+            ]
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Headers the signature covers; send them exactly as given."
+          },
+          "key": {
+            "type": "string",
+            "example": "teacher-image/2026/09/6f1c1a2e-….jpg"
+          },
+          "publicUrl": {
+            "type": "string",
+            "description": "Where the object will be served from once uploaded."
+          },
+          "expiresIn": {
+            "type": "number",
+            "description": "Seconds until the upload URL stops working."
+          }
+        },
+        "required": [
+          "uploadUrl",
+          "method",
+          "headers",
+          "key",
+          "publicUrl",
+          "expiresIn"
+        ]
+      },
+      "CourseCountsDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number"
+          },
+          "published": {
+            "type": "number"
+          },
+          "draft": {
+            "type": "number"
+          },
+          "archived": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "total",
+          "published",
+          "draft",
+          "archived"
+        ]
+      },
+      "AdminOverviewDto": {
+        "type": "object",
+        "properties": {
+          "courses": {
+            "$ref": "#/components/schemas/CourseCountsDto"
+          },
+          "upcomingBatches": {
+            "type": "number",
+            "description": "Batches not closed and not yet ended (Dhaka calendar)."
+          },
+          "teachers": {
+            "type": "number"
+          },
+          "branches": {
+            "type": "number"
+          },
+          "testimonials": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "courses",
+          "upcomingBatches",
+          "teachers",
+          "branches",
+          "testimonials"
         ]
       }
     }

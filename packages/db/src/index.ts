@@ -1,7 +1,65 @@
 export * from './client.js';
 export * as schema from './schema/index.js';
-export { users, type User, type NewUser } from './schema/index.js';
+export {
+  users,
+  branches,
+  teachers,
+  courses,
+  curriculumModules,
+  courseTeachers,
+  batches,
+  testimonials,
+  courseTestimonials,
+  userRoleEnum,
+  courseStatusEnum,
+  deliveryModeEnum,
+  batchStatusEnum,
+  weekdayEnum,
+  userRoles,
+  courseStatuses,
+  deliveryModes,
+  batchStatuses,
+  weekdays,
+  type User,
+  type NewUser,
+  type Branch,
+  type NewBranch,
+  type Teacher,
+  type NewTeacher,
+  type Course,
+  type NewCourse,
+  type CurriculumModule,
+  type NewCurriculumModule,
+  type CourseTeacher,
+  type Batch,
+  type NewBatch,
+  type Testimonial,
+  type NewTestimonial,
+  type CourseTestimonial,
+  type UserRole,
+  type CourseStatus,
+  type DeliveryMode,
+  type BatchStatus,
+  type Weekday,
+} from './schema/index.js';
 
 /* Re-exported so consumers compose queries without depending on drizzle-orm
    directly and risking a second, mismatched copy in the tree. */
-export { and, asc, desc, eq, ilike, inArray, isNull, not, or, sql } from 'drizzle-orm';
+export {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  gte,
+  ilike,
+  inArray,
+  isNotNull,
+  isNull,
+  lte,
+  ne,
+  not,
+  or,
+  sql,
+} from 'drizzle-orm';
+export type { SQL } from 'drizzle-orm';

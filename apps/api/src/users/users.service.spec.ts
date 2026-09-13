@@ -27,11 +27,13 @@ const profile: WorkosUserProfile = {
   profilePictureUrl: null,
 };
 
+const env = (adminEmails: string[] = []) => ({ ADMIN_EMAILS: adminEmails }) as never;
+
 describe('UsersService.upsertProfile', () => {
   it('upserts on workosId so concurrent first requests cannot collide', async () => {
     const row = { id: 'uuid-1', workosId: 'user_01ABC', email: 'ada@example.com' };
     const db = makeDb([row]);
-    const service = new UsersService(db as never);
+    const service = new UsersService(db as never, env());
 
     const result = await service.upsertProfile('user_01ABC', profile);
 
@@ -47,7 +49,7 @@ describe('UsersService.upsertProfile', () => {
 
   it('persists every profile field it is given', async () => {
     const db = makeDb([{ id: 'uuid-2' }]);
-    const service = new UsersService(db as never);
+    const service = new UsersService(db as never, env());
 
     await service.upsertProfile('user_01ABC', profile);
 
@@ -57,6 +59,30 @@ describe('UsersService.upsertProfile', () => {
         lastName: 'Lovelace',
         profilePictureUrl: null,
       }),
+    );
+  });
+
+  it('promotes an allow-listed email on both the insert and the conflict path', async () => {
+    const db = makeDb([{ id: 'uuid-3', role: 'admin' }]);
+    const service = new UsersService(db as never, env(['ada@example.com']));
+
+    await service.upsertProfile('user_01ABC', { ...profile, email: 'Ada@Example.com' });
+
+    expect(db.chain.values).toHaveBeenCalledWith(expect.objectContaining({ role: 'admin' }));
+    expect(db.chain.onConflictDoUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({ set: expect.objectContaining({ role: 'admin' }) as unknown }),
+    );
+  });
+
+  it('leaves the role alone for everyone else, so a demotion by hand sticks', async () => {
+    const db = makeDb([{ id: 'uuid-4' }]);
+    const service = new UsersService(db as never, env(['someone-else@example.com']));
+
+    await service.upsertProfile('user_01ABC', profile);
+
+    expect(db.chain.values).toHaveBeenCalledWith(expect.not.objectContaining({ role: 'admin' }));
+    expect(db.chain.onConflictDoUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({ set: expect.not.objectContaining({ role: 'admin' }) as unknown }),
     );
   });
 
@@ -72,5 +98,41 @@ describe('UsersService.upsertProfile', () => {
        about, and presence is all this assertion needs. */
     expect('upsertFromClaims' in UsersService.prototype).toBe(false);
     expect('upsertProfile' in UsersService.prototype).toBe(true);
+  });
+});
+
+describe('UsersService.applyAdminAllowlist', () => {
+  const student = { id: 'uuid-1', email: 'ada@example.com', role: 'student' } as never;
+
+  function makeUpdateDb(returning: unknown[]) {
+    const chain = {
+      set: vi.fn().mockReturnThis(),
+      where: vi.fn().mockReturnThis(),
+      returning: vi.fn().mockResolvedValue(returning),
+    };
+    return { update: vi.fn().mockReturnValue(chain), chain };
+  }
+
+  it('promotes an existing student row whose email is allow-listed', async () => {
+    const promoted = { ...(student as object), role: 'admin' };
+    const db = makeUpdateDb([promoted]);
+    const service = new UsersService(db as never, env(['ada@example.com']));
+
+    const result = await service.applyAdminAllowlist(student);
+
+    expect(result).toEqual(promoted);
+    expect(db.chain.set).toHaveBeenCalledWith({ role: 'admin' });
+  });
+
+  it('does not write when the row is already an admin or not listed', async () => {
+    const db = makeUpdateDb([]);
+
+    await new UsersService(db as never, env(['ada@example.com'])).applyAdminAllowlist({
+      ...(student as object),
+      role: 'admin',
+    } as never);
+    await new UsersService(db as never, env([])).applyAdminAllowlist(student);
+
+    expect(db.update).not.toHaveBeenCalled();
   });
 });

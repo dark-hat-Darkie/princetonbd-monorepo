@@ -1,5 +1,7 @@
 import { ValidationPipe, VersioningType, type INestApplication } from '@nestjs/common';
 
+import { validationExceptionFactory } from './common/http/validation-exception.factory.js';
+
 /**
  * Routing and validation setup shared by the running server and the OpenAPI
  * generator.
@@ -24,6 +26,8 @@ export function configureApp(app: INestApplication): void {
       forbidNonWhitelisted: true,
       transform: true,
       transformOptions: { enableImplicitConversion: true },
+      /* Field-addressable 400s — see ValidationErrorResponseDto. */
+      exceptionFactory: validationExceptionFactory,
     }),
   );
 }

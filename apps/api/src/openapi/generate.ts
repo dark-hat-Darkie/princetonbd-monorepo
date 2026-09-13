@@ -27,6 +27,10 @@ async function main(): Promise<void> {
   process.env.WORKOS_API_KEY ??= 'sk_codegen';
   process.env.WORKOS_CLIENT_ID ??= 'client_codegen';
   process.env.LOG_LEVEL ??= 'fatal';
+  process.env.S3_BUCKET ??= 'codegen';
+  process.env.S3_ACCESS_KEY_ID ??= 'codegen';
+  process.env.S3_SECRET_ACCESS_KEY ??= 'codegen';
+  process.env.S3_PUBLIC_URL ??= 'http://localhost:9000/codegen';
 
   /* abortOnError:false is essential here: with the logger disabled, Nest's
      default behaviour is to exit(1) silently on a bootstrap failure, which

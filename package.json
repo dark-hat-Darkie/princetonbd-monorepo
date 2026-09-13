@@ -18,6 +18,7 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yaml,yml}\"",
     "db:generate": "turbo run db:generate",
     "db:migrate": "turbo run db:migrate",
+    "db:seed": "turbo run db:seed",
     "db:studio": "turbo run db:studio",
     "gen:api": "turbo run openapi:gen --filter=@repo/api && turbo run generate --filter=@repo/api-client && turbo run build --filter=@repo/api-client",
     "prepare": "husky || true"

@@ -32,8 +32,10 @@ describe('API (e2e)', () => {
       imports: [AppModule],
     })
       /* Rate limiting is verified separately; leaving it on makes test order
-         significant and produces flaky 429s as the suite grows. */
-      .overrideGuard(ThrottlerGuard)
+         significant and produces flaky 429s as the suite grows. Overridden
+         as a provider, which only works because AppModule registers the
+         global guards with `useExisting` — see the note there. */
+      .overrideProvider(ThrottlerGuard)
       .useValue({ canActivate: () => true })
       .compile();
 
