@@ -30,5 +30,5 @@ export default authkitProxy({
  * header links to /sign-in rather than reflecting live session state.
  */
 export const config = {
-  matcher: ['/dashboard/:path*', '/auth/callback'],
+  matcher: ['/dashboard/:path*', '/admin/:path*', '/auth/callback'],
 };

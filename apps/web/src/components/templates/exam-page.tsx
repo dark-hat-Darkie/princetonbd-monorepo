@@ -1,4 +1,3 @@
-import type { ExamContent } from '@/content/types';
 import { BatchList } from '@/components/sections/batch-list';
 import { CourseFeeCard } from '@/components/sections/course-fee-card';
 import { CtaSection } from '@/components/sections/cta-section';
@@ -11,11 +10,10 @@ import { StatsBand } from '@/components/sections/stats-band';
 import { Testimonials } from '@/components/sections/testimonials';
 import { JsonLd } from '@/components/ui/json-ld';
 import { PageHero } from '@/components/ui/page-hero';
-import { batchFee, batchLabel, batchesFor, enrolHref } from '@/content/batches';
-import { instructorsFor } from '@/content/people';
-import { defaultClosing, guaranteeBand, testimonialsFor } from '@/content/shared';
-import { campuses } from '@/content/site/contact';
+import { defaultClosing, guaranteeBand } from '@/content/shared';
 import { breadcrumbFor } from '@/content/site/routes';
+import { batchLabel, enrolHref } from '@/lib/batches';
+import type { CourseView } from '@/lib/course-view';
 import { absoluteUrl, siteName, siteUrl } from '@/lib/site';
 
 const availability = {
@@ -26,23 +24,26 @@ const availability = {
 } as const;
 
 /**
- * A single exam's course page — the site's highest-intent template, and the
- * one repeated most often (twelve exams).
+ * A single course's page — the site's highest-intent template.
  *
- * One course per exam. The fee sits in the hero beside the title, the
- * curriculum follows, and the batch schedule is the enrolment surface: every
- * "Enrol" carries the batch into the enquiry form.
- *
- * `now` is a prop so a test can pin the date the batch list is filtered by;
- * the route files set `revalidate` so a built page re-filters daily.
+ * Takes a `CourseView`: the CMS record merged with its editorial overlay by
+ * `lib/course-view.ts`, so this template never has to know which half a
+ * field came from. The fee sits in the hero beside the title, the curriculum
+ * follows, and the batch schedule is the enrolment surface: every "Enrol"
+ * carries the batch into the enquiry form.
  */
-export function ExamPage({ content, now = new Date() }: { content: ExamContent; now?: Date }) {
-  const closing = content.closing ?? defaultClosing;
-  const quotes = testimonialsFor(content.testimonials ?? []);
-  const upcoming = batchesFor(content.slug, now);
-  const next = upcoming[0];
-  const faculty = instructorsFor(content.name);
-  const { curriculum } = content;
+export function ExamPage({ course }: { course: CourseView }) {
+  const closing = course.closing ?? defaultClosing;
+  const next = course.batches[0];
+  const { curriculum } = course;
+  const { totals } = curriculum;
+
+  const heroFacts = [
+    totals.weeks !== null ? `${String(totals.weeks)} weeks` : null,
+    totals.taughtHours !== null ? `${String(totals.taughtHours)} taught hours` : null,
+    totals.classSize ? `${totals.classSize} per class` : null,
+    'Written score guarantee',
+  ].filter((item): item is string => item !== null);
 
   return (
     <>
@@ -52,32 +53,34 @@ export function ExamPage({ content, now = new Date() }: { content: ExamContent; 
         data={{
           '@context': 'https://schema.org',
           '@type': 'Course',
-          name: `${content.name} preparation`,
-          description: content.seo.description,
-          url: absoluteUrl(content.path),
+          name: `${course.name} preparation`,
+          description: course.seo.description,
+          url: absoluteUrl(course.path),
+          ...(course.thumbnailUrl ? { image: course.thumbnailUrl } : {}),
           provider: { '@type': 'EducationalOrganization', name: siteName, url: siteUrl },
-          timeRequired: `P${String(curriculum.totals.weeks)}W`,
+          ...(totals.weeks !== null ? { timeRequired: `P${String(totals.weeks)}W` } : {}),
           offers: {
             '@type': 'Offer',
             category: 'Paid',
-            price: content.fee.price.amount,
-            priceCurrency: content.fee.price.currency,
-            url: absoluteUrl(content.path),
+            price: course.fee.price.amount,
+            priceCurrency: course.fee.price.currency,
+            url: absoluteUrl(course.path),
           },
           syllabusSections: curriculum.modules.map((module) => ({
             '@type': 'Syllabus',
             name: module.title,
             description: module.summary,
           })),
-          hasCourseInstance: upcoming.map((batch) => {
-            const campus = campuses.find((entry) => entry.name === batch.campus);
-            const fee = batchFee(content, batch);
+          hasCourseInstance: course.batches.map((batch) => {
+            const fee = batch.fee ?? course.fee.price;
 
             return {
               '@type': 'CourseInstance',
-              name: batchLabel(content, batch),
-              courseMode: batch.mode === 'Classroom' ? 'Onsite' : 'Online',
-              courseWorkload: `PT${String(curriculum.totals.taughtHours)}H`,
+              name: batchLabel(course.name, batch),
+              courseMode: batch.mode === 'classroom' ? 'Onsite' : 'Online',
+              ...(totals.taughtHours !== null
+                ? { courseWorkload: `PT${String(totals.taughtHours)}H` }
+                : {}),
               startDate: batch.startsOn,
               endDate: batch.endsOn,
               courseSchedule: {
@@ -87,15 +90,22 @@ export function ExamPage({ content, now = new Date() }: { content: ExamContent; 
                 repeatFrequency: 'Weekly',
                 description: batch.schedule,
               },
-              location: campus
+              location: batch.branch
                 ? {
                     '@type': 'Place',
-                    name: campus.name,
-                    address: { '@type': 'PostalAddress', streetAddress: campus.address },
+                    name: batch.branch.name,
+                    ...(batch.branch.address
+                      ? {
+                          address: {
+                            '@type': 'PostalAddress',
+                            streetAddress: batch.branch.address,
+                          },
+                        }
+                      : {}),
                   }
-                : { '@type': 'VirtualLocation', url: absoluteUrl(content.path) },
-              ...(batch.instructor
-                ? { instructor: { '@type': 'Person', name: batch.instructor } }
+                : { '@type': 'VirtualLocation', url: absoluteUrl(course.path) },
+              ...(batch.teacherName
+                ? { instructor: { '@type': 'Person', name: batch.teacherName } }
                 : {}),
               offers: {
                 '@type': 'Offer',
@@ -103,7 +113,7 @@ export function ExamPage({ content, now = new Date() }: { content: ExamContent; 
                 price: fee.amount,
                 priceCurrency: fee.currency,
                 availability: availability[batch.status],
-                url: absoluteUrl(enrolHref(content, batch)),
+                url: absoluteUrl(enrolHref({ interest: course.interest, batch })),
               },
             };
           }),
@@ -111,16 +121,11 @@ export function ExamPage({ content, now = new Date() }: { content: ExamContent; 
       />
 
       <PageHero
-        breadcrumb={breadcrumbFor(content.path)}
-        {...content.hero}
+        breadcrumb={breadcrumbFor(course.path)}
+        {...course.hero}
         note={
           <ul className="flex flex-wrap gap-x-5 gap-y-1.5">
-            {[
-              `${String(curriculum.totals.weeks)} weeks`,
-              `${String(curriculum.totals.taughtHours)} taught hours`,
-              `${curriculum.totals.classSize} per class`,
-              'Written score guarantee',
-            ].map((item) => (
+            {heroFacts.map((item) => (
               <li key={item} className="flex items-center gap-2">
                 <span aria-hidden className="size-1.5 rounded-full bg-brand" />
                 {item}
@@ -128,21 +133,23 @@ export function ExamPage({ content, now = new Date() }: { content: ExamContent; 
             ))}
           </ul>
         }
-        aside={<CourseFeeCard exam={content} next={next} />}
+        aside={<CourseFeeCard course={course} next={next} />}
       />
 
-      <CurriculumSection name={content.name} curriculum={curriculum} />
+      {curriculum.modules.length > 0 ? (
+        <CurriculumSection name={course.name} curriculum={curriculum} />
+      ) : null}
 
       <FeatureGrid
-        eyebrow={content.includes.eyebrow}
-        title={content.includes.title}
-        intro={content.includes.intro}
-        features={content.includes.items}
+        eyebrow={course.includes.eyebrow}
+        title={course.includes.title}
+        intro={course.includes.intro}
+        features={course.includes.items}
       />
 
-      <BatchList exam={content} batches={upcoming} />
+      <BatchList course={course} batches={course.batches} />
 
-      <InstructorStrip name={content.name} instructors={faculty} />
+      <InstructorStrip name={course.name} teachers={course.teachers} />
 
       <GuaranteeBand
         eyebrow={guaranteeBand.eyebrow}
@@ -152,17 +159,17 @@ export function ExamPage({ content, now = new Date() }: { content: ExamContent; 
         features={guaranteeBand.features}
       />
 
-      {content.stats?.length ? <StatsBand stats={content.stats} /> : null}
+      {course.stats?.length ? <StatsBand stats={course.stats} /> : null}
 
-      {quotes.length ? (
+      {course.testimonials.length > 0 ? (
         <Testimonials
           eyebrow="Student outcomes"
-          title={`What ${content.name} students did next.`}
-          items={quotes}
+          title={`What ${course.name} students did next.`}
+          items={course.testimonials}
         />
       ) : null}
 
-      <FaqSection title={`${content.name} questions, answered.`} items={content.faq} />
+      <FaqSection title={`${course.name} questions, answered.`} items={course.faq} />
 
       <CtaSection
         eyebrow={closing.eyebrow}

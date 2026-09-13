@@ -9,6 +9,12 @@ export interface PortalLink {
   label: string;
   /** Rendered under the page title. */
   blurb: string;
+  /**
+   * How the sidebar decides this link is the current one. `exact` (the
+   * default) suits a flat tree of leaf pages; `prefix` lights a section
+   * whose pages nest below it, as the admin panel's do.
+   */
+  match?: 'exact' | 'prefix';
 }
 
 export const portalLinks: readonly PortalLink[] = [
@@ -49,6 +55,17 @@ export const portalLinks: readonly PortalLink[] = [
   },
 ];
 
-export function portalLinkFor(href: string): PortalLink | undefined {
-  return portalLinks.find((link) => link.href === href);
+export function portalLinkFor(
+  href: string,
+  links: readonly PortalLink[] = portalLinks,
+): PortalLink | undefined {
+  return links.find((link) => link.href === href);
+}
+
+/** Whether `pathname` is the page `link` points at, by the link's own rule. */
+export function isPortalLinkActive(link: PortalLink, pathname: string): boolean {
+  if (link.match === 'prefix') {
+    return pathname === link.href || pathname.startsWith(`${link.href}/`);
+  }
+  return pathname === link.href;
 }

@@ -1,11 +1,8 @@
-import type { ExamContent } from '../types';
-import { bdtPrice } from '@/lib/money';
-import { commonFaq, standardFeeNotes } from '../shared';
+import type { ExamEditorial } from '../types';
+import { commonFaq } from '../shared';
 
-export const lsat: ExamContent = {
-  path: '/test-prep/lsat',
+export const lsat: ExamEditorial = {
   slug: 'lsat',
-  name: 'LSAT',
   interest: 'GRE / GMAT',
   seo: {
     title: 'LSAT preparation in Bangladesh — courses, tutoring & free diagnostic',
@@ -28,122 +25,11 @@ export const lsat: ExamContent = {
       { label: 'Sittings', value: 'Up to three times in a 12-month rolling window' },
     ],
   },
-  fee: {
-    price: bdtPrice(42000),
-    unit: 'per 12-week course',
-    includes: [
-      '48 taught hours live online, in a group of four or fewer',
-      '12 full-length proctored mocks, reviewed',
-      'Weekly homework marked with detailed feedback',
-      'Recordings of every session you miss',
-      'All materials and the online question bank',
-    ],
-    notes: standardFeeNotes,
-  },
-  modes: ['LiveOnline'],
   curriculum: {
     eyebrow: 'Curriculum',
     title: 'Twelve weeks, six modules, the LSAT without logic games.',
     intro:
       'Since August 2024 the LSAT is two scored Logical Reasoning sections, one scored Reading Comprehension section and one unscored section, with LSAT Writing taken separately. Every module ends with a timed section so you know your score before the next one starts.',
-    totals: { weeks: 12, taughtHours: 48, mocks: 12, classSize: 'Max 4' },
-    modules: [
-      {
-        no: '01',
-        title: 'Logical reasoning I: argument structure',
-        summary:
-          'Two of your three scored sections. Breaking every stimulus into premise and conclusion, and the question families built on that structure.',
-        topics: [
-          'Conclusions, premises and the words that signal them',
-          'Conditional reasoning: sufficient, necessary and contrapositive',
-          'Must be true, most strongly supported and main point',
-          'Reading the question stem before the stimulus',
-        ],
-        hours: 12,
-        outcome:
-          'Diagram any argument in under thirty seconds and answer structure questions on sight.',
-      },
-      {
-        no: '02',
-        title: 'Logical reasoning II: flaws, assumptions and inference',
-        summary:
-          'The question types that separate a 160 from a 170: what the argument takes for granted, and where it breaks.',
-        topics: [
-          'Necessary and sufficient assumption questions',
-          'Strengthen, weaken and evaluate',
-          'Flaw families: causation, sampling, equivocation, scope',
-          'Parallel reasoning and parallel flaw',
-        ],
-        hours: 10,
-        outcome:
-          'Name the flaw before reading the choices and stop losing points on assumption questions.',
-      },
-      {
-        no: '03',
-        title: 'Reading comprehension',
-        summary:
-          'Four passages in 35 minutes, one of them a comparative pair. Mapping structure and viewpoint rather than remembering detail.',
-        topics: [
-          'Passage mapping: viewpoints, structure and tone',
-          'Main point, primary purpose and author attitude',
-          'Comparative reading: where two passages agree and diverge',
-          'Inference and analogy questions across law, science and the humanities',
-        ],
-        hours: 10,
-        outcome: 'Read each passage once and answer from the map, with time left for the fourth.',
-      },
-      {
-        no: '04',
-        title: 'Timed reasoning under pressure',
-        summary:
-          'Thirty-five minutes a section, roughly 25 questions each. Pacing, triage and treating the unscored section as live.',
-        topics: [
-          'Time checkpoints and when to skip and return',
-          'Triage: the hardest questions sit at the end, not the start',
-          'The unscored section: why every section is played as real',
-          'Digital interface: flagging, highlighting and eliminating',
-        ],
-        hours: 6,
-        outcome:
-          'Finish every section with a pacing plan you have rehearsed, not a rush at the end.',
-      },
-      {
-        no: '05',
-        title: 'The writing sample',
-        summary:
-          'LSAT Writing is unscored but sent to every law school. Taken separately online, it is the one piece of your prose they read before your personal statement.',
-        topics: [
-          'The argumentative writing task and its 50-minute format',
-          'Taking a position and using the perspectives provided',
-          'The structure a law school admissions reader expects',
-          'One sample written, reviewed and returned',
-        ],
-        hours: 2,
-        outcome:
-          'Produce a clear, well-organised writing sample that supports rather than undercuts your application.',
-      },
-      {
-        no: '06',
-        title: 'Timed mock cycle',
-        summary:
-          'Full-length proctored mocks in exam conditions, each reviewed question by question, and your test-day plan.',
-        topics: [
-          'Weekly full-length mocks, scored 120–180',
-          'Error log review by question family',
-          'Retake limits and choosing your test date',
-          'Registration, test-day rules and score release',
-        ],
-        hours: 8,
-        outcome:
-          'Walk in having sat the test twelve times with your score range known to the point.',
-      },
-    ],
-    outcomes: [
-      'Diagram any Logical Reasoning stimulus and name the flaw before reading the choices',
-      'Map a Reading Comprehension passage once and answer from the map',
-      'Hold pace across four 35-minute sections without a rush at the end',
-      'Know your score range before you book the real test',
-    ],
   },
   includes: {
     eyebrow: 'What you get',
@@ -175,7 +61,6 @@ export const lsat: ExamContent = {
     { value: '12', label: 'Full-length proctored mocks in small group' },
     { value: '91%', label: 'Hit or beat their agreed target' },
   ],
-  testimonials: ['test-prep'],
   faq: [
     {
       question: 'When did Logic Games disappear?',

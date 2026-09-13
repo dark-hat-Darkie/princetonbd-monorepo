@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import type { GridCard } from '@/content/types';
@@ -33,6 +34,20 @@ export function CardGrid({
       {cards.map((card) => {
         const body = (
           <>
+            {card.image ? (
+              /* Bleeds to the card edge; the card's own padding is undone so
+                 the image sits flush like a cover. */
+              <div className="relative -mx-7 -mt-7 mb-6 aspect-[16/9] overflow-hidden rounded-t-md bg-panel">
+                <Image
+                  src={card.image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+            ) : null}
+
             {(card.tag ?? card.no) ? (
               <div className="mb-6 flex items-center justify-between gap-3">
                 <span className="rounded-full bg-brand-soft px-3 py-1.5 text-[10.5px] font-bold tracking-[.12em] text-brand-ink uppercase">

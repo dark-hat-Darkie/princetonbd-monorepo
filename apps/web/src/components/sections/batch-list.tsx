@@ -1,29 +1,28 @@
-import type { Batch, BatchStatus, ExamContent } from '@/content/types';
 import { CtaButton } from '@/components/ui/cta-button';
 import { ModeChip } from '@/components/ui/mode-chip';
 import { Section } from '@/components/ui/section';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { batchFee, batchPlace, enrolHref } from '@/content/batches';
+import { enrolHref } from '@/lib/batches';
 import { cn } from '@/lib/cn';
+import type { BatchStatus } from '@/lib/cms-enums';
+import type { BatchView, CourseView } from '@/lib/course-view';
 import { formatDayMonth, formatFullDate } from '@/lib/dates';
 import { formatPrice } from '@/lib/money';
 
 const statusBadge: Record<
   Exclude<BatchStatus, 'closed'>,
-  { label: (batch: Batch) => string; className: string }
+  { label: (batch: BatchView) => string; className: string }
 > = {
   open: { label: () => 'Seats open', className: 'bg-brand-soft text-brand-ink' },
   filling: {
     label: (batch) =>
-      batch.seatsLeft !== undefined
-        ? `Filling fast · ${String(batch.seatsLeft)} left`
-        : 'Filling fast',
+      batch.seatsLeft !== null ? `Filling fast · ${String(batch.seatsLeft)} left` : 'Filling fast',
     className: 'bg-accent-soft text-on-accent',
   },
   waitlist: { label: () => 'Waitlist', className: 'bg-panel text-muted' },
 };
 
-function StatusBadge({ batch }: { batch: Batch }) {
+function StatusBadge({ batch }: { batch: BatchView }) {
   if (batch.status === 'closed') return null;
   const badge = statusBadge[batch.status];
 
@@ -40,19 +39,19 @@ function StatusBadge({ batch }: { batch: Batch }) {
 }
 
 function EnrolAction({
-  exam,
+  course,
   batch,
   size,
 }: {
-  exam: ExamContent;
-  batch: Batch;
+  course: CourseView;
+  batch: BatchView;
   size: 'sm' | 'md';
 }) {
   const waitlist = batch.status === 'waitlist';
 
   return (
     <CtaButton
-      href={enrolHref(exam, batch)}
+      href={enrolHref({ interest: course.interest, batch })}
       size={size}
       variant={waitlist ? 'outline' : 'solid'}
       className={size === 'md' ? 'w-full' : undefined}
@@ -62,15 +61,20 @@ function EnrolAction({
   );
 }
 
-function Fee({ exam, batch }: { exam: ExamContent; batch: Batch }) {
-  const overridden = batch.fee !== undefined && batch.fee.amount !== exam.fee.price.amount;
+function Fee({ course, batch }: { course: CourseView; batch: BatchView }) {
+  const price = batch.fee ?? course.fee.price;
+  const overridden = batch.fee !== null && batch.fee.amount !== course.fee.price.amount;
 
   return (
     <>
       <span className="font-display text-[17px] font-semibold text-ink tabular-nums">
-        {formatPrice(batchFee(exam, batch))}
+        {formatPrice(price)}
       </span>
-      {overridden ? <span className="block text-[12px] text-muted-2">online rate</span> : null}
+      {overridden ? (
+        <span className="block text-[12px] text-muted-2">
+          {batch.mode === 'live_online' ? 'online rate' : 'this batch'}
+        </span>
+      ) : null}
     </>
   );
 }
@@ -82,14 +86,20 @@ function Fee({ exam, batch }: { exam: ExamContent; batch: Batch }) {
  * where a table would either scroll sideways or shrink to unreadable. Both
  * render from the same rows, so nothing can differ between the two.
  */
-export function BatchList({ exam, batches }: { exam: ExamContent; batches: readonly Batch[] }) {
+export function BatchList({
+  course,
+  batches,
+}: {
+  course: CourseView;
+  batches: readonly BatchView[];
+}) {
   const headings = ['Starts', 'Ends', 'Schedule', 'Mode & campus', 'Seats', 'Fee', ''];
 
   return (
     <Section id="batches" className="scroll-mt-[104px]">
       <SectionHeading
         eyebrow="Upcoming batches"
-        title={`Next ${exam.name} batches.`}
+        title={`Next ${course.name} batches.`}
         intro="Dates and times are Dhaka time. Every batch teaches the full curriculum and includes the mocks and materials; a live-online run is priced lower because it carries no campus cost."
         className="mb-12"
       />
@@ -100,10 +110,10 @@ export function BatchList({ exam, batches }: { exam: ExamContent; batches: reado
             No dates published yet.
           </p>
           <p className="mx-auto mb-7 max-w-[440px] text-[15px] leading-[1.6] text-muted">
-            The next {exam.name} batch is being scheduled. Register your interest and an enrolment
+            The next {course.name} batch is being scheduled. Register your interest and an enrolment
             advisor will call you before the dates go public.
           </p>
-          <CtaButton href={enrolHref(exam)} variant="outline">
+          <CtaButton href={enrolHref({ interest: course.interest })} variant="outline">
             Register interest
           </CtaButton>
         </div>
@@ -145,9 +155,9 @@ export function BatchList({ exam, batches }: { exam: ExamContent; batches: reado
                       <span className="block text-[14.5px] leading-[1.5] text-ink-soft">
                         {batch.schedule}
                       </span>
-                      {batch.instructor ? (
+                      {batch.teacherName ? (
                         <span className="mt-1 block text-[12.5px] text-muted-2">
-                          with {batch.instructor}
+                          with {batch.teacherName}
                         </span>
                       ) : null}
                     </td>
@@ -155,7 +165,7 @@ export function BatchList({ exam, batches }: { exam: ExamContent; batches: reado
                       <div className="flex flex-col items-start gap-2">
                         <ModeChip mode={batch.mode} />
                         <span className="text-[14px] leading-[1.4] text-ink-soft">
-                          {batchPlace(batch)}
+                          {batch.place}
                         </span>
                       </div>
                     </td>
@@ -163,10 +173,10 @@ export function BatchList({ exam, batches }: { exam: ExamContent; batches: reado
                       <StatusBadge batch={batch} />
                     </td>
                     <td className="px-5 py-5 whitespace-nowrap">
-                      <Fee exam={exam} batch={batch} />
+                      <Fee course={course} batch={batch} />
                     </td>
                     <td className="px-5 py-5 pr-6 text-right whitespace-nowrap">
-                      <EnrolAction exam={exam} batch={batch} size="sm" />
+                      <EnrolAction course={course} batch={batch} size="sm" />
                     </td>
                   </tr>
                 ))}
@@ -202,7 +212,7 @@ export function BatchList({ exam, batches }: { exam: ExamContent; batches: reado
                     <div className="text-[11px] font-bold tracking-[.14em] text-muted-2 uppercase">
                       Fee
                     </div>
-                    <Fee exam={exam} batch={batch} />
+                    <Fee course={course} batch={batch} />
                   </div>
                 </div>
 
@@ -214,17 +224,17 @@ export function BatchList({ exam, batches }: { exam: ExamContent; batches: reado
                   <dt className="text-muted-2">Schedule</dt>
                   <dd className="text-ink-soft">{batch.schedule}</dd>
                   <dt className="text-muted-2">Where</dt>
-                  <dd className="text-ink-soft">{batchPlace(batch)}</dd>
-                  {batch.instructor ? (
+                  <dd className="text-ink-soft">{batch.place}</dd>
+                  {batch.teacherName ? (
                     <>
                       <dt className="text-muted-2">Instructor</dt>
-                      <dd className="text-ink-soft">{batch.instructor}</dd>
+                      <dd className="text-ink-soft">{batch.teacherName}</dd>
                     </>
                   ) : null}
                 </dl>
 
                 <div className="mt-5">
-                  <EnrolAction exam={exam} batch={batch} size="md" />
+                  <EnrolAction course={course} batch={batch} size="md" />
                 </div>
               </li>
             ))}

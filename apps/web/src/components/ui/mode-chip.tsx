@@ -1,25 +1,26 @@
-import type { DeliveryMode } from '@/content/types';
 import { cn } from '@/lib/cn';
-
-const label: Record<DeliveryMode, string> = {
-  Classroom: 'Classroom',
-  LiveOnline: 'Live online',
-};
+import { deliveryModeLabels, type DeliveryMode } from '@/lib/cms-enums';
 
 /**
- * The small delivery-mode badge — "Classroom" / "Live online" — in the same
- * pill vocabulary as the card grid's tag, so a mode reads as a category and
- * not as a button.
+ * "Classroom" / "Live online", as a small outlined chip. Takes the API's
+ * mode value so the batch table and the fee card need no mapping step.
  */
 export function ModeChip({ mode, className }: { mode: DeliveryMode; className?: string }) {
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full bg-brand-soft px-3 py-1.5 text-[10.5px] font-bold tracking-[.12em] text-brand-ink uppercase',
+        'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-bold tracking-[.1em] whitespace-nowrap uppercase',
+        mode === 'classroom'
+          ? 'border-line-strong text-ink-soft'
+          : 'border-brand/40 bg-brand-soft text-brand-ink',
         className,
       )}
     >
-      {label[mode]}
+      <span
+        aria-hidden
+        className={cn('size-1.5 rounded-full', mode === 'classroom' ? 'bg-ink-soft' : 'bg-brand')}
+      />
+      {deliveryModeLabels[mode]}
     </span>
   );
 }

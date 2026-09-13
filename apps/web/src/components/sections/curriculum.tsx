@@ -12,12 +12,15 @@ import { SectionHeading } from '@/components/ui/section-heading';
  */
 export function CurriculumSection({ name, curriculum }: { name: string; curriculum: Curriculum }) {
   const { totals } = curriculum;
+  /* Only the facts the course has; a tile reading "—" is worse than none. */
   const summary = [
-    { value: String(totals.weeks), label: 'Weeks' },
-    { value: String(totals.taughtHours), label: 'Taught hours' },
-    { value: String(totals.mocks), label: 'Full-length mocks' },
-    { value: totals.classSize, label: 'Class size' },
-  ];
+    totals.weeks !== null ? { value: String(totals.weeks), label: 'Weeks' } : null,
+    totals.taughtHours !== null
+      ? { value: String(totals.taughtHours), label: 'Taught hours' }
+      : null,
+    totals.mocks !== null ? { value: String(totals.mocks), label: 'Full-length mocks' } : null,
+    totals.classSize ? { value: totals.classSize, label: 'Class size' } : null,
+  ].filter((item): item is { value: string; label: string } => item !== null);
 
   return (
     <Section id="curriculum" tone="subtle" bordered className="scroll-mt-[104px]">
@@ -28,18 +31,20 @@ export function CurriculumSection({ name, curriculum }: { name: string; curricul
         className="mb-12"
       />
 
-      <dl className="mb-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        {summary.map((item) => (
-          <div key={item.label} className="rounded-md border border-line bg-surface px-5 py-4">
-            <dd className="font-display text-[26px] leading-none font-extrabold tracking-[-.02em] text-ink">
-              {item.value}
-            </dd>
-            <dt className="mt-2 text-[11px] font-bold tracking-[.14em] text-muted-2 uppercase">
-              {item.label}
-            </dt>
-          </div>
-        ))}
-      </dl>
+      {summary.length > 0 ? (
+        <dl className="mb-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {summary.map((item) => (
+            <div key={item.label} className="rounded-md border border-line bg-surface px-5 py-4">
+              <dd className="font-display text-[26px] leading-none font-extrabold tracking-[-.02em] text-ink">
+                {item.value}
+              </dd>
+              <dt className="mt-2 text-[11px] font-bold tracking-[.14em] text-muted-2 uppercase">
+                {item.label}
+              </dt>
+            </div>
+          ))}
+        </dl>
+      ) : null}
 
       <ol className="flex flex-col gap-3" aria-label={`${name} curriculum`}>
         {curriculum.modules.map((module, index) => (

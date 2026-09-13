@@ -1,11 +1,8 @@
-import type { ExamContent } from '../types';
-import { bdtPrice } from '@/lib/money';
-import { commonFaq, standardFeeNotes } from '../shared';
+import type { ExamEditorial } from '../types';
+import { commonFaq } from '../shared';
 
-export const mcat: ExamContent = {
-  path: '/test-prep/mcat',
+export const mcat: ExamEditorial = {
   slug: 'mcat',
-  name: 'MCAT',
   interest: 'GRE / GMAT',
   seo: {
     title: 'MCAT preparation in Bangladesh — courses, tutoring & free diagnostic',
@@ -28,121 +25,11 @@ export const mcat: ExamContent = {
       { label: 'Sittings', value: 'Annual sittings; plan 6–9 months ahead' },
     ],
   },
-  fee: {
-    price: bdtPrice(42000),
-    unit: 'per 24-week course',
-    includes: [
-      '60 taught hours live online, in a group of four or fewer',
-      '8 full-length timed mocks, reviewed',
-      'Weekly homework sets with marked solutions',
-      'Recordings of every session you miss',
-      'All materials and the online question bank',
-    ],
-    notes: standardFeeNotes,
-  },
-  modes: ['LiveOnline'],
   curriculum: {
     eyebrow: 'Curriculum',
     title: 'Twenty-four weeks, six modules, all four sections of the MCAT.',
     intro:
       'Four sections, 230 questions, seven and a half hours, scored 472–528. Six months is long enough to teach the content, build the reasoning and rehearse the stamina, with a timed section at the end of every module.',
-    totals: { weeks: 24, taughtHours: 60, mocks: 8, classSize: 'Max 4' },
-    modules: [
-      {
-        no: '01',
-        title: 'Chemical and physical foundations',
-        summary:
-          'Fifty-nine questions in 95 minutes across general chemistry, physics, organic chemistry and the biochemistry they lean on.',
-        topics: [
-          'Thermodynamics, kinetics, equilibrium and acid–base chemistry',
-          'Fluids, circuits, optics and the physics of living systems',
-          'Organic mechanisms: seeing the reaction type, not memorising it',
-          'Passage-based data: reading the figure before the question',
-        ],
-        hours: 12,
-        outcome:
-          'Reason through an unfamiliar chemistry or physics passage from principles rather than recall.',
-      },
-      {
-        no: '02',
-        title: 'Biological and biochemical foundations',
-        summary:
-          'The section with the most content: cell biology, physiology, genetics and the biochemistry that anchors a quarter of the test.',
-        topics: [
-          'Amino acids, enzymes and metabolic pathways',
-          'Cell biology, DNA replication and gene expression',
-          'Organ systems and physiology',
-          'Experimental design and interpreting research passages',
-        ],
-        hours: 14,
-        outcome:
-          'Answer biochemistry from mechanism and read a research passage the way the test writers intend.',
-      },
-      {
-        no: '03',
-        title: 'Psychological, social and biological foundations',
-        summary:
-          'Fifty-nine questions of psychology, sociology and the biology of behaviour. Terminology-heavy, and the easiest section to raise quickly.',
-        topics: [
-          'Sensation, perception, learning and memory',
-          'Social psychology, identity and group behaviour',
-          'Sociology: institutions, stratification and demographics',
-          'Research methods and statistics in the behavioural sciences',
-        ],
-        hours: 10,
-        outcome:
-          'Recognise every high-yield term in context and read a behavioural-science study critically.',
-      },
-      {
-        no: '04',
-        title: 'CARS passage method',
-        summary:
-          'Critical Analysis and Reasoning Skills: nine humanities and social-science passages in 90 minutes, with no outside knowledge required or rewarded.',
-        topics: [
-          'Mapping a passage for argument, tone and purpose',
-          'Foundations of comprehension and reasoning within the text',
-          'Reasoning beyond the text: applying the author’s view to new cases',
-          'Pacing at ten minutes a passage',
-        ],
-        hours: 8,
-        outcome: 'Score consistently on CARS instead of swinging with the passage topic.',
-      },
-      {
-        no: '05',
-        title: 'Integrated content review',
-        summary:
-          'The MCAT crosses disciplines inside single passages. Revision organised around the ten foundational concepts, not the textbook chapters.',
-        topics: [
-          'Cross-section topics: enzymes in physics, statistics everywhere',
-          'Scientific reasoning and research-design questions across all three science sections',
-          'Equation and pathway sheets you rebuild from memory',
-          'Targeted drills from your personal error log',
-        ],
-        hours: 6,
-        outcome: 'Move between disciplines inside a passage without losing the thread.',
-      },
-      {
-        no: '06',
-        title: 'Full-length cycle and test day',
-        summary:
-          'Full-length mocks on the real 7h 30m clock, each reviewed section by section, and the stamina and logistics of test day.',
-        topics: [
-          'Eight full-length mocks in exam order, scored 472–528',
-          'Section-by-section review and error log',
-          'Break strategy, nutrition and stamina across seven hours',
-          'Registration, test centre rules and score release',
-        ],
-        hours: 10,
-        outcome:
-          'Walk in having sat the full seven and a half hours eight times with your score range known.',
-      },
-    ],
-    outcomes: [
-      'Reason through unfamiliar science passages from principles, not recall',
-      'Read a research passage and its figures the way the test writers intend',
-      'Score consistently on CARS regardless of the passage topic',
-      'Hold accuracy across seven and a half hours and know your score range before you book',
-    ],
   },
   includes: {
     eyebrow: 'What you get',
@@ -174,7 +61,6 @@ export const mcat: ExamContent = {
     { value: '8', label: 'Full-length timed mocks in small group' },
     { value: '89%', label: 'Hit or beat their agreed target' },
   ],
-  testimonials: ['test-prep'],
   faq: [
     {
       question: 'How much content do I need to know?',

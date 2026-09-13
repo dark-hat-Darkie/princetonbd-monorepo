@@ -11,7 +11,7 @@ import {
   type LeadPrefill,
   type LeadState,
 } from '@/lib/actions/lead-shape';
-import { campuses } from '@/content/site/contact';
+import { inputClass, labelClass } from '@/components/ui/form/input-class';
 import { cn } from '@/lib/cn';
 
 /**
@@ -25,8 +25,17 @@ import { cn } from '@/lib/cn';
  * about, or the exam, campus and batch an exam page's "Reserve a seat" button
  * put in the URL. The batch travels as a hidden field and is echoed back in
  * words above the form so the visitor can see what they are asking about.
+ *
+ * `campuses` comes from the CMS via the page, so the select and the server
+ * action validate against the same list.
  */
-export function LeadForm({ prefill }: { prefill?: LeadPrefill }) {
+export function LeadForm({
+  prefill,
+  campuses,
+}: {
+  prefill?: LeadPrefill;
+  campuses: readonly { name: string }[];
+}) {
   const [state, formAction, pending] = useActionState<LeadState, FormData>(
     submitLead,
     initialLeadState,
@@ -199,13 +208,6 @@ export function LeadForm({ prefill }: { prefill?: LeadPrefill }) {
   );
 }
 
-function inputClass(invalid: boolean): string {
-  return cn(
-    'w-full rounded-sm border bg-canvas px-4 py-3 text-[15px] text-ink outline-none transition-colors duration-200 focus:border-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand',
-    invalid ? 'border-danger bg-danger-soft/40' : 'border-line-strong',
-  );
-}
-
 function Label({
   children,
   htmlFor,
@@ -216,10 +218,7 @@ function Label({
   className?: string;
 }) {
   return (
-    <label
-      htmlFor={htmlFor}
-      className={cn('text-[11px] font-bold tracking-[.12em] text-ink-soft uppercase', className)}
-    >
+    <label htmlFor={htmlFor} className={cn(labelClass, className)}>
       {children}
     </label>
   );
