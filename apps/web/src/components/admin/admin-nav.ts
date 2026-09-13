@@ -7,6 +7,9 @@ import { portalLinkFor, type PortalLink } from '@/components/dashboard/portal-na
  *
  * Every section except Overview uses prefix matching because its pages nest:
  * `/admin/courses/<id>/batches/new` is still "Courses".
+ *
+ * No link to the student portal: an admin account is not a student account,
+ * and `/dashboard` sends admins straight back here.
  */
 export const adminLinks: readonly PortalLink[] = [
   {
@@ -37,11 +40,6 @@ export const adminLinks: readonly PortalLink[] = [
     label: 'Testimonials',
     blurb: 'Student quotes and the courses each one may appear on.',
     match: 'prefix',
-  },
-  {
-    href: '/dashboard',
-    label: 'Student portal',
-    blurb: 'Back to the student-facing portal.',
   },
 ];
 

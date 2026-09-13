@@ -194,7 +194,8 @@ Postgres  courses · curriculum_modules · batches · branches · teachers ·
 (comma-separated, case-insensitive) is promoted to `admin` the first time it
 signs in, and on any later request if the row was demoted by hand. The list
 only ever promotes; to remove an admin, update the row. There is no UI for
-roles yet.
+roles yet. Admins and students are separate surfaces: `/dashboard` sends an
+admin to `/admin`, and `/admin` sends a student to `/dashboard`.
 
 ### What stays in code
 
