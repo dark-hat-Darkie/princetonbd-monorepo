@@ -48,6 +48,9 @@ export const routes: readonly RouteNode[] = [
   { path: '/test-prep/duolingo', label: 'Duolingo English Test', parent: '/test-prep' },
   { path: '/test-prep/pte', label: 'PTE Academic', parent: '/test-prep' },
 
+  /* — Batch schedule ————————————————————————————————————————————————— */
+  { path: '/batch-schedule', label: 'Batch Schedule', priority: 0.9 },
+
   /* — Tutoring ———————————————————————————————————————————————————————— */
   { path: '/tutoring', label: 'Tutoring', priority: 0.9 },
   { path: '/tutoring/private', label: 'Private 1-on-1', parent: '/tutoring' },

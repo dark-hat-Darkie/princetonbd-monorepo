@@ -3,7 +3,7 @@ import { join, relative, sep } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 import { footerColumns, legalLinks } from './footer';
-import { navGroups } from './nav';
+import { navGroups, navStandalone } from './nav';
 import { breadcrumbFor, routes } from './routes';
 
 /**
@@ -77,19 +77,22 @@ function isServedRoute(path: string): boolean {
   return staticFileRoutes.has(path) || dynamicRoutePatterns.some((pattern) => pattern.test(path));
 }
 
-const navHrefs = navGroups.flatMap((group) => [
-  { where: `nav group "${group.label}"`, href: group.href },
-  ...group.columns.flatMap((column) =>
-    column.links.map((link) => ({
-      where: `nav "${group.label}" › ${column.title} › ${link.label}`,
+const navHrefs = [
+  ...navGroups.flatMap((group) => [
+    { where: `nav group "${group.label}"`, href: group.href },
+    ...group.columns.flatMap((column) =>
+      column.links.map((link) => ({
+        where: `nav "${group.label}" › ${column.title} › ${link.label}`,
+        href: link.href,
+      })),
+    ),
+    ...(group.featured ?? []).map((link) => ({
+      where: `nav "${group.label}" › featured › ${link.label}`,
       href: link.href,
     })),
-  ),
-  ...(group.featured ?? []).map((link) => ({
-    where: `nav "${group.label}" › featured › ${link.label}`,
-    href: link.href,
-  })),
-]);
+  ]),
+  ...navStandalone.map((link) => ({ where: `nav standalone › ${link.label}`, href: link.href })),
+];
 
 const footerHrefs = [
   ...footerColumns.flatMap((column) =>

@@ -62,6 +62,7 @@ export const footerColumns: readonly FooterColumn[] = [
   {
     title: 'Ways to Study',
     links: [
+      { label: 'Batch Schedule', href: '/batch-schedule' },
       { label: 'All Online Courses', href: '/online-courses' },
       { label: 'LiveOnline Classes', href: '/online-courses/live-online' },
       { label: 'Self-Paced', href: '/online-courses/self-paced' },

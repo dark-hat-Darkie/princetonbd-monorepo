@@ -1553,6 +1553,31 @@
         ]
       }
     },
+    "/api/v1/batches": {
+      "get": {
+        "operationId": "listBatches",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BatchDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "List upcoming batches of published courses",
+        "tags": [
+          "batches"
+        ]
+      }
+    },
     "/api/v1/batches/{id}": {
       "get": {
         "operationId": "getBatchById",

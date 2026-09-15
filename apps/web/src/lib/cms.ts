@@ -4,6 +4,7 @@ import {
   createApiClient,
   getBatchById,
   getCourseBySlug,
+  listBatches,
   listBranches,
   listCourses,
   listTeachers,
@@ -112,6 +113,25 @@ export async function getBatch(id: string): Promise<BatchDto | null> {
   if (data) return data;
   if (response?.status === 404) return null;
   throw new Error(`[cms] getBatchById(${id}) failed: ${describe(error)}`);
+}
+
+/**
+ * Every batch a visitor can still join, across every published course, for
+ * the batch-schedule page. Empty on failure for the same reason as the
+ * course list: a finder with nothing to find is a degraded page, not a
+ * failed build.
+ */
+export async function getUpcomingBatches(): Promise<BatchDto[]> {
+  try {
+    const { data, error } = await listBatches({
+      client: cmsClient([BATCHES_TAG, COURSES_TAG, BRANCHES_TAG]),
+    });
+    if (data) return data;
+    console.warn('[cms] listBatches failed:', describe(error));
+  } catch (error) {
+    console.warn('[cms] listBatches unreachable:', describe(error));
+  }
+  return [];
 }
 
 export async function getBranches(): Promise<BranchDto[]> {

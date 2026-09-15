@@ -12,6 +12,17 @@ import { BatchDto } from './dto/batch.dto.js';
 export class BatchesController {
   constructor(private readonly batches: BatchesService) {}
 
+  /** Every joinable batch of every published course, soonest first. */
+  @Get()
+  @ApiOperation({
+    operationId: 'listBatches',
+    summary: 'List upcoming batches of published courses',
+  })
+  @ApiOkResponse({ type: [BatchDto] })
+  listBatches(): Promise<BatchDto[]> {
+    return this.batches.findUpcoming();
+  }
+
   /**
    * One batch by id, for the enquiry form to echo back what a visitor is
    * asking about. Only resolves while the course is published.

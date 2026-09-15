@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 
-import type { NavGroup } from '@/content/site/nav';
+import type { NavGroup, NavLink } from '@/content/site/nav';
 import { cn } from '@/lib/cn';
 
 /**
@@ -37,7 +37,20 @@ import { cn } from '@/lib/cn';
 /** Hover grace period, in ms, so the pointer can cross the gap to the panel. */
 const CLOSE_DELAY = 120;
 
-export function PrimaryNav({ groups }: { groups: readonly NavGroup[] }) {
+/* Shared by the group triggers and the standalone links so the bar reads as
+   one row of entries — same type, same accent underline on hover — whether
+   an entry opens a panel or goes straight to a page. */
+const entryClass =
+  "relative flex cursor-pointer items-center gap-1 rounded-sm text-[11.5px] font-bold tracking-[.11em] whitespace-nowrap text-ink-soft uppercase transition-colors duration-200 after:absolute after:right-full after:-bottom-2 after:left-0 after:h-[2.5px] after:rounded-full after:bg-accent after:transition-[right] after:duration-[280ms] after:ease-[ease] after:content-[''] hover:text-ink hover:after:right-0";
+
+export function PrimaryNav({
+  groups,
+  links = [],
+}: {
+  groups: readonly NavGroup[];
+  /** Plain links rendered after the groups; see `navStandalone`. */
+  links?: readonly NavLink[];
+}) {
   const [openLabel, setOpenLabel] = useState<string | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -132,10 +145,7 @@ export function PrimaryNav({ groups }: { groups: readonly NavGroup[] }) {
               onClick={() => {
                 setOpenLabel(open ? null : group.label);
               }}
-              className={cn(
-                "relative flex cursor-pointer items-center gap-1 rounded-sm text-[11.5px] font-bold tracking-[.11em] whitespace-nowrap text-ink-soft uppercase transition-colors duration-200 after:absolute after:right-full after:-bottom-2 after:left-0 after:h-[2.5px] after:rounded-full after:bg-accent after:transition-[right] after:duration-[280ms] after:ease-[ease] after:content-[''] hover:text-ink hover:after:right-0",
-                open && 'text-ink after:right-0',
-              )}
+              className={cn(entryClass, open && 'text-ink after:right-0')}
             >
               {group.label}
               <ChevronDown
@@ -215,6 +225,18 @@ export function PrimaryNav({ groups }: { groups: readonly NavGroup[] }) {
           </div>
         );
       })}
+
+      {links.map((link) => (
+        <Link
+          key={link.href + link.label}
+          href={link.href}
+          onClick={close}
+          onMouseEnter={scheduleClose}
+          className={entryClass}
+        >
+          {link.label}
+        </Link>
+      ))}
     </nav>
   );
 }

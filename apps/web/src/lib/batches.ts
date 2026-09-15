@@ -47,6 +47,22 @@ export function formatClock(hhmm: string): string {
   return `${String(twelve)}:${String(minute).padStart(2, '0')} ${meridiem}`;
 }
 
+/** "Sat · Mon · Wed" — days as stored (see `formatSchedule` on why not sorted). */
+export function formatDayList(days: readonly Weekday[]): string {
+  return days.map((day) => weekdayLabels[day].short).join(' · ');
+}
+
+/**
+ * "6:30–8:30 pm" · "10:00 am–1:00 pm". The meridiem is written once when
+ * both ends share it and on each end when they do not.
+ */
+export function formatTimeRange(startTime: string, endTime: string): string {
+  const start = formatClock(startTime);
+  const end = formatClock(endTime);
+  const [startClock, startMeridiem] = start.split(' ');
+  return startMeridiem === end.split(' ')[1] ? `${startClock ?? start}–${end}` : `${start}–${end}`;
+}
+
 /**
  * "Sat · Mon · Wed, 6:30–8:30 pm" — the line the batch table shows.
  *
@@ -54,21 +70,14 @@ export function formatClock(hhmm: string): string {
  * has always read "Fri · Sat" while the weekday one reads "Sat · Mon · Wed",
  * and no single ordering produces both. The admin form submits days in
  * working-week order, and the seed kept the hand-written order, so stored
- * order is the intended one. The meridiem is written once when both ends
- * share it and on each end when they do not ("10:00 am–1:00 pm").
+ * order is the intended one.
  */
 export function formatSchedule(
   days: readonly Weekday[],
   startTime: string,
   endTime: string,
 ): string {
-  const dayList = days.map((day) => weekdayLabels[day].short).join(' · ');
-  const start = formatClock(startTime);
-  const end = formatClock(endTime);
-  const [startClock, startMeridiem] = start.split(' ');
-  const time =
-    startMeridiem === end.split(' ')[1] ? `${startClock ?? start}–${end}` : `${start}–${end}`;
-  return `${dayList}, ${time}`;
+  return `${formatDayList(days)}, ${formatTimeRange(startTime, endTime)}`;
 }
 
 /** "IELTS · Dhaka — Gulshan · starts 14 Oct" — the line the enquiry form echoes back. */

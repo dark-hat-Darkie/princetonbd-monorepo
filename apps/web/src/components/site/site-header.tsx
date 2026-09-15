@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { navGroups } from '@/content/site/nav';
+import { navGroups, navStandalone } from '@/content/site/nav';
 import { MobileNav } from './mobile-nav';
 import { PrimaryNav } from './primary-nav';
 import { BrandMark } from '@/components/ui/brand-mark';
@@ -44,10 +44,10 @@ export function SiteHeader() {
           <BrandMark />
         </Link>
 
-        <PrimaryNav groups={navGroups} />
+        <PrimaryNav groups={navGroups} links={navStandalone} />
 
         <div className="flex flex-none items-center gap-[18px]">
-          <MobileNav groups={navGroups} />
+          <MobileNav groups={navGroups} links={navStandalone} />
           <Link
             href="/sign-in"
             className="hidden rounded-full px-1 text-[11px] font-bold tracking-[.11em] whitespace-nowrap text-ink-soft uppercase transition-colors duration-200 hover:text-brand-ink nav:inline"

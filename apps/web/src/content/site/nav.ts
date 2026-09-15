@@ -136,9 +136,26 @@ export const navGroups: readonly NavGroup[] = [
   },
 ];
 
-/** Flat list of every link the dropdowns can reach, hubs included. */
-export const navLinks: readonly NavLink[] = navGroups.flatMap((group) => [
-  { label: group.label, href: group.href },
-  ...group.columns.flatMap((column) => column.links),
-  ...(group.featured ?? []),
-]);
+/**
+ * Plain links in the bar after the dropdown groups: pages that are one
+ * destination rather than a section, so a panel would hold a single row.
+ *
+ * The batch schedule is the site's one cross-course page — every upcoming
+ * batch at every campus — and the thing a returning visitor most often
+ * comes back for, which is why it earns a slot in the bar rather than a
+ * row inside each exam's panel. Adding a second entry here means
+ * re-measuring the bar against `--breakpoint-nav` (see globals.css).
+ */
+export const navStandalone: readonly NavLink[] = [
+  { label: 'Batch Schedule', href: '/batch-schedule' },
+];
+
+/** Flat list of every link the header can reach, hubs included. */
+export const navLinks: readonly NavLink[] = [
+  ...navGroups.flatMap((group) => [
+    { label: group.label, href: group.href },
+    ...group.columns.flatMap((column) => column.links),
+    ...(group.featured ?? []),
+  ]),
+  ...navStandalone,
+];

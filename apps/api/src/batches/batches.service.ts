@@ -1,16 +1,21 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import {
+  and,
   asc,
   batches,
   branches,
   courses,
   eq,
+  gte,
+  inArray,
+  ne,
   teachers,
   type Course,
   type Database,
 } from '@repo/db';
 
 import { definedEntries } from '../common/defined-entries.js';
+import { dhakaToday } from '../common/dhaka-date.js';
 import { ValidationFailedException } from '../common/http/validation-failed.exception.js';
 import { InjectDb } from '../database/database.module.js';
 import { BatchDto, toHHMM } from './dto/batch.dto.js';
@@ -33,6 +38,33 @@ export class BatchesService {
   constructor(@InjectDb() private readonly db: Database) {}
 
   /* --- public -------------------------------------------------------------- */
+
+  /**
+   * Every batch a visitor can still join, across every published course:
+   * not closed and not yet ended on the Dhaka calendar, soonest first. The
+   * batch-schedule page filters this by campus and course in the browser,
+   * so one cached read serves every combination.
+   *
+   * The publication check is a subquery rather than a post-filter, so a
+   * draft course's batches never leave the database on a public route.
+   */
+  async findUpcoming(): Promise<BatchDto[]> {
+    const today = dhakaToday();
+    const published = this.db
+      .select({ id: courses.id })
+      .from(courses)
+      .where(eq(courses.status, 'published'));
+    const rows = await this.db.query.batches.findMany({
+      where: and(
+        ne(batches.status, 'closed'),
+        gte(batches.endsOn, today),
+        inArray(batches.courseId, published),
+      ),
+      orderBy: [asc(batches.startsOn), asc(batches.startTime)],
+      with: { branch: true, teacher: true, course: true },
+    });
+    return rows.map((row) => BatchDto.fromEntity(row));
+  }
 
   /** A batch by id, only while its course is published — the enquiry form's lookup. */
   async findPublishedById(id: string): Promise<BatchDto | null> {

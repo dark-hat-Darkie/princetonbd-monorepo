@@ -349,6 +349,9 @@ describe('CMS (e2e)', () => {
       expect((list.body as Row[]).some((c) => c.slug === 'e2e-sat-bootcamp')).toBe(false);
       await api().get('/api/v1/courses/e2e-sat-bootcamp').expect(404);
       await api().get(`/api/v1/batches/${batchId}`).expect(404);
+
+      const upcoming = await api().get('/api/v1/batches').expect(200);
+      expect((upcoming.body as Row[]).some((b) => b.id === batchId)).toBe(false);
     });
 
     it('shows the course once published, with everything attached', async () => {
@@ -367,6 +370,13 @@ describe('CMS (e2e)', () => {
       expect(body.teachers.map((t) => t.id)).toEqual([teacher.id]);
 
       await api().get(`/api/v1/batches/${batchId}`).expect(200);
+
+      const upcoming = await api().get('/api/v1/batches').expect(200);
+      const scheduled = (upcoming.body as Row[]).find((b) => b.id === batchId);
+      expect(scheduled).toMatchObject({
+        courseSlug: 'e2e-sat-bootcamp',
+        branch: { id: branch.id },
+      });
     });
 
     it('attaches testimonials to the course page', async () => {

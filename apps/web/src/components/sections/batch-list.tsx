@@ -1,42 +1,12 @@
+import { BatchStatusBadge } from '@/components/ui/batch-status-badge';
 import { CtaButton } from '@/components/ui/cta-button';
 import { ModeChip } from '@/components/ui/mode-chip';
 import { Section } from '@/components/ui/section';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { enrolHref } from '@/lib/batches';
-import { cn } from '@/lib/cn';
-import type { BatchStatus } from '@/lib/cms-enums';
 import type { BatchView, CourseView } from '@/lib/course-view';
 import { formatDayMonth, formatFullDate } from '@/lib/dates';
 import { formatPrice } from '@/lib/money';
-
-const statusBadge: Record<
-  Exclude<BatchStatus, 'closed'>,
-  { label: (batch: BatchView) => string; className: string }
-> = {
-  open: { label: () => 'Seats open', className: 'bg-brand-soft text-brand-ink' },
-  filling: {
-    label: (batch) =>
-      batch.seatsLeft !== null ? `Filling fast · ${String(batch.seatsLeft)} left` : 'Filling fast',
-    className: 'bg-accent-soft text-on-accent',
-  },
-  waitlist: { label: () => 'Waitlist', className: 'bg-panel text-muted' },
-};
-
-function StatusBadge({ batch }: { batch: BatchView }) {
-  if (batch.status === 'closed') return null;
-  const badge = statusBadge[batch.status];
-
-  return (
-    <span
-      className={cn(
-        'inline-flex items-center rounded-full px-3 py-1.5 text-[10.5px] font-bold tracking-[.12em] whitespace-nowrap uppercase',
-        badge.className,
-      )}
-    >
-      {badge.label(batch)}
-    </span>
-  );
-}
 
 function EnrolAction({
   course,
@@ -170,7 +140,7 @@ export function BatchList({
                       </div>
                     </td>
                     <td className="px-5 py-5">
-                      <StatusBadge batch={batch} />
+                      <BatchStatusBadge batch={batch} />
                     </td>
                     <td className="px-5 py-5 whitespace-nowrap">
                       <Fee course={course} batch={batch} />
@@ -193,7 +163,7 @@ export function BatchList({
               >
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
                   <ModeChip mode={batch.mode} />
-                  <StatusBadge batch={batch} />
+                  <BatchStatusBadge batch={batch} />
                 </div>
 
                 <div className="mb-4 flex items-baseline justify-between gap-4">

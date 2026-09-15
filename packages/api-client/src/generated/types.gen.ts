@@ -1257,6 +1257,19 @@ export type AdminReplaceCourseTeachersResponses = {
 
 export type AdminReplaceCourseTeachersResponse = AdminReplaceCourseTeachersResponses[keyof AdminReplaceCourseTeachersResponses];
 
+export type ListBatchesData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/batches';
+};
+
+export type ListBatchesResponses = {
+    200: Array<BatchDto>;
+};
+
+export type ListBatchesResponse = ListBatchesResponses[keyof ListBatchesResponses];
+
 export type GetBatchByIdData = {
     body?: never;
     path: {
