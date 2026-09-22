@@ -1,18 +1,16 @@
 'use server';
 
-import { batchById } from '@/content/batches';
-import { campuses } from '@/content/site/contact';
+import { getBatch, getBranches } from '@/lib/cms';
 import { EMAIL, PHONE, leadInterests, type LeadField, type LeadState } from './lead-shape';
 
 /**
  * Handles every enquiry form on the site: the contact page, the free
  * diagnostic booking and the practice-test sign-up.
  *
- * Validation is hand-written rather than schema-driven. The API has no lead
- * endpoint yet, so this file is the only consumer of these rules; pulling `zod`
- * into the web bundle for seven fields would add a dependency to save nothing.
- * When a real `/api/v1/leads` endpoint exists, the shape moves there and this
- * becomes a thin call.
+ * Validation is hand-written rather than schema-driven: the API has no lead
+ * endpoint yet, so this file is the only consumer of these rules. When a real
+ * `/api/v1/leads` endpoint exists, the shape moves there and this becomes a
+ * thin call.
  *
  * Until then the submission goes to `LEAD_WEBHOOK_URL` if one is configured,
  * and is otherwise recorded in the server log. It is never silently dropped:
@@ -47,16 +45,29 @@ export async function submitLead(_previous: LeadState, formData: FormData): Prom
     errors.phone = 'Please enter a Bangladeshi mobile number, e.g. 01700-000000.';
   if (!leadInterests.includes(values.interest as (typeof leadInterests)[number]))
     errors.interest = 'Please choose what you are interested in.';
-  if (values.campus && !campuses.some((campus) => campus.name === values.campus))
-    errors.campus = 'Please choose one of our campuses, or leave it as online.';
-  /* Set by the exam pages' "Reserve a seat" buttons; a visitor never types it.
+  if (values.message.length > 2000) errors.message = 'Please keep this under 2,000 characters.';
+
+  /* Campus and batch are checked against the CMS. Both checks fail open: an
+     API that cannot be reached must not lose a lead, so an unverifiable value
+     is passed through and the advisor sees it as typed. */
+  if (values.campus) {
+    const branches = await getBranches();
+    if (branches.length > 0 && !branches.some((branch) => branch.name === values.campus))
+      errors.campus = 'Please choose one of our campuses, or leave it as online.';
+  }
+  /* Set by the course pages' "Reserve a seat" buttons; a visitor never types it.
      A stale id — a batch withdrawn after the link was shared — is rejected
      rather than silently dropped, so the advisor is not told to book someone
      onto a run that no longer exists. */
-  if (values.batch && !batchById(values.batch))
-    errors.batch =
-      'That batch is no longer listed. Clear it below and tell us which dates suit you in the message.';
-  if (values.message.length > 2000) errors.message = 'Please keep this under 2,000 characters.';
+  if (values.batch) {
+    try {
+      if (!(await getBatch(values.batch)))
+        errors.batch =
+          'That batch is no longer listed. Clear it below and tell us which dates suit you in the message.';
+    } catch (error) {
+      console.warn('[lead] could not verify batch, passing it through', error);
+    }
+  }
 
   if (Object.keys(errors).length > 0) {
     return { status: 'error', errors, values };

@@ -5,7 +5,8 @@ import { createPortal } from 'react-dom';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 
-import type { NavGroup } from '@/content/site/nav';
+import type { NavGroup, NavLink } from '@/content/site/nav';
+import { DrawerAuthSlot } from './auth-slot';
 import { BrandMark } from '@/components/ui/brand-mark';
 import { CtaButton } from '@/components/ui/cta-button';
 
@@ -26,7 +27,14 @@ import { CtaButton } from '@/components/ui/cta-button';
  * an in-place `fixed inset-0` would resolve against the 92px header instead of
  * the viewport, collapsing the drawer to a sliver.
  */
-export function MobileNav({ groups }: { groups: readonly NavGroup[] }) {
+export function MobileNav({
+  groups,
+  links = [],
+}: {
+  groups: readonly NavGroup[];
+  /** Plain rows after the sections; see `navStandalone`. */
+  links?: readonly NavLink[];
+}) {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -176,16 +184,22 @@ export function MobileNav({ groups }: { groups: readonly NavGroup[] }) {
                       </div>
                     </details>
                   ))}
+
+                  {links.map((link) => (
+                    <Link
+                      key={link.href + link.label}
+                      href={link.href}
+                      onClick={close}
+                      className="flex items-center justify-between border-b border-b-line py-4 text-[11.5px] font-bold tracking-[.11em] text-ink-soft uppercase"
+                    >
+                      {link.label}
+                      <ArrowRight aria-hidden className="size-3.5 flex-none text-brand-ink" />
+                    </Link>
+                  ))}
                 </nav>
 
                 <div className="flex flex-none flex-col gap-3 border-t border-t-line px-6 py-6">
-                  <Link
-                    href="/sign-in"
-                    onClick={close}
-                    className="rounded-sm text-[11px] font-bold tracking-[.11em] text-ink uppercase"
-                  >
-                    Log in
-                  </Link>
+                  <DrawerAuthSlot onNavigate={close} />
                   <CtaButton href="/contact" size="sm" className="w-full" onClick={close}>
                     Book a consultation
                   </CtaButton>

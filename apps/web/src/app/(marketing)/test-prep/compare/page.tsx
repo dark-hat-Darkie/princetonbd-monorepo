@@ -1,47 +1,77 @@
 import type { Metadata } from 'next';
+import type { CourseSummaryDto } from '@repo/api-client';
 import Link from 'next/link';
 
 import { CtaSection } from '@/components/sections/cta-section';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
-import { batchPlace, batchesFor } from '@/content/batches';
-import { allExams, examFamilies } from '@/content/exams';
-import { breadcrumbFor } from '@/content/site/routes';
+import { courseFamilies, editorialFor } from '@/content/exams';
 import { defaultClosing } from '@/content/shared';
+import { breadcrumbFor } from '@/content/site/routes';
+import { getCourse, getPublishedCourses } from '@/lib/cms';
+import { deliveryModeLabels } from '@/lib/cms-enums';
+import { coursePath } from '@/lib/course-view';
 import { formatDayMonth } from '@/lib/dates';
 import { formatPrice } from '@/lib/money';
 
 export const metadata: Metadata = {
   title: 'Compare every test prep course — length, modes, next batch and fees',
   description:
-    'Side by side: all twelve admissions tests we prepare students for, what each is used for, how it is scored, how long the course runs, when the next batch starts and what it costs in Bangladeshi taka.',
+    'Side by side: every admissions test we prepare students for, what each is used for, how it is scored, how long the course runs, when the next batch starts and what it costs in Bangladeshi taka.',
 };
 
 /* Statically built, re-rendered daily so the "next batch" column moves on
-   without a deploy. */
+   without a deploy; an admin save refreshes it sooner. */
 export const revalidate = 86400;
-
-const modeLabel = { Classroom: 'Classroom', LiveOnline: 'Live online' } as const;
 
 const headings = ['Exam', 'Used for', 'Scored', 'Length', 'Modes', 'Next batch', 'Fee'];
 
 /**
- * The comparison table, built from the exam and batch records themselves
- * rather than from a hand-written duplicate of them. A fee change on one exam
- * page shows up here on the next build; there is no second copy to forget.
+ * The comparison table, built from the CMS records themselves rather than
+ * from a hand-written duplicate of them. A fee change in the admin panel
+ * shows up here on the next visit; there is no second copy to forget.
+ *
+ * Courses are grouped by the editorial families; anything published that no
+ * family claims goes under "Other courses" rather than disappearing.
  */
-export default function ComparePage() {
-  const now = new Date();
+export default async function ComparePage() {
+  const summaries = await getPublishedCourses();
+  const details = await Promise.all(summaries.map((course) => getCourse(course.slug)));
+  const cheapestOnlineBySlug = new Map(
+    details.flatMap((course) =>
+      course
+        ? [
+            [
+              course.slug,
+              course.batches
+                .map((batch) => batch.feeAmount)
+                .filter((fee): fee is number => fee !== null && fee < course.priceAmount)
+                .sort((a, b) => a - b)[0],
+            ] as const,
+          ]
+        : [],
+    ),
+  );
+
+  const bySlug = new Map(summaries.map((course) => [course.slug, course]));
+  const claimed = new Set(courseFamilies.flatMap((family) => family.slugs));
+  const groups: { title: string; courses: CourseSummaryDto[] }[] = [
+    ...courseFamilies.map((family) => ({
+      title: family.title,
+      courses: family.slugs.flatMap((slug) => bySlug.get(slug) ?? []),
+    })),
+    { title: 'Other courses', courses: summaries.filter((course) => !claimed.has(course.slug)) },
+  ].filter((group) => group.courses.length > 0);
 
   return (
     <>
       <PageHero
         breadcrumb={breadcrumbFor('/test-prep/compare')}
         eyebrow="Compare courses"
-        title="Twelve exams, side by side."
+        title="Every exam, side by side."
         intro="What each test is actually for, how it is scored, how long our course runs, when the next batch starts and what it costs. Every fee includes materials and mock tests."
         facts={[
-          { label: 'Exams', value: String(allExams.length) },
+          { label: 'Exams', value: String(summaries.length) },
           { label: 'Modes', value: 'Classroom · Live online' },
           { label: 'Diagnostic', value: 'Free, every Saturday' },
           { label: 'Guarantee', value: 'Written, on every course' },
@@ -49,10 +79,17 @@ export default function ComparePage() {
       />
 
       <Container as="section" className="py-(--section-y-sm) lg:py-(--section-y)">
-        {examFamilies.map((family) => (
-          <div key={family.title} className="mb-16 last:mb-0">
+        {groups.length === 0 ? (
+          <p className="text-[15px] leading-[1.6] text-muted">
+            Course details are being updated. Check back shortly, or book a free diagnostic and we
+            will walk you through the options.
+          </p>
+        ) : null}
+
+        {groups.map((group) => (
+          <div key={group.title} className="mb-16 last:mb-0">
             <h2 className="mb-6 font-display text-[26px] font-semibold tracking-[-.02em] text-ink">
-              {family.title}
+              {group.title}
             </h2>
 
             {/* Wide table scrolls inside its own box — the page body never
@@ -73,39 +110,43 @@ export default function ComparePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {family.exams.map((exam) => {
-                    const facts = exam.hero.facts ?? [];
-                    const upcoming = batchesFor(exam.slug, now);
-                    const next = upcoming[0];
-                    const cheapestOnline = upcoming
-                      .filter((batch) => batch.fee && batch.fee.amount < exam.fee.price.amount)
-                      .map((batch) => batch.fee?.amount ?? exam.fee.price.amount)
-                      .sort((a, b) => a - b)[0];
+                  {group.courses.map((course) => {
+                    const editorial = editorialFor(course.slug);
+                    const facts = editorial?.hero.facts ?? [];
+                    const next = course.nextBatch;
+                    const cheapestOnline = cheapestOnlineBySlug.get(course.slug);
+                    const length = [
+                      course.durationWeeks !== null
+                        ? `${String(course.durationWeeks)} weeks`
+                        : null,
+                      course.taughtHours !== null ? `${String(course.taughtHours)} h` : null,
+                    ]
+                      .filter(Boolean)
+                      .join(' · ');
                     const cell = 'border-b border-b-line px-4 py-4 text-[14px] leading-[1.5]';
 
                     return (
-                      <tr key={exam.path} className="align-top last:[&>*]:border-b-0">
+                      <tr key={course.id} className="align-top last:[&>*]:border-b-0">
                         <th
                           scope="row"
                           className={`${cell} pl-5 font-display text-[18px] font-semibold text-ink`}
                         >
                           <Link
-                            href={exam.path}
+                            href={coursePath(course.slug)}
                             className="transition-colors duration-200 hover:text-brand-ink"
                           >
-                            {exam.name}
+                            {course.name}
                           </Link>
                         </th>
-                        <td className={`${cell} text-muted`}>{exam.hero.eyebrow}</td>
+                        <td className={`${cell} text-muted`}>{editorial?.hero.eyebrow ?? '—'}</td>
                         <td className={`${cell} text-ink-soft`}>
                           {facts.find((fact) => /scor/i.test(fact.label))?.value ?? '—'}
                         </td>
                         <td className={`${cell} text-ink-soft whitespace-nowrap`}>
-                          {String(exam.curriculum.totals.weeks)} weeks ·{' '}
-                          {String(exam.curriculum.totals.taughtHours)} h
+                          {length || '—'}
                         </td>
                         <td className={`${cell} text-ink-soft`}>
-                          {exam.modes.map((mode) => modeLabel[mode]).join(' · ')}
+                          {course.modes.map((mode) => deliveryModeLabels[mode]).join(' · ')}
                         </td>
                         <td className={`${cell} text-ink-soft whitespace-nowrap`}>
                           {next ? (
@@ -114,7 +155,7 @@ export default function ComparePage() {
                                 {formatDayMonth(next.startsOn)}
                               </time>
                               <span className="block text-[12.5px] text-muted-2">
-                                {batchPlace(next)}
+                                {next.branch?.name ?? 'Live online'}
                               </span>
                             </>
                           ) : (
@@ -123,7 +164,7 @@ export default function ComparePage() {
                         </td>
                         <td className={`${cell} pr-5 whitespace-nowrap`}>
                           <span className="font-display text-[17px] font-semibold text-ink tabular-nums">
-                            {formatPrice(exam.fee.price)}
+                            {formatPrice({ amount: course.priceAmount, currency: 'BDT' })}
                           </span>
                           {cheapestOnline !== undefined ? (
                             <span className="block text-[12.5px] text-muted-2">

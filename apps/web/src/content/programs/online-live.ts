@@ -16,7 +16,7 @@ export const onlineLive: ProgramContent = {
       'An instructor teaches to a classroom of fifteen students, same time every week. You attend live when it suits, or watch the recording later—both get you the same education.',
     actions: [
       { label: 'Browse courses', href: '/contact' },
-      { label: 'Is live online right for me?', href: '/tutoring/online', variant: 'outline' },
+      { label: 'Compare all courses', href: '/test-prep/compare', variant: 'outline' },
     ],
     facts: [
       { label: 'Class size', value: '10–15 students per cohort' },

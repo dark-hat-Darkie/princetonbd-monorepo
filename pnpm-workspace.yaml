@@ -88,6 +88,10 @@ catalog:
   '@workos-inc/authkit-nextjs': ^4.3.1
   jose: ^6.2.10
 
+  # --- object storage (S3-compatible: R2, S3, MinIO) -----------------------
+  '@aws-sdk/client-s3': ^3.1131.0
+  '@aws-sdk/s3-request-presigner': ^3.1131.0
+
   # --- contract / validation ----------------------------------------------
   zod: ^4.4.3
   '@hey-api/openapi-ts': ^0.99.0

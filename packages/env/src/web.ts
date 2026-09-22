@@ -24,6 +24,17 @@ const serverSchema = z.object({
 const clientSchema = z.object({
   NEXT_PUBLIC_API_URL: z.string().min(1).describe('Base URL of the NestJS API'),
   NEXT_PUBLIC_WORKOS_REDIRECT_URI: z.string().min(1),
+  /**
+   * Base URL admin-uploaded images are served from (the bucket's public URL).
+   * Optional so the site builds without storage configured; next.config.ts
+   * reads the same variable to allow the host for `next/image`.
+   */
+  NEXT_PUBLIC_MEDIA_URL: z
+    .string()
+    .trim()
+    .default('')
+    .transform((v) => v.replace(/\/+$/, '') || undefined)
+    .pipe(z.url().optional()),
 });
 
 export type WebServerEnv = z.infer<typeof serverSchema>;
@@ -51,6 +62,7 @@ export function getWebClientEnv(): WebClientEnv {
     {
       NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
       NEXT_PUBLIC_WORKOS_REDIRECT_URI: process.env.NEXT_PUBLIC_WORKOS_REDIRECT_URI,
+      NEXT_PUBLIC_MEDIA_URL: process.env.NEXT_PUBLIC_MEDIA_URL,
       SKIP_ENV_VALIDATION: process.env.SKIP_ENV_VALIDATION,
     },
     'web client',

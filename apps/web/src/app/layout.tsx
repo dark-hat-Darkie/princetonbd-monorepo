@@ -1,26 +1,29 @@
 import type { Metadata } from 'next';
-import { Bricolage_Grotesque, Hanken_Grotesk } from 'next/font/google';
+import localFont from 'next/font/local';
 
 import { siteDescription, siteName, siteUrl } from '@/lib/site';
 import './globals.css';
 
-/* Self-hosted through next/font rather than a blocking <link> to Google. No
-   third-party request on the critical path.
+/* Self-hosted variable-font files through next/font/local: no <link> to
+   Google, no third-party request on the critical path — and, critically, no
+   fetch to fonts.googleapis.com at build time, so `next build` succeeds in
+   offline build environments (it used to fail there via next/font/google).
+   Files are the latin-subset variable cuts from @fontsource-variable 5.3.0
+   (byte-identical Google Fonts binaries), checked in so the build is hermetic.
 
    Bricolage Grotesque carries an `opsz` axis defaulting to 14 — the setting for
-   small text. Including the axis lets the browser's default
-   `font-optical-sizing: auto` track it with the font size, so the 72px hero
+   small text. The full-Axis `standard` cut keeps it, so the browser's default
+   `font-optical-sizing: auto` tracks it with the font size and the 72px hero
    headline gets the tight, closed display cut instead of the airy caption one.
    Without it every headline renders at the caption optical size. */
-const bricolage = Bricolage_Grotesque({
-  subsets: ['latin'],
-  axes: ['opsz'],
+const bricolage = localFont({
+  src: '../fonts/bricolage-grotesque-latin-standard-normal.woff2',
   variable: '--font-bricolage',
   display: 'swap',
 });
 
-const hanken = Hanken_Grotesk({
-  subsets: ['latin'],
+const hanken = localFont({
+  src: '../fonts/hanken-grotesk-latin-wght-normal.woff2',
   variable: '--font-hanken',
   display: 'swap',
 });

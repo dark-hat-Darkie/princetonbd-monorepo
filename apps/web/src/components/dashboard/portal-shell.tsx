@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BrandMark } from '@/components/ui/brand-mark';
 import { PortalDrawer } from './portal-drawer';
 import { PortalLinks } from './portal-links';
-import { portalLinks } from './portal-nav';
+import { portalLinks, type PortalLink } from './portal-nav';
 
 /**
  * Chrome for every signed-in page.
@@ -13,13 +13,18 @@ import { portalLinks } from './portal-nav';
  * being unmistakably a different surface from the marketing site. The rail is
  * fixed and the content column is inset by its width, so a long page scrolls
  * without moving the navigation.
+ *
+ * The student portal and the admin panel share this shell and differ only in
+ * the link list, so `links` is a prop with the student list as its default.
  */
 export function PortalShell({
   account,
+  links = portalLinks,
   children,
 }: {
   /** The account chip and sign-out form; server-rendered and slotted in. */
   account: React.ReactNode;
+  links?: readonly PortalLink[];
   children: React.ReactNode;
 }) {
   return (
@@ -33,7 +38,7 @@ export function PortalShell({
         </div>
 
         <nav aria-label="Portal" className="flex-1 overflow-y-auto px-4 py-6">
-          <PortalLinks links={portalLinks} />
+          <PortalLinks links={links} />
         </nav>
 
         <div className="flex-none border-t border-t-[rgba(244,241,232,.12)] px-6 py-5">
@@ -43,7 +48,7 @@ export function PortalShell({
 
       {/* Mobile bar */}
       <header className="sticky top-0 z-30 flex h-[64px] items-center justify-between gap-4 border-b border-b-[rgba(27,36,54,.09)] bg-canvas/90 px-5 backdrop-blur-[14px] lg:hidden">
-        <PortalDrawer links={portalLinks} footer={account} />
+        <PortalDrawer links={links} footer={account} />
         <Link href="/" aria-label="Princeton Review Bangladesh — home">
           <BrandMark />
         </Link>

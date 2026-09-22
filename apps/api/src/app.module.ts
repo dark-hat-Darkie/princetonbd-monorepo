@@ -5,11 +5,20 @@ import type { ApiEnv } from '@repo/env/api';
 import { LoggerModule } from 'nestjs-pino';
 import { randomUUID } from 'node:crypto';
 
+import { AdminModule } from './admin/admin.module.js';
 import { AuthModule } from './auth/auth.module.js';
+import { RolesGuard } from './auth/roles.guard.js';
 import { WorkosAuthGuard } from './auth/workos-auth.guard.js';
+import { BatchesModule } from './batches/batches.module.js';
+import { BranchesModule } from './branches/branches.module.js';
 import { ENV, EnvModule } from './config/env.module.js';
+import { CoursesModule } from './courses/courses.module.js';
 import { DatabaseModule } from './database/database.module.js';
+import { EnrollmentsModule } from './enrollments/enrollments.module.js';
 import { HealthModule } from './health/health.module.js';
+import { TeachersModule } from './teachers/teachers.module.js';
+import { TestimonialsModule } from './testimonials/testimonials.module.js';
+import { UploadsModule } from './uploads/uploads.module.js';
 import { UsersModule } from './users/users.module.js';
 
 @Module({
@@ -51,12 +60,32 @@ import { UsersModule } from './users/users.module.js';
     AuthModule,
     UsersModule,
     HealthModule,
+
+    /* The CMS: what the admin panel writes and the public site reads. */
+    BranchesModule,
+    TeachersModule,
+    CoursesModule,
+    BatchesModule,
+    EnrollmentsModule,
+    TestimonialsModule,
+    UploadsModule,
+    AdminModule,
   ],
   providers: [
     /* Order matters: rate limiting runs before token verification so a flood
-       of junk tokens cannot force a JWKS lookup per request. */
-    { provide: APP_GUARD, useClass: ThrottlerGuard },
-    { provide: APP_GUARD, useClass: WorkosAuthGuard },
+       of junk tokens cannot force a JWKS lookup per request, and role checks
+       run last because they read the user the auth guard attached.
+
+       `useExisting`, not `useClass`, on purpose. A global guard registered
+       with `useClass` is instantiated behind a private token that
+       `Test.createTestingModule().overrideProvider()` cannot reach, so an
+       e2e suite could never swap it out — its override would apply to
+       nothing and pass anyway. Pointing APP_GUARD at the guard the module
+       already provides makes the provider token the one thing to override. */
+    ThrottlerGuard,
+    { provide: APP_GUARD, useExisting: ThrottlerGuard },
+    { provide: APP_GUARD, useExisting: WorkosAuthGuard },
+    { provide: APP_GUARD, useExisting: RolesGuard },
   ],
 })
 export class AppModule {}

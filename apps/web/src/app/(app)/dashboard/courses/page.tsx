@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import { withAuth } from '@workos-inc/authkit-nextjs';
 
 import { Panel, PanelEmpty } from '@/components/dashboard/panel';
 import { PortalHeader } from '@/components/dashboard/portal-shell';
 import { portalLinkFor } from '@/components/dashboard/portal-nav';
 import { ProgressMeter } from '@/components/dashboard/progress-meter';
 import { CtaButton } from '@/components/ui/cta-button';
-import { student } from '@/content/dashboard/student';
+import { loadStudentCourses } from '@/lib/dashboard-courses';
 import { formatFullDate } from '@/lib/dates';
 
 export const metadata: Metadata = { title: 'My courses', robots: { index: false, follow: false } };
@@ -16,8 +18,36 @@ const statusLabel = {
   complete: 'Complete',
 } as const;
 
-export default function CoursesPage() {
+/**
+ * The learner's own enrollments, joined to the catalog: course name and
+ * syllabus from the course, dates/room/teacher from the batch. Anything the
+ * API cannot supply is left out rather than invented — no exam tag, no
+ * attendance count, no per-learner progress yet.
+ */
+export default async function CoursesPage() {
+  const { user } = await withAuth();
+
+  if (!user) {
+    redirect('/sign-in');
+  }
+
   const link = portalLinkFor('/dashboard/courses');
+  const result = await loadStudentCourses();
+
+  if ('error' in result) {
+    return (
+      <>
+        <PortalHeader title="My courses" blurb={link?.blurb ?? ''} />
+        <Panel>
+          <PanelEmpty>
+            We could not reach the API just now. Your enrolments are safe — try reloading.
+          </PanelEmpty>
+        </Panel>
+      </>
+    );
+  }
+
+  const courses = result.courses;
 
   return (
     <>
@@ -27,13 +57,13 @@ export default function CoursesPage() {
         </CtaButton>
       </PortalHeader>
 
-      {student.courses.length === 0 ? (
+      {courses.length === 0 ? (
         <Panel>
           <PanelEmpty>You are not enrolled in anything yet.</PanelEmpty>
         </Panel>
       ) : (
         <div className="flex flex-col gap-7">
-          {student.courses.map((course) => {
+          {courses.map((course) => {
             const done = course.modules.filter((unit) => unit.complete).length;
 
             return (
@@ -41,9 +71,6 @@ export default function CoursesPage() {
                 <div className="grid grid-cols-1 gap-8 px-6 py-7 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
                   <div>
                     <div className="mb-3 flex flex-wrap items-center gap-3">
-                      <span className="text-[10.5px] font-bold tracking-[.14em] text-gold-deep uppercase">
-                        {course.exam}
-                      </span>
                       <span
                         className={
                           course.status === 'in-progress'
@@ -71,11 +98,6 @@ export default function CoursesPage() {
                     </dl>
 
                     <div className="flex flex-col gap-4">
-                      <ProgressMeter
-                        label="Sessions attended"
-                        value={course.sessionsAttended}
-                        max={course.sessionsTotal}
-                      />
                       <ProgressMeter
                         label="Syllabus covered"
                         value={done}

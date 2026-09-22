@@ -1,5 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import type { User } from '@repo/db';
+import { userRoles, type User, type UserRole } from '@repo/db';
+
+import { CounselorDto } from './counselor.dto.js';
 
 /**
  * Public shape of a user.
@@ -28,8 +30,16 @@ export class UserResponseDto {
   @ApiPropertyOptional({ nullable: true, type: String })
   profilePictureUrl!: string | null;
 
+  /** Application role. Admins can open the CMS and call the admin endpoints. */
+  @ApiProperty({ enum: userRoles, enumName: 'UserRole' })
+  role!: UserRole;
+
   @ApiProperty({ format: 'date-time' })
   createdAt!: string;
+
+  /** The admin-assigned counselor, or null when none is assigned yet. */
+  @ApiPropertyOptional({ type: CounselorDto, nullable: true })
+  counselor!: CounselorDto | null;
 
   static fromEntity(user: User): UserResponseDto {
     return {
@@ -39,7 +49,9 @@ export class UserResponseDto {
       firstName: user.firstName,
       lastName: user.lastName,
       profilePictureUrl: user.profilePictureUrl,
+      role: user.role,
       createdAt: user.createdAt.toISOString(),
+      counselor: CounselorDto.fromUser(user),
     };
   }
 }

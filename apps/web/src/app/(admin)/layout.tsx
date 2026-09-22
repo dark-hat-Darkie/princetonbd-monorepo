@@ -1,0 +1,64 @@
+import type { Metadata } from 'next';
+import { getCurrentUser } from '@repo/api-client';
+import { AuthKitProvider } from '@workos-inc/authkit-nextjs/components';
+import { withAuth } from '@workos-inc/authkit-nextjs';
+import { redirect } from 'next/navigation';
+
+import { adminLinks } from '@/components/admin/admin-nav';
+import { AccountChip } from '@/components/dashboard/account-chip';
+import { PortalShell } from '@/components/dashboard/portal-shell';
+import { getApiClient } from '@/lib/api';
+import { currentPath } from '@/lib/auth/current-path';
+import { signInHref } from '@/lib/auth/return-to';
+
+export const metadata: Metadata = {
+  title: { template: '%s · Admin', default: 'Admin' },
+  robots: { index: false, follow: false },
+};
+
+/**
+ * Layout for the admin panel.
+ *
+ * The proxy deliberately does NOT gate (it can only redirect to WorkOS
+ * hosted), so the session check lives here: anonymous visitors go to our
+ * sign-in with the return path. What neither layer can know is the role,
+ * which lives in the API's `users` row — so the layout asks the API who the
+ * caller is and sends anyone who is not an admin to the student portal, which
+ * in turn sends admins here: the two surfaces are mutually exclusive. This
+ * check is a convenience — the API's own RolesGuard is what actually protects
+ * the data — but it keeps a student from ever seeing an empty panel that
+ * errors on every save.
+ *
+ * Same shell as the student portal, different link list.
+ */
+export default async function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  /* accessToken is stripped: it is a server credential and must not reach the
+     browser through the provider's initial state. */
+  const { accessToken: _accessToken, ...initialAuth } = await withAuth();
+  const { user } = initialAuth;
+
+  if (!user) {
+    redirect(signInHref(await currentPath('/admin')));
+  }
+
+  const client = await getApiClient();
+  const { data: me } = await getCurrentUser({ client });
+
+  if (me?.role !== 'admin') {
+    redirect('/dashboard');
+  }
+
+  const name =
+    [user.firstName, user.lastName].filter(Boolean).join(' ') || (user.email ?? 'Your account');
+
+  return (
+    <AuthKitProvider initialAuth={initialAuth}>
+      <PortalShell
+        links={adminLinks}
+        account={<AccountChip name={name} email={user.email ?? ''} />}
+      >
+        {children}
+      </PortalShell>
+    </AuthKitProvider>
+  );
+}

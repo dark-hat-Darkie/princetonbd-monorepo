@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { navGroups } from '@/content/site/nav';
+import { navGroups, navStandalone } from '@/content/site/nav';
 import { PrimaryNav } from './primary-nav';
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
@@ -15,6 +15,15 @@ describe('PrimaryNav', () => {
 
     for (const group of navGroups) {
       expect(triggerFor(group.label)).toHaveAttribute('aria-expanded', 'false');
+    }
+  });
+
+  it('renders standalone entries as plain links, not disclosures', () => {
+    render(<PrimaryNav groups={navGroups} links={navStandalone} />);
+
+    for (const link of navStandalone) {
+      expect(screen.getByRole('link', { name: link.label })).toHaveAttribute('href', link.href);
+      expect(screen.queryByRole('button', { name: link.label })).not.toBeInTheDocument();
     }
   });
 

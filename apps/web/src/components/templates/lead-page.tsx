@@ -4,8 +4,15 @@ import { Container } from '@/components/ui/container';
 import { Eyebrow } from '@/components/ui/eyebrow';
 import { PageHero } from '@/components/ui/page-hero';
 import { breadcrumbFor } from '@/content/site/routes';
-import { campuses, contact, telHref } from '@/content/site/contact';
+import { contact, telHref } from '@/content/site/contact';
 import type { LeadPrefill } from '@/lib/actions/lead-shape';
+
+/** A campus card: what the CMS knows about a branch, as the page needs it. */
+export interface CampusCard {
+  name: string;
+  address: string | null;
+  phone: string | null;
+}
 
 export interface LeadPageContent extends PageBase {
   /** Pre-selects the enquiry dropdown, e.g. from the IELTS page. */
@@ -24,10 +31,13 @@ export interface LeadPageContent extends PageBase {
 export function LeadPage({
   content,
   prefill,
+  campuses,
 }: {
   content: LeadPageContent;
   /** From the URL, when an exam page sent the visitor here; else the page's own default. */
   prefill?: LeadPrefill;
+  /** Active branches from the CMS; the page fetches them so this stays renderable in a test. */
+  campuses: readonly CampusCard[];
 }) {
   return (
     <>
@@ -35,7 +45,10 @@ export function LeadPage({
 
       <Container as="section" className="py-(--section-y-sm) lg:py-(--section-y)">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-[70px]">
-          <LeadForm prefill={prefill ?? { interest: content.interestDefault }} />
+          <LeadForm
+            prefill={prefill ?? { interest: content.interestDefault }}
+            campuses={campuses}
+          />
 
           <div>
             <div className="mb-9 border-t border-t-line">
@@ -74,31 +87,35 @@ export function LeadPage({
               </a>
             </div>
 
-            <div>
-              <Eyebrow className="mb-4">Or come in</Eyebrow>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                {campuses.map((campus) => (
-                  <div
-                    key={campus.name}
-                    className="rounded-md border border-line bg-surface px-5 py-5 shadow-card"
-                  >
-                    <div className="mb-1.5 font-display text-[17px] font-semibold text-ink">
-                      {campus.name}
+            {campuses.length > 0 ? (
+              <div>
+                <Eyebrow className="mb-4">Or come in</Eyebrow>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  {campuses.map((campus) => (
+                    <div
+                      key={campus.name}
+                      className="rounded-md border border-line bg-surface px-5 py-5 shadow-card"
+                    >
+                      <div className="mb-1.5 font-display text-[17px] font-semibold text-ink">
+                        {campus.name}
+                      </div>
+                      <address className="text-[13.5px] leading-[1.6] text-muted not-italic">
+                        {campus.address}
+                        {campus.address && campus.phone ? <br /> : null}
+                        {campus.phone ? (
+                          <a
+                            href={telHref(campus.phone)}
+                            className="text-ink transition-colors duration-200 hover:text-brand-ink"
+                          >
+                            {campus.phone}
+                          </a>
+                        ) : null}
+                      </address>
                     </div>
-                    <address className="text-[13.5px] leading-[1.6] text-muted not-italic">
-                      {campus.address}
-                      <br />
-                      <a
-                        href={telHref(campus.phone)}
-                        className="text-ink transition-colors duration-200 hover:text-brand-ink"
-                      >
-                        {campus.phone}
-                      </a>
-                    </address>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
         </div>
       </Container>

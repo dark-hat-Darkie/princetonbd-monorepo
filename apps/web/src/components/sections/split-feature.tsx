@@ -12,7 +12,7 @@ import { cn } from '@/lib/cn';
  *
  * The offset yellow block behind the image is a second absolutely-positioned
  * box, not a border on the image itself — that is what lets it sit proud of the
- * picture on two sides. Same construction as `ui/arch-image.tsx`; this section
+ * picture on two sides. This section
  * predates that component and keeps its own copy because its aspect ratio and
  * offsets differ.
  */

@@ -28,6 +28,14 @@ beforeEach(() => {
     'PORT',
     'SKIP_ENV_VALIDATION',
     'NODE_ENV',
+    'ADMIN_EMAILS',
+    'S3_ENDPOINT',
+    'S3_REGION',
+    'S3_BUCKET',
+    'S3_ACCESS_KEY_ID',
+    'S3_SECRET_ACCESS_KEY',
+    'S3_PUBLIC_URL',
+    'S3_FORCE_PATH_STYLE',
   ]) {
     delete process.env[key];
   }
@@ -42,6 +50,10 @@ const valid = {
   DATABASE_URL_UNPOOLED: NEON_DIRECT,
   WORKOS_API_KEY: 'sk_test_x',
   WORKOS_CLIENT_ID: 'client_x',
+  S3_BUCKET: 'media',
+  S3_ACCESS_KEY_ID: 'key',
+  S3_SECRET_ACCESS_KEY: 'secret',
+  S3_PUBLIC_URL: 'https://media.example.com/',
 };
 
 describe('API env validation', () => {
@@ -80,6 +92,29 @@ describe('API env validation', () => {
   it('coerces PORT from its string form', async () => {
     const env = await loadEnv({ ...valid, PORT: '8080' });
     expect(env.PORT).toBe(8080);
+  });
+
+  it('normalises ADMIN_EMAILS to a lower-cased, trimmed list and defaults to none', async () => {
+    const env = await loadEnv({ ...valid, ADMIN_EMAILS: ' Ada@Example.com, grace@example.com ,' });
+    expect(env.ADMIN_EMAILS).toEqual(['ada@example.com', 'grace@example.com']);
+
+    const none = await loadEnv({ ...valid, ADMIN_EMAILS: undefined });
+    expect(none.ADMIN_EMAILS).toEqual([]);
+  });
+
+  it('requires the storage bucket and credentials', async () => {
+    await expect(loadEnv({ ...valid, S3_BUCKET: undefined })).rejects.toThrow(/S3_BUCKET/);
+    await expect(loadEnv({ ...valid, S3_PUBLIC_URL: 'not a url' })).rejects.toThrow(
+      /S3_PUBLIC_URL/,
+    );
+  });
+
+  it('treats an empty S3_ENDPOINT as unset and strips the public URL trailing slash', async () => {
+    const env = await loadEnv({ ...valid, S3_ENDPOINT: '', S3_FORCE_PATH_STYLE: 'true' });
+    expect(env.S3_ENDPOINT).toBeUndefined();
+    expect(env.S3_PUBLIC_URL).toBe('https://media.example.com');
+    expect(env.S3_FORCE_PATH_STYLE).toBe(true);
+    expect(env.S3_REGION).toBe('auto');
   });
 
   it('bypasses validation when SKIP_ENV_VALIDATION is set, for image builds', async () => {

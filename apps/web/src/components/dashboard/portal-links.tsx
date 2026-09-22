@@ -3,15 +3,16 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import type { PortalLink } from './portal-nav';
+import { isPortalLinkActive, type PortalLink } from './portal-nav';
 import { cn } from '@/lib/cn';
 
 /**
  * The link list, shared by the sidebar and the mobile drawer.
  *
  * Client-side only because the active item is derived from the current path.
- * Matched exactly rather than by prefix: every portal route is a leaf, and a
- * `startsWith` test would light up Overview on all of them.
+ * Matched exactly by default: every student-portal route is a leaf, and a
+ * `startsWith` test would light up Overview on all of them. A link may opt
+ * into prefix matching where its pages nest (see `PortalLink.match`).
  */
 export function PortalLinks({
   links,
@@ -26,7 +27,7 @@ export function PortalLinks({
   return (
     <ul className="flex flex-col gap-0.5">
       {links.map((link) => {
-        const active = pathname === link.href;
+        const active = isPortalLinkActive(link, pathname);
 
         return (
           <li key={link.href}>

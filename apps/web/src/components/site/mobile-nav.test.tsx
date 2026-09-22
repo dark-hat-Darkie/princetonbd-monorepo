@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { navGroups } from '@/content/site/nav';
+import { navGroups, navStandalone } from '@/content/site/nav';
 import { MobileNav } from './mobile-nav';
 
 afterEach(() => {
@@ -36,6 +36,19 @@ describe('MobileNav', () => {
           ).toBe(true);
         }
       }
+    }
+  });
+
+  it('lists standalone links as rows of their own', () => {
+    render(<MobileNav groups={navGroups} links={navStandalone} />);
+    fireEvent.click(trigger());
+
+    const dialog = screen.getByRole('dialog', { name: 'Site menu' });
+    for (const link of navStandalone) {
+      expect(within(dialog).getByRole('link', { name: link.label })).toHaveAttribute(
+        'href',
+        link.href,
+      );
     }
   });
 

@@ -6,10 +6,10 @@ authentication. TypeScript throughout, pnpm workspaces.
 
 ```
 apps/
-  web/                Next.js 16 · App Router · Tailwind 4 · AuthKit
-  api/                NestJS 11 · Drizzle · Swagger · WorkOS JWKS verification
+  web/                Next.js 16 · App Router · Tailwind 4 · AuthKit · admin panel at /admin
+  api/                NestJS 11 · Drizzle · Swagger · WorkOS JWKS verification · CMS API
 packages/
-  db/                 Drizzle schema, pg client factory, SQL migrations
+  db/                 Drizzle schema, pg client factory, SQL migrations, seed
   api-client/         Typed client generated from the API's OpenAPI document
   env/                Zod-validated environment, separate api/web entry points
   eslint-config/      Shared flat configs (base / nest / next)
@@ -33,14 +33,16 @@ corepack enable
 
 ```bash
 pnpm install
-cp .env.example .env          # then fill in the WorkOS values
-docker compose up -d          # local Postgres on :55432
+cp .env.example .env          # then fill in the WorkOS values and ADMIN_EMAILS
+docker compose up -d          # local Postgres on :55432, MinIO on :9000/:9001
 pnpm db:migrate               # apply migrations
+pnpm db:seed                  # the twelve courses, their batches, faculty and quotes
 pnpm dev                      # web on :3000, api on :3001
 ```
 
-Useful URLs: web http://localhost:3000 · API http://localhost:3001 ·
-Swagger http://localhost:3001/api/docs · health http://localhost:3001/health
+Useful URLs: web http://localhost:3000 · admin http://localhost:3000/admin ·
+API http://localhost:3001 · Swagger http://localhost:3001/api/docs ·
+health http://localhost:3001/health · MinIO console http://localhost:9001
 
 ## Commands
 
@@ -56,6 +58,7 @@ All commands run from the repo root and are orchestrated by Turborepo.
 | `pnpm format` / `pnpm format:check` | Prettier                                           |
 | `pnpm db:generate`                  | Emits a SQL migration from schema changes          |
 | `pnpm db:migrate`                   | Applies pending migrations (direct connection)     |
+| `pnpm db:seed`                      | Loads `packages/db/seed/cms-seed.json`; idempotent |
 | `pnpm db:studio`                    | Drizzle Studio                                     |
 | `pnpm gen:api`                      | Regenerates `@repo/api-client` from the API        |
 
@@ -166,10 +169,77 @@ Next.js 16 renamed `middleware.ts` to `proxy.ts`; AuthKit exports
 `authkitProxy` for it. The matcher in `src/proxy.ts` is explicit on purpose — a
 catch-all also intercepts static assets and breaks Tailwind v4 styles.
 
+## The CMS and the admin panel
+
+Courses, their curriculum, batches, branches, teachers and testimonials are
+database records edited at `/admin` and served by the API. The public course
+pages (`/test-prep/<slug>`) are statically rendered from those records and
+refreshed daily; an admin save expires the affected pages immediately.
+
+```
+/admin  (apps/web, route group (admin))
+   │  Server Actions → generated client, admin's bearer token
+   ▼
+apps/api  /api/v1/admin/*   @Roles('admin')   ← RolesGuard reads users.role
+          /api/v1/courses   @Public()          ← what the site reads, tagged fetches
+   │
+   ▼
+Postgres  courses · curriculum_modules · batches · branches · teachers ·
+          testimonials · course_teachers · course_testimonials
+```
+
+### Who is an admin
+
+`users.role` is `student` by default. Any email listed in `ADMIN_EMAILS`
+(comma-separated, case-insensitive) is promoted to `admin` the first time it
+signs in, and on any later request if the row was demoted by hand. The list
+only ever promotes; to remove an admin, update the row. There is no UI for
+roles yet. Admins and students are separate surfaces: `/dashboard` sends an
+admin to `/admin`, and `/admin` sends a student to `/dashboard`.
+
+### What stays in code
+
+Each course's hero copy, "what you get" features, statistics, FAQ and search
+snippet are an _editorial overlay_ in `apps/web/src/content/exams/<slug>.ts`,
+keyed by the course slug. A course created in the panel with no overlay gets
+sensible defaults from `lib/course-view.ts`. The navigation, footer and route
+registry are still hand-curated: a new course appears on the hub, the compare
+table, the sitemap and its own page without a deploy, but not in the header
+until someone adds it to `content/site/nav.ts`.
+
+### Images
+
+Course thumbnails and teacher photos go straight from the browser to an
+S3-compatible bucket. The API only signs a five-minute PUT URL
+(`POST /api/v1/admin/uploads/presign`); the resulting public URL is what gets
+stored. Locally the bucket is MinIO from `docker compose`; in production point
+the `S3_*` variables at Cloudflare R2 (`S3_REGION=auto`, a custom endpoint) or
+AWS S3, and give the bucket a CORS rule allowing `PUT` from the web origin.
+`NEXT_PUBLIC_MEDIA_URL` must equal `S3_PUBLIC_URL` so `next/image` allows the
+host.
+
+### Caching
+
+Public reads go through `apps/web/src/lib/cms.ts`, which tags every fetch
+(`cms`, `cms:courses`, `cms:course:<slug>`, …) and caches it for a day. Admin
+actions call `revalidateCms()`, which expires the touched course pages outright
+and marks everything else stale-while-revalidate. Verify caching behaviour with
+`pnpm build && pnpm start`; `next dev` ignores it.
+
+### Seeding
+
+`packages/db/seed/cms-seed.json` is a one-time export of the site's original
+static content. `pnpm db:seed` upserts branches, teachers and courses by slug,
+replaces each course's modules and teacher list, and only inserts batches and
+testimonials where none exist — so re-running it never undoes an admin's edits
+to those.
+
 ## Deployment
 
 **`apps/web` → Vercel.** Root directory `apps/web`. Set the Ignored Build Step
-to `npx turbo-ignore` so untouched web deploys are skipped.
+to `npx turbo-ignore` so untouched web deploys are skipped. Set
+`NEXT_PUBLIC_MEDIA_URL` alongside the existing variables; if the API is
+unreachable during the build, course pages are simply rendered on first visit.
 
 **`apps/api` → Railway / Render**, from `apps/api/Dockerfile` built at the
 repository root:
@@ -181,6 +251,8 @@ docker build -f apps/api/Dockerfile -t princetonbd-api .
 Multi-stage with `turbo prune --docker`, so an unrelated change in `apps/web`
 does not invalidate the dependency-install layer. Runs as a non-root user and
 ships only `dist/` plus production dependencies. Health probe: `GET /health`.
+Set `ADMIN_EMAILS` and the `S3_*` block on the host along with the database
+and WorkOS variables.
 
 **Migrations** run from CI on `main` (see `.github/workflows/ci.yml`), never at
 application boot — multiple replicas starting at once would race, and a failed

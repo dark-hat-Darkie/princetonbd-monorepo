@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
-import { navGroups } from '@/content/site/nav';
+import { navGroups, navStandalone } from '@/content/site/nav';
+import { HeaderAuthSlot } from './auth-slot';
 import { MobileNav } from './mobile-nav';
 import { PrimaryNav } from './primary-nav';
 import { BrandMark } from '@/components/ui/brand-mark';
@@ -44,16 +45,14 @@ export function SiteHeader() {
           <BrandMark />
         </Link>
 
-        <PrimaryNav groups={navGroups} />
+        <PrimaryNav groups={navGroups} links={navStandalone} />
 
         <div className="flex flex-none items-center gap-[18px]">
-          <MobileNav groups={navGroups} />
-          <Link
-            href="/sign-in"
-            className="hidden rounded-full px-1 text-[11px] font-bold tracking-[.11em] whitespace-nowrap text-ink-soft uppercase transition-colors duration-200 hover:text-brand-ink nav:inline"
-          >
-            Log in
-          </Link>
+          <MobileNav groups={navGroups} links={navStandalone} />
+          {/* Session-aware: `Log in` for visitors, `Dashboard` for members. The
+              header stays a static Server Component; the island upgrades the
+              link client-side once /auth/session answers. */}
+          <HeaderAuthSlot />
           {/* Below `sm` the brand, burger and CTA cannot share 390px without
               the button being clipped. The drawer carries the same action, so
               it drops out here rather than overflowing. */}

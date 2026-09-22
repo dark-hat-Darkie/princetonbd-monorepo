@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 
 import { LeadPage } from '@/components/templates/lead-page';
-import { batchById, batchLabel } from '@/content/batches';
 import { contactPage } from '@/content/company/lead-pages';
-import { examBySlug } from '@/content/exams';
-import { campuses } from '@/content/site/contact';
+import { editorialFor } from '@/content/exams';
 import { leadInterests, type LeadPrefill } from '@/lib/actions/lead-shape';
+import { batchLabel } from '@/lib/batches';
+import { getBatch, getBranches } from '@/lib/cms';
 
 export const metadata: Metadata = contactPage.seo;
 
@@ -15,15 +15,14 @@ function single(value: string | string[] | undefined): string | undefined {
 }
 
 /**
- * The contact page reads `?interest=`, `?campus=` and `?batch=` — what an exam
- * page's "Reserve a seat" button sets — and seeds the form with them.
+ * The contact page reads `?interest=`, `?campus=` and `?batch=` — what a
+ * course page's "Reserve a seat" button sets — and seeds the form with them.
  *
- * Every value is checked against its source list before it is trusted, so a
- * hand-edited URL produces an empty field, never an injected label. Reading
- * `searchParams` makes this the second dynamically rendered marketing page
- * (after the university finder), which is the right trade: the form is a
- * client component anyway, and the alternative is shipping the batch list to
- * the browser to resolve a label.
+ * Every value is checked against its source before it is trusted: the
+ * interest against the form's own list, the campus and batch against the
+ * CMS. A hand-edited URL produces an empty field, never an injected label.
+ * Reading `searchParams` makes this a dynamically rendered page, which is
+ * the right trade: the form is a client component anyway.
  */
 export default async function ContactPage({
   searchParams,
@@ -36,20 +35,25 @@ export default async function ContactPage({
   const campus = single(params.campus);
   const batchId = single(params.batch);
 
-  const batch = batchId ? batchById(batchId) : undefined;
-  const exam = batch ? examBySlug(batch.examSlug) : undefined;
+  const [branches, batch] = await Promise.all([
+    getBranches(),
+    /* A batch that cannot be checked is treated as absent: the visitor can
+       still enquire, they just will not see the echo line. */
+    batchId ? getBatch(batchId).catch(() => null) : Promise.resolve(null),
+  ]);
+  const editorial = batch ? editorialFor(batch.courseSlug) : undefined;
 
   const prefill: LeadPrefill = {
     interest:
       interest && (leadInterests as readonly string[]).includes(interest)
         ? interest
-        : (exam?.interest ?? contactPage.interestDefault),
+        : (editorial?.interest ?? contactPage.interestDefault),
     campus:
-      campus && campuses.some((entry) => entry.name === campus)
+      campus && branches.some((entry) => entry.name === campus)
         ? campus
-        : (batch?.campus ?? undefined),
-    batch: batch && exam ? { id: batch.id, label: batchLabel(exam, batch) } : undefined,
+        : (batch?.branch?.name ?? undefined),
+    batch: batch ? { id: batch.id, label: batchLabel(batch.courseName, batch) } : undefined,
   };
 
-  return <LeadPage content={contactPage} prefill={prefill} />;
+  return <LeadPage content={contactPage} prefill={prefill} campuses={branches} />;
 }

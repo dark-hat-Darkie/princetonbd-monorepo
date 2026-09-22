@@ -51,7 +51,7 @@ export class WorkosAuthGuard implements CanActivate {
     }
 
     request.claims = claims;
-    request.user = await this.resolveUser(claims);
+    request.user = await this.users.applyAdminAllowlist(await this.resolveUser(claims));
 
     return true;
   }

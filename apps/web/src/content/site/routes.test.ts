@@ -3,7 +3,7 @@ import { join, relative, sep } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 import { footerColumns, legalLinks } from './footer';
-import { navGroups } from './nav';
+import { navGroups, navStandalone } from './nav';
 import { breadcrumbFor, routes } from './routes';
 
 /**
@@ -56,19 +56,43 @@ fileRoutes.add('/');
 /** Dynamic segments cannot be matched literally; check the parent instead. */
 const staticFileRoutes = new Set([...fileRoutes].filter((route) => !route.includes('[')));
 
-const navHrefs = navGroups.flatMap((group) => [
-  { where: `nav group "${group.label}"`, href: group.href },
-  ...group.columns.flatMap((column) =>
-    column.links.map((link) => ({
-      where: `nav "${group.label}" › ${column.title} › ${link.label}`,
+/**
+ * `[slug]` routes, as patterns. `/test-prep/sat` has no file of its own any
+ * more — the CMS serves it through `/test-prep/[slug]` — so an href is valid
+ * when it either names a static file or fits one of these.
+ */
+const dynamicRoutePatterns = [...fileRoutes]
+  .filter((route) => route.includes('['))
+  .map(
+    (route) =>
+      new RegExp(
+        `^${route
+          .split('/')
+          .map((segment) => (segment.startsWith('[') ? '[^/]+' : segment))
+          .join('/')}$`,
+      ),
+  );
+
+function isServedRoute(path: string): boolean {
+  return staticFileRoutes.has(path) || dynamicRoutePatterns.some((pattern) => pattern.test(path));
+}
+
+const navHrefs = [
+  ...navGroups.flatMap((group) => [
+    { where: `nav group "${group.label}"`, href: group.href },
+    ...group.columns.flatMap((column) =>
+      column.links.map((link) => ({
+        where: `nav "${group.label}" › ${column.title} › ${link.label}`,
+        href: link.href,
+      })),
+    ),
+    ...(group.featured ?? []).map((link) => ({
+      where: `nav "${group.label}" › featured › ${link.label}`,
       href: link.href,
     })),
-  ),
-  ...(group.featured ?? []).map((link) => ({
-    where: `nav "${group.label}" › featured › ${link.label}`,
-    href: link.href,
-  })),
-]);
+  ]),
+  ...navStandalone.map((link) => ({ where: `nav standalone › ${link.label}`, href: link.href })),
+];
 
 const footerHrefs = [
   ...footerColumns.flatMap((column) =>
@@ -82,7 +106,7 @@ const footerHrefs = [
 
 describe('route registry', () => {
   it('has a real page file for every registered route', () => {
-    const missing = routes.filter((route) => !staticFileRoutes.has(route.path));
+    const missing = routes.filter((route) => !isServedRoute(route.path));
 
     expect(missing.map((route) => route.path)).toEqual([]);
   });
@@ -94,7 +118,16 @@ describe('route registry', () => {
    * sign-in flow. Both are excluded here rather than registered and then
    * filtered back out at sitemap time.
    */
-  const notCrawlable = ['/dashboard', '/auth/'];
+  const notCrawlable = [
+    '/dashboard',
+    '/admin',
+    '/auth/',
+    '/sign-in',
+    '/sign-up',
+    '/verify-email',
+    '/forgot-password',
+    '/reset-password',
+  ];
 
   it('registers every crawlable page file that exists', () => {
     const registered = new Set(routes.map((route) => route.path));
@@ -126,11 +159,11 @@ describe('route registry', () => {
 
 describe('navigation links', () => {
   it.each(navHrefs)('$where points at a real page ($href)', ({ href }) => {
-    expect(staticFileRoutes.has(href)).toBe(true);
+    expect(isServedRoute(href)).toBe(true);
   });
 
   it.each(footerHrefs)('$where points at a real page ($href)', ({ href }) => {
-    expect(staticFileRoutes.has(href)).toBe(true);
+    expect(isServedRoute(href)).toBe(true);
   });
 
   it('lists every nav destination in the route registry', () => {

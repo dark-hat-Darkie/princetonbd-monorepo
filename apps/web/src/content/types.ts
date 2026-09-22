@@ -52,14 +52,11 @@ export interface CourseFormat {
 }
 
 /* ---------------------------------------------------------------------------
- * Course shapes: what an exam course costs, what it teaches, and when it runs.
- *
- * Written as the contract a future `/api/v1/courses` and `/api/v1/batches`
- * would satisfy. Today they are filled from static modules; swapping those for
- * fetches should not change a single consumer.
+ * Course shapes: what a course costs and what it teaches, as the page
+ * sections take them. Filled by `lib/course-view.ts` from the CMS record;
+ * batches, teachers and quotes arrive through the same mapper as their own
+ * view types.
  * ------------------------------------------------------------------------- */
-
-export type DeliveryMode = 'Classroom' | 'LiveOnline';
 
 /** The one price a learner pays for the course; a batch may override it. */
 export interface CourseFee {
@@ -88,33 +85,15 @@ export interface Curriculum {
   title: string;
   intro?: string;
   modules: readonly CurriculumModule[];
-  totals: { weeks: number; taughtHours: number; mocks: number; classSize: string };
+  /** Each is optional in the CMS; a null tile is simply not shown. */
+  totals: {
+    weeks: number | null;
+    taughtHours: number | null;
+    mocks: number | null;
+    classSize: string | null;
+  };
   /** What the learner can do on completion; rendered under the modules. */
   outcomes?: readonly string[];
-}
-
-export type BatchStatus = 'open' | 'filling' | 'waitlist' | 'closed';
-
-/** One scheduled run of an exam course. */
-export interface Batch {
-  /** Stable id, also the `?batch=` value on /contact, e.g. "ielts-2026-10-gulshan". */
-  id: string;
-  /** Matches `ExamContent.slug`. */
-  examSlug: string;
-  mode: DeliveryMode;
-  /** A `Campus['name']`; null if and only if `mode === 'LiveOnline'`. */
-  campus: string | null;
-  /** Calendar dates, YYYY-MM-DD, read as Dhaka days. */
-  startsOn: string;
-  endsOn: string;
-  /** Days and time, e.g. "Sat · Mon · Wed, 6:30–8:30 pm". */
-  schedule: string;
-  status: BatchStatus;
-  seatsLeft?: number;
-  /** An `Instructor['name']` from people.ts. */
-  instructor?: string;
-  /** Overrides the exam's canonical fee, e.g. a cheaper LiveOnline run. */
-  fee?: Price;
 }
 
 /** A card in the bordered hairline grid. */
@@ -126,6 +105,8 @@ export interface GridCard {
   desc: string;
   meta?: string;
   href?: string;
+  /** Optional cover image (a course thumbnail), shown across the top of the card. */
+  image?: string;
 }
 
 /** A plain feature/value card — no number, no trailing meta row. */
@@ -226,20 +207,29 @@ export interface HubContent extends PageBase {
   faq?: readonly FaqItem[];
 }
 
-export interface ExamContent extends PageBase {
-  /** Short exam name used in headings and structured data, e.g. "SAT". */
-  name: string;
-  /** Last path segment; the key batches and the compare table use. */
+/**
+ * The editorial half of a course page — the copy the API does not own.
+ *
+ * The course itself (name, price, curriculum, batches, teachers, quotes)
+ * comes from the CMS via `lib/cms.ts`; this is the per-course hero, feature
+ * grid, statistics, FAQ and search snippet a writer still hand-crafts. Keyed
+ * by the course slug; a course with no overlay gets sensible defaults from
+ * `lib/course-view.ts`, so the admin can launch a course before anyone has
+ * written a page for it.
+ */
+export interface ExamEditorial {
+  /** Matches the course slug in the CMS. */
   slug: string;
-  /** Which enquiry-form option this exam maps to. */
+  /** Which enquiry-form option this course maps to. */
   interest: LeadInterest;
-  fee: CourseFee;
-  modes: readonly DeliveryMode[];
-  curriculum: Curriculum;
+  seo: PageSeo;
+  hero: HeroContent;
   includes: FeaturesBlock;
   stats?: readonly Stat[];
-  testimonials?: readonly string[];
   faq: readonly FaqItem[];
+  /** Heading copy above the module list; the modules themselves are CMS data. */
+  curriculum?: { eyebrow?: string; title?: string; intro?: string };
+  closing?: ClosingContent;
 }
 
 export interface ProgramContent extends PageBase {
@@ -253,46 +243,11 @@ export interface ProgramContent extends PageBase {
   faq?: readonly FaqItem[];
 }
 
-export interface GuideContent extends PageBase {
-  /** Optional hero photograph, shown in the arched frame beside the title. */
-  image?: { src: string; alt: string };
-  body: readonly Block[];
-  related?: readonly GridCard[];
-  faq?: readonly FaqItem[];
-}
-
-export interface CompanyContent extends PageBase {
-  body?: readonly Block[];
-  cards?: CardsBlock;
-  features?: FeaturesBlock;
-  stats?: readonly Stat[];
-}
-
 export interface LegalContent {
   path: string;
   seo: PageSeo;
   title: string;
   /** ISO date, rendered as "Last updated". */
   updated: string;
-  body: readonly Block[];
-}
-
-/**
- * An advice article.
- *
- * The only content on the site behind a dynamic route: the set grows over time
- * and nothing links to an individual piece by literal href, so a `[slug]`
- * segment with `generateStaticParams` is the right shape here where explicit
- * directories are right everywhere else.
- */
-export interface Article {
-  slug: string;
-  title: string;
-  description: string;
-  /** Rendered as a filter pill on the index. */
-  category: string;
-  /** ISO date. Sorts the index, newest first. */
-  published: string;
-  readingMinutes: number;
   body: readonly Block[];
 }

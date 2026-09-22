@@ -15,9 +15,14 @@ import { authkitProxy } from '@workos-inc/authkit-nextjs';
  * the matcher covers already has a session.
  */
 export default authkitProxy({
-  /* Every path the matcher covers requires a session, so no exemptions are
-     needed — `/` is no longer matched at all. */
-  middlewareAuth: { enabled: true, unauthenticatedPaths: [] },
+  /* Gating is OFF here on purpose. With `enabled: true` an anonymous visit to
+     a matched route redirects to the WorkOS *hosted* login — the one this
+     site no longer uses. The proxy still runs everywhere the matcher covers
+     (session refresh, the `x-url` header, the `withAuth()` green light); the
+     actual "you must sign in" decision lives one layer down, in the (app) and
+     (admin) layouts and the enroll page/action, which redirect to OUR
+     `/sign-in` with the return path preserved. */
+  middlewareAuth: { enabled: false, unauthenticatedPaths: [] },
 });
 
 /**
@@ -27,8 +32,30 @@ export default authkitProxy({
  *
  * `/` is deliberately absent. Running the proxy over a route makes it
  * dynamically rendered, and the landing page needs to stay static — so its
- * header links to /sign-in rather than reflecting live session state.
+ * header ships the logged-out link and the auth slot upgrades it client-side
+ * once /auth/session answers.
+ *
+ * The public auth pages (`/sign-in`, `/sign-up`, `/verify-email`,
+ * `/forgot-password`, `/reset-password`) ARE matched, exempted from gating
+ * via `unauthenticatedPaths` above: their pages call `withAuth()` to bounce
+ * already-signed-in visitors, which throws on routes the proxy skips.
  */
 export const config = {
-  matcher: ['/dashboard/:path*', '/auth/callback'],
+  /* `/enroll` calls `withAuth()` in its pages and its checkout action, so the
+     proxy must run there: without its header `withAuth` throws
+     "isn't covered by the AuthKit middleware". Gating is a bonus — checkout
+     requires a session anyway — and the sign-in return path keeps the full
+     URL, so `?course=`/`?batch=` survive the round trip. */
+  matcher: [
+    '/dashboard/:path*',
+    '/admin/:path*',
+    '/enroll/:path*',
+    '/auth/callback',
+    '/auth/session',
+    '/sign-in',
+    '/sign-up',
+    '/verify-email',
+    '/forgot-password',
+    '/reset-password',
+  ],
 };

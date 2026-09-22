@@ -4,6 +4,19 @@ export type ClientOptions = {
     baseUrl: `${string}://${string}` | (string & {});
 };
 
+/**
+ * Application role. Admins can open the CMS and call the admin endpoints.
+ */
+export type UserRole = 'student' | 'admin';
+
+export type CounselorDto = {
+    name: string;
+    role?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    nextCheckIn?: string | null;
+};
+
 export type UserResponseDto = {
     id: string;
     /**
@@ -14,7 +27,657 @@ export type UserResponseDto = {
     firstName?: string | null;
     lastName?: string | null;
     profilePictureUrl?: string | null;
+    /**
+     * Application role. Admins can open the CMS and call the admin endpoints.
+     */
+    role: UserRole;
     createdAt: string;
+    /**
+     * The admin-assigned counselor, or null when none is assigned yet.
+     */
+    counselor?: CounselorDto | null;
+};
+
+export type ErrorResponseDto = {
+    statusCode: number;
+    message: string;
+    error?: string;
+};
+
+export type UpdateCounselorDto = {
+    name?: string | null;
+    role?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    nextCheckIn?: string | null;
+};
+
+export type ValidationErrorResponseDto = {
+    statusCode: number;
+    message: string;
+    error?: string;
+    errors: {
+        [key: string]: Array<string>;
+    };
+};
+
+export type BranchDto = {
+    id: string;
+    slug: string;
+    name: string;
+    address: string | null;
+    phone: string | null;
+    /**
+     * Inactive branches are hidden from public lists but keep their history.
+     */
+    isActive: boolean;
+    sortOrder: number;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type CreateBranchDto = {
+    /**
+     * URL segment. Derived from `name` when omitted.
+     */
+    slug?: string;
+    name: string;
+    address?: string | null;
+    phone?: string | null;
+    isActive?: boolean;
+    sortOrder?: number;
+};
+
+export type UpdateBranchDto = {
+    /**
+     * URL segment. Derived from `name` when omitted.
+     */
+    slug?: string;
+    name?: string;
+    address?: string | null;
+    phone?: string | null;
+    isActive?: boolean;
+    sortOrder?: number;
+};
+
+export type CourseStatus = 'draft' | 'published' | 'archived';
+
+export type CourseRefDto = {
+    id: string;
+    slug: string;
+    name: string;
+    status: CourseStatus;
+};
+
+export type TeacherWithCoursesDto = {
+    id: string;
+    slug: string;
+    name: string;
+    /**
+     * The title shown under the name.
+     */
+    designation: string;
+    /**
+     * One or two lines: the credential that matters.
+     */
+    bio: string;
+    /**
+     * Public URL of an uploaded photo; null renders a monogram.
+     */
+    imageUrl: string | null;
+    branch: BranchDto | null;
+    isActive: boolean;
+    sortOrder: number;
+    createdAt: string;
+    updatedAt: string;
+    courses: Array<CourseRefDto>;
+};
+
+export type CreateTeacherDto = {
+    /**
+     * URL segment. Derived from `name` when omitted.
+     */
+    slug?: string;
+    name: string;
+    designation: string;
+    bio?: string;
+    imageUrl?: string | null;
+    branchId?: string | null;
+    isActive?: boolean;
+    sortOrder?: number;
+};
+
+export type UpdateTeacherDto = {
+    /**
+     * URL segment. Derived from `name` when omitted.
+     */
+    slug?: string;
+    name?: string;
+    designation?: string;
+    bio?: string;
+    imageUrl?: string | null;
+    branchId?: string | null;
+    isActive?: boolean;
+    sortOrder?: number;
+};
+
+export type Currency = 'BDT';
+
+export type DeliveryMode = 'classroom' | 'live_online';
+
+export type BatchTeacherDto = {
+    id: string;
+    slug: string;
+    name: string;
+};
+
+/**
+ * Which days of the week the batch meets, Saturday first.
+ */
+export type Weekday = 'sat' | 'sun' | 'mon' | 'tue' | 'wed' | 'thu' | 'fri';
+
+export type BatchStatus = 'open' | 'filling' | 'waitlist' | 'closed';
+
+export type BatchDto = {
+    id: string;
+    courseId: string;
+    courseSlug: string;
+    courseName: string;
+    mode: DeliveryMode;
+    /**
+     * Null for a live-online batch.
+     */
+    branch: BranchDto | null;
+    teacher: BatchTeacherDto | null;
+    /**
+     * Dhaka calendar day, YYYY-MM-DD.
+     */
+    startsOn: string;
+    endsOn: string;
+    /**
+     * Which days of the week the batch meets, Saturday first.
+     */
+    days: Array<Weekday>;
+    /**
+     * Dhaka wall-clock time, HH:MM.
+     */
+    startTime: string;
+    endTime: string;
+    status: BatchStatus;
+    seatsLeft: number | null;
+    /**
+     * Whole taka; null means the course price applies.
+     */
+    feeAmount: number | null;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type CourseSummaryDto = {
+    id: string;
+    slug: string;
+    name: string;
+    description: string;
+    thumbnailUrl: string | null;
+    /**
+     * Whole taka.
+     */
+    priceAmount: number;
+    priceUnit: string;
+    currency: Currency;
+    modes: Array<DeliveryMode>;
+    status: CourseStatus;
+    durationWeeks: number | null;
+    taughtHours: number | null;
+    mockCount: number | null;
+    classSize: string | null;
+    sortOrder: number;
+    /**
+     * The soonest batch a learner can still join, or null when none is scheduled.
+     */
+    nextBatch: BatchDto | null;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type CurriculumModuleDto = {
+    id: string;
+    /**
+     * 1-based display order.
+     */
+    position: number;
+    title: string;
+    summary: string;
+    topics: Array<string>;
+    hours: number | null;
+    outcome: string | null;
+};
+
+export type TeacherDto = {
+    id: string;
+    slug: string;
+    name: string;
+    /**
+     * The title shown under the name.
+     */
+    designation: string;
+    /**
+     * One or two lines: the credential that matters.
+     */
+    bio: string;
+    /**
+     * Public URL of an uploaded photo; null renders a monogram.
+     */
+    imageUrl: string | null;
+    branch: BranchDto | null;
+    isActive: boolean;
+    sortOrder: number;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type TestimonialDto = {
+    id: string;
+    name: string;
+    /**
+     * Score and destination, e.g. "SAT 1540 · NUS, Singapore".
+     */
+    result: string;
+    quote: string;
+    imageUrl: string | null;
+    isActive: boolean;
+    sortOrder: number;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type CourseDetailDto = {
+    id: string;
+    slug: string;
+    name: string;
+    description: string;
+    thumbnailUrl: string | null;
+    /**
+     * Whole taka.
+     */
+    priceAmount: number;
+    priceUnit: string;
+    currency: Currency;
+    modes: Array<DeliveryMode>;
+    status: CourseStatus;
+    durationWeeks: number | null;
+    taughtHours: number | null;
+    mockCount: number | null;
+    classSize: string | null;
+    sortOrder: number;
+    /**
+     * The soonest batch a learner can still join, or null when none is scheduled.
+     */
+    nextBatch: BatchDto | null;
+    createdAt: string;
+    updatedAt: string;
+    /**
+     * Bullet list on the fee card.
+     */
+    feeIncludes: Array<string>;
+    /**
+     * "By the end of the course you will…"
+     */
+    outcomes: Array<string>;
+    modules: Array<CurriculumModuleDto>;
+    /**
+     * Publicly: upcoming, joinable batches soonest first. For admins: every batch.
+     */
+    batches: Array<BatchDto>;
+    teachers: Array<TeacherDto>;
+    testimonials: Array<TestimonialDto>;
+};
+
+export type CreateCourseDto = {
+    /**
+     * URL segment under /test-prep/. Derived from `name` when omitted.
+     */
+    slug?: string;
+    name: string;
+    /**
+     * One or two sentences; shown on cards and used as the default page intro.
+     */
+    description?: string;
+    /**
+     * Public URL from the upload endpoint. Null clears it.
+     */
+    thumbnailUrl?: string | null;
+    /**
+     * Whole taka.
+     */
+    priceAmount: number;
+    priceUnit?: string;
+    feeIncludes?: Array<string>;
+    modes: Array<DeliveryMode>;
+    status?: CourseStatus;
+    durationWeeks?: number | null;
+    taughtHours?: number | null;
+    mockCount?: number | null;
+    classSize?: string | null;
+    outcomes?: Array<string>;
+    sortOrder?: number;
+};
+
+export type UpdateCourseDto = {
+    /**
+     * URL segment under /test-prep/. Derived from `name` when omitted.
+     */
+    slug?: string;
+    name?: string;
+    /**
+     * One or two sentences; shown on cards and used as the default page intro.
+     */
+    description?: string;
+    /**
+     * Public URL from the upload endpoint. Null clears it.
+     */
+    thumbnailUrl?: string | null;
+    /**
+     * Whole taka.
+     */
+    priceAmount?: number;
+    priceUnit?: string;
+    feeIncludes?: Array<string>;
+    modes?: Array<DeliveryMode>;
+    status?: CourseStatus;
+    durationWeeks?: number | null;
+    taughtHours?: number | null;
+    mockCount?: number | null;
+    classSize?: string | null;
+    outcomes?: Array<string>;
+    sortOrder?: number;
+};
+
+export type CurriculumModuleInputDto = {
+    title: string;
+    summary?: string;
+    topics?: Array<string>;
+    hours?: number | null;
+    outcome?: string | null;
+};
+
+export type ReplaceCurriculumDto = {
+    modules: Array<CurriculumModuleInputDto>;
+};
+
+export type ReplaceCourseTeachersDto = {
+    teacherIds: Array<string>;
+};
+
+export type CreateBatchDto = {
+    mode: DeliveryMode;
+    /**
+     * Required for a classroom batch, must be empty for a live-online one.
+     */
+    branchId?: string | null;
+    teacherId?: string | null;
+    /**
+     * Dhaka calendar day, YYYY-MM-DD.
+     */
+    startsOn: string;
+    endsOn: string;
+    days: Array<Weekday>;
+    /**
+     * Dhaka wall-clock time, HH:MM (24-hour).
+     */
+    startTime: string;
+    endTime: string;
+    status?: BatchStatus;
+    seatsLeft?: number | null;
+    /**
+     * Whole taka; overrides the course price for this run. Null means the course price.
+     */
+    feeAmount?: number | null;
+};
+
+export type UpdateBatchDto = {
+    mode?: DeliveryMode;
+    /**
+     * Required for a classroom batch, must be empty for a live-online one.
+     */
+    branchId?: string | null;
+    teacherId?: string | null;
+    /**
+     * Dhaka calendar day, YYYY-MM-DD.
+     */
+    startsOn?: string;
+    endsOn?: string;
+    days?: Array<Weekday>;
+    /**
+     * Dhaka wall-clock time, HH:MM (24-hour).
+     */
+    startTime?: string;
+    endTime?: string;
+    status?: BatchStatus;
+    seatsLeft?: number | null;
+    /**
+     * Whole taka; overrides the course price for this run. Null means the course price.
+     */
+    feeAmount?: number | null;
+};
+
+export type CreateEnrollmentDto = {
+    /**
+     * A published course. The fee comes from this row, never the request.
+     */
+    courseId: string;
+    /**
+     * An open batch of that course. Fee overrides the course price when set.
+     */
+    batchId?: string | null;
+};
+
+export type EnrollmentStatus = 'draft' | 'pending_payment' | 'active' | 'failed' | 'cancelled' | 'expired';
+
+export type EnrollmentDto = {
+    id: string;
+    courseId: string;
+    batchId: string | null;
+    status: EnrollmentStatus;
+    /**
+     * Whole taka, from the course or its batch override.
+     */
+    feeAmount: number;
+    feeCurrency: string;
+    fullName: string;
+    dateOfBirth: string | null;
+    phone: string | null;
+    educationLevel: string | null;
+    institution: string | null;
+    graduationYear: number | null;
+    addressLine1: string | null;
+    addressLine2: string | null;
+    city: string | null;
+    notes: string | null;
+};
+
+export type UpdateEnrollmentDetailsDto = {
+    fullName?: string;
+    /**
+     * Dhaka calendar day, YYYY-MM-DD. Must be a past date.
+     */
+    dateOfBirth?: string;
+    phone?: string;
+    educationLevel?: string;
+    institution?: string;
+    graduationYear?: number;
+    addressLine1?: string;
+    addressLine2?: string;
+    city?: string;
+    notes?: string;
+};
+
+export type PaymentAttemptStatus = 'pending' | 'processing' | 'success' | 'failed' | 'cancelled' | 'expired';
+
+export type PaymentInitDto = {
+    enrollmentId: string;
+    attemptId: string;
+    providerReference: string;
+    paymentUrl: string;
+    amount: number;
+    currency: string;
+    status: PaymentAttemptStatus;
+};
+
+export type PaymentStatusDto = {
+    enrollmentId: string;
+    enrollmentStatus: string;
+    attemptId: string;
+    attemptStatus: PaymentAttemptStatus;
+    providerReference: string | null;
+    amount: number;
+    currency: string;
+    /**
+     * The provider's own status word, for the admin timeline.
+     */
+    providerStatus: string;
+    /**
+     * When our side recorded settlement. Null until an attempt verifies.
+     */
+    paidAt: string | null;
+};
+
+export type AdminPaymentListItemDto = {
+    attemptId: string;
+    providerReference: string | null;
+    enrollmentId: string;
+    studentName: string;
+    studentEmail: string;
+    courseName: string;
+    batchStartsOn: string | null;
+    amount: number;
+    currency: string;
+    status: PaymentAttemptStatus;
+    enrollmentStatus: EnrollmentStatus;
+};
+
+export type AdminPaymentListDto = {
+    data: Array<AdminPaymentListItemDto>;
+    page: number;
+    perPage: number;
+    total: number;
+};
+
+export type AdminPaymentDetailDto = {
+    attemptId: string;
+    providerReference: string | null;
+    enrollmentId: string;
+    studentName: string;
+    studentEmail: string;
+    courseName: string;
+    batchStartsOn: string | null;
+    amount: number;
+    currency: string;
+    status: PaymentAttemptStatus;
+    enrollmentStatus: EnrollmentStatus;
+    paidAt: string | null;
+    lastProviderPayload: {
+        [key: string]: unknown;
+    } | null;
+    phone: string | null;
+    education: string | null;
+    address: string | null;
+};
+
+export type TestimonialWithCoursesDto = {
+    id: string;
+    name: string;
+    /**
+     * Score and destination, e.g. "SAT 1540 · NUS, Singapore".
+     */
+    result: string;
+    quote: string;
+    imageUrl: string | null;
+    isActive: boolean;
+    sortOrder: number;
+    createdAt: string;
+    updatedAt: string;
+    courses: Array<CourseRefDto>;
+};
+
+export type CreateTestimonialDto = {
+    name: string;
+    result: string;
+    quote: string;
+    imageUrl?: string | null;
+    isActive?: boolean;
+    sortOrder?: number;
+    /**
+     * Courses this quote may appear on; replaces the existing links when sent.
+     */
+    courseIds?: Array<string>;
+};
+
+export type UpdateTestimonialDto = {
+    name?: string;
+    result?: string;
+    quote?: string;
+    imageUrl?: string | null;
+    isActive?: boolean;
+    sortOrder?: number;
+    /**
+     * Courses this quote may appear on; replaces the existing links when sent.
+     */
+    courseIds?: Array<string>;
+};
+
+export type UploadKind = 'course-thumbnail' | 'teacher-image' | 'testimonial-image';
+
+export type UploadContentType = 'image/jpeg' | 'image/png' | 'image/webp';
+
+export type PresignUploadDto = {
+    kind: UploadKind;
+    contentType: UploadContentType;
+    /**
+     * Size in bytes, as reported by the browser's File object.
+     */
+    size: number;
+};
+
+export type PresignedUploadDto = {
+    /**
+     * Presigned URL to PUT the file body to.
+     */
+    uploadUrl: string;
+    method: 'PUT';
+    /**
+     * Headers the signature covers; send them exactly as given.
+     */
+    headers: {
+        [key: string]: string;
+    };
+    key: string;
+    /**
+     * Where the object will be served from once uploaded.
+     */
+    publicUrl: string;
+    /**
+     * Seconds until the upload URL stops working.
+     */
+    expiresIn: number;
+};
+
+export type CourseCountsDto = {
+    total: number;
+    published: number;
+    draft: number;
+    archived: number;
+};
+
+export type AdminOverviewDto = {
+    courses: CourseCountsDto;
+    /**
+     * Batches not closed and not yet ended (Dhaka calendar).
+     */
+    upcomingBatches: number;
+    teachers: number;
+    branches: number;
+    testimonials: number;
 };
 
 export type GetCurrentUserData = {
@@ -44,6 +707,100 @@ export type GetUserByIdResponses = {
 };
 
 export type GetUserByIdResponse = GetUserByIdResponses[keyof GetUserByIdResponses];
+
+export type AdminListUsersData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/users';
+};
+
+export type AdminListUsersErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminListUsersError = AdminListUsersErrors[keyof AdminListUsersErrors];
+
+export type AdminListUsersResponses = {
+    200: Array<UserResponseDto>;
+};
+
+export type AdminListUsersResponse = AdminListUsersResponses[keyof AdminListUsersResponses];
+
+export type AdminGetUserData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/users/{id}';
+};
+
+export type AdminGetUserErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * User not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminGetUserError = AdminGetUserErrors[keyof AdminGetUserErrors];
+
+export type AdminGetUserResponses = {
+    200: UserResponseDto;
+};
+
+export type AdminGetUserResponse = AdminGetUserResponses[keyof AdminGetUserResponses];
+
+export type AdminUpdateUserCounselorData = {
+    body: UpdateCounselorDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/users/{id}/counselor';
+};
+
+export type AdminUpdateUserCounselorErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * User not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminUpdateUserCounselorError = AdminUpdateUserCounselorErrors[keyof AdminUpdateUserCounselorErrors];
+
+export type AdminUpdateUserCounselorResponses = {
+    200: UserResponseDto;
+};
+
+export type AdminUpdateUserCounselorResponse = AdminUpdateUserCounselorResponses[keyof AdminUpdateUserCounselorResponses];
 
 export type GetHealthData = {
     body?: never;
@@ -109,3 +866,1308 @@ export type GetHealthResponses = {
 };
 
 export type GetHealthResponse = GetHealthResponses[keyof GetHealthResponses];
+
+export type ListBranchesData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/branches';
+};
+
+export type ListBranchesResponses = {
+    200: Array<BranchDto>;
+};
+
+export type ListBranchesResponse = ListBranchesResponses[keyof ListBranchesResponses];
+
+export type AdminListBranchesData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/branches';
+};
+
+export type AdminListBranchesErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminListBranchesError = AdminListBranchesErrors[keyof AdminListBranchesErrors];
+
+export type AdminListBranchesResponses = {
+    200: Array<BranchDto>;
+};
+
+export type AdminListBranchesResponse = AdminListBranchesResponses[keyof AdminListBranchesResponses];
+
+export type AdminCreateBranchData = {
+    body: CreateBranchDto;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/branches';
+};
+
+export type AdminCreateBranchErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Slug already in use
+     */
+    409: ErrorResponseDto;
+};
+
+export type AdminCreateBranchError = AdminCreateBranchErrors[keyof AdminCreateBranchErrors];
+
+export type AdminCreateBranchResponses = {
+    201: BranchDto;
+};
+
+export type AdminCreateBranchResponse = AdminCreateBranchResponses[keyof AdminCreateBranchResponses];
+
+export type AdminDeleteBranchData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/branches/{id}';
+};
+
+export type AdminDeleteBranchErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Branch not found
+     */
+    404: ErrorResponseDto;
+    /**
+     * Branch is still referenced by a batch or teacher
+     */
+    409: ErrorResponseDto;
+};
+
+export type AdminDeleteBranchError = AdminDeleteBranchErrors[keyof AdminDeleteBranchErrors];
+
+export type AdminDeleteBranchResponses = {
+    204: void;
+};
+
+export type AdminDeleteBranchResponse = AdminDeleteBranchResponses[keyof AdminDeleteBranchResponses];
+
+export type AdminGetBranchData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/branches/{id}';
+};
+
+export type AdminGetBranchErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Branch not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminGetBranchError = AdminGetBranchErrors[keyof AdminGetBranchErrors];
+
+export type AdminGetBranchResponses = {
+    200: BranchDto;
+};
+
+export type AdminGetBranchResponse = AdminGetBranchResponses[keyof AdminGetBranchResponses];
+
+export type AdminUpdateBranchData = {
+    body: UpdateBranchDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/branches/{id}';
+};
+
+export type AdminUpdateBranchErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Branch not found
+     */
+    404: ErrorResponseDto;
+    /**
+     * Slug already in use
+     */
+    409: ErrorResponseDto;
+};
+
+export type AdminUpdateBranchError = AdminUpdateBranchErrors[keyof AdminUpdateBranchErrors];
+
+export type AdminUpdateBranchResponses = {
+    200: BranchDto;
+};
+
+export type AdminUpdateBranchResponse = AdminUpdateBranchResponses[keyof AdminUpdateBranchResponses];
+
+export type ListTeachersData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/teachers';
+};
+
+export type ListTeachersResponses = {
+    200: Array<TeacherWithCoursesDto>;
+};
+
+export type ListTeachersResponse = ListTeachersResponses[keyof ListTeachersResponses];
+
+export type AdminListTeachersData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/teachers';
+};
+
+export type AdminListTeachersErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminListTeachersError = AdminListTeachersErrors[keyof AdminListTeachersErrors];
+
+export type AdminListTeachersResponses = {
+    200: Array<TeacherWithCoursesDto>;
+};
+
+export type AdminListTeachersResponse = AdminListTeachersResponses[keyof AdminListTeachersResponses];
+
+export type AdminCreateTeacherData = {
+    body: CreateTeacherDto;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/teachers';
+};
+
+export type AdminCreateTeacherErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminCreateTeacherError = AdminCreateTeacherErrors[keyof AdminCreateTeacherErrors];
+
+export type AdminCreateTeacherResponses = {
+    201: TeacherWithCoursesDto;
+};
+
+export type AdminCreateTeacherResponse = AdminCreateTeacherResponses[keyof AdminCreateTeacherResponses];
+
+export type AdminDeleteTeacherData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/teachers/{id}';
+};
+
+export type AdminDeleteTeacherErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Teacher not found
+     */
+    404: ErrorResponseDto;
+    /**
+     * Teacher is still assigned to a course or batch
+     */
+    409: ErrorResponseDto;
+};
+
+export type AdminDeleteTeacherError = AdminDeleteTeacherErrors[keyof AdminDeleteTeacherErrors];
+
+export type AdminDeleteTeacherResponses = {
+    204: void;
+};
+
+export type AdminDeleteTeacherResponse = AdminDeleteTeacherResponses[keyof AdminDeleteTeacherResponses];
+
+export type AdminGetTeacherData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/teachers/{id}';
+};
+
+export type AdminGetTeacherErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Teacher not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminGetTeacherError = AdminGetTeacherErrors[keyof AdminGetTeacherErrors];
+
+export type AdminGetTeacherResponses = {
+    200: TeacherWithCoursesDto;
+};
+
+export type AdminGetTeacherResponse = AdminGetTeacherResponses[keyof AdminGetTeacherResponses];
+
+export type AdminUpdateTeacherData = {
+    body: UpdateTeacherDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/teachers/{id}';
+};
+
+export type AdminUpdateTeacherErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Teacher not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminUpdateTeacherError = AdminUpdateTeacherErrors[keyof AdminUpdateTeacherErrors];
+
+export type AdminUpdateTeacherResponses = {
+    200: TeacherWithCoursesDto;
+};
+
+export type AdminUpdateTeacherResponse = AdminUpdateTeacherResponses[keyof AdminUpdateTeacherResponses];
+
+export type ListCoursesData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/courses';
+};
+
+export type ListCoursesResponses = {
+    200: Array<CourseSummaryDto>;
+};
+
+export type ListCoursesResponse = ListCoursesResponses[keyof ListCoursesResponses];
+
+export type GetCourseBySlugData = {
+    body?: never;
+    path: {
+        slug: string;
+    };
+    query?: never;
+    url: '/api/v1/courses/{slug}';
+};
+
+export type GetCourseBySlugErrors = {
+    /**
+     * Course not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type GetCourseBySlugError = GetCourseBySlugErrors[keyof GetCourseBySlugErrors];
+
+export type GetCourseBySlugResponses = {
+    200: CourseDetailDto;
+};
+
+export type GetCourseBySlugResponse = GetCourseBySlugResponses[keyof GetCourseBySlugResponses];
+
+export type AdminListCoursesData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/courses';
+};
+
+export type AdminListCoursesErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminListCoursesError = AdminListCoursesErrors[keyof AdminListCoursesErrors];
+
+export type AdminListCoursesResponses = {
+    200: Array<CourseSummaryDto>;
+};
+
+export type AdminListCoursesResponse = AdminListCoursesResponses[keyof AdminListCoursesResponses];
+
+export type AdminCreateCourseData = {
+    body: CreateCourseDto;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/courses';
+};
+
+export type AdminCreateCourseErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Slug already in use
+     */
+    409: ErrorResponseDto;
+};
+
+export type AdminCreateCourseError = AdminCreateCourseErrors[keyof AdminCreateCourseErrors];
+
+export type AdminCreateCourseResponses = {
+    201: CourseDetailDto;
+};
+
+export type AdminCreateCourseResponse = AdminCreateCourseResponses[keyof AdminCreateCourseResponses];
+
+export type AdminDeleteCourseData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/courses/{id}';
+};
+
+export type AdminDeleteCourseErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Course not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminDeleteCourseError = AdminDeleteCourseErrors[keyof AdminDeleteCourseErrors];
+
+export type AdminDeleteCourseResponses = {
+    204: void;
+};
+
+export type AdminDeleteCourseResponse = AdminDeleteCourseResponses[keyof AdminDeleteCourseResponses];
+
+export type AdminGetCourseData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/courses/{id}';
+};
+
+export type AdminGetCourseErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Course not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminGetCourseError = AdminGetCourseErrors[keyof AdminGetCourseErrors];
+
+export type AdminGetCourseResponses = {
+    200: CourseDetailDto;
+};
+
+export type AdminGetCourseResponse = AdminGetCourseResponses[keyof AdminGetCourseResponses];
+
+export type AdminUpdateCourseData = {
+    body: UpdateCourseDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/courses/{id}';
+};
+
+export type AdminUpdateCourseErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Course not found
+     */
+    404: ErrorResponseDto;
+    /**
+     * Slug already in use
+     */
+    409: ErrorResponseDto;
+};
+
+export type AdminUpdateCourseError = AdminUpdateCourseErrors[keyof AdminUpdateCourseErrors];
+
+export type AdminUpdateCourseResponses = {
+    200: CourseDetailDto;
+};
+
+export type AdminUpdateCourseResponse = AdminUpdateCourseResponses[keyof AdminUpdateCourseResponses];
+
+export type AdminReplaceCurriculumData = {
+    body: ReplaceCurriculumDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/courses/{id}/curriculum';
+};
+
+export type AdminReplaceCurriculumErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Course not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminReplaceCurriculumError = AdminReplaceCurriculumErrors[keyof AdminReplaceCurriculumErrors];
+
+export type AdminReplaceCurriculumResponses = {
+    200: Array<CurriculumModuleDto>;
+};
+
+export type AdminReplaceCurriculumResponse = AdminReplaceCurriculumResponses[keyof AdminReplaceCurriculumResponses];
+
+export type AdminReplaceCourseTeachersData = {
+    body: ReplaceCourseTeachersDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/courses/{id}/teachers';
+};
+
+export type AdminReplaceCourseTeachersErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Course not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminReplaceCourseTeachersError = AdminReplaceCourseTeachersErrors[keyof AdminReplaceCourseTeachersErrors];
+
+export type AdminReplaceCourseTeachersResponses = {
+    200: Array<TeacherDto>;
+};
+
+export type AdminReplaceCourseTeachersResponse = AdminReplaceCourseTeachersResponses[keyof AdminReplaceCourseTeachersResponses];
+
+export type ListBatchesData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/batches';
+};
+
+export type ListBatchesResponses = {
+    200: Array<BatchDto>;
+};
+
+export type ListBatchesResponse = ListBatchesResponses[keyof ListBatchesResponses];
+
+export type GetBatchByIdData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/batches/{id}';
+};
+
+export type GetBatchByIdErrors = {
+    /**
+     * Batch not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type GetBatchByIdError = GetBatchByIdErrors[keyof GetBatchByIdErrors];
+
+export type GetBatchByIdResponses = {
+    200: BatchDto;
+};
+
+export type GetBatchByIdResponse = GetBatchByIdResponses[keyof GetBatchByIdResponses];
+
+export type AdminListBatchesData = {
+    body?: never;
+    path: {
+        courseId: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/courses/{courseId}/batches';
+};
+
+export type AdminListBatchesErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Course not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminListBatchesError = AdminListBatchesErrors[keyof AdminListBatchesErrors];
+
+export type AdminListBatchesResponses = {
+    200: Array<BatchDto>;
+};
+
+export type AdminListBatchesResponse = AdminListBatchesResponses[keyof AdminListBatchesResponses];
+
+export type AdminCreateBatchData = {
+    body: CreateBatchDto;
+    path: {
+        courseId: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/courses/{courseId}/batches';
+};
+
+export type AdminCreateBatchErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Course not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminCreateBatchError = AdminCreateBatchErrors[keyof AdminCreateBatchErrors];
+
+export type AdminCreateBatchResponses = {
+    201: BatchDto;
+};
+
+export type AdminCreateBatchResponse = AdminCreateBatchResponses[keyof AdminCreateBatchResponses];
+
+export type AdminDeleteBatchData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/batches/{id}';
+};
+
+export type AdminDeleteBatchErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Batch not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminDeleteBatchError = AdminDeleteBatchErrors[keyof AdminDeleteBatchErrors];
+
+export type AdminDeleteBatchResponses = {
+    204: void;
+};
+
+export type AdminDeleteBatchResponse = AdminDeleteBatchResponses[keyof AdminDeleteBatchResponses];
+
+export type AdminGetBatchData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/batches/{id}';
+};
+
+export type AdminGetBatchErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Batch not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminGetBatchError = AdminGetBatchErrors[keyof AdminGetBatchErrors];
+
+export type AdminGetBatchResponses = {
+    200: BatchDto;
+};
+
+export type AdminGetBatchResponse = AdminGetBatchResponses[keyof AdminGetBatchResponses];
+
+export type AdminUpdateBatchData = {
+    body: UpdateBatchDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/batches/{id}';
+};
+
+export type AdminUpdateBatchErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Batch not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminUpdateBatchError = AdminUpdateBatchErrors[keyof AdminUpdateBatchErrors];
+
+export type AdminUpdateBatchResponses = {
+    200: BatchDto;
+};
+
+export type AdminUpdateBatchResponse = AdminUpdateBatchResponses[keyof AdminUpdateBatchResponses];
+
+export type ListEnrollmentsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/enrollments';
+};
+
+export type ListEnrollmentsResponses = {
+    200: Array<EnrollmentDto>;
+};
+
+export type ListEnrollmentsResponse = ListEnrollmentsResponses[keyof ListEnrollmentsResponses];
+
+export type CreateEnrollmentData = {
+    body: CreateEnrollmentDto;
+    path?: never;
+    query?: never;
+    url: '/api/v1/enrollments';
+};
+
+export type CreateEnrollmentErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+};
+
+export type CreateEnrollmentError = CreateEnrollmentErrors[keyof CreateEnrollmentErrors];
+
+export type CreateEnrollmentResponses = {
+    201: EnrollmentDto;
+};
+
+export type CreateEnrollmentResponse = CreateEnrollmentResponses[keyof CreateEnrollmentResponses];
+
+export type GetEnrollmentData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/enrollments/{id}';
+};
+
+export type GetEnrollmentErrors = {
+    /**
+     * Enrollment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type GetEnrollmentError = GetEnrollmentErrors[keyof GetEnrollmentErrors];
+
+export type GetEnrollmentResponses = {
+    200: EnrollmentDto;
+};
+
+export type GetEnrollmentResponse = GetEnrollmentResponses[keyof GetEnrollmentResponses];
+
+export type UpdateEnrollmentDetailsData = {
+    body: UpdateEnrollmentDetailsDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/enrollments/{id}/details';
+};
+
+export type UpdateEnrollmentDetailsErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Enrollment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type UpdateEnrollmentDetailsError = UpdateEnrollmentDetailsErrors[keyof UpdateEnrollmentDetailsErrors];
+
+export type UpdateEnrollmentDetailsResponses = {
+    200: EnrollmentDto;
+};
+
+export type UpdateEnrollmentDetailsResponse = UpdateEnrollmentDetailsResponses[keyof UpdateEnrollmentDetailsResponses];
+
+export type InitEnrollmentPaymentData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/enrollments/{id}/payment-init';
+};
+
+export type InitEnrollmentPaymentErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Enrollment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type InitEnrollmentPaymentError = InitEnrollmentPaymentErrors[keyof InitEnrollmentPaymentErrors];
+
+export type InitEnrollmentPaymentResponses = {
+    201: PaymentInitDto;
+};
+
+export type InitEnrollmentPaymentResponse = InitEnrollmentPaymentResponses[keyof InitEnrollmentPaymentResponses];
+
+export type GetEnrollmentPaymentStatusData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/enrollments/{id}/status';
+};
+
+export type GetEnrollmentPaymentStatusErrors = {
+    /**
+     * Enrollment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type GetEnrollmentPaymentStatusError = GetEnrollmentPaymentStatusErrors[keyof GetEnrollmentPaymentStatusErrors];
+
+export type GetEnrollmentPaymentStatusResponses = {
+    200: PaymentStatusDto;
+};
+
+export type GetEnrollmentPaymentStatusResponse = GetEnrollmentPaymentStatusResponses[keyof GetEnrollmentPaymentStatusResponses];
+
+export type GetEnrollmentPaymentStatusByReferenceData = {
+    body?: never;
+    path: {
+        reference: string;
+    };
+    query?: never;
+    url: '/api/v1/enrollments/by-reference/{reference}/status';
+};
+
+export type GetEnrollmentPaymentStatusByReferenceErrors = {
+    /**
+     * Payment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type GetEnrollmentPaymentStatusByReferenceError = GetEnrollmentPaymentStatusByReferenceErrors[keyof GetEnrollmentPaymentStatusByReferenceErrors];
+
+export type GetEnrollmentPaymentStatusByReferenceResponses = {
+    200: PaymentStatusDto;
+};
+
+export type GetEnrollmentPaymentStatusByReferenceResponse = GetEnrollmentPaymentStatusByReferenceResponses[keyof GetEnrollmentPaymentStatusByReferenceResponses];
+
+export type AdminListPaymentsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        status?: PaymentAttemptStatus;
+        /**
+         * Matches provider reference, student name, or enrollment id.
+         */
+        q?: string;
+        page?: number;
+        perPage?: number;
+    };
+    url: '/api/v1/admin/payments';
+};
+
+export type AdminListPaymentsErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminListPaymentsError = AdminListPaymentsErrors[keyof AdminListPaymentsErrors];
+
+export type AdminListPaymentsResponses = {
+    200: AdminPaymentListDto;
+};
+
+export type AdminListPaymentsResponse = AdminListPaymentsResponses[keyof AdminListPaymentsResponses];
+
+export type AdminGetPaymentData = {
+    body?: never;
+    path: {
+        reference: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/payments/{reference}';
+};
+
+export type AdminGetPaymentErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Payment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminGetPaymentError = AdminGetPaymentErrors[keyof AdminGetPaymentErrors];
+
+export type AdminGetPaymentResponses = {
+    200: AdminPaymentDetailDto;
+};
+
+export type AdminGetPaymentResponse = AdminGetPaymentResponses[keyof AdminGetPaymentResponses];
+
+export type AdminResyncPaymentData = {
+    body?: never;
+    path: {
+        reference: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/payments/{reference}/resync';
+};
+
+export type AdminResyncPaymentErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Payment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminResyncPaymentError = AdminResyncPaymentErrors[keyof AdminResyncPaymentErrors];
+
+export type AdminResyncPaymentResponses = {
+    200: AdminPaymentDetailDto;
+};
+
+export type AdminResyncPaymentResponse = AdminResyncPaymentResponses[keyof AdminResyncPaymentResponses];
+
+export type AdminListTestimonialsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/testimonials';
+};
+
+export type AdminListTestimonialsErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminListTestimonialsError = AdminListTestimonialsErrors[keyof AdminListTestimonialsErrors];
+
+export type AdminListTestimonialsResponses = {
+    200: Array<TestimonialWithCoursesDto>;
+};
+
+export type AdminListTestimonialsResponse = AdminListTestimonialsResponses[keyof AdminListTestimonialsResponses];
+
+export type AdminCreateTestimonialData = {
+    body: CreateTestimonialDto;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/testimonials';
+};
+
+export type AdminCreateTestimonialErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminCreateTestimonialError = AdminCreateTestimonialErrors[keyof AdminCreateTestimonialErrors];
+
+export type AdminCreateTestimonialResponses = {
+    201: TestimonialWithCoursesDto;
+};
+
+export type AdminCreateTestimonialResponse = AdminCreateTestimonialResponses[keyof AdminCreateTestimonialResponses];
+
+export type AdminDeleteTestimonialData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/testimonials/{id}';
+};
+
+export type AdminDeleteTestimonialErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Testimonial not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminDeleteTestimonialError = AdminDeleteTestimonialErrors[keyof AdminDeleteTestimonialErrors];
+
+export type AdminDeleteTestimonialResponses = {
+    204: void;
+};
+
+export type AdminDeleteTestimonialResponse = AdminDeleteTestimonialResponses[keyof AdminDeleteTestimonialResponses];
+
+export type AdminGetTestimonialData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/testimonials/{id}';
+};
+
+export type AdminGetTestimonialErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Testimonial not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminGetTestimonialError = AdminGetTestimonialErrors[keyof AdminGetTestimonialErrors];
+
+export type AdminGetTestimonialResponses = {
+    200: TestimonialWithCoursesDto;
+};
+
+export type AdminGetTestimonialResponse = AdminGetTestimonialResponses[keyof AdminGetTestimonialResponses];
+
+export type AdminUpdateTestimonialData = {
+    body: UpdateTestimonialDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/testimonials/{id}';
+};
+
+export type AdminUpdateTestimonialErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Testimonial not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminUpdateTestimonialError = AdminUpdateTestimonialErrors[keyof AdminUpdateTestimonialErrors];
+
+export type AdminUpdateTestimonialResponses = {
+    200: TestimonialWithCoursesDto;
+};
+
+export type AdminUpdateTestimonialResponse = AdminUpdateTestimonialResponses[keyof AdminUpdateTestimonialResponses];
+
+export type AdminPresignUploadData = {
+    body: PresignUploadDto;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/uploads/presign';
+};
+
+export type AdminPresignUploadErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminPresignUploadError = AdminPresignUploadErrors[keyof AdminPresignUploadErrors];
+
+export type AdminPresignUploadResponses = {
+    200: PresignedUploadDto;
+};
+
+export type AdminPresignUploadResponse = AdminPresignUploadResponses[keyof AdminPresignUploadResponses];
+
+export type AdminGetOverviewData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/overview';
+};
+
+export type AdminGetOverviewErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminGetOverviewError = AdminGetOverviewErrors[keyof AdminGetOverviewErrors];
+
+export type AdminGetOverviewResponses = {
+    200: AdminOverviewDto;
+};
+
+export type AdminGetOverviewResponse = AdminGetOverviewResponses[keyof AdminGetOverviewResponses];

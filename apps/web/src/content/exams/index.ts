@@ -1,12 +1,14 @@
 /**
- * Every exam we teach, in the order the mega-menu lists them.
+ * The editorial overlays for the courses the CMS serves, keyed by slug.
  *
- * The comparison table, the batch schedule and any "all exams" listing read
- * from here rather than repeating the facts, so an exam whose fee or length
- * changes changes in one place and shows up everywhere consistently.
+ * The course record itself — price, curriculum, batches, teachers, quotes —
+ * comes from the API (`lib/cms.ts`). What lives here is the copy a writer
+ * still owns for each course: hero, "what you get", statistics, FAQ and
+ * search snippet. `editorialFor(slug)` returns nothing for a course nobody
+ * has written a page for yet; `lib/course-view.ts` fills in defaults.
  */
 
-import type { ExamContent } from '../types';
+import type { ExamEditorial } from '../types';
 import { act } from './act';
 import { ap } from './ap';
 import { duolingo } from './duolingo';
@@ -20,22 +22,31 @@ import { pte } from './pte';
 import { sat } from './sat';
 import { toefl } from './toefl';
 
-export interface ExamFamily {
-  title: string;
-  exams: readonly ExamContent[];
-}
-
-export const examFamilies: readonly ExamFamily[] = [
-  { title: 'Undergraduate', exams: [sat, act, ap, psat] },
-  { title: 'Graduate & professional', exams: [gre, gmat, lsat, mcat] },
-  { title: 'English proficiency', exams: [ielts, toefl, duolingo, pte] },
+/** How the compare table and the hub group courses; the order is the display order. */
+export const courseFamilies: readonly { title: string; slugs: readonly string[] }[] = [
+  { title: 'Undergraduate', slugs: [sat, act, ap, psat].map((exam) => exam.slug) },
+  { title: 'Graduate & professional', slugs: [gre, gmat, lsat, mcat].map((exam) => exam.slug) },
+  { title: 'English proficiency', slugs: [ielts, toefl, duolingo, pte].map((exam) => exam.slug) },
 ];
 
-export const allExams: readonly ExamContent[] = examFamilies.flatMap((family) => family.exams);
+export const editorials: readonly ExamEditorial[] = [
+  sat,
+  act,
+  ap,
+  psat,
+  gre,
+  gmat,
+  lsat,
+  mcat,
+  ielts,
+  toefl,
+  duolingo,
+  pte,
+];
 
-const bySlug = new Map(allExams.map((exam) => [exam.slug, exam]));
+const bySlug = new Map(editorials.map((editorial) => [editorial.slug, editorial]));
 
-/** Looks an exam up by its last path segment, e.g. "ielts". */
-export function examBySlug(slug: string): ExamContent | undefined {
+/** The hand-written page copy for a course slug, if any. */
+export function editorialFor(slug: string): ExamEditorial | undefined {
   return bySlug.get(slug);
 }

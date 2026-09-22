@@ -32,6 +32,7 @@ function makeGuard({
   const users = {
     findByWorkosId: vi.fn().mockResolvedValue(existing),
     upsertProfile: vi.fn().mockResolvedValue({ ...stored, ...(profile ?? {}) }),
+    applyAdminAllowlist: vi.fn((user: unknown) => Promise.resolve(user)),
   };
   const workos = {
     getUserProfile: vi.fn().mockResolvedValue(profile ?? null),

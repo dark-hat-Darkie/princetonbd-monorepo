@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       /* Session-only routes. Nothing here is secret — the proxy already
          guards them — but they are worthless in an index. */
-      disallow: ['/dashboard', '/auth/', '/sign-in'],
+      disallow: ['/dashboard', '/admin', '/auth/', '/sign-in'],
     },
     sitemap: absoluteUrl('/sitemap.xml'),
   };

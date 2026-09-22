@@ -59,8 +59,8 @@ export default function SiteMapPage() {
             </div>
           ))}
 
-          {/* Footer-only destinations: legal documents, the resource library
-              and the enquiry pages never appear in the mega-menu columns. */}
+          {/* Footer-only destinations: the course formats, MCAT and LSAT, and
+              the legal documents never appear in the nav dropdowns. */}
           <div>
             <span className="mb-6 inline-block border-b-2 border-b-brand pb-1.5 font-display text-[24px] font-semibold tracking-[-.02em] text-ink">
               More

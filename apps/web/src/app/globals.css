@@ -90,24 +90,24 @@
    * breakpoint means `nav:` flips the header at exactly the authored width
    * rather than at a Tailwind default that happens to be close.
    *
-   * 67.5625rem = 1081px, not 1080px: the design's rule is `max-width:1080px`,
-   * so the nav is hidden AT 1080 and visible from 1081 up. A `min-width`
-   * breakpoint has to start one pixel later to line up.
-   *
-   * This value survived the navigation move to princetonreview.com's
-   * stage-based structure, but only just — measure before adding a fifth
-   * top-level item. The bar is 875px of content (95 logo + 481 nav + 255
-   * actions + gaps) against 1009px of usable width here, so there is 134px of
-   * slack. An interim seven-group version measured 1095px and had to push this
-   * breakpoint to 1200px to stop the logo being squeezed to a third of its
+   * The design's rule was `max-width:1080px`, which put this at 67.5625rem
+   * (1081px, one pixel past the design's hidden-at width). The four
+   * stage groups fit there with 134px of slack — the bar was 875px of content
+   * (95 logo + 481 nav + 255 actions + gaps) against 1009px of usable width.
+   * The standalone "Batch Schedule" entry (`navStandalone` in nav.ts) adds
+   * roughly 140px with its gap, which is more than that slack, so the
+   * breakpoint moved up to 70.0625rem (1121px): the drawer takes over 40px
+   * sooner and the logo is never squeezed. Measure again before adding
+   * another entry — an interim seven-group version measured 1095px and had
+   * to push this to 1200px to stop the logo collapsing to a third of its
    * width to absorb the overflow.
    *
    * Expressed in rem ON PURPOSE. Tailwind orders variants by comparing raw
-   * breakpoint values and cannot compare `1081px` against the built-in
+   * breakpoint values and cannot compare `1121px` against the built-in
    * `64rem`/`80rem` — a px value is emitted ahead of every rem-based default,
    * so `lg:` would silently win over `nav:` at every width where both match.
    * In rem it sorts correctly between `lg` and `xl`. */
-  --breakpoint-nav: 67.5625rem;
+  --breakpoint-nav: 70.0625rem;
   --container-page: 1240px; /* → max-w-page, the shared content width */
 
   /* — motion ————————————————————————————————————————————————————————
@@ -120,7 +120,7 @@
   --animate-float: prbdFloat 5.5s ease-in-out infinite;
   --animate-marquee: prbdMarquee 34s linear infinite;
 
-  /* Kept as CSS rather than moved to <Reveal>: the mega-menu panel and the
+  /* Kept as CSS rather than moved to <Reveal>: the nav dropdown panel and the
      inner-page hero animate on mount, not on scroll, so neither needs a
      viewport observer or a client boundary. */
   @keyframes prbdRise {
