@@ -6,6 +6,7 @@ import { ArrowRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 
 import type { NavGroup, NavLink } from '@/content/site/nav';
+import { DrawerAuthSlot } from './auth-slot';
 import { BrandMark } from '@/components/ui/brand-mark';
 import { CtaButton } from '@/components/ui/cta-button';
 
@@ -198,13 +199,7 @@ export function MobileNav({
                 </nav>
 
                 <div className="flex flex-none flex-col gap-3 border-t border-t-line px-6 py-6">
-                  <Link
-                    href="/sign-in"
-                    onClick={close}
-                    className="rounded-sm text-[11px] font-bold tracking-[.11em] text-ink uppercase"
-                  >
-                    Log in
-                  </Link>
+                  <DrawerAuthSlot onNavigate={close} />
                   <CtaButton href="/contact" size="sm" className="w-full" onClick={close}>
                     Book a consultation
                   </CtaButton>

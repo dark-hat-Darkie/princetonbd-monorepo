@@ -23,6 +23,21 @@ export const dynamicParams = true;
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const courses = await getPublishedCourses();
+  /* While `next build` prerenders, confirm each listed slug's details are
+     actually fetchable and drop the ones that are not. The listing and the
+     details are separate API calls, so one can succeed while the other
+     fails; without this a half-reachable API prerenders not-found shells for
+     real courses (cached up to `revalidate`), while with it those slugs
+     simply render on their first visit like courses published after the
+     deploy. At runtime the params come straight from the listing. */
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    const verified = await Promise.all(
+      courses.map(async (course) =>
+        (await getCourse(course.slug)) ? { slug: course.slug } : null,
+      ),
+    );
+    return verified.filter((param): param is { slug: string } => param !== null);
+  }
   return courses.map((course) => ({ slug: course.slug }));
 }
 

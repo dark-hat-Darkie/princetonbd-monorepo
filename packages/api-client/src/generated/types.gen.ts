@@ -9,6 +9,14 @@ export type ClientOptions = {
  */
 export type UserRole = 'student' | 'admin';
 
+export type CounselorDto = {
+    name: string;
+    role?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    nextCheckIn?: string | null;
+};
+
 export type UserResponseDto = {
     id: string;
     /**
@@ -24,6 +32,33 @@ export type UserResponseDto = {
      */
     role: UserRole;
     createdAt: string;
+    /**
+     * The admin-assigned counselor, or null when none is assigned yet.
+     */
+    counselor?: CounselorDto | null;
+};
+
+export type ErrorResponseDto = {
+    statusCode: number;
+    message: string;
+    error?: string;
+};
+
+export type UpdateCounselorDto = {
+    name?: string | null;
+    role?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    nextCheckIn?: string | null;
+};
+
+export type ValidationErrorResponseDto = {
+    statusCode: number;
+    message: string;
+    error?: string;
+    errors: {
+        [key: string]: Array<string>;
+    };
 };
 
 export type BranchDto = {
@@ -41,12 +76,6 @@ export type BranchDto = {
     updatedAt: string;
 };
 
-export type ErrorResponseDto = {
-    statusCode: number;
-    message: string;
-    error?: string;
-};
-
 export type CreateBranchDto = {
     /**
      * URL segment. Derived from `name` when omitted.
@@ -57,15 +86,6 @@ export type CreateBranchDto = {
     phone?: string | null;
     isActive?: boolean;
     sortOrder?: number;
-};
-
-export type ValidationErrorResponseDto = {
-    statusCode: number;
-    message: string;
-    error?: string;
-    errors: {
-        [key: string]: Array<string>;
-    };
 };
 
 export type UpdateBranchDto = {
@@ -441,6 +461,129 @@ export type UpdateBatchDto = {
     feeAmount?: number | null;
 };
 
+export type CreateEnrollmentDto = {
+    /**
+     * A published course. The fee comes from this row, never the request.
+     */
+    courseId: string;
+    /**
+     * An open batch of that course. Fee overrides the course price when set.
+     */
+    batchId?: string | null;
+};
+
+export type EnrollmentStatus = 'draft' | 'pending_payment' | 'active' | 'failed' | 'cancelled' | 'expired';
+
+export type EnrollmentDto = {
+    id: string;
+    courseId: string;
+    batchId: string | null;
+    status: EnrollmentStatus;
+    /**
+     * Whole taka, from the course or its batch override.
+     */
+    feeAmount: number;
+    feeCurrency: string;
+    fullName: string;
+    dateOfBirth: string | null;
+    phone: string | null;
+    educationLevel: string | null;
+    institution: string | null;
+    graduationYear: number | null;
+    addressLine1: string | null;
+    addressLine2: string | null;
+    city: string | null;
+    notes: string | null;
+};
+
+export type UpdateEnrollmentDetailsDto = {
+    fullName?: string;
+    /**
+     * Dhaka calendar day, YYYY-MM-DD. Must be a past date.
+     */
+    dateOfBirth?: string;
+    phone?: string;
+    educationLevel?: string;
+    institution?: string;
+    graduationYear?: number;
+    addressLine1?: string;
+    addressLine2?: string;
+    city?: string;
+    notes?: string;
+};
+
+export type PaymentAttemptStatus = 'pending' | 'processing' | 'success' | 'failed' | 'cancelled' | 'expired';
+
+export type PaymentInitDto = {
+    enrollmentId: string;
+    attemptId: string;
+    providerReference: string;
+    paymentUrl: string;
+    amount: number;
+    currency: string;
+    status: PaymentAttemptStatus;
+};
+
+export type PaymentStatusDto = {
+    enrollmentId: string;
+    enrollmentStatus: string;
+    attemptId: string;
+    attemptStatus: PaymentAttemptStatus;
+    providerReference: string | null;
+    amount: number;
+    currency: string;
+    /**
+     * The provider's own status word, for the admin timeline.
+     */
+    providerStatus: string;
+    /**
+     * When our side recorded settlement. Null until an attempt verifies.
+     */
+    paidAt: string | null;
+};
+
+export type AdminPaymentListItemDto = {
+    attemptId: string;
+    providerReference: string | null;
+    enrollmentId: string;
+    studentName: string;
+    studentEmail: string;
+    courseName: string;
+    batchStartsOn: string | null;
+    amount: number;
+    currency: string;
+    status: PaymentAttemptStatus;
+    enrollmentStatus: EnrollmentStatus;
+};
+
+export type AdminPaymentListDto = {
+    data: Array<AdminPaymentListItemDto>;
+    page: number;
+    perPage: number;
+    total: number;
+};
+
+export type AdminPaymentDetailDto = {
+    attemptId: string;
+    providerReference: string | null;
+    enrollmentId: string;
+    studentName: string;
+    studentEmail: string;
+    courseName: string;
+    batchStartsOn: string | null;
+    amount: number;
+    currency: string;
+    status: PaymentAttemptStatus;
+    enrollmentStatus: EnrollmentStatus;
+    paidAt: string | null;
+    lastProviderPayload: {
+        [key: string]: unknown;
+    } | null;
+    phone: string | null;
+    education: string | null;
+    address: string | null;
+};
+
 export type TestimonialWithCoursesDto = {
     id: string;
     name: string;
@@ -564,6 +707,100 @@ export type GetUserByIdResponses = {
 };
 
 export type GetUserByIdResponse = GetUserByIdResponses[keyof GetUserByIdResponses];
+
+export type AdminListUsersData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/admin/users';
+};
+
+export type AdminListUsersErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminListUsersError = AdminListUsersErrors[keyof AdminListUsersErrors];
+
+export type AdminListUsersResponses = {
+    200: Array<UserResponseDto>;
+};
+
+export type AdminListUsersResponse = AdminListUsersResponses[keyof AdminListUsersResponses];
+
+export type AdminGetUserData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/users/{id}';
+};
+
+export type AdminGetUserErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * User not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminGetUserError = AdminGetUserErrors[keyof AdminGetUserErrors];
+
+export type AdminGetUserResponses = {
+    200: UserResponseDto;
+};
+
+export type AdminGetUserResponse = AdminGetUserResponses[keyof AdminGetUserResponses];
+
+export type AdminUpdateUserCounselorData = {
+    body: UpdateCounselorDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/users/{id}/counselor';
+};
+
+export type AdminUpdateUserCounselorErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * User not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminUpdateUserCounselorError = AdminUpdateUserCounselorErrors[keyof AdminUpdateUserCounselorErrors];
+
+export type AdminUpdateUserCounselorResponses = {
+    200: UserResponseDto;
+};
+
+export type AdminUpdateUserCounselorResponse = AdminUpdateUserCounselorResponses[keyof AdminUpdateUserCounselorResponses];
 
 export type GetHealthData = {
     body?: never;
@@ -1461,6 +1698,267 @@ export type AdminUpdateBatchResponses = {
 };
 
 export type AdminUpdateBatchResponse = AdminUpdateBatchResponses[keyof AdminUpdateBatchResponses];
+
+export type ListEnrollmentsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/enrollments';
+};
+
+export type ListEnrollmentsResponses = {
+    200: Array<EnrollmentDto>;
+};
+
+export type ListEnrollmentsResponse = ListEnrollmentsResponses[keyof ListEnrollmentsResponses];
+
+export type CreateEnrollmentData = {
+    body: CreateEnrollmentDto;
+    path?: never;
+    query?: never;
+    url: '/api/v1/enrollments';
+};
+
+export type CreateEnrollmentErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+};
+
+export type CreateEnrollmentError = CreateEnrollmentErrors[keyof CreateEnrollmentErrors];
+
+export type CreateEnrollmentResponses = {
+    201: EnrollmentDto;
+};
+
+export type CreateEnrollmentResponse = CreateEnrollmentResponses[keyof CreateEnrollmentResponses];
+
+export type GetEnrollmentData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/enrollments/{id}';
+};
+
+export type GetEnrollmentErrors = {
+    /**
+     * Enrollment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type GetEnrollmentError = GetEnrollmentErrors[keyof GetEnrollmentErrors];
+
+export type GetEnrollmentResponses = {
+    200: EnrollmentDto;
+};
+
+export type GetEnrollmentResponse = GetEnrollmentResponses[keyof GetEnrollmentResponses];
+
+export type UpdateEnrollmentDetailsData = {
+    body: UpdateEnrollmentDetailsDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/enrollments/{id}/details';
+};
+
+export type UpdateEnrollmentDetailsErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Enrollment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type UpdateEnrollmentDetailsError = UpdateEnrollmentDetailsErrors[keyof UpdateEnrollmentDetailsErrors];
+
+export type UpdateEnrollmentDetailsResponses = {
+    200: EnrollmentDto;
+};
+
+export type UpdateEnrollmentDetailsResponse = UpdateEnrollmentDetailsResponses[keyof UpdateEnrollmentDetailsResponses];
+
+export type InitEnrollmentPaymentData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/enrollments/{id}/payment-init';
+};
+
+export type InitEnrollmentPaymentErrors = {
+    /**
+     * Validation failed; `errors` maps field paths to messages
+     */
+    400: ValidationErrorResponseDto;
+    /**
+     * Enrollment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type InitEnrollmentPaymentError = InitEnrollmentPaymentErrors[keyof InitEnrollmentPaymentErrors];
+
+export type InitEnrollmentPaymentResponses = {
+    201: PaymentInitDto;
+};
+
+export type InitEnrollmentPaymentResponse = InitEnrollmentPaymentResponses[keyof InitEnrollmentPaymentResponses];
+
+export type GetEnrollmentPaymentStatusData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v1/enrollments/{id}/status';
+};
+
+export type GetEnrollmentPaymentStatusErrors = {
+    /**
+     * Enrollment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type GetEnrollmentPaymentStatusError = GetEnrollmentPaymentStatusErrors[keyof GetEnrollmentPaymentStatusErrors];
+
+export type GetEnrollmentPaymentStatusResponses = {
+    200: PaymentStatusDto;
+};
+
+export type GetEnrollmentPaymentStatusResponse = GetEnrollmentPaymentStatusResponses[keyof GetEnrollmentPaymentStatusResponses];
+
+export type GetEnrollmentPaymentStatusByReferenceData = {
+    body?: never;
+    path: {
+        reference: string;
+    };
+    query?: never;
+    url: '/api/v1/enrollments/by-reference/{reference}/status';
+};
+
+export type GetEnrollmentPaymentStatusByReferenceErrors = {
+    /**
+     * Payment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type GetEnrollmentPaymentStatusByReferenceError = GetEnrollmentPaymentStatusByReferenceErrors[keyof GetEnrollmentPaymentStatusByReferenceErrors];
+
+export type GetEnrollmentPaymentStatusByReferenceResponses = {
+    200: PaymentStatusDto;
+};
+
+export type GetEnrollmentPaymentStatusByReferenceResponse = GetEnrollmentPaymentStatusByReferenceResponses[keyof GetEnrollmentPaymentStatusByReferenceResponses];
+
+export type AdminListPaymentsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        status?: PaymentAttemptStatus;
+        /**
+         * Matches provider reference, student name, or enrollment id.
+         */
+        q?: string;
+        page?: number;
+        perPage?: number;
+    };
+    url: '/api/v1/admin/payments';
+};
+
+export type AdminListPaymentsErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+};
+
+export type AdminListPaymentsError = AdminListPaymentsErrors[keyof AdminListPaymentsErrors];
+
+export type AdminListPaymentsResponses = {
+    200: AdminPaymentListDto;
+};
+
+export type AdminListPaymentsResponse = AdminListPaymentsResponses[keyof AdminListPaymentsResponses];
+
+export type AdminGetPaymentData = {
+    body?: never;
+    path: {
+        reference: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/payments/{reference}';
+};
+
+export type AdminGetPaymentErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Payment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminGetPaymentError = AdminGetPaymentErrors[keyof AdminGetPaymentErrors];
+
+export type AdminGetPaymentResponses = {
+    200: AdminPaymentDetailDto;
+};
+
+export type AdminGetPaymentResponse = AdminGetPaymentResponses[keyof AdminGetPaymentResponses];
+
+export type AdminResyncPaymentData = {
+    body?: never;
+    path: {
+        reference: string;
+    };
+    query?: never;
+    url: '/api/v1/admin/payments/{reference}/resync';
+};
+
+export type AdminResyncPaymentErrors = {
+    /**
+     * Missing or invalid token
+     */
+    401: ErrorResponseDto;
+    /**
+     * Caller is not an admin
+     */
+    403: ErrorResponseDto;
+    /**
+     * Payment not found
+     */
+    404: ErrorResponseDto;
+};
+
+export type AdminResyncPaymentError = AdminResyncPaymentErrors[keyof AdminResyncPaymentErrors];
+
+export type AdminResyncPaymentResponses = {
+    200: AdminPaymentDetailDto;
+};
+
+export type AdminResyncPaymentResponse = AdminResyncPaymentResponses[keyof AdminResyncPaymentResponses];
 
 export type AdminListTestimonialsData = {
     body?: never;

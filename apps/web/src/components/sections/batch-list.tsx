@@ -5,6 +5,7 @@ import { Section } from '@/components/ui/section';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { enrolHref } from '@/lib/batches';
 import type { BatchView, CourseView } from '@/lib/course-view';
+import { enrollHref } from '@/lib/enroll';
 import { formatDayMonth, formatFullDate } from '@/lib/dates';
 import { formatPrice } from '@/lib/money';
 
@@ -21,7 +22,7 @@ function EnrolAction({
 
   return (
     <CtaButton
-      href={enrolHref({ interest: course.interest, batch })}
+      href={enrollHref({ courseSlug: course.slug, batchId: batch.id })}
       size={size}
       variant={waitlist ? 'outline' : 'solid'}
       className={size === 'md' ? 'w-full' : undefined}

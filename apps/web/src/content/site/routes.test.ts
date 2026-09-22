@@ -118,7 +118,16 @@ describe('route registry', () => {
    * sign-in flow. Both are excluded here rather than registered and then
    * filtered back out at sitemap time.
    */
-  const notCrawlable = ['/dashboard', '/admin', '/auth/'];
+  const notCrawlable = [
+    '/dashboard',
+    '/admin',
+    '/auth/',
+    '/sign-in',
+    '/sign-up',
+    '/verify-email',
+    '/forgot-password',
+    '/reset-password',
+  ];
 
   it('registers every crawlable page file that exists', () => {
     const registered = new Set(routes.map((route) => route.path));

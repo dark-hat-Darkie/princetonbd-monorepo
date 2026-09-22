@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation';
 import { AccountChip } from '@/components/dashboard/account-chip';
 import { PortalShell } from '@/components/dashboard/portal-shell';
 import { getApiClient } from '@/lib/api';
+import { currentPath } from '@/lib/auth/current-path';
+import { signInHref } from '@/lib/auth/return-to';
 
 /**
  * Layout for the student portal.
@@ -29,6 +31,13 @@ export default async function AppLayout({ children }: Readonly<{ children: React
      browser through the provider's initial state. */
   const { accessToken: _accessToken, ...initialAuth } = await withAuth();
   const { user } = initialAuth;
+
+  /* The proxy no longer gates (it cannot redirect to our sign-in — only to
+     WorkOS hosted), so the layout is the gate: anonymous visitors go to our
+     sign-in with the return path, admins go to their own surface. */
+  if (!user) {
+    redirect(signInHref(await currentPath()));
+  }
 
   if (user) {
     const client = await getApiClient();

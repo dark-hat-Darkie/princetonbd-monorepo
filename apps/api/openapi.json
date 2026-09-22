@@ -64,6 +64,208 @@
         ]
       }
     },
+    "/api/v1/admin/users": {
+      "get": {
+        "operationId": "adminListUsers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserResponseDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "List all users",
+        "tags": [
+          "admin: users"
+        ]
+      }
+    },
+    "/api/v1/admin/users/{id}": {
+      "get": {
+        "operationId": "adminGetUser",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Get a user",
+        "tags": [
+          "admin: users"
+        ]
+      }
+    },
+    "/api/v1/admin/users/{id}/counselor": {
+      "patch": {
+        "operationId": "adminUpdateUserCounselor",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCounselorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Assign the counselor",
+        "tags": [
+          "admin: users"
+        ]
+      }
+    },
     "/health": {
       "get": {
         "operationId": "getHealth",
@@ -1979,6 +2181,560 @@
         ]
       }
     },
+    "/api/v1/enrollments": {
+      "post": {
+        "operationId": "createEnrollment",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEnrollmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrollmentDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Start an enrollment",
+        "tags": [
+          "enrollments"
+        ]
+      },
+      "get": {
+        "operationId": "listEnrollments",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnrollmentDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "List my enrollments",
+        "tags": [
+          "enrollments"
+        ]
+      }
+    },
+    "/api/v1/enrollments/{id}": {
+      "get": {
+        "operationId": "getEnrollment",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrollmentDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Enrollment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Get my enrollment",
+        "tags": [
+          "enrollments"
+        ]
+      }
+    },
+    "/api/v1/enrollments/{id}/details": {
+      "patch": {
+        "operationId": "updateEnrollmentDetails",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEnrollmentDetailsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrollmentDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Enrollment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Save enrollment details",
+        "tags": [
+          "enrollments"
+        ]
+      }
+    },
+    "/api/v1/enrollments/{id}/payment-init": {
+      "post": {
+        "operationId": "initEnrollmentPayment",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentInitDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed; `errors` maps field paths to messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Enrollment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Start enrollment payment",
+        "tags": [
+          "enrollments"
+        ]
+      }
+    },
+    "/api/v1/enrollments/{id}/status": {
+      "get": {
+        "operationId": "getEnrollmentPaymentStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentStatusDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Enrollment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Verify enrollment payment",
+        "tags": [
+          "enrollments"
+        ]
+      }
+    },
+    "/api/v1/enrollments/by-reference/{reference}/status": {
+      "get": {
+        "operationId": "getEnrollmentPaymentStatusByReference",
+        "parameters": [
+          {
+            "name": "reference",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentStatusDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Payment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Verify enrollment payment by provider reference",
+        "tags": [
+          "enrollments"
+        ]
+      }
+    },
+    "/api/v1/admin/payments": {
+      "get": {
+        "operationId": "adminListPayments",
+        "parameters": [
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/PaymentAttemptStatus"
+            }
+          },
+          {
+            "name": "q",
+            "required": false,
+            "in": "query",
+            "description": "Matches provider reference, student name, or enrollment id.",
+            "schema": {
+              "example": "PAY-AB12",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPaymentListDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "List payment attempts",
+        "tags": [
+          "admin: payments"
+        ]
+      }
+    },
+    "/api/v1/admin/payments/{reference}": {
+      "get": {
+        "operationId": "adminGetPayment",
+        "parameters": [
+          {
+            "name": "reference",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPaymentDetailDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Payment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Get a payment attempt",
+        "tags": [
+          "admin: payments"
+        ]
+      }
+    },
+    "/api/v1/admin/payments/{reference}/resync": {
+      "post": {
+        "operationId": "adminResyncPayment",
+        "parameters": [
+          {
+            "name": "reference",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminPaymentDetailDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Payment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "workos": []
+          }
+        ],
+        "summary": "Re-sync a payment attempt",
+        "tags": [
+          "admin: payments"
+        ]
+      }
+    },
     "/api/v1/admin/testimonials": {
       "get": {
         "operationId": "adminListTestimonials",
@@ -2447,6 +3203,36 @@
         ],
         "description": "Application role. Admins can open the CMS and call the admin endpoints."
       },
+      "CounselorDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Shafqat Rahman"
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true,
+            "format": "email"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "nextCheckIn": {
+            "type": "string",
+            "nullable": true,
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
       "UserResponseDto": {
         "type": "object",
         "properties": {
@@ -2485,6 +3271,16 @@
           "createdAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "counselor": {
+            "nullable": true,
+            "description": "The admin-assigned counselor, or null when none is assigned yet.",
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CounselorDto"
+              }
+            ]
           }
         },
         "required": [
@@ -2493,6 +3289,98 @@
           "email",
           "role",
           "createdAt"
+        ]
+      },
+      "ErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Course not found"
+          },
+          "error": {
+            "type": "string",
+            "example": "Not Found"
+          }
+        },
+        "required": [
+          "statusCode",
+          "message"
+        ]
+      },
+      "UpdateCounselorDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 120,
+            "example": "Shafqat Rahman"
+          },
+          "role": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 120
+          },
+          "email": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 254,
+            "format": "email"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 40
+          },
+          "nextCheckIn": {
+            "type": "string",
+            "nullable": true,
+            "format": "date-time"
+          }
+        }
+      },
+      "ValidationErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Course not found"
+          },
+          "error": {
+            "type": "string",
+            "example": "Not Found"
+          },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "example": {
+              "name": [
+                "name should not be empty"
+              ],
+              "modules.0.title": [
+                "title must be a string"
+              ]
+            }
+          }
+        },
+        "required": [
+          "statusCode",
+          "message",
+          "errors"
         ]
       },
       "BranchDto": {
@@ -2548,27 +3436,6 @@
           "updatedAt"
         ]
       },
-      "ErrorResponseDto": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 404
-          },
-          "message": {
-            "type": "string",
-            "example": "Course not found"
-          },
-          "error": {
-            "type": "string",
-            "example": "Not Found"
-          }
-        },
-        "required": [
-          "statusCode",
-          "message"
-        ]
-      },
       "CreateBranchDto": {
         "type": "object",
         "properties": {
@@ -2606,45 +3473,6 @@
         },
         "required": [
           "name"
-        ]
-      },
-      "ValidationErrorResponseDto": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "number",
-            "example": 404
-          },
-          "message": {
-            "type": "string",
-            "example": "Course not found"
-          },
-          "error": {
-            "type": "string",
-            "example": "Not Found"
-          },
-          "errors": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "example": {
-              "name": [
-                "name should not be empty"
-              ],
-              "modules.0.title": [
-                "title must be a string"
-              ]
-            }
-          }
-        },
-        "required": [
-          "statusCode",
-          "message",
-          "errors"
         ]
       },
       "UpdateBranchDto": {
@@ -3889,6 +4717,486 @@
             "minimum": 0
           }
         }
+      },
+      "CreateEnrollmentDto": {
+        "type": "object",
+        "properties": {
+          "courseId": {
+            "type": "string",
+            "description": "A published course. The fee comes from this row, never the request.",
+            "format": "uuid"
+          },
+          "batchId": {
+            "type": "string",
+            "nullable": true,
+            "description": "An open batch of that course. Fee overrides the course price when set.",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "courseId"
+        ]
+      },
+      "EnrollmentStatus": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "pending_payment",
+          "active",
+          "failed",
+          "cancelled",
+          "expired"
+        ]
+      },
+      "EnrollmentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "courseId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "batchId": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EnrollmentStatus"
+              }
+            ]
+          },
+          "feeAmount": {
+            "type": "number",
+            "description": "Whole taka, from the course or its batch override.",
+            "example": 8500
+          },
+          "feeCurrency": {
+            "type": "string",
+            "example": "BDT"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "educationLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "institution": {
+            "type": "string",
+            "nullable": true
+          },
+          "graduationYear": {
+            "type": "number",
+            "nullable": true
+          },
+          "addressLine1": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressLine2": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "courseId",
+          "batchId",
+          "status",
+          "feeAmount",
+          "feeCurrency",
+          "fullName",
+          "dateOfBirth",
+          "phone",
+          "educationLevel",
+          "institution",
+          "graduationYear",
+          "addressLine1",
+          "addressLine2",
+          "city",
+          "notes"
+        ]
+      },
+      "UpdateEnrollmentDetailsDto": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120,
+            "example": "Ayesha Rahman"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "Dhaka calendar day, YYYY-MM-DD. Must be a past date.",
+            "example": "2004-03-18"
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 32,
+            "example": "01712345678"
+          },
+          "educationLevel": {
+            "type": "string",
+            "maxLength": 80,
+            "example": "HSC"
+          },
+          "institution": {
+            "type": "string",
+            "maxLength": 160,
+            "example": "Dhaka College"
+          },
+          "graduationYear": {
+            "type": "number",
+            "minimum": 1980,
+            "maximum": 2100,
+            "example": 2024
+          },
+          "addressLine1": {
+            "type": "string",
+            "maxLength": 240,
+            "example": "House 12, Road 5, Dhanmondi"
+          },
+          "addressLine2": {
+            "type": "string",
+            "maxLength": 240,
+            "example": "Apartment 3B"
+          },
+          "city": {
+            "type": "string",
+            "maxLength": 80,
+            "example": "Dhaka"
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 1000,
+            "example": "Prefers weekend batches"
+          }
+        }
+      },
+      "PaymentAttemptStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "processing",
+          "success",
+          "failed",
+          "cancelled",
+          "expired"
+        ]
+      },
+      "PaymentInitDto": {
+        "type": "object",
+        "properties": {
+          "enrollmentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "attemptId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "providerReference": {
+            "type": "string",
+            "example": "PAY-AB12CD34EF56GH78"
+          },
+          "paymentUrl": {
+            "type": "string",
+            "example": "https://payments.example.com/api/payment?reference=PAY-AB12CD34EF56GH78"
+          },
+          "amount": {
+            "type": "number",
+            "example": 8500
+          },
+          "currency": {
+            "type": "string",
+            "example": "BDT"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentAttemptStatus"
+              }
+            ]
+          }
+        },
+        "required": [
+          "enrollmentId",
+          "attemptId",
+          "providerReference",
+          "paymentUrl",
+          "amount",
+          "currency",
+          "status"
+        ]
+      },
+      "PaymentStatusDto": {
+        "type": "object",
+        "properties": {
+          "enrollmentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "enrollmentStatus": {
+            "type": "string",
+            "example": "pending_payment"
+          },
+          "attemptId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "attemptStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentAttemptStatus"
+              }
+            ]
+          },
+          "providerReference": {
+            "type": "string",
+            "nullable": true,
+            "example": "PAY-AB12CD34EF56GH78"
+          },
+          "amount": {
+            "type": "number",
+            "example": 8500
+          },
+          "currency": {
+            "type": "string",
+            "example": "BDT"
+          },
+          "providerStatus": {
+            "type": "string",
+            "description": "The provider's own status word, for the admin timeline.",
+            "example": "success"
+          },
+          "paidAt": {
+            "type": "string",
+            "nullable": true,
+            "description": "When our side recorded settlement. Null until an attempt verifies.",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "enrollmentId",
+          "enrollmentStatus",
+          "attemptId",
+          "attemptStatus",
+          "providerReference",
+          "amount",
+          "currency",
+          "providerStatus",
+          "paidAt"
+        ]
+      },
+      "AdminPaymentListItemDto": {
+        "type": "object",
+        "properties": {
+          "attemptId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "providerReference": {
+            "type": "string",
+            "nullable": true,
+            "example": "PAY-AB12CD34EF56GH78"
+          },
+          "enrollmentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "studentName": {
+            "type": "string"
+          },
+          "studentEmail": {
+            "type": "string"
+          },
+          "courseName": {
+            "type": "string"
+          },
+          "batchStartsOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "example": 8500
+          },
+          "currency": {
+            "type": "string",
+            "example": "BDT"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentAttemptStatus"
+              }
+            ]
+          },
+          "enrollmentStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EnrollmentStatus"
+              }
+            ]
+          }
+        },
+        "required": [
+          "attemptId",
+          "providerReference",
+          "enrollmentId",
+          "studentName",
+          "studentEmail",
+          "courseName",
+          "batchStartsOn",
+          "amount",
+          "currency",
+          "status",
+          "enrollmentStatus"
+        ]
+      },
+      "AdminPaymentListDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminPaymentListItemDto"
+            }
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "perPage": {
+            "type": "number",
+            "example": 20
+          },
+          "total": {
+            "type": "number",
+            "example": 42
+          }
+        },
+        "required": [
+          "data",
+          "page",
+          "perPage",
+          "total"
+        ]
+      },
+      "AdminPaymentDetailDto": {
+        "type": "object",
+        "properties": {
+          "attemptId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "providerReference": {
+            "type": "string",
+            "nullable": true,
+            "example": "PAY-AB12CD34EF56GH78"
+          },
+          "enrollmentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "studentName": {
+            "type": "string"
+          },
+          "studentEmail": {
+            "type": "string"
+          },
+          "courseName": {
+            "type": "string"
+          },
+          "batchStartsOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "example": 8500
+          },
+          "currency": {
+            "type": "string",
+            "example": "BDT"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentAttemptStatus"
+              }
+            ]
+          },
+          "enrollmentStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EnrollmentStatus"
+              }
+            ]
+          },
+          "paidAt": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastProviderPayload": {
+            "type": "object",
+            "additionalProperties": true,
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "education": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "attemptId",
+          "providerReference",
+          "enrollmentId",
+          "studentName",
+          "studentEmail",
+          "courseName",
+          "batchStartsOn",
+          "amount",
+          "currency",
+          "status",
+          "enrollmentStatus",
+          "paidAt",
+          "lastProviderPayload",
+          "phone",
+          "education",
+          "address"
+        ]
       },
       "TestimonialWithCoursesDto": {
         "type": "object",

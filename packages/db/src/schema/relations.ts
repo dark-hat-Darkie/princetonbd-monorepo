@@ -3,8 +3,10 @@ import { relations } from 'drizzle-orm';
 import { batches } from './batches.js';
 import { branches } from './branches.js';
 import { courseTeachers, courses, curriculumModules } from './courses.js';
+import { enrollments, paymentAttempts } from './enrollments.js';
 import { teachers } from './teachers.js';
 import { courseTestimonials, testimonials } from './testimonials.js';
+import { users } from './users.js';
 
 /**
  * Relational-query wiring for the CMS tables, kept in one file on purpose.
@@ -60,5 +62,19 @@ export const courseTestimonialsRelations = relations(courseTestimonials, ({ one 
   testimonial: one(testimonials, {
     fields: [courseTestimonials.testimonialId],
     references: [testimonials.id],
+  }),
+}));
+
+export const enrollmentsRelations = relations(enrollments, ({ one, many }) => ({
+  user: one(users, { fields: [enrollments.userId], references: [users.id] }),
+  course: one(courses, { fields: [enrollments.courseId], references: [courses.id] }),
+  batch: one(batches, { fields: [enrollments.batchId], references: [batches.id] }),
+  paymentAttempts: many(paymentAttempts),
+}));
+
+export const paymentAttemptsRelations = relations(paymentAttempts, ({ one }) => ({
+  enrollment: one(enrollments, {
+    fields: [paymentAttempts.enrollmentId],
+    references: [enrollments.id],
   }),
 }));

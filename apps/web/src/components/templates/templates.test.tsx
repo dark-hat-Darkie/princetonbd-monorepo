@@ -66,7 +66,8 @@ describe('page templates', () => {
     }
 
     const reserve = screen.getByRole('link', { name: /reserve a seat/i });
-    expect(reserve).toHaveAttribute('href', expect.stringContaining('interest='));
+    expect(reserve).toHaveAttribute('href', expect.stringContaining('/enroll?'));
+    expect(reserve).toHaveAttribute('href', expect.stringContaining(`course=${course.slug}`));
     expect(reserve).toHaveAttribute(
       'href',
       expect.stringContaining(`batch=${course.batches[0]!.id}`),

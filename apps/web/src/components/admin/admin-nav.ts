@@ -41,6 +41,18 @@ export const adminLinks: readonly PortalLink[] = [
     blurb: 'Student quotes and the courses each one may appear on.',
     match: 'prefix',
   },
+  {
+    href: '/admin/payments',
+    label: 'Payments',
+    blurb: 'Every enrollment payment: status, student, amount, and verification timeline.',
+    match: 'prefix',
+  },
+  {
+    href: '/admin/students',
+    label: 'Students',
+    blurb: 'Everyone with an account, and the counselor assigned to each one.',
+    match: 'prefix',
+  },
 ];
 
 export function adminLinkFor(href: string): PortalLink | undefined {

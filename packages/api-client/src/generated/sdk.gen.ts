@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AdminCreateBatchData, AdminCreateBatchErrors, AdminCreateBatchResponses, AdminCreateBranchData, AdminCreateBranchErrors, AdminCreateBranchResponses, AdminCreateCourseData, AdminCreateCourseErrors, AdminCreateCourseResponses, AdminCreateTeacherData, AdminCreateTeacherErrors, AdminCreateTeacherResponses, AdminCreateTestimonialData, AdminCreateTestimonialErrors, AdminCreateTestimonialResponses, AdminDeleteBatchData, AdminDeleteBatchErrors, AdminDeleteBatchResponses, AdminDeleteBranchData, AdminDeleteBranchErrors, AdminDeleteBranchResponses, AdminDeleteCourseData, AdminDeleteCourseErrors, AdminDeleteCourseResponses, AdminDeleteTeacherData, AdminDeleteTeacherErrors, AdminDeleteTeacherResponses, AdminDeleteTestimonialData, AdminDeleteTestimonialErrors, AdminDeleteTestimonialResponses, AdminGetBatchData, AdminGetBatchErrors, AdminGetBatchResponses, AdminGetBranchData, AdminGetBranchErrors, AdminGetBranchResponses, AdminGetCourseData, AdminGetCourseErrors, AdminGetCourseResponses, AdminGetOverviewData, AdminGetOverviewErrors, AdminGetOverviewResponses, AdminGetTeacherData, AdminGetTeacherErrors, AdminGetTeacherResponses, AdminGetTestimonialData, AdminGetTestimonialErrors, AdminGetTestimonialResponses, AdminListBatchesData, AdminListBatchesErrors, AdminListBatchesResponses, AdminListBranchesData, AdminListBranchesErrors, AdminListBranchesResponses, AdminListCoursesData, AdminListCoursesErrors, AdminListCoursesResponses, AdminListTeachersData, AdminListTeachersErrors, AdminListTeachersResponses, AdminListTestimonialsData, AdminListTestimonialsErrors, AdminListTestimonialsResponses, AdminPresignUploadData, AdminPresignUploadErrors, AdminPresignUploadResponses, AdminReplaceCourseTeachersData, AdminReplaceCourseTeachersErrors, AdminReplaceCourseTeachersResponses, AdminReplaceCurriculumData, AdminReplaceCurriculumErrors, AdminReplaceCurriculumResponses, AdminUpdateBatchData, AdminUpdateBatchErrors, AdminUpdateBatchResponses, AdminUpdateBranchData, AdminUpdateBranchErrors, AdminUpdateBranchResponses, AdminUpdateCourseData, AdminUpdateCourseErrors, AdminUpdateCourseResponses, AdminUpdateTeacherData, AdminUpdateTeacherErrors, AdminUpdateTeacherResponses, AdminUpdateTestimonialData, AdminUpdateTestimonialErrors, AdminUpdateTestimonialResponses, GetBatchByIdData, GetBatchByIdErrors, GetBatchByIdResponses, GetCourseBySlugData, GetCourseBySlugErrors, GetCourseBySlugResponses, GetCurrentUserData, GetCurrentUserResponses, GetHealthData, GetHealthErrors, GetHealthResponses, GetUserByIdData, GetUserByIdResponses, ListBatchesData, ListBatchesResponses, ListBranchesData, ListBranchesResponses, ListCoursesData, ListCoursesResponses, ListTeachersData, ListTeachersResponses } from './types.gen';
+import type { AdminCreateBatchData, AdminCreateBatchErrors, AdminCreateBatchResponses, AdminCreateBranchData, AdminCreateBranchErrors, AdminCreateBranchResponses, AdminCreateCourseData, AdminCreateCourseErrors, AdminCreateCourseResponses, AdminCreateTeacherData, AdminCreateTeacherErrors, AdminCreateTeacherResponses, AdminCreateTestimonialData, AdminCreateTestimonialErrors, AdminCreateTestimonialResponses, AdminDeleteBatchData, AdminDeleteBatchErrors, AdminDeleteBatchResponses, AdminDeleteBranchData, AdminDeleteBranchErrors, AdminDeleteBranchResponses, AdminDeleteCourseData, AdminDeleteCourseErrors, AdminDeleteCourseResponses, AdminDeleteTeacherData, AdminDeleteTeacherErrors, AdminDeleteTeacherResponses, AdminDeleteTestimonialData, AdminDeleteTestimonialErrors, AdminDeleteTestimonialResponses, AdminGetBatchData, AdminGetBatchErrors, AdminGetBatchResponses, AdminGetBranchData, AdminGetBranchErrors, AdminGetBranchResponses, AdminGetCourseData, AdminGetCourseErrors, AdminGetCourseResponses, AdminGetOverviewData, AdminGetOverviewErrors, AdminGetOverviewResponses, AdminGetPaymentData, AdminGetPaymentErrors, AdminGetPaymentResponses, AdminGetTeacherData, AdminGetTeacherErrors, AdminGetTeacherResponses, AdminGetTestimonialData, AdminGetTestimonialErrors, AdminGetTestimonialResponses, AdminGetUserData, AdminGetUserErrors, AdminGetUserResponses, AdminListBatchesData, AdminListBatchesErrors, AdminListBatchesResponses, AdminListBranchesData, AdminListBranchesErrors, AdminListBranchesResponses, AdminListCoursesData, AdminListCoursesErrors, AdminListCoursesResponses, AdminListPaymentsData, AdminListPaymentsErrors, AdminListPaymentsResponses, AdminListTeachersData, AdminListTeachersErrors, AdminListTeachersResponses, AdminListTestimonialsData, AdminListTestimonialsErrors, AdminListTestimonialsResponses, AdminListUsersData, AdminListUsersErrors, AdminListUsersResponses, AdminPresignUploadData, AdminPresignUploadErrors, AdminPresignUploadResponses, AdminReplaceCourseTeachersData, AdminReplaceCourseTeachersErrors, AdminReplaceCourseTeachersResponses, AdminReplaceCurriculumData, AdminReplaceCurriculumErrors, AdminReplaceCurriculumResponses, AdminResyncPaymentData, AdminResyncPaymentErrors, AdminResyncPaymentResponses, AdminUpdateBatchData, AdminUpdateBatchErrors, AdminUpdateBatchResponses, AdminUpdateBranchData, AdminUpdateBranchErrors, AdminUpdateBranchResponses, AdminUpdateCourseData, AdminUpdateCourseErrors, AdminUpdateCourseResponses, AdminUpdateTeacherData, AdminUpdateTeacherErrors, AdminUpdateTeacherResponses, AdminUpdateTestimonialData, AdminUpdateTestimonialErrors, AdminUpdateTestimonialResponses, AdminUpdateUserCounselorData, AdminUpdateUserCounselorErrors, AdminUpdateUserCounselorResponses, CreateEnrollmentData, CreateEnrollmentErrors, CreateEnrollmentResponses, GetBatchByIdData, GetBatchByIdErrors, GetBatchByIdResponses, GetCourseBySlugData, GetCourseBySlugErrors, GetCourseBySlugResponses, GetCurrentUserData, GetCurrentUserResponses, GetEnrollmentData, GetEnrollmentErrors, GetEnrollmentPaymentStatusByReferenceData, GetEnrollmentPaymentStatusByReferenceErrors, GetEnrollmentPaymentStatusByReferenceResponses, GetEnrollmentPaymentStatusData, GetEnrollmentPaymentStatusErrors, GetEnrollmentPaymentStatusResponses, GetEnrollmentResponses, GetHealthData, GetHealthErrors, GetHealthResponses, GetUserByIdData, GetUserByIdResponses, InitEnrollmentPaymentData, InitEnrollmentPaymentErrors, InitEnrollmentPaymentResponses, ListBatchesData, ListBatchesResponses, ListBranchesData, ListBranchesResponses, ListCoursesData, ListCoursesResponses, ListEnrollmentsData, ListEnrollmentsResponses, ListTeachersData, ListTeachersResponses, UpdateEnrollmentDetailsData, UpdateEnrollmentDetailsErrors, UpdateEnrollmentDetailsResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -34,6 +34,37 @@ export const getUserById = <ThrowOnError extends boolean = false>(options: Optio
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/v1/users/{id}',
     ...options
+});
+
+/**
+ * List all users
+ */
+export const adminListUsers = <ThrowOnError extends boolean = false>(options?: Options<AdminListUsersData, ThrowOnError>): RequestResult<AdminListUsersResponses, AdminListUsersErrors, ThrowOnError> => (options?.client ?? client).get<AdminListUsersResponses, AdminListUsersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/users',
+    ...options
+});
+
+/**
+ * Get a user
+ */
+export const adminGetUser = <ThrowOnError extends boolean = false>(options: Options<AdminGetUserData, ThrowOnError>): RequestResult<AdminGetUserResponses, AdminGetUserErrors, ThrowOnError> => (options.client ?? client).get<AdminGetUserResponses, AdminGetUserErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/users/{id}',
+    ...options
+});
+
+/**
+ * Assign the counselor
+ */
+export const adminUpdateUserCounselor = <ThrowOnError extends boolean = false>(options: Options<AdminUpdateUserCounselorData, ThrowOnError>): RequestResult<AdminUpdateUserCounselorResponses, AdminUpdateUserCounselorErrors, ThrowOnError> => (options.client ?? client).patch<AdminUpdateUserCounselorResponses, AdminUpdateUserCounselorErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/users/{id}/counselor',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**
@@ -307,6 +338,104 @@ export const adminUpdateBatch = <ThrowOnError extends boolean = false>(options: 
         'Content-Type': 'application/json',
         ...options.headers
     }
+});
+
+/**
+ * List my enrollments
+ */
+export const listEnrollments = <ThrowOnError extends boolean = false>(options?: Options<ListEnrollmentsData, ThrowOnError>): RequestResult<ListEnrollmentsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ListEnrollmentsResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/enrollments',
+    ...options
+});
+
+/**
+ * Start an enrollment
+ */
+export const createEnrollment = <ThrowOnError extends boolean = false>(options: Options<CreateEnrollmentData, ThrowOnError>): RequestResult<CreateEnrollmentResponses, CreateEnrollmentErrors, ThrowOnError> => (options.client ?? client).post<CreateEnrollmentResponses, CreateEnrollmentErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/enrollments',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Get my enrollment
+ */
+export const getEnrollment = <ThrowOnError extends boolean = false>(options: Options<GetEnrollmentData, ThrowOnError>): RequestResult<GetEnrollmentResponses, GetEnrollmentErrors, ThrowOnError> => (options.client ?? client).get<GetEnrollmentResponses, GetEnrollmentErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/enrollments/{id}',
+    ...options
+});
+
+/**
+ * Save enrollment details
+ */
+export const updateEnrollmentDetails = <ThrowOnError extends boolean = false>(options: Options<UpdateEnrollmentDetailsData, ThrowOnError>): RequestResult<UpdateEnrollmentDetailsResponses, UpdateEnrollmentDetailsErrors, ThrowOnError> => (options.client ?? client).patch<UpdateEnrollmentDetailsResponses, UpdateEnrollmentDetailsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/enrollments/{id}/details',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Start enrollment payment
+ */
+export const initEnrollmentPayment = <ThrowOnError extends boolean = false>(options: Options<InitEnrollmentPaymentData, ThrowOnError>): RequestResult<InitEnrollmentPaymentResponses, InitEnrollmentPaymentErrors, ThrowOnError> => (options.client ?? client).post<InitEnrollmentPaymentResponses, InitEnrollmentPaymentErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/enrollments/{id}/payment-init',
+    ...options
+});
+
+/**
+ * Verify enrollment payment
+ */
+export const getEnrollmentPaymentStatus = <ThrowOnError extends boolean = false>(options: Options<GetEnrollmentPaymentStatusData, ThrowOnError>): RequestResult<GetEnrollmentPaymentStatusResponses, GetEnrollmentPaymentStatusErrors, ThrowOnError> => (options.client ?? client).get<GetEnrollmentPaymentStatusResponses, GetEnrollmentPaymentStatusErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/enrollments/{id}/status',
+    ...options
+});
+
+/**
+ * Verify enrollment payment by provider reference
+ */
+export const getEnrollmentPaymentStatusByReference = <ThrowOnError extends boolean = false>(options: Options<GetEnrollmentPaymentStatusByReferenceData, ThrowOnError>): RequestResult<GetEnrollmentPaymentStatusByReferenceResponses, GetEnrollmentPaymentStatusByReferenceErrors, ThrowOnError> => (options.client ?? client).get<GetEnrollmentPaymentStatusByReferenceResponses, GetEnrollmentPaymentStatusByReferenceErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/enrollments/by-reference/{reference}/status',
+    ...options
+});
+
+/**
+ * List payment attempts
+ */
+export const adminListPayments = <ThrowOnError extends boolean = false>(options?: Options<AdminListPaymentsData, ThrowOnError>): RequestResult<AdminListPaymentsResponses, AdminListPaymentsErrors, ThrowOnError> => (options?.client ?? client).get<AdminListPaymentsResponses, AdminListPaymentsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/payments',
+    ...options
+});
+
+/**
+ * Get a payment attempt
+ */
+export const adminGetPayment = <ThrowOnError extends boolean = false>(options: Options<AdminGetPaymentData, ThrowOnError>): RequestResult<AdminGetPaymentResponses, AdminGetPaymentErrors, ThrowOnError> => (options.client ?? client).get<AdminGetPaymentResponses, AdminGetPaymentErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/payments/{reference}',
+    ...options
+});
+
+/**
+ * Re-sync a payment attempt
+ */
+export const adminResyncPayment = <ThrowOnError extends boolean = false>(options: Options<AdminResyncPaymentData, ThrowOnError>): RequestResult<AdminResyncPaymentResponses, AdminResyncPaymentErrors, ThrowOnError> => (options.client ?? client).post<AdminResyncPaymentResponses, AdminResyncPaymentErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/admin/payments/{reference}/resync',
+    ...options
 });
 
 /**

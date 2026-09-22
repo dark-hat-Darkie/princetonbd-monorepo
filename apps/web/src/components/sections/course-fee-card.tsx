@@ -5,6 +5,7 @@ import { ModeChip } from '@/components/ui/mode-chip';
 import { enrolHref } from '@/lib/batches';
 import type { BatchView, CourseView } from '@/lib/course-view';
 import { formatDayMonth } from '@/lib/dates';
+import { enrollHref } from '@/lib/enroll';
 import { formatPrice } from '@/lib/money';
 
 /**
@@ -68,7 +69,11 @@ export function CourseFeeCard({ course, next }: { course: CourseView; next?: Bat
 
       <div className="mt-6 flex flex-col gap-2.5">
         <CtaButton
-          href={enrolHref({ interest: course.interest, batch: next })}
+          href={
+            next
+              ? enrollHref({ courseSlug: course.slug, batchId: next.id })
+              : enrolHref({ interest: course.interest })
+          }
           arrow
           className="w-full"
         >

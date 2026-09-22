@@ -14,6 +14,7 @@ import { BranchesModule } from './branches/branches.module.js';
 import { ENV, EnvModule } from './config/env.module.js';
 import { CoursesModule } from './courses/courses.module.js';
 import { DatabaseModule } from './database/database.module.js';
+import { EnrollmentsModule } from './enrollments/enrollments.module.js';
 import { HealthModule } from './health/health.module.js';
 import { TeachersModule } from './teachers/teachers.module.js';
 import { TestimonialsModule } from './testimonials/testimonials.module.js';
@@ -65,6 +66,7 @@ import { UsersModule } from './users/users.module.js';
     TeachersModule,
     CoursesModule,
     BatchesModule,
+    EnrollmentsModule,
     TestimonialsModule,
     UploadsModule,
     AdminModule,

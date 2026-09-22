@@ -8,6 +8,8 @@ import { adminLinks } from '@/components/admin/admin-nav';
 import { AccountChip } from '@/components/dashboard/account-chip';
 import { PortalShell } from '@/components/dashboard/portal-shell';
 import { getApiClient } from '@/lib/api';
+import { currentPath } from '@/lib/auth/current-path';
+import { signInHref } from '@/lib/auth/return-to';
 
 export const metadata: Metadata = {
   title: { template: '%s · Admin', default: 'Admin' },
@@ -17,13 +19,15 @@ export const metadata: Metadata = {
 /**
  * Layout for the admin panel.
  *
- * The proxy has already required a session for `/admin/*`; what it cannot
- * know is the role, which lives in the API's `users` row. So the layout asks
- * the API who the caller is and sends anyone who is not an admin to the
- * student portal, which in turn sends admins here: the two surfaces are
- * mutually exclusive. This check is a convenience — the API's own RolesGuard
- * is what actually protects the data — but it keeps a student from ever
- * seeing an empty panel that errors on every save.
+ * The proxy deliberately does NOT gate (it can only redirect to WorkOS
+ * hosted), so the session check lives here: anonymous visitors go to our
+ * sign-in with the return path. What neither layer can know is the role,
+ * which lives in the API's `users` row — so the layout asks the API who the
+ * caller is and sends anyone who is not an admin to the student portal, which
+ * in turn sends admins here: the two surfaces are mutually exclusive. This
+ * check is a convenience — the API's own RolesGuard is what actually protects
+ * the data — but it keeps a student from ever seeing an empty panel that
+ * errors on every save.
  *
  * Same shell as the student portal, different link list.
  */
@@ -34,7 +38,7 @@ export default async function AdminLayout({ children }: Readonly<{ children: Rea
   const { user } = initialAuth;
 
   if (!user) {
-    redirect('/sign-in');
+    redirect(signInHref(await currentPath('/admin')));
   }
 
   const client = await getApiClient();

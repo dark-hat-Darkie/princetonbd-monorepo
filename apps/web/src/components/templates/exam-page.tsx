@@ -12,8 +12,9 @@ import { JsonLd } from '@/components/ui/json-ld';
 import { PageHero } from '@/components/ui/page-hero';
 import { defaultClosing, guaranteeBand } from '@/content/shared';
 import { breadcrumbFor } from '@/content/site/routes';
-import { batchLabel, enrolHref } from '@/lib/batches';
+import { batchLabel } from '@/lib/batches';
 import type { CourseView } from '@/lib/course-view';
+import { enrollHref } from '@/lib/enroll';
 import { absoluteUrl, siteName, siteUrl } from '@/lib/site';
 
 const availability = {
@@ -113,7 +114,7 @@ export function ExamPage({ course }: { course: CourseView }) {
                 price: fee.amount,
                 priceCurrency: fee.currency,
                 availability: availability[batch.status],
-                url: absoluteUrl(enrolHref({ interest: course.interest, batch })),
+                url: absoluteUrl(enrollHref({ courseSlug: course.slug, batchId: batch.id })),
               },
             };
           }),

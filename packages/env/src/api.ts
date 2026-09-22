@@ -97,6 +97,40 @@ const apiEnvSchema = z.object({
     .enum(['true', 'false'])
     .default('false')
     .transform((v) => v === 'true'),
+
+  /* --- Centralized payments (SSLCommerz via the shared payment app) ---------
+     The Bearer token is server-only: only apps/api ever reads it, and the
+     logger redacts Authorization headers. All fields are optional so a dev
+     checkout without payment credentials still boots; the payments service
+     answers 503 until a base URL and token are configured. */
+  /** Origin of the centralized payment app, e.g. https://payments.example.com. No trailing slash. */
+  PAYMENTS_BASE_URL: z
+    .string()
+    .trim()
+    .default('')
+    .transform((v) => v.replace(/\/+$/, '') || undefined)
+    .pipe(z.url().optional()),
+  /** Server-to-server Bearer token for the payment API. Never expose to the browser. */
+  PAYMENTS_API_TOKEN: z
+    .string()
+    .trim()
+    .default('')
+    .transform((v) => v || undefined)
+    .pipe(z.string().min(1).optional()),
+  /** Our source_site as registered in the payment app's api_clients table. */
+  PAYMENTS_SOURCE_SITE: z.string().trim().min(1).default('princetonbd'),
+  /** Where the provider sends the browser after settlement. Must be allowlisted provider-side. */
+  PAYMENTS_SUCCESS_URL: z.url().default('http://localhost:3000/enroll/success'),
+  PAYMENTS_CANCEL_URL: z.url().default('http://localhost:3000/enroll/failed'),
+  /** Outbound HTTP timeout for provider calls, in milliseconds. */
+  PAYMENTS_TIMEOUT_MS: z.coerce.number().int().positive().max(60_000).default(10_000),
+  /**
+   * The provider's whitelisted post-settlement hook to invoke. Our own grant
+   * never depends on it — we verify via the status API — but the provider
+   * requires a whitelisted value, so confirm these with the payment team.
+   */
+  PAYMENTS_SUCCESS_MODEL: z.string().trim().min(1).default('PurchaseCourse'),
+  PAYMENTS_SUCCESS_FUNCTION: z.string().trim().min(1).default('purchase_course'),
 });
 
 export type ApiEnv = z.infer<typeof apiEnvSchema>;

@@ -26,6 +26,17 @@ export const users = pgTable(
     lastName: text('last_name'),
     profilePictureUrl: text('profile_picture_url'),
     role: userRoleEnum('role').notNull().default('student'),
+    /**
+     * The counselor shown on the student's portal overview, assigned by an
+     * admin. Free text per student rather than a roster reference — the
+     * counselor is often not on the teaching faculty. All null means no
+     * counselor is assigned yet; `name` carries the assignment.
+     */
+    counselorName: text('counselor_name'),
+    counselorRole: text('counselor_role'),
+    counselorEmail: text('counselor_email'),
+    counselorPhone: text('counselor_phone'),
+    counselorNextCheckIn: timestamp('counselor_next_check_in', { withTimezone: true }),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true })
       .notNull()

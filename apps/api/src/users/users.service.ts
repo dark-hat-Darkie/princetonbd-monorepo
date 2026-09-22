@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { eq, type Database, type User, users } from '@repo/db';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { desc, eq, type Database, type User, users } from '@repo/db';
 
 import { InjectEnv, type ApiEnv } from '../config/env.module.js';
 import { InjectDb } from '../database/database.module.js';
 import type { WorkosUserProfile } from '../auth/workos.service.js';
+import { UpdateCounselorDto } from './dto/counselor.dto.js';
+import { UserResponseDto } from './dto/user-response.dto.js';
 
 @Injectable()
 export class UsersService {
@@ -32,6 +34,57 @@ export class UsersService {
   async findById(id: string): Promise<User | undefined> {
     const [row] = await this.db.select().from(users).where(eq(users.id, id)).limit(1);
     return row;
+  }
+
+  /** Every user, newest first — the admin's student list. */
+  async adminList(): Promise<UserResponseDto[]> {
+    const rows = await this.db.select().from(users).orderBy(desc(users.createdAt));
+    return rows.map((row) => UserResponseDto.fromEntity(row));
+  }
+
+  async adminGet(id: string): Promise<UserResponseDto> {
+    const row = await this.findById(id);
+    if (!row) {
+      throw new NotFoundException(`User ${id} not found`);
+    }
+    return UserResponseDto.fromEntity(row);
+  }
+
+  /**
+   * Assign (or clear) a student's counselor.
+   *
+   * A `null` name clears the whole assignment; other fields patch their own
+   * column. Omitted fields are left alone.
+   */
+  async updateCounselor(id: string, dto: UpdateCounselorDto): Promise<UserResponseDto> {
+    const patch =
+      dto.name === null
+        ? {
+            counselorName: null,
+            counselorRole: null,
+            counselorEmail: null,
+            counselorPhone: null,
+            counselorNextCheckIn: null,
+          }
+        : {
+            ...(dto.name !== undefined ? { counselorName: dto.name } : {}),
+            ...(dto.role !== undefined ? { counselorRole: dto.role } : {}),
+            ...(dto.email !== undefined ? { counselorEmail: dto.email } : {}),
+            ...(dto.phone !== undefined ? { counselorPhone: dto.phone } : {}),
+            ...(dto.nextCheckIn !== undefined
+              ? { counselorNextCheckIn: dto.nextCheckIn ? new Date(dto.nextCheckIn) : null }
+              : {}),
+          };
+
+    const [row] = await this.db
+      .update(users)
+      .set(patch)
+      .where(eq(users.id, id))
+      .returning();
+    if (!row) {
+      throw new NotFoundException(`User ${id} not found`);
+    }
+    return UserResponseDto.fromEntity(row);
   }
 
   /**

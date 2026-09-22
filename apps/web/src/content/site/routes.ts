@@ -76,6 +76,11 @@ export const routes: readonly RouteNode[] = [
   { path: '/contact', label: 'Contact', priority: 0.9 },
   { path: '/free-diagnostic', label: 'Free diagnostic', priority: 0.9 },
 
+  /* — Enrollment & checkout (query-driven; verified server-side) ————————— */
+  { path: '/enroll', label: 'Enroll', priority: 0.9 },
+  { path: '/enroll/success', label: 'Payment successful', parent: '/enroll', priority: 0.3 },
+  { path: '/enroll/failed', label: 'Payment not completed', parent: '/enroll', priority: 0.3 },
+
   /* — Legal & utility ————————————————————————————————————————————————— */
   { path: '/legal/privacy', label: 'Privacy policy', priority: 0.3 },
   { path: '/legal/terms', label: 'Terms of use', priority: 0.3 },

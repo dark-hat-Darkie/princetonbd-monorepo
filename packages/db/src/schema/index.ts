@@ -5,4 +5,5 @@ export * from './teachers.js';
 export * from './courses.js';
 export * from './batches.js';
 export * from './testimonials.js';
+export * from './enrollments.js';
 export * from './relations.js';

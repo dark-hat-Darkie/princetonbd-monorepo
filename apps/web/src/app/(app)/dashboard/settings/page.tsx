@@ -14,11 +14,9 @@ export const metadata: Metadata = { title: 'Settings', robots: { index: false, f
 /**
  * The account we actually hold.
  *
- * This is the only portal page showing real data, and it doubles as the
- * end-to-end proof the original scaffold page provided: AuthKit session →
- * access token → NestJS guard → JWKS verification → local users row. The name
- * and email under "Your record" come from Postgres via the API, not from the
- * session, so a successful render means the upsert ran.
+ * AuthKit session → access token → NestJS guard → JWKS verification → local
+ * users row. The name and email under "Your record" come from Postgres via
+ * the API, not from the session, so a successful render means the upsert ran.
  */
 export default async function SettingsPage() {
   const { user } = await withAuth();
@@ -79,7 +77,6 @@ export default async function SettingsPage() {
 
       <p className="mt-7 max-w-[640px] border-l-[3px] border-l-gold bg-cream px-6 py-4 text-[14px] leading-[1.6] text-ink-soft">
         Preferences &mdash; notifications, timetable reminders, language &mdash; are not built yet.
-        Everything else in this portal outside this page is placeholder data.
       </p>
     </>
   );

@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { firstErrors, readForm } from '../form-data';
 import { batchFormOptions, batchSchema } from './batch';
 import { branchFormOptions, branchSchema } from './branch';
+import { counselorFormOptions, counselorSchema, checkInToInput } from './counselor';
 import { courseFormOptions, courseSchema } from './course';
 
 function form(entries: [string, string][]): FormData {
@@ -69,6 +70,72 @@ describe('courseSchema', () => {
       expect(errors.priceAmount).toMatch(/whole number/);
       expect(errors.modes).toMatch(/delivery mode/);
     }
+  });
+});
+
+describe('counselorSchema', () => {
+  it('passes a full assignment through, tagging the check-in with Dhaka time', () => {
+    const result = counselorSchema.safeParse(
+      readForm(
+        form([
+          ['name', 'Shafqat Rahman'],
+          ['role', 'Senior Admissions Counselor'],
+          ['email', 'counselling@princetonreviewbd.com'],
+          ['phone', '+880 1700-000000'],
+          ['nextCheckIn', '2026-09-03T17:00'],
+        ]),
+        counselorFormOptions,
+      ),
+    );
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data).toEqual({
+        name: 'Shafqat Rahman',
+        role: 'Senior Admissions Counselor',
+        email: 'counselling@princetonreviewbd.com',
+        phone: '+880 1700-000000',
+        nextCheckIn: '2026-09-03T17:00:00+06:00',
+      });
+    }
+  });
+
+  it('clears everything when the name is empty', () => {
+    const result = counselorSchema.safeParse(
+      readForm(
+        form([
+          ['name', ''],
+          ['role', ''],
+          ['email', ''],
+          ['phone', ''],
+          ['nextCheckIn', ''],
+        ]),
+        counselorFormOptions,
+      ),
+    );
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data).toEqual({
+        name: null,
+        role: null,
+        email: null,
+        phone: null,
+        nextCheckIn: null,
+      });
+    }
+  });
+
+  it('rejects a bad email with a readable message', () => {
+    const result = counselorSchema.safeParse(
+      readForm(form([['name', 'Shafqat Rahman'], ['email', 'not-an-email']]), counselorFormOptions),
+    );
+    expect(result.success).toBe(false);
+    if (!result.success) expect(firstErrors(result.error).email).toMatch(/valid email/);
+  });
+
+  it('round-trips a stored check-in back into the datetime-local box', () => {
+    expect(checkInToInput('2026-09-03T11:00:00.000Z')).toBe('2026-09-03T17:00');
+    expect(checkInToInput(null)).toBe('');
+    expect(checkInToInput(undefined)).toBe('');
   });
 });
 

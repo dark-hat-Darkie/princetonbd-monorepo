@@ -9,11 +9,32 @@ import { pgEnum } from 'drizzle-orm/pg-core';
  * generated client. One definition, three consumers, no drift.
  */
 export const userRoleEnum = pgEnum('user_role', ['student', 'admin']);
+export const enrollmentStatusEnum = pgEnum('enrollment_status', [
+  'draft',
+  'pending_payment',
+  'active',
+  'failed',
+  'cancelled',
+  'expired',
+]);
+export const paymentAttemptStatusEnum = pgEnum('payment_attempt_status', [
+  'pending',
+  'processing',
+  'success',
+  'failed',
+  'cancelled',
+  'expired',
+]);
 export const courseStatusEnum = pgEnum('course_status', ['draft', 'published', 'archived']);
 export const deliveryModeEnum = pgEnum('delivery_mode', ['classroom', 'live_online']);
 export const batchStatusEnum = pgEnum('batch_status', ['open', 'filling', 'waitlist', 'closed']);
 /** Bangladeshi working week starts on Saturday, so the list does too. */
 export const weekdayEnum = pgEnum('weekday', ['sat', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri']);
+
+export const enrollmentStatuses = enrollmentStatusEnum.enumValues;
+export const paymentAttemptStatuses = paymentAttemptStatusEnum.enumValues;
+export type EnrollmentStatus = (typeof enrollmentStatuses)[number];
+export type PaymentAttemptStatus = (typeof paymentAttemptStatuses)[number];
 
 export const userRoles = userRoleEnum.enumValues;
 export const courseStatuses = courseStatusEnum.enumValues;

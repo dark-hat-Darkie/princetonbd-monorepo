@@ -136,3 +136,116 @@ describe('UsersService.applyAdminAllowlist', () => {
     expect(db.update).not.toHaveBeenCalled();
   });
 });
+
+describe('UsersService counselor assignment', () => {
+  const row = {
+    id: 'uuid-9',
+    workosId: 'user_01XYZ',
+    email: 'raf@example.com',
+    firstName: 'Raf',
+    lastName: 'Hasan',
+    profilePictureUrl: null,
+    role: 'student',
+    counselorName: 'Shafqat Rahman',
+    counselorRole: 'Senior Admissions Counselor',
+    counselorEmail: 'counselling@princetonreviewbd.com',
+    counselorPhone: '+880 1700-000000',
+    counselorNextCheckIn: new Date('2026-09-03T11:00:00Z'),
+    createdAt: new Date('2026-08-01T00:00:00Z'),
+  };
+
+  function makeSelectDb(rows: unknown[]) {
+    return {
+      select: vi.fn().mockReturnValue({
+        from: vi.fn().mockReturnValue({
+          where: vi.fn().mockReturnValue({ limit: vi.fn().mockResolvedValue(rows) }),
+          orderBy: vi.fn().mockResolvedValue(rows),
+        }),
+      }),
+    };
+  }
+
+  function makeUpdateDb(returning: unknown[]) {
+    const chain = {
+      set: vi.fn().mockReturnThis(),
+      where: vi.fn().mockReturnThis(),
+      returning: vi.fn().mockResolvedValue(returning),
+    };
+    return { update: vi.fn().mockReturnValue(chain), chain };
+  }
+
+  it('exposes the assignment on the DTO, with the check-in as ISO', async () => {
+    const db = makeSelectDb([row]);
+    const service = new UsersService(db as never, env());
+
+    const [listed] = await service.adminList();
+
+    expect(listed?.counselor).toEqual({
+      name: 'Shafqat Rahman',
+      role: 'Senior Admissions Counselor',
+      email: 'counselling@princetonreviewbd.com',
+      phone: '+880 1700-000000',
+      nextCheckIn: '2026-09-03T11:00:00.000Z',
+    });
+  });
+
+  it('reports no counselor when the name column is empty', async () => {
+    const db = makeSelectDb([{ ...row, counselorName: null }]);
+    const service = new UsersService(db as never, env());
+
+    await expect(service.adminGet('uuid-9')).resolves.toMatchObject({ counselor: null });
+  });
+
+  it('throws NotFound for an unknown id instead of returning null', async () => {
+    const db = makeSelectDb([]);
+    const service = new UsersService(db as never, env());
+
+    await expect(service.adminGet('missing')).rejects.toThrow('User missing not found');
+  });
+
+  it('patches only the columns it is given', async () => {
+    const db = makeUpdateDb([{ ...row, counselorName: 'New Name' }]);
+    const service = new UsersService(db as never, env());
+
+    const result = await service.updateCounselor('uuid-9', { name: 'New Name' });
+
+    expect(db.chain.set).toHaveBeenCalledWith({ counselorName: 'New Name' });
+    expect(result.counselor?.name).toBe('New Name');
+  });
+
+  it('converts the check-in to a Date for the timestamp column', async () => {
+    const db = makeUpdateDb([row]);
+    const service = new UsersService(db as never, env());
+
+    await service.updateCounselor('uuid-9', { nextCheckIn: '2026-09-03T17:00:00+06:00' });
+
+    expect(db.chain.set).toHaveBeenCalledWith({
+      counselorNextCheckIn: new Date('2026-09-03T17:00:00+06:00'),
+    });
+  });
+
+  it('clears the whole assignment when the name is null', async () => {
+    const db = makeUpdateDb([{ ...row, counselorName: null }]);
+    const service = new UsersService(db as never, env());
+
+    const result = await service.updateCounselor('uuid-9', { name: null });
+
+    expect(db.chain.set).toHaveBeenCalledWith({
+      counselorName: null,
+      counselorRole: null,
+      counselorEmail: null,
+      counselorPhone: null,
+      counselorNextCheckIn: null,
+    });
+    expect(result.counselor).toBeNull();
+  });
+
+  it('throws NotFound when nothing was updated', async () => {
+    const db = makeUpdateDb([]);
+    const service = new UsersService(db as never, env());
+
+    await expect(service.updateCounselor('missing', { name: 'New Name' })).rejects.toThrow(
+      'User missing not found',
+    );
+  });
+});

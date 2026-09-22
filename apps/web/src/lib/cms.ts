@@ -46,13 +46,35 @@ import {
 const ONE_DAY = 86_400;
 const ONE_HOUR = 3_600;
 
+/* A hung API must fail fast. `next build` prerenders dozens of pages that
+   each read the CMS; one connection that never answers stalls its page past
+   Next's static-generation timeout and, repeated across workers, the deploy.
+   Ten seconds is generous for an API on the same network and bounds both the
+   build and the runtime revalidation path, which degrades to the same
+   fallbacks below. */
+const FETCH_TIMEOUT_MS = 10_000;
+
+/* True while `next build` prerenders pages. Transport failures then mean
+   "the API is not reachable from the build", not "this slug is gone", so the
+   single-item readers below return null instead of throwing: the build
+   succeeds, unlisted slugs render on their first visit, and ISR (plus the
+   admin revalidation hook) heals the rest. At runtime the throw stays — while
+   serving traffic it keeps the last good copy instead of caching a 404. */
+function isBuildPhase(): boolean {
+  return process.env.NEXT_PHASE === 'phase-production-build';
+}
+
 function cmsClient(tags: readonly string[], revalidate = ONE_DAY): Client {
   const { NEXT_PUBLIC_API_URL } = getWebClientEnv();
 
   return createApiClient({
     baseUrl: NEXT_PUBLIC_API_URL,
     fetch: (input, init) =>
-      fetch(input, { ...init, next: { tags: [CMS_TAG, ...tags], revalidate } }),
+      fetch(input, {
+        ...init,
+        signal: init?.signal ?? AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        next: { tags: [CMS_TAG, ...tags], revalidate },
+      }),
   });
 }
 
@@ -84,35 +106,61 @@ export async function getPublishedCourses(): Promise<CourseSummaryDto[]> {
 /**
  * One published course with everything its page renders.
  *
- * `null` only for a 404 — an unknown or unpublished slug, which the page
- * turns into a not-found. Anything else throws on purpose: during
+ * `null` for a 404 — an unknown or unpublished slug, which the page turns
+ * into a not-found — and, while `next build` prerenders, for any other
+ * failure too (see `isBuildPhase`). Anything else throws on purpose: during
  * revalidation a thrown error keeps the last good copy of the page, whereas
  * returning null would cache a 404 in its place.
  */
 export async function getCourse(slug: string): Promise<CourseDetailDto | null> {
-  const { data, error, response } = await getCourseBySlug({
-    client: cmsClient([COURSES_TAG, courseTag(slug)]),
-    path: { slug },
-  });
-  if (data) return data;
-  if (response?.status === 404) return null;
-  throw new Error(`[cms] getCourseBySlug(${slug}) failed: ${describe(error)}`);
+  try {
+    const { data, error, response } = await getCourseBySlug({
+      client: cmsClient([COURSES_TAG, courseTag(slug)]),
+      path: { slug },
+    });
+    if (data) return data;
+    if (response?.status === 404) return null;
+    if (isBuildPhase()) {
+      console.warn(`[cms] getCourseBySlug(${slug}) unreachable at build time: ${describe(error)}`);
+      return null;
+    }
+    throw new Error(`[cms] getCourseBySlug(${slug}) failed: ${describe(error)}`);
+  } catch (error) {
+    if (isBuildPhase()) {
+      console.warn(`[cms] getCourseBySlug(${slug}) unreachable at build time: ${describe(error)}`);
+      return null;
+    }
+    throw error;
+  }
 }
 
 /**
  * A batch for the enquiry form to echo. `null` means it no longer exists (or
  * its course was unpublished); a transport failure throws, so the enquiry
  * flow can tell "withdrawn" from "could not check" and not reject a lead
- * because the API blinked.
+ * because the API blinked. While `next build` prerenders the failure also
+ * reads as null (see `isBuildPhase`) so a sick API cannot fail the deploy.
  */
 export async function getBatch(id: string): Promise<BatchDto | null> {
-  const { data, error, response } = await getBatchById({
-    client: cmsClient([BATCHES_TAG], ONE_HOUR),
-    path: { id },
-  });
-  if (data) return data;
-  if (response?.status === 404) return null;
-  throw new Error(`[cms] getBatchById(${id}) failed: ${describe(error)}`);
+  try {
+    const { data, error, response } = await getBatchById({
+      client: cmsClient([BATCHES_TAG], ONE_HOUR),
+      path: { id },
+    });
+    if (data) return data;
+    if (response?.status === 404) return null;
+    if (isBuildPhase()) {
+      console.warn(`[cms] getBatchById(${id}) unreachable at build time: ${describe(error)}`);
+      return null;
+    }
+    throw new Error(`[cms] getBatchById(${id}) failed: ${describe(error)}`);
+  } catch (error) {
+    if (isBuildPhase()) {
+      console.warn(`[cms] getBatchById(${id}) unreachable at build time: ${describe(error)}`);
+      return null;
+    }
+    throw error;
+  }
 }
 
 /**

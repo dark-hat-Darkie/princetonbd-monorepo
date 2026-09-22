@@ -109,7 +109,7 @@ afterEach(() => {
 });
 
 describe('BatchFinder', () => {
-  it('lists every batch, numbered, with an enrol link carrying the batch into the enquiry form', () => {
+  it('lists every batch, numbered, with an enrol link carrying the batch into checkout', () => {
     renderFinder();
 
     expect(screen.getByRole('status')).toHaveTextContent('4 batches');
@@ -122,8 +122,8 @@ describe('BatchFinder', () => {
     expect(cards[0]).toHaveTextContent('Sat · Mon · Wed');
 
     const enrol = within(cards[0]!).getByRole('link', { name: 'Enrol' });
-    expect(enrol.getAttribute('href')).toContain('/contact?');
-    expect(enrol.getAttribute('href')).toContain('interest=IELTS');
+    expect(enrol.getAttribute('href')).toContain('/enroll?');
+    expect(enrol.getAttribute('href')).toContain('course=ielts');
     expect(enrol.getAttribute('href')).toContain('batch=b1');
   });
 

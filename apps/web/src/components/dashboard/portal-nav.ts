@@ -29,26 +29,6 @@ export const portalLinks: readonly PortalLink[] = [
     blurb: 'What you are enrolled in, and how far through you are.',
   },
   {
-    href: '/dashboard/schedule',
-    label: 'Schedule',
-    blurb: 'Every class, mock and check-in in the weeks ahead.',
-  },
-  {
-    href: '/dashboard/scores',
-    label: 'Scores',
-    blurb: 'Every mock you have sat, and the distance left to your target.',
-  },
-  {
-    href: '/dashboard/applications',
-    label: 'Applications',
-    blurb: 'Your university shortlist and where each one has got to.',
-  },
-  {
-    href: '/dashboard/resources',
-    label: 'Resources',
-    blurb: 'Materials, recordings and practice sets for your courses.',
-  },
-  {
     href: '/dashboard/settings',
     label: 'Settings',
     blurb: 'The account we hold for you.',

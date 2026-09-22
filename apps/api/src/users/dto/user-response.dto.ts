@@ -1,6 +1,8 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { userRoles, type User, type UserRole } from '@repo/db';
 
+import { CounselorDto } from './counselor.dto.js';
+
 /**
  * Public shape of a user.
  *
@@ -35,6 +37,10 @@ export class UserResponseDto {
   @ApiProperty({ format: 'date-time' })
   createdAt!: string;
 
+  /** The admin-assigned counselor, or null when none is assigned yet. */
+  @ApiPropertyOptional({ type: CounselorDto, nullable: true })
+  counselor!: CounselorDto | null;
+
   static fromEntity(user: User): UserResponseDto {
     return {
       id: user.id,
@@ -45,6 +51,7 @@ export class UserResponseDto {
       profilePictureUrl: user.profilePictureUrl,
       role: user.role,
       createdAt: user.createdAt.toISOString(),
+      counselor: CounselorDto.fromUser(user),
     };
   }
 }

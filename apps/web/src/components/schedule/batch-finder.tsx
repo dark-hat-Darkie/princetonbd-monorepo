@@ -13,6 +13,7 @@ import { ModeChip } from '@/components/ui/mode-chip';
 import { enrolHref, formatDayList, formatTimeRange } from '@/lib/batches';
 import { cn } from '@/lib/cn';
 import { formatFullDate } from '@/lib/dates';
+import { enrollHref } from '@/lib/enroll';
 import { formatPrice } from '@/lib/money';
 import {
   forgetSearches,
@@ -323,7 +324,7 @@ export function BatchFinder({ batches, places, courses, popular, initial }: Batc
                         </span>
                       </div>
                       <CtaButton
-                        href={enrolHref({ interest: batch.course.interest, batch })}
+                        href={enrollHref({ courseSlug: batch.course.slug, batchId: batch.id })}
                         size="sm"
                         variant={waitlist ? 'outline' : 'solid'}
                         arrow
