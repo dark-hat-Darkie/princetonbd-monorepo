@@ -100,26 +100,28 @@
     {
       "slug": "sat",
       "name": "SAT",
-      "description": "Digital, adaptive and unforgiving of guesswork. We teach the test the way it is now scored — module by module — and prove the gain with full-length mocks before you ever sit the real thing.",
+      "description": "Digital and adaptive: two sections of two modules each, scored 400–1600 with a score for each section. We teach to that format, and prove the gain with full-length adaptive mocks before you sit the real thing.",
       "priceAmount": 45000,
       "priceUnit": "per 10-week course",
       "feeIncludes": [
         "48 taught hours in a class of ten or fewer",
-        "10 proctored full-length adaptive mocks, scored and reviewed",
+        "The Digital SAT Manual, exclusive to instructor-led courses",
+        "12 full-length adaptive tests — our mocks and official College Board Bluebook practice, scored and reviewed",
+        "150+ targeted drills, thousands of practice questions and personalised score reports",
+        "365 days of access to materials and the online question bank",
         "Two 1-on-1 strategy sessions",
-        "All materials and the online question bank",
-        "Written 1400+ score guarantee"
+        "Score-improvement guarantee: improve on your starting score or retake the course free"
       ],
       "modes": ["classroom", "live_online"],
       "status": "published",
       "durationWeeks": 10,
       "taughtHours": 48,
-      "mockCount": 10,
+      "mockCount": 12,
       "classSize": "Max 10",
       "outcomes": [
-        "Sit the digital SAT knowing how the adaptive engine will score you",
+        "Sit the digital SAT knowing how the adaptive format scores each section",
         "Finish every Reading & Writing module with time to check flagged questions",
-        "Solve the full range of Math domains with and without the calculator",
+        "Solve the full range of Math domains, using the built-in calculator where it is the most reliable path to the answer",
         "Know your 400–1600 range before you book the real test"
       ],
       "sortOrder": 0,
@@ -127,12 +129,12 @@
         {
           "position": 1,
           "title": "Diagnostic and the adaptive format",
-          "summary": "How the digital SAT builds your score: two modules per section, a second module chosen by your first, and 2h 14m on the Bluebook app. Then a full-length diagnostic to find out where you stand.",
+          "summary": "Two sections, two modules each: Reading & Writing and Math, 2 hours 14 minutes on the Bluebook app. Then a full-length diagnostic to find out where you stand.",
           "topics": [
-            "Section-adaptive scoring: why module 1 decides your ceiling",
+            "Module-adaptive scoring: why module 1 decides which second module you see",
             "Bluebook tools: the built-in calculator, annotation and flagging",
             "Full-length adaptive diagnostic under exam timing",
-            "Your score map and a 1400+ target by section"
+            "Your score map and target by section"
           ],
           "hours": 4,
           "outcome": "Know your current 400–1600 score, your split by section and which question domains are costing you most."
@@ -205,15 +207,15 @@
         {
           "position": 7,
           "title": "Full-length mock cycle and review",
-          "summary": "Ten proctored adaptive mocks across the course, each one reviewed question by question, and your test-day plan.",
+          "summary": "Twelve proctored adaptive mocks across the course — our tests and official College Board Bluebook practice — each one reviewed question by question, and your test-day plan.",
           "topics": [
-            "Weekly full-length adaptive mocks, scored 400–1600",
+            "Full-length adaptive mocks (ours plus official Bluebook practice), scored 400–1600",
             "One-on-one review of your error journal and score trend",
             "Registration, Bluebook set-up and device checks",
             "Score choice, superscoring and which sitting to send"
           ],
           "hours": 9,
-          "outcome": "Walk in knowing your score range and having sat the digital SAT ten times already."
+          "outcome": "Walk in knowing your score range, having sat the digital SAT twelve times already."
         }
       ],
       "teacherSlugs": ["dr-imran-chowdhury", "farzana-haque", "nabeel-ahsan", "zahid-hasan"]
@@ -229,7 +231,7 @@
         "10 full-length proctored tests, scored and reviewed",
         "Two 1-on-1 strategy sessions",
         "All materials and the online question bank",
-        "Written 32+ score guarantee"
+        "Score-improvement guarantee: improve on your starting score or retake the course free"
       ],
       "modes": ["classroom", "live_online"],
       "status": "published",
@@ -337,7 +339,7 @@
         "10 full-length proctored exams, marked to the College Board rubric",
         "Two 1-on-1 free-response strategy sessions",
         "All materials and the online question bank",
-        "Written 4–5 score guarantee"
+        "Score-improvement guarantee: improve on your starting score or retake the course free"
       ],
       "modes": ["classroom", "live_online"],
       "status": "published",
@@ -445,7 +447,7 @@
         "8 full-length proctored adaptive mocks, scored and reviewed",
         "National Merit strategy session",
         "All materials and the online question bank",
-        "Written score guarantee and free SAT prep"
+        "Score-improvement guarantee: improve on your starting score or retake the course free, plus free SAT prep"
       ],
       "modes": ["classroom", "live_online"],
       "status": "published",
@@ -464,9 +466,9 @@
         {
           "position": 1,
           "title": "Digital format and adaptive modules",
-          "summary": "How the PSAT is built: two modules per section, a second module chosen by your first, and 2h 14m on the Bluebook app. Then a full-length diagnostic to find out where you stand.",
+          "summary": "Two sections, two modules each: Reading & Writing and Math, 2 hours 14 minutes on the Bluebook app. Then a full-length diagnostic to find out where you stand.",
           "topics": [
-            "Section-adaptive scoring: why module 1 decides your ceiling",
+            "Module-adaptive scoring: why module 1 decides which second module you see",
             "Bluebook tools: the built-in calculator, annotation and flagging",
             "Full-length adaptive diagnostic under exam timing",
             "Your 320–1520 score map and a target by section"
@@ -540,7 +542,7 @@
         "12 proctored full-length adaptive mocks, reviewed",
         "Two 1-on-1 strategy sessions",
         "All materials and the online question bank",
-        "Written 325+ score guarantee"
+        "Score-improvement guarantee: improve on your starting score or retake the course free"
       ],
       "modes": ["classroom", "live_online"],
       "status": "published",
@@ -590,7 +592,7 @@
             "Rates, work, mixtures and overlapping sets",
             "Counting, probability and basic statistics",
             "Reading tables and graphs: the data interpretation set",
-            "Numeric entry and multiple-answer questions without the calculator crutch"
+            "Numeric entry and multiple-answer questions, using the on-screen calculator where it is fastest"
           ],
           "hours": 8,
           "outcome": "Finish a Quant section on time with the data interpretation set answered, not skipped."
@@ -661,7 +663,7 @@
         "12 proctored full-length Focus Edition mocks, reviewed",
         "Two 1-on-1 strategy sessions",
         "All materials and the online question bank",
-        "Written 700+ score guarantee"
+        "Score-improvement guarantee: improve on your starting score or retake the course free"
       ],
       "modes": ["classroom", "live_online"],
       "status": "published",
@@ -864,7 +866,7 @@
           "outcome": "Walk in having sat the test twelve times with your score range known to the point."
         }
       ],
-      "teacherSlugs": ["nabeel-ahsan"]
+      "teacherSlugs": []
     },
     {
       "slug": "mcat",
@@ -972,7 +974,7 @@
           "outcome": "Walk in having sat the full seven and a half hours eight times with your score range known."
         }
       ],
-      "teacherSlugs": ["arif-mahmud"]
+      "teacherSlugs": []
     },
     {
       "slug": "ielts",
@@ -985,7 +987,7 @@
         "10 full-length papers, fully marked and reviewed",
         "Weekly examiner-led speaking labs",
         "All materials and the online question bank",
-        "Written band 7+ score guarantee"
+        "Score-improvement guarantee: improve on your starting score or retake the course free"
       ],
       "modes": ["classroom", "live_online"],
       "status": "published",
@@ -1105,7 +1107,7 @@
         "40 taught hours in a class of ten or fewer",
         "10 full-length proctored papers, scored and reviewed",
         "Weekly speaking mock interviews",
-        "Written 100+ score guarantee",
+        "Score-improvement guarantee: improve on your starting score or retake the course free",
         "All materials and the online question bank"
       ],
       "modes": ["classroom", "live_online"],
@@ -1308,7 +1310,7 @@
         "36 taught hours in a class of ten or fewer",
         "8 full-length proctored papers, scored and reviewed",
         "Weekly one-on-one speaking and writing reviews",
-        "Written 75+ score guarantee",
+        "Score-improvement guarantee: improve on your starting score or retake the course free",
         "All materials and the online question bank"
       ],
       "modes": ["classroom", "live_online"],
@@ -1658,90 +1660,6 @@
       "endTime": "20:30",
       "status": "open",
       "seatsLeft": 8,
-      "feeAmount": null
-    },
-    {
-      "courseSlug": "lsat",
-      "branchSlug": null,
-      "teacherSlug": "nabeel-ahsan",
-      "mode": "live_online",
-      "startsOn": "2026-10-11",
-      "endsOn": "2027-01-03",
-      "days": ["fri", "sat"],
-      "startTime": "10:00",
-      "endTime": "13:00",
-      "status": "filling",
-      "seatsLeft": 1,
-      "feeAmount": null
-    },
-    {
-      "courseSlug": "lsat",
-      "branchSlug": null,
-      "teacherSlug": "nabeel-ahsan",
-      "mode": "live_online",
-      "startsOn": "2026-11-10",
-      "endsOn": "2027-02-02",
-      "days": ["tue", "thu"],
-      "startTime": "19:00",
-      "endTime": "21:00",
-      "status": "open",
-      "seatsLeft": 4,
-      "feeAmount": null
-    },
-    {
-      "courseSlug": "lsat",
-      "branchSlug": null,
-      "teacherSlug": null,
-      "mode": "live_online",
-      "startsOn": "2027-01-17",
-      "endsOn": "2027-04-11",
-      "days": ["fri", "sat"],
-      "startTime": "10:00",
-      "endTime": "13:00",
-      "status": "open",
-      "seatsLeft": 4,
-      "feeAmount": null
-    },
-    {
-      "courseSlug": "mcat",
-      "branchSlug": null,
-      "teacherSlug": "arif-mahmud",
-      "mode": "live_online",
-      "startsOn": "2026-10-04",
-      "endsOn": "2027-03-21",
-      "days": ["fri", "sat"],
-      "startTime": "10:00",
-      "endTime": "13:00",
-      "status": "filling",
-      "seatsLeft": 1,
-      "feeAmount": null
-    },
-    {
-      "courseSlug": "mcat",
-      "branchSlug": null,
-      "teacherSlug": "arif-mahmud",
-      "mode": "live_online",
-      "startsOn": "2026-11-01",
-      "endsOn": "2027-04-18",
-      "days": ["tue", "thu"],
-      "startTime": "19:00",
-      "endTime": "21:00",
-      "status": "open",
-      "seatsLeft": 3,
-      "feeAmount": null
-    },
-    {
-      "courseSlug": "mcat",
-      "branchSlug": null,
-      "teacherSlug": null,
-      "mode": "live_online",
-      "startsOn": "2027-01-10",
-      "endsOn": "2027-06-27",
-      "days": ["fri", "sat"],
-      "startTime": "10:00",
-      "endTime": "13:00",
-      "status": "open",
-      "seatsLeft": 4,
       "feeAmount": null
     },
     {

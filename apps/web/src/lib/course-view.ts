@@ -78,6 +78,7 @@ export interface CourseView {
   faq: readonly FaqItem[];
   seo: PageSeo;
   closing?: ClosingContent;
+  disclaimer?: string;
 }
 
 /** "Farzana Haque" → "FH"; a monogram for records without a photo. */
@@ -141,7 +142,7 @@ function defaultSeo(course: CourseDetailDto): PageSeo {
     title: `${course.name} preparation in Bangladesh — courses, batches & fees`,
     description:
       course.description ||
-      `${course.name} courses in Dhaka and Chattogram, plus live online cohorts, with full-length mocks and a written score guarantee.`,
+      `${course.name} courses in Dhaka and Chattogram, plus live online cohorts, with full-length mocks and a score-improvement guarantee.`,
   };
 }
 
@@ -203,5 +204,6 @@ export function toCourseView(course: CourseDetailDto, overlay?: ExamEditorial): 
     faq: overlay?.faq ?? commonFaq,
     seo: overlay?.seo ?? defaultSeo(course),
     closing: overlay?.closing,
+    disclaimer: overlay?.disclaimer,
   };
 }

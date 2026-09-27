@@ -7,7 +7,7 @@ export const psat: ExamEditorial = {
   seo: {
     title: 'PSAT preparation in Bangladesh — digital adaptive practice & tutoring',
     description:
-      'PSAT courses in Dhaka and Chattogram, plus live online cohorts. Full-length adaptive mocks, National Merit prep and a written score guarantee.',
+      'PSAT courses in Dhaka and Chattogram, plus live online cohorts. Full-length adaptive mocks, National Merit prep and a score-improvement guarantee.',
   },
   hero: {
     eyebrow: 'University readiness and National Merit',
@@ -51,15 +51,15 @@ export const psat: ExamEditorial = {
       },
       {
         title: 'Score guarantee',
-        desc: 'Hit the target we agree at enrolment or take the entire course again, free.',
+        desc: 'Improve on your starting score or take the entire course again, free.',
       },
     ],
   },
   stats: [
-    { value: '+80', label: 'Average score gain from diagnostic to exit' },
-    { value: '1380', label: 'Median score in our Classroom courses' },
     { value: '8', label: 'Full-length adaptive mocks per cohort' },
-    { value: '94%', label: 'Achieve or exceed their agreed target' },
+    { value: '36', label: 'Live taught hours' },
+    { value: '8', label: 'Weeks per cohort' },
+    { value: '320–1520', label: 'PSAT score range' },
   ],
   faq: [
     {

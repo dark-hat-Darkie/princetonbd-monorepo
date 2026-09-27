@@ -7,7 +7,7 @@ export const ap: ExamEditorial = {
   seo: {
     title: 'AP exam preparation in Bangladesh — subject-specific courses & tutoring',
     description:
-      'AP courses in Dhaka and Chattogram covering biology, chemistry, calculus, history and more. Small cohorts, full-length practice exams and a written score guarantee.',
+      'AP courses in Dhaka and Chattogram covering biology, chemistry, calculus, history and more. Small cohorts, full-length practice exams and a score-improvement guarantee.',
   },
   hero: {
     eyebrow: 'University placement and credit',
@@ -51,15 +51,15 @@ export const ap: ExamEditorial = {
       },
       {
         title: 'Score guarantee',
-        desc: 'Hit the 4 or 5 we agree at enrolment or take the entire course again, free.',
+        desc: 'Improve on your starting score or take the entire course again, free.',
       },
     ],
   },
   stats: [
-    { value: '78%', label: 'Score a 4 or 5 in Classroom courses' },
-    { value: '4', label: 'Average score across all our cohorts' },
-    { value: '10', label: 'Full-length proctored exams per subject' },
-    { value: '40+', label: 'Subjects covered across our programmes' },
+    { value: '12', label: 'Subjects covered' },
+    { value: '10', label: 'Full-length practice exams per subject' },
+    { value: '48', label: 'Live taught hours' },
+    { value: 'Max 8', label: 'Students per class' },
   ],
   faq: [
     {

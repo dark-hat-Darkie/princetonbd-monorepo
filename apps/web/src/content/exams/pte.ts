@@ -56,8 +56,8 @@ export const pte: ExamEditorial = {
     ],
   },
   stats: [
-    { value: '79', label: 'Median score of our 75+ cohort' },
-    { value: '87%', label: 'Hit or beat their agreed target on first sitting' },
+    { value: '8', label: 'Full-length practice tests' },
+    { value: '36', label: 'Live taught hours' },
     { value: '48', label: 'Hours to get your official score' },
     { value: '90', label: 'Maximum PTE score' },
   ],

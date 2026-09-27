@@ -7,7 +7,7 @@ export const toefl: ExamEditorial = {
   seo: {
     title: 'TOEFL iBT preparation in Bangladesh — integrated speaking and writing',
     description:
-      'TOEFL iBT courses in Dhaka and Chattogram, plus live online cohorts. Integrated task practice, full-length adaptive mocks and a written score guarantee. American university English.',
+      'TOEFL iBT courses in Dhaka and Chattogram, plus live online cohorts. Integrated task practice, full-length adaptive mocks and a score-improvement guarantee. American university English.',
   },
   hero: {
     eyebrow: 'US university admissions',
@@ -56,9 +56,9 @@ export const toefl: ExamEditorial = {
     ],
   },
   stats: [
-    { value: '115', label: 'Median score of our 100+ cohort' },
-    { value: '88%', label: 'Hit or beat their agreed target' },
-    { value: '10', label: 'Full-length practice papers in the classroom course' },
+    { value: '10', label: 'Full-length practice tests' },
+    { value: '40', label: 'Live taught hours' },
+    { value: '10', label: 'Weeks per cohort' },
     { value: '50+', label: 'TOEFL iBT dates available annually' },
   ],
   faq: [

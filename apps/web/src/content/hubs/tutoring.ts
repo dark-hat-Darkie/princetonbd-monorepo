@@ -21,7 +21,7 @@ export const tutoringHub: HubContent = {
       { label: 'Subjects', value: 'Test prep · STEM · English · Social studies · AP' },
       { label: 'Formats', value: '1-on-1 · Small group · Online' },
       { label: 'Campuses', value: 'Gulshan · Dhanmondi · Chattogram' },
-      { label: 'Guarantee', value: 'Written, on tutoring packages' },
+      { label: 'Guarantee', value: 'Improve, or retake free' },
     ],
   },
   strip: {

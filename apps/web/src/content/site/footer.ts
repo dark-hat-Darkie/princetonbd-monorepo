@@ -9,9 +9,10 @@
  * these four fill exactly one row; the three exam columns come first so the
  * eye reads exams left to right and lands on the formats last.
  *
- * The footer is where the exams that have no slot in the header live — MCAT
- * and LSAT are here and nowhere else. Same shape as the parent, whose header is
- * six items and whose footer carries the long tail.
+ * LSAT and MCAT are deliberately NOT here: our teachers have not been
+ * trained for them, so those pages are referral-only and stay out of browse
+ * navigation until the TPR US referral terms are agreed. Same shape as the
+ * parent, whose header is six items and whose footer carries the long tail.
  *
  * Every href here is checked against the filesystem by `routes.test.ts` — the
  * footer is where dead links accumulate fastest, because nothing on screen
@@ -46,8 +47,6 @@ export const footerColumns: readonly FooterColumn[] = [
     links: [
       { label: 'GRE', href: '/test-prep/gre' },
       { label: 'GMAT', href: '/test-prep/gmat' },
-      { label: 'LSAT', href: '/test-prep/lsat' },
-      { label: 'MCAT', href: '/test-prep/mcat' },
     ],
   },
   {
@@ -77,4 +76,13 @@ export const legalLinks: readonly FooterLink[] = [
   { label: 'Terms', href: '/legal/terms' },
   { label: 'Refund policy', href: '/legal/refund-policy' },
   { label: 'Site map', href: '/site-map' },
+];
+
+/**
+ * Affiliation fine print, rendered on every page through the footer.
+ * Required by the brand: The Princeton Review is not affiliated with
+ * Princeton University.
+ */
+export const footerDisclaimers: readonly string[] = [
+  'The Princeton Review is not affiliated with Princeton University.',
 ];

@@ -86,7 +86,7 @@ export const studyAbroadHub: HubContent = {
       },
       {
         title: 'Whole-journey accountability',
-        desc: 'One counselor guides you from school selection through pre-departure checklist. Continuity means nothing falls through the cracks.',
+        desc: 'One Bangladesh-based counselor guides you from school selection through visas and the pre-departure checklist. Continuity means nothing falls through the cracks — and unlike TPR’s US counseling, visa support is included.',
       },
     ],
   },

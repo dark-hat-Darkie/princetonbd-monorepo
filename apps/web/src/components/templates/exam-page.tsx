@@ -8,6 +8,7 @@ import { GuaranteeBand } from '@/components/sections/guarantee-band';
 import { InstructorStrip } from '@/components/sections/instructor-strip';
 import { StatsBand } from '@/components/sections/stats-band';
 import { Testimonials } from '@/components/sections/testimonials';
+import { Container } from '@/components/ui/container';
 import { JsonLd } from '@/components/ui/json-ld';
 import { PageHero } from '@/components/ui/page-hero';
 import { defaultClosing, guaranteeBand } from '@/content/shared';
@@ -43,7 +44,7 @@ export function ExamPage({ course }: { course: CourseView }) {
     totals.weeks !== null ? `${String(totals.weeks)} weeks` : null,
     totals.taughtHours !== null ? `${String(totals.taughtHours)} taught hours` : null,
     totals.classSize ? `${totals.classSize} per class` : null,
-    'Written score guarantee',
+    'Score-improvement guarantee',
   ].filter((item): item is string => item !== null);
 
   return (
@@ -171,6 +172,14 @@ export function ExamPage({ course }: { course: CourseView }) {
       ) : null}
 
       <FaqSection title={`${course.name} questions, answered.`} items={course.faq} />
+
+      {course.disclaimer ? (
+        <Container className="pb-(--section-y-sm) lg:pb-(--section-y)">
+          <p className="mx-auto max-w-[720px] text-center text-[12.5px] leading-[1.6] text-muted-2">
+            {course.disclaimer}
+          </p>
+        </Container>
+      ) : null}
 
       <CtaSection
         eyebrow={closing.eyebrow}

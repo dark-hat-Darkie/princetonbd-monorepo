@@ -59,8 +59,9 @@ export default function SiteMapPage() {
             </div>
           ))}
 
-          {/* Footer-only destinations: the course formats, MCAT and LSAT, and
-              the legal documents never appear in the nav dropdowns. */}
+          {/* Footer-only destinations: the course formats and the legal
+              documents never appear in the nav dropdowns. LSAT and MCAT pages
+              stay out of browse navigation while they are referral-only. */}
           <div>
             <span className="mb-6 inline-block border-b-2 border-b-brand pb-1.5 font-display text-[24px] font-semibold tracking-[-.02em] text-ink">
               More

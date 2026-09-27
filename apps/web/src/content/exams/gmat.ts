@@ -7,7 +7,7 @@ export const gmat: ExamEditorial = {
   seo: {
     title: 'GMAT preparation in Bangladesh — courses, tutoring & free diagnostic',
     description:
-      'GMAT Focus Edition courses in Dhaka and Chattogram, plus live online cohorts. Adaptive full-length mocks, a written score guarantee and instructors who scored in the top percentile themselves.',
+      'GMAT Focus Edition courses in Dhaka and Chattogram, plus live online cohorts. Adaptive full-length mocks, a score-improvement guarantee and TPR-trained instructors.',
   },
   hero: {
     eyebrow: 'MBA and business school admissions',
@@ -51,15 +51,15 @@ export const gmat: ExamEditorial = {
       },
       {
         title: 'Score guarantee',
-        desc: 'Hit the target we agree at enrolment or take the entire course again, free.',
+        desc: 'Improve on your starting score or take the entire course again, free.',
       },
     ],
   },
   stats: [
-    { value: '+70', label: 'Average point improvement' },
-    { value: '715', label: 'Median score of our 700+ cohort' },
-    { value: '12', label: 'Full-length mocks in the classroom course' },
-    { value: '93%', label: 'Hit or beat their agreed target' },
+    { value: '12', label: 'Full-length adaptive mocks' },
+    { value: '48', label: 'Live taught hours' },
+    { value: '8', label: 'Weeks per cohort' },
+    { value: 'Max 8', label: 'Students per class' },
   ],
   faq: [
     {

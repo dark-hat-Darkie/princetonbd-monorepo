@@ -22,3 +22,19 @@ export const contact = {
 export function telHref(phone: string): string {
   return `tel:${phone.replace(/[^+\d]/g, '')}`;
 }
+
+/**
+ * Social profiles, rendered as icon links in the footer when present.
+ *
+ * Empty until the accounts exist — the footer renders nothing for this list
+ * rather than a dead link. Add `{ label, href, icon }` entries here when the
+ * Facebook / Instagram / YouTube / LinkedIn pages are live; `icon` is one of
+ * `facebook | instagram | youtube | linkedin`.
+ */
+export interface SocialLink {
+  label: string;
+  href: string;
+  icon: 'facebook' | 'instagram' | 'youtube' | 'linkedin';
+}
+
+export const socials: readonly SocialLink[] = [];

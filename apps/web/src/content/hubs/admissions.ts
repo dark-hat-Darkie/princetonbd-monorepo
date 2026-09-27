@@ -12,7 +12,7 @@ export const admissionsHub: HubContent = {
     eyebrow: 'Admissions counseling',
     title: 'Your strategy starts before you write a single word.',
     intro:
-      'School selection, timeline, essay strategy, interview prep, financial aid — every piece in place before you invest hundreds of hours in applications. One counselor, your whole journey.',
+      'School selection, timeline, essay strategy, interview prep, financial aid — every piece in place before you invest hundreds of hours in applications. One Bangladesh-based counselor for your whole journey, including the visa support TPR’s US counseling does not cover.',
     actions: [
       { label: 'Talk to a counselor', href: '/contact' },
       { label: 'Meet our counselors', href: '/about/instructors', variant: 'outline' },

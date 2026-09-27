@@ -56,10 +56,10 @@ export const duolingo: ExamEditorial = {
     ],
   },
   stats: [
-    { value: '155+', label: 'Median score of our cohort' },
-    { value: '48', label: 'Hours to receive your score' },
+    { value: '6', label: 'Full-length practice tests' },
+    { value: '18', label: 'Live taught hours' },
+    { value: '48', label: 'Hours to receive your official score' },
     { value: '1', label: 'Hour to sit the entire test' },
-    { value: '92%', label: 'Achieved their target score on first attempt' },
   ],
   faq: [
     {

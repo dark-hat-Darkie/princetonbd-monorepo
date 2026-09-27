@@ -11,22 +11,22 @@ import type { ClosingContent, FaqItem, Feature, Stat, Testimonial } from './type
 
 export const guaranteeBand = {
   eyebrow: 'The guarantee',
-  title: 'Reach your target score, or study again — free.',
-  body: 'We stake our reputation on your result. Complete your course and mock schedule; if you don’t hit the agreed target, your next full course is on us.',
+  title: 'Improve your score, or study again — free.',
+  body: 'We stake our reputation on your progress. Complete your course and mock schedule: if your official score does not improve on your starting score, your next full course is on us.',
   action: { label: 'Claim your assessment', href: '/free-diagnostic' },
   features: [
     'Faculty trained on top global university curricula',
-    'A written score-improvement guarantee',
+    'A score-improvement guarantee — improve or study again free',
     'Full-length adaptive mock tests, scored & reviewed',
     'Small cohorts with measured weekly progress',
   ],
 } as const;
 
 export const outcomeStats: readonly Stat[] = [
-  { value: '12k+', label: 'Students coached across Bangladesh' },
-  { value: '+210', label: 'Average SAT point improvement' },
-  { value: '94%', label: 'Admitted to a top-choice university' },
-  { value: '40yrs', label: 'Of test-prep teaching heritage' },
+  { value: '40', label: 'Years of The Princeton Review heritage (US)' },
+  { value: '10', label: 'Admissions tests covered' },
+  { value: '3', label: 'Campuses across Bangladesh' },
+  { value: 'Free', label: 'Diagnostic and consultation to start' },
 ];
 
 /**
@@ -133,8 +133,8 @@ export const whyUs: readonly Feature[] = [
     desc: 'Capped class sizes so your instructor knows your weak spots by name, not by spreadsheet.',
   },
   {
-    title: 'Written guarantee',
-    desc: 'Hit the target we agree at enrolment or study the whole course again — at no cost.',
+    title: 'Score-improvement guarantee',
+    desc: 'Improve on your starting score or study the whole course again — at no cost.',
   },
 ];
 

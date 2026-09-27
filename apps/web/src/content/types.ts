@@ -227,6 +227,8 @@ export interface ExamEditorial {
   includes: FeaturesBlock;
   stats?: readonly Stat[];
   faq: readonly FaqItem[];
+  /** Trademark / affiliation fine print, rendered after the FAQ. */
+  disclaimer?: string;
   /** Heading copy above the module list; the modules themselves are CMS data. */
   curriculum?: { eyebrow?: string; title?: string; intro?: string };
   closing?: ClosingContent;

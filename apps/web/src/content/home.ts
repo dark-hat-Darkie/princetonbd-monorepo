@@ -77,7 +77,7 @@ export const programs: readonly GridCard[] = [
  */
 export const features = [
   'Faculty trained on top global university curricula',
-  'A written score-improvement guarantee',
+  'A score-improvement guarantee — improve or study again free',
   'Full-length adaptive mock tests, scored & reviewed',
   'Small cohorts with measured weekly progress',
 ] as const;
@@ -90,10 +90,10 @@ export const steps: readonly Step[] = [
 ];
 
 export const stats: readonly Stat[] = [
-  { value: '12k+', label: 'Students coached across Bangladesh' },
-  { value: '+210', label: 'Average SAT point improvement' },
-  { value: '94%', label: 'Admitted to a top-choice university' },
-  { value: '40yrs', label: 'Of test-prep teaching heritage' },
+  { value: '40', label: 'Years of The Princeton Review heritage (US)' },
+  { value: '10', label: 'Admissions tests covered' },
+  { value: '3', label: 'Campuses across Bangladesh' },
+  { value: 'Free', label: 'Diagnostic and consultation to start' },
 ];
 
 export const testimonials: readonly Testimonial[] = [
@@ -159,8 +159,8 @@ export const programsSection = {
 
 export const guarantee = {
   eyebrow: 'The guarantee',
-  title: 'Reach your target score, or study again — free.',
-  body: 'We stake our reputation on your result. Complete your course and mock schedule; if you don’t hit the agreed target, your next full course is on us.',
+  title: 'Improve your score, or study again — free.',
+  body: 'We stake our reputation on your progress. Complete your course and mock schedule: if your official score does not improve on your starting score, your next full course is on us.',
   action: { label: 'Claim your assessment', href: '/free-diagnostic' },
 } as const;
 
@@ -169,7 +169,7 @@ export const studyAbroadSection = {
   imageAlt: 'A counselor working through an application with a student',
   eyebrow: 'Admissions & study abroad',
   title: 'From shortlist to visa — a dedicated counselor at every turn.',
-  body: 'Essays, recommendations, financial aid, interviews. Your counselor builds a university list matched to your profile and budget, then guides every application to submission.',
+  body: 'Essays, recommendations, financial aid, interviews. Your Bangladesh-based counselor builds a university list matched to your profile and budget, guides every application to submission, and supports your visa process end to end — visa guidance TPR’s US counseling does not cover.',
 } as const;
 
 export const testimonialsSection = {
@@ -177,7 +177,7 @@ export const testimonialsSection = {
   title: 'Where our students are headed.',
 } as const;
 
-export const admitsKicker = 'Our students have earned places at';
+export const admitsKicker = 'Universities our students are aiming for';
 
 export const closing = {
   eyebrow: 'Begin',

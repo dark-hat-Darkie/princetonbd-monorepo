@@ -7,7 +7,7 @@ export const gre: ExamEditorial = {
   seo: {
     title: 'GRE preparation in Bangladesh — courses, tutoring & free diagnostic',
     description:
-      'GRE courses in Dhaka and Chattogram, plus live online cohorts. Adaptive full-length mocks, a written score guarantee and instructors who scored in the top percentile themselves.',
+      'GRE courses in Dhaka and Chattogram, plus live online cohorts. Adaptive full-length mocks, a score-improvement guarantee and TPR-trained instructors.',
   },
   hero: {
     eyebrow: 'Graduate school admissions',
@@ -51,15 +51,15 @@ export const gre: ExamEditorial = {
       },
       {
         title: 'Score guarantee',
-        desc: 'Hit the target we agree at enrolment or take the entire course again, free.',
+        desc: 'Improve on your starting score or take the entire course again, free.',
       },
     ],
   },
   stats: [
-    { value: '+30', label: 'Average point improvement' },
-    { value: '328', label: 'Median score of our 325+ cohort' },
-    { value: '12', label: 'Full-length mocks in the classroom course' },
-    { value: '92%', label: 'Hit or beat their agreed target' },
+    { value: '12', label: 'Full-length adaptive mocks' },
+    { value: '48', label: 'Live taught hours' },
+    { value: '10', label: 'Weeks per cohort' },
+    { value: 'Max 8', label: 'Students per class' },
   ],
   faq: [
     {

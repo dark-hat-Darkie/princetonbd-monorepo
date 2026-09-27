@@ -57,16 +57,16 @@ export const enrollmentTerms: LegalContent = {
     },
     {
       type: 'paragraph',
-      text: 'Our score guarantee applies to full courses (SAT, ACT, GRE, GMAT prep) and is conditional. You are eligible to retake the course at no charge if you do not achieve the target score, provided you meet all of the following conditions:',
+      text: 'Our score-improvement guarantee applies to full courses and is conditional. If your official score does not improve on the starting score we record at enrolment, you are eligible to retake the full course at no charge — retake only, no refund — provided you meet all of the following conditions:',
     },
     {
       type: 'list',
       items: [
         'You attend at least 90% of scheduled lessons.',
-        'You sit all scheduled mock exams (typically 2–4 mocks depending on course).',
-        'You take the official test (SAT, ACT, GRE or GMAT) within 60 days of course completion.',
+        'You sit all scheduled mock exams for your course.',
+        'You take the official test within 60 days of course completion.',
         'You submit your official score report within 7 days of receiving it.',
-        'Your target score is realistic for your start score (typically an improvement of 100–150 points for SAT/ACT, 3–5 points for GRE/GMAT verbal and quantitative, or equivalent). The retake is a full repeat of the course, not a subset of lessons; if you qualify and retake, the second course is free (you pay only new test fees). The guarantee expires 12 months after course completion.',
+        'The retake is a full repeat of the course, not a subset of lessons; if you qualify and retake, the second course is free (you pay only new test fees). The guarantee expires 12 months after course completion.',
       ],
     },
     {

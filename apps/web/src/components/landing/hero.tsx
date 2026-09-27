@@ -1,4 +1,4 @@
-import { ShieldCheck, Star, TrendingUp } from 'lucide-react';
+import { ShieldCheck, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -65,16 +65,12 @@ export function Hero({ heroMedia = 'photo', showGuaranteeBadge = true }: HeroPro
           </div>
 
           <div className="flex items-center gap-3 text-[13.5px] text-muted">
-            <span aria-hidden className="flex items-center gap-0.5 text-accent">
-              {/* Yellow stars are a graphic, not text — the 1.41:1 rule does not
-                  apply, and the rating is stated in the sentence beside them. */}
-              {Array.from({ length: 5 }, (_, i) => (
-                <Star key={i} className="size-[15px] fill-current stroke-none" />
-              ))}
+            <span aria-hidden className="flex items-center justify-center rounded-full bg-brand-soft p-1 text-brand-ink">
+              <ShieldCheck className="size-[15px]" />
             </span>
             <span className="border-l border-l-line-strong pl-3">
-              Rated <strong className="font-bold text-ink">4.9 / 5</strong> by 12,000+ students
-              across Bangladesh
+              Backed by <strong className="font-bold text-ink">40 years</strong> of The Princeton
+              Review test-prep heritage (US)
             </span>
           </div>
         </Reveal>
@@ -142,9 +138,11 @@ function HeroPhoto() {
           <TrendingUp className="size-[17px]" aria-hidden />
         </div>
         <div className="font-display text-[27px] leading-none font-extrabold tracking-[-.03em] text-ink">
-          +210
+          40
         </div>
-        <div className="mt-1.5 text-[10.5px] tracking-[.04em] text-muted-2">avg. SAT gain</div>
+        <div className="mt-1.5 text-[10.5px] tracking-[.04em] text-muted-2">
+          yrs of TPR heritage (US)
+        </div>
       </div>
     </div>
   );

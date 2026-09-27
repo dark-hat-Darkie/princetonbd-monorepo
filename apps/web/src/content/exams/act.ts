@@ -7,7 +7,7 @@ export const act: ExamEditorial = {
   seo: {
     title: 'ACT preparation in Bangladesh — courses, tutoring & free diagnostic',
     description:
-      'ACT courses in Dhaka and Chattogram, plus live online cohorts. Full-length practice tests, a written score guarantee and instructors who scored in the top percentile themselves.',
+      'ACT courses in Dhaka and Chattogram, plus live online cohorts. Full-length practice tests, a score-improvement guarantee and TPR-trained instructors.',
   },
   hero: {
     eyebrow: 'Undergraduate admissions',
@@ -51,15 +51,15 @@ export const act: ExamEditorial = {
       },
       {
         title: 'Score guarantee',
-        desc: 'Hit the target we agree at enrolment or take the entire course again, free.',
+        desc: 'Improve on your starting score or take the entire course again, free.',
       },
     ],
   },
   stats: [
-    { value: '+4.5', label: 'Average composite point improvement' },
-    { value: '32', label: 'Median score of our 32+ cohort' },
-    { value: '10', label: 'Full-length proctored tests in Classroom courses' },
-    { value: '94%', label: 'Achieve or exceed their agreed target' },
+    { value: '10', label: 'Full-length proctored practice tests' },
+    { value: '48', label: 'Live taught hours' },
+    { value: '10', label: 'Weeks per cohort' },
+    { value: 'Max 10', label: 'Students per class' },
   ],
   faq: [
     {
@@ -80,7 +80,7 @@ export const act: ExamEditorial = {
     {
       question: 'How does the score guarantee work?',
       answer:
-        'We agree a target in writing at enrolment based on your diagnostic. Attend your classes, sit your scheduled mocks, and if the official score falls short, your next full course is free.',
+        'We record your starting score at enrolment. Attend your classes, sit your scheduled mocks, and if your official score does not improve on it, your next full course is free. See the enrolment terms for the full conditions.',
     },
     ...commonFaq,
   ],

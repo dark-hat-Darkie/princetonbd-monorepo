@@ -7,7 +7,7 @@ export const ielts: ExamEditorial = {
   seo: {
     title: 'IELTS preparation in Bangladesh — Academic, General Training & speaking labs',
     description:
-      'IELTS courses in Dhaka and Chattogram, plus live online cohorts. Examiner-led speaking labs, task-based writing feedback and a written band guarantee. Bangladesh’s most-sat English exam.',
+      'IELTS courses in Dhaka and Chattogram, plus live online cohorts. Examiner-led speaking labs, task-based writing feedback and a score-improvement guarantee. Bangladesh’s most-sat English exam.',
   },
   hero: {
     eyebrow: 'International admissions',
@@ -56,9 +56,9 @@ export const ielts: ExamEditorial = {
     ],
   },
   stats: [
-    { value: '8.5', label: 'Highest band achieved by our cohort' },
-    { value: '90%+', label: 'Achieved their target band within one sitting' },
-    { value: 'Weekly', label: 'Examiner-led speaking labs' },
+    { value: '10', label: 'Full-length practice tests' },
+    { value: '36', label: 'Live taught hours' },
+    { value: 'Weekly', label: 'Examiner-style speaking labs' },
     { value: '48', label: 'IELTS sittings available per year' },
   ],
   faq: [

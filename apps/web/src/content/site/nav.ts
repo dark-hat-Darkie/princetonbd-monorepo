@@ -19,10 +19,11 @@
  *  1. Only the stages that lead with an exam this centre runs — SAT, GRE, GMAT,
  *     TOEFL, IELTS — get a slot in the bar. That drops the parent's Pre-High
  *     School (SSAT, SHSAT, ISEE), Pre-Med (MCAT, DAT, OAT, NCLEX-RN) and
- *     Pre-Law (LSAT). MCAT and LSAT pages still exist and are reachable from
- *     the footer; the rest are US private-school entry, the NYC specialised
- *     high-school test, and US dental/optometry/nursing licensure, which
- *     Bangladesh does not run at all.
+ *     Pre-Law (LSAT). MCAT and LSAT pages still exist as referral-only
+ *     destinations but stay out of browse navigation until the TPR US
+ *     referral terms are agreed; the rest are US private-school entry, the
+ *     NYC specialised high-school test, and US dental/optometry/nursing
+ *     licensure, which Bangladesh does not run at all.
  *
  *  2. Study Abroad is a fourth top-level entry with no parent equivalent, and
  *     it carries the English-proficiency exams (IELTS, TOEFL, Duolingo, PTE).

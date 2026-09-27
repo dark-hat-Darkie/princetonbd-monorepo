@@ -116,7 +116,7 @@ export const tutoringPrivate: ProgramContent = {
         'Everything in the 20-hour package',
         'A second specialist tutor at no extra cost',
         'Full mock series with proctoring',
-        'Written score guarantee',
+        'Score-improvement guarantee',
       ],
       href: '/contact',
     },
@@ -125,7 +125,7 @@ export const tutoringPrivate: ProgramContent = {
     { value: '1:1', label: 'Every session, every hour' },
     { value: '40hrs', label: 'Minimum tutor training before teaching' },
     { value: '14 days', label: 'Between plan reviews' },
-    { value: '4.9/5', label: 'Average tutor rating' },
+    { value: 'Free', label: 'First consultation and study plan' },
   ],
   testimonials: ['tutoring'],
   faq: [

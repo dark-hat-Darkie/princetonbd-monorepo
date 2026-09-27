@@ -1,71 +1,76 @@
 import type { ExamEditorial } from '../types';
 import { commonFaq } from '../shared';
 
+/**
+ * MCAT is referral-only: our teachers have not been trained for it, so we do
+ * not run local cohorts. This page captures interest and places students in
+ * an official The Princeton Review (US) course or 1:1 tutoring — it must not
+ * promise local classes, local teachers, a guarantee, or cohort outcomes.
+ */
 export const mcat: ExamEditorial = {
   slug: 'mcat',
   interest: 'GRE / GMAT',
   seo: {
-    title: 'MCAT preparation in Bangladesh — courses, tutoring & free diagnostic',
+    title: 'MCAT preparation from Bangladesh — TPR US courses via local referral',
     description:
-      'MCAT courses in Dhaka and Chattogram, plus live online cohorts and private tutoring. Full-length mocks, a written score guarantee and instructors who know medical school admissions.',
+      'Thinking about the MCAT from Bangladesh? Talk to us first: we place you in an official The Princeton Review (US) MCAT course or 1:1 tutoring and guide you locally from consultation to test day.',
   },
   hero: {
     eyebrow: 'Medical school admissions',
-    title: 'The MCAT score your med school shortlist expects.',
+    title: 'The MCAT, via our US partner.',
     intro:
-      'The MCAT is relentless: seven and a half hours, four sections, and a barrier that keeps out half the test-takers every year. We teach the content, the strategy and the stamina, prove it with full-length mocks in exam conditions, and guarantee the score you need.',
+      'We do not run local MCAT cohorts — our teachers have not been trained for it yet. Instead, we place you in an official The Princeton Review (US) MCAT course or 1:1 tutoring, and stay your local point of contact from consultation to test day.',
     actions: [
-      { label: 'See upcoming batches', href: '#batches' },
-      { label: 'View the curriculum', href: '#curriculum', variant: 'outline' },
+      { label: 'Register your interest', href: '/contact' },
+      { label: 'Compare all courses', href: '/test-prep/compare', variant: 'outline' },
     ],
     facts: [
-      { label: 'Format', value: 'Digital, computer-based · 7h 30m' },
-      { label: 'Sections', value: 'Chemistry · Biology · Psychology · Biochemistry' },
+      { label: 'Format', value: 'Computer-based, test centre · 7h 30m' },
+      { label: 'Sections', value: 'Chem/Phys · Bio/Biochem · Psych/Soc · CARS' },
       { label: 'Scored', value: '472–528 (midpoint 500)' },
-      { label: 'Sittings', value: 'Annual sittings; plan 6–9 months ahead' },
+      { label: 'Sittings', value: 'Multiple sittings, January–September' },
     ],
   },
   curriculum: {
-    eyebrow: 'Curriculum',
-    title: 'Twenty-four weeks, six modules, all four sections of the MCAT.',
+    eyebrow: 'The exam',
+    title: 'What any serious MCAT preparation has to cover.',
     intro:
-      'Four sections, 230 questions, seven and a half hours, scored 472–528. Six months is long enough to teach the content, build the reasoning and rehearse the stamina, with a timed section at the end of every module.',
+      'Four sections, 230 questions, seven and a half hours, scored 472–528. The TPR US course we place you in teaches the content, builds the reasoning and rehearses the stamina — six months is the typical runway.',
   },
   includes: {
-    eyebrow: 'What you get',
-    title: 'Preparation that teaches content, strategy and stamina.',
+    eyebrow: 'How placement works',
+    title: 'A US course, arranged and supported locally.',
     intro:
-      'The MCAT combines content depth, reasoning speed and seven-hour endurance. We build all three through video lessons, guided problem-solving and full-length mocks in exam conditions.',
+      'You get the official American course — we make sure it is the right one, and that you are never navigating it alone from a different time zone.',
     items: [
       {
-        title: 'Full-length timed mocks',
-        desc: 'Exams taken in real time, in exam order, so you build the stamina and test-day rhythm the real MCAT demands.',
+        title: 'Placed in a TPR US course',
+        desc: 'We enrol you directly in an official The Princeton Review (US) MCAT course or 1:1 tutoring matched to your timeline and target score.',
       },
       {
-        title: 'Biochemistry and organic reasoning',
-        desc: 'How to see mechanism and reaction types rather than memorising every equation — the difference between 500 and 515.',
+        title: 'Local guidance throughout',
+        desc: 'A Dhaka-based advisor helps you choose between course and tutoring, tracks your schedule, and plans your test date and test-day setup.',
       },
       {
-        title: 'CARS strategy',
-        desc: 'Critical Analysis and Reasoning Skills is the section most students underestimate — we teach the reading and timing discipline that lets you score consistently.',
+        title: 'The real format, explained',
+        desc: 'Seven and a half hours across four sections, testing application rather than memorisation. We make sure you know what you are signing up for before you pay anything.',
       },
       {
-        title: 'Score guarantee',
-        desc: 'Hit the target we agree at enrolment or take the entire course again, free.',
+        title: 'Free consultation first',
+        desc: 'Tell us your timeline and target medical schools; we will tell you honestly whether the MCAT is the right test and which US option fits.',
       },
     ],
   },
-  stats: [
-    { value: '+8', label: 'Average point improvement' },
-    { value: '515', label: 'Median score of our 510+ cohort' },
-    { value: '8', label: 'Full-length timed mocks in small group' },
-    { value: '89%', label: 'Hit or beat their agreed target' },
-  ],
   faq: [
+    {
+      question: 'Do you run MCAT classes in Dhaka?',
+      answer:
+        'Not yet — our teachers have not been trained for the MCAT, so we do not offer local cohorts. Instead we place you in an official The Princeton Review (US) course or 1:1 tutoring and support you locally. Talk to us before enrolling anywhere; placement details are confirmed at your free consultation.',
+    },
     {
       question: 'How much content do I need to know?',
       answer:
-        'A lot: general chemistry, organic chemistry, biochemistry, biology, psychology and statistics. But the MCAT is not a memorisation test — it tests your ability to apply concepts you might not have seen before. We teach the core curriculum and then drilling and strategy.',
+        'A lot: general chemistry, organic chemistry, biochemistry, biology, psychology and statistics. But the MCAT is not a memorisation test — it tests your ability to apply concepts you might not have seen before. The US course teaches the core curriculum plus drilling and strategy.',
     },
     {
       question: 'What score do I need?',
@@ -80,7 +85,7 @@ export const mcat: ExamEditorial = {
     {
       question: 'Can I take the MCAT from home?',
       answer:
-        'No — the MCAT is administered at official test centres only. We prepare you with full-length mocks in exam conditions so you walk in confident on test day.',
+        'No — the MCAT is administered at official test centres only. We help you pick a sitting and prepare for the centre experience.',
     },
     ...commonFaq,
   ],

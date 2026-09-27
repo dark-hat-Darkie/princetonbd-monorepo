@@ -6,27 +6,27 @@ export const testPrepHub: HubContent = {
   seo: {
     title: 'Test prep in Bangladesh — SAT, ACT, GRE, GMAT, IELTS & TOEFL courses',
     description:
-      'Courses and private tutoring for every admissions test Bangladeshi students sit, on campus in Dhaka and Chattogram or live online. Free diagnostic, adaptive mocks, written score guarantee.',
+      'Courses and private tutoring for every admissions test Bangladeshi students sit, on campus in Dhaka and Chattogram or live online. Free diagnostic, adaptive mocks, score-improvement guarantee.',
   },
   hero: {
     eyebrow: 'Test preparation',
-    title: 'Every admissions test, taught by people who have topped it.',
+    title: 'Every admissions test, taught by TPR-trained instructors.',
     intro:
-      'Twelve exams, two ways to study, one written guarantee. Start with a free diagnostic and we will tell you which test suits you and what a realistic target looks like.',
+      'Ten exams, two ways to study, one score-improvement guarantee. Start with a free diagnostic and we will tell you which test suits you and what a realistic target looks like.',
     actions: [
       { label: 'Book a free diagnostic', href: '/free-diagnostic' },
       { label: 'Compare all courses', href: '/test-prep/compare', variant: 'outline' },
     ],
     facts: [
-      { label: 'Exams covered', value: '12' },
+      { label: 'Exams covered', value: '10' },
       { label: 'Modes', value: 'Classroom · Live online' },
       { label: 'Campuses', value: 'Gulshan · Dhanmondi · Chattogram' },
-      { label: 'Guarantee', value: 'Written, on every course' },
+      { label: 'Guarantee', value: 'Improve, or retake free' },
     ],
   },
   strip: {
     kicker: 'Preparation for',
-    items: ['SAT · ACT', 'GRE · GMAT', 'IELTS · TOEFL', 'LSAT · MCAT', 'AP · PSAT'],
+    items: ['SAT · ACT', 'GRE · GMAT', 'IELTS · TOEFL', 'AP · PSAT'],
   },
   cards: {
     eyebrow: 'Choose your exam',
@@ -38,7 +38,7 @@ export const testPrepHub: HubContent = {
         no: '01',
         tag: 'Undergraduate',
         title: 'SAT',
-        desc: 'Digital and adaptive. Module strategy, adaptive mocks and a written 1400+ track for students aiming high.',
+        desc: 'Digital and adaptive. Module strategy, adaptive mocks and a score-improvement guarantee for students aiming high.',
         meta: 'Classroom · Live online',
         href: '/test-prep/sat',
       },
@@ -84,22 +84,6 @@ export const testPrepHub: HubContent = {
       },
       {
         no: '07',
-        tag: 'Law',
-        title: 'LSAT',
-        desc: 'Logical and analytical reasoning taught as a method, not a set of tricks, for JD applicants abroad.',
-        meta: 'Live online · 12 weeks',
-        href: '/test-prep/lsat',
-      },
-      {
-        no: '08',
-        tag: 'Medicine',
-        title: 'MCAT',
-        desc: 'Content review across four sections plus the passage strategy that decides CARS, for pre-med applicants.',
-        meta: 'Live online · 24 weeks',
-        href: '/test-prep/mcat',
-      },
-      {
-        no: '09',
         tag: 'English proficiency',
         title: 'IELTS',
         desc: 'Band-focused coaching across all four modules, with speaking labs and examiner-style feedback every week.',
@@ -107,7 +91,7 @@ export const testPrepHub: HubContent = {
         href: '/test-prep/ielts',
       },
       {
-        no: '10',
+        no: '08',
         tag: 'English proficiency',
         title: 'TOEFL',
         desc: 'Integrated tasks are what separate a 95 from a 110. We drill them until the format stops costing you marks.',
@@ -115,7 +99,7 @@ export const testPrepHub: HubContent = {
         href: '/test-prep/toefl',
       },
       {
-        no: '11',
+        no: '09',
         tag: 'English proficiency',
         title: 'Duolingo English Test',
         desc: 'Accepted more widely every year, sat from home, and adaptive throughout. Short, focused preparation.',
@@ -123,7 +107,7 @@ export const testPrepHub: HubContent = {
         href: '/test-prep/duolingo',
       },
       {
-        no: '12',
+        no: '10',
         tag: 'English proficiency',
         title: 'PTE Academic',
         desc: 'Computer-scored, which rewards a very particular kind of answer. We teach exactly what the scorer rewards.',
